@@ -28,9 +28,12 @@ _start:
 
 bootasm:
 
+
+
 /*
    ZBY: most code are copied from xv6
 */
+.code16
 
   cli                         # BIOS enabled interrupts; disable
 
