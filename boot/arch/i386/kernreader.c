@@ -6,6 +6,14 @@
 #include <config.h>
 #endif /* HAVE_CONFIG_H */
 
+static inline uchar
+inb(ushort port)
+{
+  uchar data;
+
+  asm volatile("in %1,%0" : "=a" (data) : "d" (port));
+  return data;
+}
 
 static void waitdisk(void)
 {
