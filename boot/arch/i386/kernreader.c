@@ -15,7 +15,7 @@ static unsigned char inb(unsigned short port)
     __asm__ __volatile__ ("inb %1, %0": "=a"(data): "d"(port));
     return data;
 }
-static void __attribute__((noinline)) outb(unsigned short port, unsigned char data)
+static void outb(unsigned short port, unsigned char data)
 {
     __asm__ __volatile__ ("outb %0, %1":: "a"(data), "d"(port));
 }
