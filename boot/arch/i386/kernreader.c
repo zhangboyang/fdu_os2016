@@ -6,14 +6,13 @@
 #include <config.h>
 #endif /* HAVE_CONFIG_H */
 
-static inline uchar
-inb(ushort port)
+static inline unsigned char inb(unsigned short port)
 {
-  uchar data;
-
-  asm volatile("in %1,%0" : "=a" (data) : "d" (port));
-  return data;
+    unsigned char data;
+    __asm__ __volatile__ ("in %1,%0" : "=a" (data) : "d" (port));
+    return data;
 }
+
 
 static void waitdisk(void)
 {
