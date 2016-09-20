@@ -58,7 +58,8 @@ void bootmain(void)
     }
 
     // call entry point, should not return
-    ((void (__attribute__((noreturn)) *)(void)) (elf->e_entry)) ();
+    void (__noreturn *entry)(void) = (void *) elf->e_entry;
+    entry();
     
 //    boot_panic();
 }
