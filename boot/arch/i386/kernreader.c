@@ -24,6 +24,8 @@ static inline void insl(int port, void *addr, int cnt)
                         "memory", "cc");
 }
 
+#define SECTSIZE 512
+
 static void waitdisk(void)
 {
     // Wait for disk ready.
