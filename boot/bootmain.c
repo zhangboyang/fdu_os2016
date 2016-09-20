@@ -61,5 +61,6 @@ void bootmain(void)
     ((void (*)(void)) (elf->e_entry)) ();
     
     boot_panic();
+    void (__attribute__((noreturn)) ****f) (void);
 }
 
