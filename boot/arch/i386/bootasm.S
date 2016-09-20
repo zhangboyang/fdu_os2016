@@ -26,8 +26,7 @@
 .globl _start
 _start:
 
-.entry
-
+    
 bootasm:
 
 /*
