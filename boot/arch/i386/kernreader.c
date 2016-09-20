@@ -1,10 +1,13 @@
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif /* HAVE_CONFIG_H */
+
+#include <sys/types.h>
+
 /*
  * this file is added by ZBY
  */
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif /* HAVE_CONFIG_H */
 
 static inline unsigned char inb(unsigned short port)
 {
