@@ -53,8 +53,8 @@ void bootmain(void)
 
     // load each program segment (ignores ph flags)
     struct proghdr *ph, *eph;
-    ph = (void *) elf + elf->phoff;
-    eph = ph + elf->phnum;
+    ph = (void *) elf + elf->e_phoff;
+    eph = ph + elf->e_phnum;
     while (ph < eph) {
         void *pa = (void *) ph->paddr;
         kernreader_readfile(pa, ph->filesz, ph->off);
