@@ -31,7 +31,6 @@ ENTRY(_start)
 SECTIONS
 {
     . = 0x7c00;
-    .entry : { *(.entry) }
     .text : { *(.text) }
     .data : { *(.data) }
     .bss : { *(.bss) }

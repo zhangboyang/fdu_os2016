@@ -26,6 +26,7 @@
 .globl _start
 _start:
 
+.text
     
 bootasm:
 
