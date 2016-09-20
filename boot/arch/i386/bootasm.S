@@ -86,7 +86,7 @@ start32:
   movw    %ax, %gs                # -> GS
 
   # Set up the stack pointer and call into C.
-  movl    $start, %esp
+  movl    $_start, %esp
   call    bootmain
 
 spin: // infloop
