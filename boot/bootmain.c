@@ -24,7 +24,7 @@
 #include <aim/boot.h>
 
 
-int haha = 0;
+int haha = 0xaabbccdd;
 __noreturn
 void bootmain(void)
 {
