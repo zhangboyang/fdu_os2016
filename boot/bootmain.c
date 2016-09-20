@@ -46,7 +46,7 @@ void bootmain(void)
     kernreader_readfile(elf, BOOT_ELF_PRELOAD, 0);
 
     // check elf magic
-    if (elf->magic != ELF_MAGIC) boot_panic();
+    if (elf->e_ident != ELF_MAGIC) boot_panic();
 
     // load each program segment (ignores ph flags)
     struct proghdr *ph, *eph;
