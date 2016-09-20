@@ -1,3 +1,11 @@
+/*
+ * this file is added by ZBY
+ */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif /* HAVE_CONFIG_H */
+
 
 static void waitdisk(void)
 {
