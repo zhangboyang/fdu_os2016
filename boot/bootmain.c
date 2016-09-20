@@ -52,7 +52,7 @@ void bootmain(void)
         elf->e_ident[EI_MAG3] != ELFMAG3) boot_panic();
 
     // load each program segment (ignores ph flags)
-    struct proghdr *ph, *eph;
+    struct elf_phdr *ph, *eph;
     ph = (void *) elf + elf->e_phoff;
     eph = ph + elf->e_phnum;
     while (ph < eph) {
@@ -65,7 +65,7 @@ void bootmain(void)
     }
 
     // call entry point, should not return
-    (void (*)(void)) (elf->entry) ();
+    (void (*)(void)) (elf->e_entry) ();
     
     boot_panic();
 }
