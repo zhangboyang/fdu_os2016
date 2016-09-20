@@ -26,13 +26,6 @@
 #define boot_panic() while (1)
 #define BOOT_ELF_PRELOAD 4096
 
-static inline void *boot_memset(void *s, int c, size_t n)
-{
-    unsigned char *p = s;
-    while (n--) *p++ = c;
-    return s;
-}
-
 __noreturn
 void bootmain(void)
 {
@@ -59,7 +52,7 @@ void bootmain(void)
         void *pa = (void *) ph->p_paddr;
         kernreader_readfile(pa, ph->p_filesz, ph->p_offset);
         if (ph->p_memsz > ph->p_filesz) {
-            boot_memset(pa + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
+            memset(pa + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
         }
         ph++;
     }
