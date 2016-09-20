@@ -23,6 +23,8 @@
 #include <sys/types.h>
 #include <aim/boot.h>
 
+
+int haha = 0;
 __noreturn
 void bootmain(void)
 {
