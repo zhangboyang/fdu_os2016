@@ -76,7 +76,7 @@ void kernreader_readfile(void *buf, size_t size, size_t offset)
     
         // read sector from disk to sector buffer
         static unsigned char sectbuf[SECTSIZE];    
-        readsect(sectbuf, sect);
+        readsect(sectbuf, offset);
         
         // copy to buffer
         memcpy(buf, sectbuf + skip, cursize - skip);
@@ -84,7 +84,7 @@ void kernreader_readfile(void *buf, size_t size, size_t offset)
         size -= cursize;
         buf += cursize - skip;
         skip = 0;
-        sect++;
+        offset++;
     }
 }
 
