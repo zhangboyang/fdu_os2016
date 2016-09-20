@@ -75,6 +75,11 @@
                 
 #ifndef __ASSEMBLER__
 
+#include <elf.h>
+#define elf_phdr elf32_phdr
+#define elfhdr elf32hdr
+
+
 #endif /* !__ASSEMBLER__ */
 
 #endif /* !_ARCH_BOOT_H */

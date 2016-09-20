@@ -23,11 +23,47 @@
 #include <sys/types.h>
 #include <aim/boot.h>
 
+#define boot_panic() while (1)
+#define BOOT_ELF_PRELOAD 4096
 
-int haha = 0xaabbccdd;
+static inline void *boot_memset(void *s, int c, size_t n)
+{
+    unsigned char *p = s;
+    while (n--) *p++ = c;
+    return s;
+}
+
 __noreturn
 void bootmain(void)
 {
-	while (1);
+    static unsigned char elfbuf[BOOT_ELF_PRELOAD];
+    struct elfhdr *elf = (void *) elfbuf;
+
+    // init elfreader
+    elfreader_init();
+    
+    // read first BOOT_ELF_PRELOAD bytes to buffer
+    elfreader_readfile(elf, BOOT_ELF_PRELOAD, 0);
+
+    // check elf magic
+    if (elf->magic != ELF_MAGIC) boot_panic();
+
+    // load each program segment (ignores ph flags)
+    struct proghdr *ph, *eph;
+    ph = (void *) elf + elf->phoff;
+    eph = ph + elf->phnum;
+    while (ph < eph) {
+        void *pa = (void *) ph->paddr;
+        elfreader_readfile(pa, ph->filesz, ph->off);
+        if (ph->memsz > ph->filesz) {
+            boot_memset(pa + ph->filesz, 0, ph->memsz - ph->filesz);
+        }
+        ph++;
+    }
+
+    // call entry point, should not return
+    (void (*)(void)) (elf->entry) ();
+    
+    boot_panic();
 }
 
