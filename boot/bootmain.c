@@ -56,10 +56,10 @@ void bootmain(void)
     ph = (void *) elf + elf->e_phoff;
     eph = ph + elf->e_phnum;
     while (ph < eph) {
-        void *pa = (void *) ph->paddr;
-        kernreader_readfile(pa, ph->filesz, ph->off);
-        if (ph->memsz > ph->filesz) {
-            boot_memset(pa + ph->filesz, 0, ph->memsz - ph->filesz);
+        void *pa = (void *) ph->p_paddr;
+        kernreader_readfile(pa, ph->p_filesz, ph->p_offset);
+        if (ph->p_memsz > ph->p_filesz) {
+            boot_memset(pa + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
         }
         ph++;
     }
