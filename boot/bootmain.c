@@ -40,10 +40,10 @@ void bootmain(void)
     struct elfhdr *elf = (void *) elfbuf;
 
     // init elfreader
-    elfreader_init();
+    kernreader_init();
     
     // read first BOOT_ELF_PRELOAD bytes to buffer
-    elfreader_readfile(elf, BOOT_ELF_PRELOAD, 0);
+    kernreader_readfile(elf, BOOT_ELF_PRELOAD, 0);
 
     // check elf magic
     if (elf->magic != ELF_MAGIC) boot_panic();
@@ -54,7 +54,7 @@ void bootmain(void)
     eph = ph + elf->phnum;
     while (ph < eph) {
         void *pa = (void *) ph->paddr;
-        elfreader_readfile(pa, ph->filesz, ph->off);
+        kernreader_readfile(pa, ph->filesz, ph->off);
         if (ph->memsz > ph->filesz) {
             boot_memset(pa + ph->filesz, 0, ph->memsz - ph->filesz);
         }
