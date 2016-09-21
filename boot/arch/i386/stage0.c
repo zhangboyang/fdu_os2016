@@ -11,10 +11,7 @@
  */
 
 
-static void __entry __noreturn stage0_panic(unsigned int x) 
-{
-    __asm__ __volatile__ ("1: jmp 1b"::"a"(x));
-}
+
 
 #define SECTSIZE 512
 
@@ -27,6 +24,10 @@ static void __entry __noreturn stage0_panic(unsigned int x)
 // all functions should belongs to section .entry
 #define __entry __attribute__((section(".entry")))
 
+static void __entry __noreturn stage0_panic(unsigned int x) 
+{
+    __asm__ __volatile__ ("1: jmp 1b"::"a"(x));
+}
 
 static unsigned char __entry inb(unsigned short port)
 {
