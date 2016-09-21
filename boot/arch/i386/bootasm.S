@@ -48,7 +48,7 @@ chloop:
   jmp chloop
   
 hellostr_begin:
-.asciz "ZBY's bootloader, stage0 ...\r\n"
+.asciz "stage0 ...\r\n"
 
 
 
