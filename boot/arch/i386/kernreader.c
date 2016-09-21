@@ -8,25 +8,6 @@
  * this file is added by ZBY
  */
 
-
-static unsigned char inb(unsigned short port)
-{
-    unsigned char data;
-    __asm__ __volatile__ ("inb %1, %0": "=a"(data): "d"(port));
-    return data;
-}
-static void outb(unsigned short port, unsigned char data)
-{
-    __asm__ __volatile__ ("outb %0, %1":: "a"(data), "d"(port));
-}
-static void insl(int port, void *addr, int cnt)
-{
-    __asm __volatile__ ("cld; rep insl" :
-                        "=D" (addr), "=c" (cnt) :
-                        "d" (port), "0" (addr), "1" (cnt) :
-                        "memory", "cc");
-}
-
 #define SECTSIZE 512
 
 static void waitdisk(void)
