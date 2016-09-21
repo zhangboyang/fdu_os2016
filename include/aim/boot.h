@@ -31,8 +31,10 @@ extern int bprintf(const char *fmt, ...); // bootloader printf
 
 #define bpanic(fmt, ...) \
     do { \
+        bputc('\n'); \
         bputs("=== BOOTLOADER PANIC ==="); \
         bprintf(fmt, ## __VA_ARGS__); \
+        bputc('\n'); \
         while (1); \
     } while (0)
 
