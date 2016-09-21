@@ -35,6 +35,7 @@ bootasm:
 */
 .code16
 
+// print hello message
   xor %ax, %ax
   mov %ax, %ds
   mov $hellostr_begin, %si
@@ -49,6 +50,9 @@ chloop:
 hellostr_begin:
 .asciz "welcome to ZBY's loader, hello world ..."
 
+
+
+// the real bootloader
 bootloader_start:
   cli                         # BIOS enabled interrupts; disable
 
@@ -103,7 +107,7 @@ start32:
 
   # Set up the stack pointer and call into C.
   movl    $_start, %esp
-  call    bootmain
+  //call    bootmain
 
 spin: // infloop
   jmp     spin
