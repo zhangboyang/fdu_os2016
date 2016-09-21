@@ -6,7 +6,6 @@
 #include <elf.h>
 #include <aim/boot.h>
 #include <arch-boot.h>
-#include <stdarg.h>
 
 /*
  * this file is added by ZBY
