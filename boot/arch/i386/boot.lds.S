@@ -38,13 +38,13 @@ SECTIONS
 {
     . = 0x7c00;
     mbr = .;
-    .text : {
+    .entry : {
         *(.entry);
         *(.entry_end);
     } : entry
     
     . = 0x10000;
-    hitext = .;
+    text_begin = .;
     .text : { *(.text); }
     .data : { *(.data) }
     .bss : { *(.bss) }
