@@ -72,7 +72,7 @@ void bootmain(void)
         void *pa = (void *) ph->p_paddr;
         kernreader_readfile(pa, ph->p_filesz, ph->p_offset);
         if (ph->p_memsz > ph->p_filesz) {
-            memset(pa + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
+            bmemset(pa + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
         }
         ph++;
     }

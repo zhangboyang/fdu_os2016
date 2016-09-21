@@ -37,7 +37,7 @@ master_early_entry:
     mov $AIM_KERN_BSS_START, %edi
     mov $AIM_KERN_BSS_END, %ecx
     sub %edi, %ecx
-    rep movsb
+    rep stosb
     
     // prepare stack for C code
     mov $AIM_KERN_STACK_HIGHLIMIT, %esp

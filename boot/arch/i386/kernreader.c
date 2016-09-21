@@ -68,7 +68,7 @@ void kernreader_readfile(void *buf, size_t size, size_t offset)
         readsect(sectbuf, offset);
         
         // copy to buffer
-        memcpy(buf, sectbuf + skip, cursize - skip);
+        bmemcpy(buf, sectbuf + skip, cursize - skip);
         
         size -= cursize;
         buf += cursize - skip;
