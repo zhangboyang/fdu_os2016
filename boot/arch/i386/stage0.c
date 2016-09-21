@@ -82,7 +82,7 @@ static void __entry readsect(void *dst, unsigned int sect)
         outb(0x1F5, sect >> 16);
         outb(0x1F6, (sect >> 24) | 0xE0);
 */
-    unsigned short port = 0x1F3;
+    unsigned port = 0x1F3;
     sect |= 0xE0000000;
     int i;
     for (i = 0; i < 4; i++) {
@@ -91,7 +91,7 @@ static void __entry readsect(void *dst, unsigned int sect)
     }
     __asm__ __volatile__ (
         "mov $0x4, %%ecx\n\t"
-        "1:outb %%ax, (%%dx)\n\t"
+        "1:outb %%al, (%%dx)\n\t"
         "shl $0x8, %%eax\n\t"
         "inc %%edx\n\t"
         "loop 1f\n\t"
