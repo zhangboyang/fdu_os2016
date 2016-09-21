@@ -42,7 +42,7 @@ static int write_string(char *s)
 static int write_int(int d, unsigned int r)
 {
     const char *dict = "0123456789abcdef";
-    unsigned char buf[20];
+    unsigned char buf[20] = {};
     int p = 0, ret;
     unsigned int u;
     if (d < 0) { write_char('-'); d = -d; }
@@ -52,6 +52,7 @@ static int write_int(int d, unsigned int r)
         u /= r;
     } while (u > 0);
     ret = p;
+    if (r == 16) p = 8;
     while (p > 0) write_char(dict[buf[--p]]);
     return ret;
 }
