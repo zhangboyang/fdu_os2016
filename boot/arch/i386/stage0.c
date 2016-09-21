@@ -88,15 +88,19 @@ static void __entry readsect(void *dst, unsigned int sect)
 */
     sect |= 0xE0000000;
     __asm__ __volatile__ (
-        "mov $0x1f2, %%eax\n\t"
-        "outb $0x1, (%%dx)\n\t"
+        "mov $0x1f2, %%edx\n\t"
+        "mov $0x1, %%al\n\t"
+        "outb %%al, (%%dx)\n\t"
         "inc %%edx\n\t"
+        
         "mov $0x4, %%ecx\n\t"
         "1:outb %%al, (%%dx)\n\t"
         "shr $0x8, %%eax\n\t"
         "inc %%edx\n\t"
         "loop 1b\n\t"
-        "outb $0x20, (%%dx)\n\t"
+        
+        "mov $0x20, %%al\n\t"
+        "outb %%al, (%%dx)\n\t"
         :"+a"(sect)::"ecx", "edx");
 
     // Read data.
