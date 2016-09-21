@@ -6,6 +6,7 @@
 #include <elf.h>
 #include <aim/boot.h>
 #include <arch-boot.h>
+#include <stdarg.h>
 
 /*
  * this file is added by ZBY
@@ -41,7 +42,7 @@ static int write_string(char *s)
 
 static int write_llint(long long lld, int r)
 {
-    const char *dict[] = "0123456789abcdef";
+    const char *dict = "0123456789abcdef";
     char buf[100];
     int p = 0, ret;
     unsigned long long llu;
