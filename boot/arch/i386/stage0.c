@@ -85,8 +85,8 @@ static unsigned int __entry get_elf_sector()
 void __entry readdisk(void *buf, size_t size, size_t offset)
 {   
     // round down to sector
-    if (offset % SECTSIZE != 0) stage0_panic(-3);
-    
+    if (offset % SECTSIZE != 0) stage0_panic(0xEEEE0001);
+    offset /= SECTSIZE;
     
     // offset: sector number
     // skip: how many data should we skip
@@ -110,15 +110,14 @@ void __entry stage0()
     
     // read elf header
     struct elfhdr *elf = elfbuf;
-    size_t diskoff = get_elf_sector() * 512;
-    stage0_panic(diskoff);
+    size_t diskoff = get_elf_sector() * SECTSIZE;
     readdisk(elf, BOOT_ELF_PRELOAD, diskoff);
     
     // check elf magic
     if (elf->e_ident[EI_MAG0] != ELFMAG0 ||
         elf->e_ident[EI_MAG1] != ELFMAG1 ||
         elf->e_ident[EI_MAG2] != ELFMAG2 ||
-        elf->e_ident[EI_MAG3] != ELFMAG3) stage0_panic(-1);
+        elf->e_ident[EI_MAG3] != ELFMAG3) stage0_panic(0xEEEE0000);
     
     // read program headers
     struct elf_phdr *ph, *eph;
@@ -135,6 +134,6 @@ void __entry stage0()
     
     bootmain();
     
-    stage0_panic(-2);
+    stage0_panic(0xEEEE0002);
 }
 
