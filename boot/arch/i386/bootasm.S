@@ -125,4 +125,4 @@ gdtdesc:
 
 
 .section .entry_end
-.fill 0x90, 1, 0x10
+.fill 0x10, 1, 0x90
