@@ -85,7 +85,7 @@ static unsigned int __entry get_elf_sector()
 void __entry readdisk(void *buf, size_t size, size_t offset)
 {   
     // round down to sector
-    if (offset % SECTSIZE != 0) stage0_panic();
+    if (offset % SECTSIZE != 0) stage0_panic(-3);
     
     
     // offset: sector number
