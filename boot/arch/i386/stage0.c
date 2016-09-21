@@ -144,6 +144,7 @@ void __entry stage0()
         elf->e_ident[EI_MAG3] != ELFMAG3) stage0_panic(0xEEEE0000);
     
     // read program headers
+    int load_flag = 0;
     struct elf_phdr *ph, *eph;
     ph = (void *) elf + elf->e_phoff;
     eph = ph + elf->e_phnum;
@@ -154,12 +155,14 @@ void __entry stage0()
             if (ph->p_memsz > ph->p_filesz) {
                 memset(pa + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
             }
+            load_flag = 1;
         }
         ph++;
     }
+    if (!load_flag) stage0_panic(0xEEEE0002);
     
     bootmain();
     
-    stage0_panic(0xEEEE0002);
+    stage0_panic(0xEEEE0003);
 }
 
