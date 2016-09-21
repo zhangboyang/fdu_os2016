@@ -69,14 +69,14 @@ static void __entry waitdisk(void)
     // Wait for disk ready.
     while ((inb(0x1F7) & 0xC0) != 0x40);
 }
-static void __entry readsect(void *dst, unsigned int sect)
+static void __entry __attribute__((optimize("no-unroll-loops"))) readsect(void *dst, unsigned int sect)
 {
     // Issue command.
     waitdisk();
     outb(0x1F2, 1);   // count = 1
 
 /*
-    use loop to save code space, equals to:    
+    use asm to save code space, equals to:    
         outb(0x1F3, sect);
         outb(0x1F4, sect >> 8);
         outb(0x1F5, sect >> 16);
@@ -89,7 +89,6 @@ static void __entry readsect(void *dst, unsigned int sect)
         outb(port, sect);
         sect >>= 8;
     }
-    
     
     outb(0x1F7, 0x20);  // cmd 0x20 - read sectors
 
