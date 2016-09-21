@@ -86,7 +86,14 @@ cga_putc(int c)
 	if (crt_pos >= CRT_SIZE) {
 		int i;
 
-		memmove(crt_buf, crt_buf + CRT_COLS, (CRT_SIZE - CRT_COLS) * sizeof(uint16_t));
+		// there is no memmove() in bootloader, we need write ourselves
+		// the loop below equals to 
+		//    memmove(crt_buf, crt_buf + CRT_COLS, (CRT_SIZE - CRT_COLS) * sizeof(uint16_t));
+		uint16_t *p = crt_buf;
+		int count = (CRT_SIZE - CRT_COLS) * sizeof(uint16_t);
+		while (count--) *p = *(p + CRT_COLS);
+		
+		
 		for (i = CRT_SIZE - CRT_COLS; i < CRT_SIZE; i++)
 			crt_buf[i] = 0x0700 | ' ';
 		crt_pos -= CRT_COLS;
