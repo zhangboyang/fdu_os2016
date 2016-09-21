@@ -56,7 +56,6 @@ void bootmain(void)
         elf->e_ident[EI_MAG2] != ELFMAG2 ||
         elf->e_ident[EI_MAG3] != ELFMAG3) boot_panic("ELF magic mismatch!");
 
-boot_panic("ahaaa");
     // load each program segment (ignores ph flags)
     struct elf_phdr *ph, *eph;
     ph = (void *) elf + elf->e_phoff;
