@@ -35,7 +35,9 @@ SECTIONS
     .text : {
         *(.entry);
         *(.entry_end);
-        . = 0x10000;
+    }
+    . = 0x10000;
+    .hitext : {
         *(.text);
     }
     .data : { *(.data) }
