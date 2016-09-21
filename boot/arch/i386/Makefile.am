@@ -24,7 +24,7 @@ noinst_LTLIBRARIES = \
 	libarch.la
 
 libentry_la_SOURCES = \
-	bootasm.S stage0.c kernreader.c
+	bootasm.S stage0.c kernreader.c console.c
 libentry_la_CPPFLAGS = $(AM_CPPFLAGS_NOPIC)
 libentry_la_CFLAGS = $(AM_CFLAGS_NOPIC) -Os
 libentry_la_CCASFLAGS = $(AM_CCASFLAGS_NOPIC)
