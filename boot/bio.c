@@ -39,7 +39,7 @@ static int write_string(char *s)
     return cnt;
 }
 
-static int write_int(int d, int r)
+static int write_int(int d, unsigned int r)
 {
     const char *dict = "0123456789abcdef";
     char buf[100];
