@@ -40,7 +40,7 @@ void bootmain(void)
         " /_/    \\_\\_____|_|  |_| \\_/  \\___/ \n"
     );
 
-    bprintf("hello %s %x %c %s", "a", 0xffffffff, 'x', "aaaaadskfjdaksfjkdsfh2zzzzz1234");
+    bprintf("hello %s %x %c %s", "a", 0xffffffff, 'b', "aaaaadskfjdaksfjkdsfh2zzzzz1234");
     
     while (1);
     static unsigned char elfbuf[BOOT_ELF_PRELOAD];
