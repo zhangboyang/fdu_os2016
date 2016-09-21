@@ -84,6 +84,7 @@ static void __entry readsect(void *dst, unsigned int sect)
 */
     unsigned short port = 0x1F3;
     sect |= 0xE0000000;
+    int i;
     for (i = 0; i < 4; i++) {
         outb(port, sect);
         sect >>= 8;
