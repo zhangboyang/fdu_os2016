@@ -35,6 +35,21 @@ bootasm:
 */
 .code16
 
+  xor %ax, %ax
+  mov %ax, %ds
+  mov $hellostr_begin, %si
+chloop:
+  lodsb
+  test %al, %al
+  jz bootloader_start
+  mov $0x0e, %ah
+  int $0x10
+  jmp chloop
+  
+hellostr_begin:
+.asciz "welcome to ZBY's loader, hello world ..."
+
+bootloader_start:
   cli                         # BIOS enabled interrupts; disable
 
   # Zero data segment registers DS, ES, and SS.
