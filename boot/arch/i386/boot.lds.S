@@ -32,7 +32,7 @@ SECTIONS
 {
     . = 0x7c00;
     mbr = .;
-    .text : { *(.entry); mbr_end = .; *(.text); }
+    .text : { *(.entry); *(.entry_end); *(.text); }
     .data : { *(.data) }
     .bss : { *(.bss) }
 }

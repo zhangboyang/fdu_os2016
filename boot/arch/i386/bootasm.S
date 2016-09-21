@@ -124,4 +124,5 @@ gdtdesc:
   .long   gdt                             # address gdt
 
 
-
+.section .entry_end
+.fill 0x90, 1, 0x10
