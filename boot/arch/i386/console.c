@@ -1,3 +1,12 @@
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif /* HAVE_CONFIG_H */
+
+#include <sys/types.h>
+#include <elf.h>
+#include <aim/boot.h>
+#include <arch-boot.h>
+
 static unsigned addr_6845;
 static uint16_t *crt_buf;
 static uint16_t crt_pos;
