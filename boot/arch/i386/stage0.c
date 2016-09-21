@@ -124,7 +124,6 @@ void __entry readdisk(void *buf, size_t size, size_t offset)
         size_t cursize = size < SECTSIZE ? size : SECTSIZE;
     
         // read sector from disk to sector buffer
-        static unsigned char sectbuf[SECTSIZE];    
         readsect(buf, offset);
 
         size -= cursize;
@@ -138,7 +137,7 @@ void __entry stage0()
     static unsigned char elfbuf[BOOT_ELF_PRELOAD];
     
     // read elf header
-    struct elfhdr *elf = elfbuf;
+    struct elfhdr *elf = (void *) elfbuf;
     size_t diskoff = get_elf_sector() * SECTSIZE;
     readdisk(elf, BOOT_ELF_PRELOAD, diskoff);
     
@@ -155,7 +154,7 @@ void __entry stage0()
     eph = ph + elf->e_phnum;
     while (ph < eph) {
         void *pa = (void *) ph->p_paddr;
-        if (pa >= text_begin) {
+        if (pa >= (void *) text_begin) {
             readdisk(pa, ph->p_filesz, diskoff + ph->p_offset);
             if (ph->p_memsz > ph->p_filesz) {
                 memset(pa + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
