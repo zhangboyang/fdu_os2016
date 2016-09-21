@@ -46,6 +46,6 @@ master_early_entry:
     call master_early_init
     
     // infloop in case of master_early_init() returns
-:spin
+spin:
     jmp spin
 
