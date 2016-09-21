@@ -11,8 +11,14 @@
 
 
 #define stage0_panic() while (1)
+
+// 4096 bytes for elf header should enough
 #define BOOT_ELF_PRELOAD 4096
 
+// partition of bootloader ELF, 0 is first partition
+#define BOOTLOADER_ELF_PART_ID 0
+
+// all functions should belongs to section .entry
 #define __entry __attribute__((section(".entry")))
 
 
@@ -67,7 +73,6 @@ static void __entry readsect(void *dst, unsigned int sect)
     insl(0x1F0, dst, SECTSIZE / 4);
 }
 
-#define BOOTLOADER_ELF_PART_ID 0
 static unsigned int __entry get_elf_sector()
 {
     unsigned char *pentry = &mbr[0x1BE + 0x10 * BOOTLOADER_ELF_PART_ID];
