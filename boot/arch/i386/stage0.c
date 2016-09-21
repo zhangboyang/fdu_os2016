@@ -78,11 +78,8 @@ static void __entry readsect(void *dst, unsigned int sect)
 
 static unsigned int __entry get_elf_sector()
 {
-    unsigned char *pentry = &mbr[0x1BE + 0x10 * BOOTLOADER_ELF_PART_ID];
-    return (pentry[0x8] << 0) +
-           (pentry[0x9] << 8) +
-           (pentry[0xA] << 16) + 
-           (pentry[0xB] << 24);
+    unsigned int *pentry = &mbr[0x1BE + 0x10 * BOOTLOADER_ELF_PART_ID + 0x8];
+    return *pentry;
 }
 
 void __entry readdisk(void *buf, size_t size, size_t offset)
