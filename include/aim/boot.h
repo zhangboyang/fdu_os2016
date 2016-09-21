@@ -21,8 +21,13 @@
 
 #ifndef __ASSEMBLER__
 
-extern void bootmain(void);
-extern void bputs(const char *str);
+extern void bootmain(void); 
+
+// bootloader io functions
+extern void bioinit(); // bootloader io init
+extern void bputs(const char *str); // bootloader puts
+
+// kernel ELF reader functions
 extern void kernreader_init(void);
 extern void kernreader_readfile(void *buf, size_t size, size_t offset);
 

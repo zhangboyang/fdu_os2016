@@ -106,7 +106,12 @@ cga_putc(int c)
 	outb(addr_6845 + 1, crt_pos);
 }
 
-void bputs(const char *str) // bootloader puts
+void bioinit() // bootloader io system init
+{
+    cga_init();
+}
+
+void bputs(const char *str)
 {
     while (*str) cga_putc(*str++);
     cga_putc('\n');
