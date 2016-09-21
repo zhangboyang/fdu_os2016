@@ -65,6 +65,7 @@ void bootmain(void)
         bprintf("phdr type=%x flags=%x offset=%x\n", (unsigned) ph->p_type, (unsigned) ph->p_flags, (unsigned) ph->p_offset);
         bprintf("     vaddr=%p paddr=%p\n", (void *) ph->p_vaddr, (void *) ph->p_paddr);
         bprintf("     filesz=%x memsz=%x align=%x\n", (unsigned) ph->p_filesz, (unsigned) ph->p_memsz, (unsigned) ph->p_align);
+        boot_panic("aha");
         kernreader_readfile(pa, ph->p_filesz, ph->p_offset);
         if (ph->p_memsz > ph->p_filesz) {
             memset(pa + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
