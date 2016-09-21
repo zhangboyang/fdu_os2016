@@ -118,7 +118,7 @@ void __entry stage0()
     if (elf->e_ident[EI_MAG0] != ELFMAG0 ||
         elf->e_ident[EI_MAG1] != ELFMAG1 ||
         elf->e_ident[EI_MAG2] != ELFMAG2 ||
-        elf->e_ident[EI_MAG3] != ELFMAG3) stage0_panic(0xBBBBBBBB);
+        elf->e_ident[EI_MAG3] != ELFMAG3) stage0_panic(-1);
     
     // read program headers
     struct elf_phdr *ph, *eph;
@@ -135,6 +135,6 @@ void __entry stage0()
     
     bootmain();
     
-    stage0_panic(0xAAAAAAAA);
+    stage0_panic(-2);
 }
 
