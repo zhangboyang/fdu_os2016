@@ -4,7 +4,7 @@
 
 #include <sys/types.h>
 #include <elf.h>
-#include <boot-arch.h>
+#include <arch-boot.h>
 
 /*
  * this file is added by ZBY
