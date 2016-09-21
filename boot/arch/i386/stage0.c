@@ -82,6 +82,8 @@ static void __entry readsect(void *dst, unsigned int sect)
         outb(0x1F5, sect >> 16);
         outb(0x1F6, (sect >> 24) | 0xE0);
 */
+    unsigned port = 0x1F3;
+    sect |= 0xE0000000;
     __asm__ __volatile__ (
         "mov $0x4, %%ecx\n\t"
         "1:outb %%al, (%%dx)\n\t"
