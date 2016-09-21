@@ -60,6 +60,7 @@ void bootmain(void)
     struct elf_phdr *ph, *eph;
     ph = (void *) elf + elf->e_phoff;
     eph = ph + elf->e_phnum;
+    bprintf("total %d program headers.\n", (int) elf->e_phnum);
     while (ph < eph) {
         void *pa = (void *) ph->p_paddr;
         boot_panic("ahaa");
@@ -74,6 +75,7 @@ void bootmain(void)
         ph++;
     }
 
+    boot_panic("haha");
     // call entry point, should not return
     void (*entry) (void) __attribute__((noreturn));
     entry = (void *) elf->e_entry;
