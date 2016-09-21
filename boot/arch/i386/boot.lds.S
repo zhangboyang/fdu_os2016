@@ -28,6 +28,12 @@
 ENTRY(_start)
 
 // ZBY
+PHDRS
+{
+    entry PT_LOAD;
+    text PT_LOAD;
+}
+
 SECTIONS
 {
     . = 0x7c00;
@@ -35,12 +41,11 @@ SECTIONS
     .text : {
         *(.entry);
         *(.entry_end);
-    }
+    } : entry
+    
     . = 0x10000;
     hitext = .;
-    .hitext : {
-        *(.text);
-    }
+    .text : { *(.text); }
     .data : { *(.data) }
     .bss : { *(.bss) }
 }
