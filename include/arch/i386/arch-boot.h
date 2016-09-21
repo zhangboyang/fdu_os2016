@@ -100,6 +100,13 @@ static inline void insl(int port, void *addr, int cnt)
                         "memory", "cc");
 }
 
+// there is no "stdarg.h" in bootloader
+// we should add it by ourselves
+#define va_start(v,l)   __builtin_va_start(v,l)
+#define va_end(v)   __builtin_va_end(v)
+#define va_arg(v,l) __builtin_va_arg(v,l)
+
+
 #endif /* !__ASSEMBLER__ */
 
 #endif /* !_ARCH_BOOT_H */
