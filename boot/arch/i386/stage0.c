@@ -12,6 +12,8 @@
 
 #define stage0_panic() while (1)
 
+#define SECTSIZE 512
+
 // 4096 bytes for elf header should enough
 #define BOOT_ELF_PRELOAD 4096
 
