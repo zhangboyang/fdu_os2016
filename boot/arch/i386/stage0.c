@@ -1,4 +1,7 @@
 
+#define stage0_panic() while (1)
+#define BOOT_ELF_PRELOAD 4096
+
 #define __entry __attribute__((section(".entry")))
 
 /*
@@ -9,6 +12,7 @@
         we can't use .data here
         but we can use .bss (note: .bss hasn't initialized)
 */
+
 
 static void __entry waitdisk(void)
 {
@@ -31,19 +35,76 @@ static void __entry readsect(void *dst, unsigned int sect)
     insl(0x1F0, dst, SECTSIZE / 4);
 }
 
+#define BOOTLOADER_ELF_PART_ID 0
+static unsigned int __entry get_elf_sector()
+{
+    unsigned char *pentry = &mbr[0x1BE + 0x10 * BOOTLOADER_ELF_PART_ID];
+    return (pentry[0x8] << 0) +
+           (pentry[0x9] << 8) +
+           (pentry[0xA] << 16) + 
+           (pentry[0xB] << 24);
+}
+
+void __entry readdisk(void *buf, size_t size, size_t offset)
+{
+    // translate fileoffset to diskoffset
+    offset += kdiskoffset;
+    
+    // round down to sector
+    size_t skip = offset % SECTSIZE;
+    offset /= SECTSIZE;
+    size += skip;
+    
+    // offset: sector number
+    // skip: how many data should we skip
+    while (size) {
+        // cursize = min(size, SECTSIZE)
+        size_t cursize = size < SECTSIZE ? size : SECTSIZE;
+    
+        // read sector from disk to sector buffer
+        static unsigned char sectbuf[SECTSIZE];    
+        readsect(sectbuf, offset);
+        
+        // copy to buffer
+        memcpy(buf, sectbuf + skip, cursize - skip);
+        
+        size -= cursize;
+        buf += cursize - skip;
+        skip = 0;
+        offset++;
+    }
+}
+
 void __entry stage0()
 {
-    struct elfhdr *elf;
+    static unsigned char elfbuf[];
+    
+    // read elf header
+    struct elfhdr *elf = elfbuf;
+    size_t diskoff = get_elf_sector() * 512;
+    readdisk(elf, BOOT_ELF_PRELOAD, diskoff);
+    
+    // check elf magic
+    if (elf->e_ident[EI_MAG0] != ELFMAG0 ||
+        elf->e_ident[EI_MAG1] != ELFMAG1 ||
+        elf->e_ident[EI_MAG2] != ELFMAG2 ||
+        elf->e_ident[EI_MAG3] != ELFMAG3) stage0_panic();
+    
+    // read program headers
     struct elf_phdr *ph, *eph;
     ph = (void *) elf + elf->e_phoff;
     eph = ph + elf->e_phnum;
     while (ph < eph) {
         void *pa = (void *) ph->p_paddr;
-        kernreader_readfile(pa, ph->p_filesz, ph->p_offset);
+        readdisk(pa, ph->p_filesz, diskoff + ph->p_offset);
         if (ph->p_memsz > ph->p_filesz) {
             memset(pa + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
         }
         ph++;
     }
+    
+    bootmain();
+    
+    stage0_panic();
 }
 
