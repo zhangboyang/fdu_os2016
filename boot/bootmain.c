@@ -23,7 +23,8 @@
 #include <sys/types.h>
 #include <aim/boot.h>
 
-#define boot_panic() while (1)
+
+
 #define BOOT_ELF_PRELOAD 4096
 
 __noreturn
@@ -56,7 +57,7 @@ void bootmain(void)
     if (elf->e_ident[EI_MAG0] != ELFMAG0 ||
         elf->e_ident[EI_MAG1] != ELFMAG1 ||
         elf->e_ident[EI_MAG2] != ELFMAG2 ||
-        elf->e_ident[EI_MAG3] != ELFMAG3) boot_panic();
+        elf->e_ident[EI_MAG3] != ELFMAG3) boot_panic("ELF magic mismatch!");
 
     // load each program segment (ignores ph flags)
     struct elf_phdr *ph, *eph;
@@ -64,6 +65,9 @@ void bootmain(void)
     eph = ph + elf->e_phnum;
     while (ph < eph) {
         void *pa = (void *) ph->p_paddr;
+        bprintf("phdr type=%x flags=%x offset=%x\n", (unsigned) ph->p_type, (unsigned) ph->p_flags, (unsigned) ph->p_offset);
+        bprintf("     vaddr=%p paddr=%p\n", (void *) ph->p_vaddr, (void *) ph->p_paddr);
+        bprintf("     filesz=%x memsz=%x align=%x\n", (unsigned) ph->p_filesz, (unsigned) ph->p_memsz, (unsigned) ph->p_align);
         kernreader_readfile(pa, ph->p_filesz, ph->p_offset);
         if (ph->p_memsz > ph->p_filesz) {
             memset(pa + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);

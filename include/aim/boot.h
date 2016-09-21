@@ -29,6 +29,13 @@ extern void bputc(int c); // bootloader putc (arch-dependent)
 extern void bputs(const char *str); // bootloader puts
 extern int bprintf(const char *fmt, ...); // bootloader printf
 
+#define boot_panic(fmt, ...) \
+    do { \
+        bputs("=== BOOTLOADER PANIC ==="); \
+        bprintf(fmt, ## __VA_ARGS__); \
+        while (1); \
+    } while (0)
+
 // kernel ELF reader functions
 extern void kernreader_init(void);
 extern void kernreader_readfile(void *buf, size_t size, size_t offset);
