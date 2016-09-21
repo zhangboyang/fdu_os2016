@@ -39,22 +39,25 @@ static int write_string(char *s)
     return cnt;
 }
 
-static int write_int(int d, unsigned int r)
+static int write_uint(unsigned int u, unsigned int r)
 {
     const char *dict = "0123456789abcdef";
     unsigned char buf[20] = {};
     int p = 0, ret;
-    unsigned int u;
-    if (d < 0) { write_char('-'); d = -d; }
-    u = d;
     do {
         buf[p++] = u % r;
         u /= r;
     } while (u > 0);
     ret = p;
-    if (r == 16) p = 8;
+    if (r == 16) p = 8; // force print 8 digits when using hex
     while (p > 0) write_char(dict[buf[--p]]);
     return ret;
+}
+
+static int write_int(int d, unsigned int r)
+{
+    if (d < 0) { write_char('-'); d = -d; }
+    return write_uint(d, r);
 }
 
 
@@ -63,6 +66,7 @@ int bprintf(const char *fmt, ...)
     va_list ap;
     long long lld;
     int d;
+    unsigned int u;
     char c, *s;
     int cnt = 0;
     
@@ -78,9 +82,13 @@ int bprintf(const char *fmt, ...)
                     d = va_arg(ap, int);
                     cnt += write_int(d, 10);
                     break;
+                case 'u':
+                    u = va_arg(ap, unsigned int);
+                    cnt += write_int(u, 10);
+                    break;
                 case 'x':
-                    d = va_arg(ap, int);
-                    cnt += write_int(d, 16);
+                    u = va_arg(ap, unsigned int);
+                    cnt += write_int(u, 16);
                     break;
                 case 'c':
                     c = va_arg(ap, int);
