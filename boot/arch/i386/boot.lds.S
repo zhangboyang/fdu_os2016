@@ -37,6 +37,7 @@ SECTIONS
         *(.entry_end);
     }
     . = 0x10000;
+    hitext = .;
     .hitext : {
         *(.text);
     }

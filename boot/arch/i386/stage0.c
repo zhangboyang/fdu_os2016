@@ -125,9 +125,11 @@ void __entry stage0()
     eph = ph + elf->e_phnum;
     while (ph < eph) {
         void *pa = (void *) ph->p_paddr;
-        readdisk(pa, ph->p_filesz, diskoff + ph->p_offset);
-        if (ph->p_memsz > ph->p_filesz) {
-            memset(pa + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
+        if (pa == hitext) {
+            readdisk(pa, ph->p_filesz, diskoff + ph->p_offset);
+            if (ph->p_memsz > ph->p_filesz) {
+                memset(pa + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
+            }
         }
         ph++;
     }
