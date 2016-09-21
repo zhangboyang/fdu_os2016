@@ -11,7 +11,7 @@
  */
 
 
-#define stage0_panic() while (1)
+#define stage0_panic(x) do { __asm__ __volatile__ ("1: jmp 1b"::"a"(x)); } while (0)
 
 #define SECTSIZE 512
 
@@ -111,6 +111,7 @@ void __entry stage0()
     // read elf header
     struct elfhdr *elf = elfbuf;
     size_t diskoff = get_elf_sector() * 512;
+    stage0_panic(diskoff);
     readdisk(elf, BOOT_ELF_PRELOAD, diskoff);
     
     // check elf magic
@@ -134,6 +135,6 @@ void __entry stage0()
     
     bootmain();
     
-    stage0_panic();
+    stage0_panic(0xAAAAAAAA);
 }
 
