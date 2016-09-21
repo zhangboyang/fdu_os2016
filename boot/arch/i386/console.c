@@ -7,6 +7,9 @@
 #include <aim/boot.h>
 #include <arch-boot.h>
 
+
+// most codes below are copied from JOS (MIT 6.828)
+
 #define MONO_BASE	0x3B4
 #define MONO_BUF	0xB0000
 #define CGA_BASE	0x3D4
@@ -73,12 +76,13 @@ cga_putc(int c)
 		break;
 	case '\t':
 	    c = (c & ~0xFF) | ' ';
+	    /* fallthru */
 	default:
 		crt_buf[crt_pos++] = c;		/* write the character */
 		break;
 	}
 
-	// What is the purpose of this?
+	// roll screen if needed
 	if (crt_pos >= CRT_SIZE) {
 		int i;
 
@@ -93,5 +97,11 @@ cga_putc(int c)
 	outb(addr_6845 + 1, crt_pos >> 8);
 	outb(addr_6845, 15);
 	outb(addr_6845 + 1, crt_pos);
+}
+
+void bputs(const char *str) // bootloader puts
+{
+    while (*str) cga_putc(*str++);
+    cga_putc('\n');
 }
 

@@ -29,6 +29,7 @@
 __noreturn
 void bootmain(void)
 {
+    bputs("Hello World! We are now at Stage1");
     while (1);
     static unsigned char elfbuf[BOOT_ELF_PRELOAD];
     struct elfhdr *elf = (void *) elfbuf;
