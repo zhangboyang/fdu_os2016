@@ -94,7 +94,7 @@ static void __entry readsect(void *dst, unsigned int sect)
         "1:outb %%al, (%%dx)\n\t"
         "shl $0x8, %%eax\n\t"
         "inc %%edx\n\t"
-        "loop 1f\n\t"
+        "loop 1b\n\t"
         :"=a"(sect), "=d"(port));
     
     
