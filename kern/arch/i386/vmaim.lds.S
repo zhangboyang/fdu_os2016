@@ -32,5 +32,12 @@ SECTIONS
     . = 0x100000;
     .text : { *(.text) }
     .data : { *(.data) }
+    
+    AIM_KERN_BSS_START = .;
     .bss : { *(.bss) }
+    AIM_KERN_BSS_END = .;
+    
+    AIM_KERN_STACK_LOWLIMIT = .;
+    . += 0x100000; // 1MB for stack should enough
+    AIM_KERN_STACK_HIGHLIMIT = .;
 }
