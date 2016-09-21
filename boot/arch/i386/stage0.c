@@ -73,27 +73,31 @@ static void __entry readsect(void *dst, unsigned int sect)
 {
     // Issue command.
     waitdisk();
-    outb(0x1F2, 1);   // count = 1
+    
 
 /*
     use asm to save code space, equals to:    
+        outb(0x1F2, 1);   // count = 1
+        
         outb(0x1F3, sect);
         outb(0x1F4, sect >> 8);
         outb(0x1F5, sect >> 16);
         outb(0x1F6, (sect >> 24) | 0xE0);
+        
+        outb(0x1F7, 0x20);  // cmd 0x20 - read sectors
 */
-    unsigned port = 0x1F3;
     sect |= 0xE0000000;
     __asm__ __volatile__ (
+        "mov $0x1f2, %%eax\n\t"
+        "outb $0x1, (%%dx)\n\t"
+        "inc %%edx\n\t"
         "mov $0x4, %%ecx\n\t"
         "1:outb %%al, (%%dx)\n\t"
         "shr $0x8, %%eax\n\t"
         "inc %%edx\n\t"
         "loop 1b\n\t"
-        :"+a"(sect), "+d"(port)::"ecx");
-    
-    
-    outb(0x1F7, 0x20);  // cmd 0x20 - read sectors
+        "outb $0x20, (%%dx)\n\t"
+        :"+a"(sect)::"ecx", "edx");
 
     // Read data.
     waitdisk();
