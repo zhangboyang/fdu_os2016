@@ -24,8 +24,10 @@
 extern void bootmain(void); 
 
 // bootloader io functions
-extern void bioinit(); // bootloader io init
+extern void bioinit(); // bootloader io init (arch-dependent)
+extern void bputc(int c); // bootloader putc (arch-dependent)
 extern void bputs(const char *str); // bootloader puts
+extern int bprintf(const char *fmt, ...); // bootloader printf
 
 // kernel ELF reader functions
 extern void kernreader_init(void);

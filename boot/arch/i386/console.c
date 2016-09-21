@@ -111,9 +111,8 @@ void bioinit() // bootloader io system init
     cga_init();
 }
 
-void bputs(const char *str)
+void bputc(int c)
 {
-    while (*str) cga_putc(*str++);
-    cga_putc('\n');
+    cga_putc(c);
 }
 

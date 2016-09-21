@@ -28,7 +28,7 @@ BOOT_LIBS = \
 	arch/$(ARCH)/libarch.la
 
 boot_elf_SOURCES = \
-	bootmain.c
+	bootmain.c bio.c
 boot_elf_LDADD = $(BOOT_LIBS)
 boot_elf_DEPENDENCIES = \
 	boot.lds \
