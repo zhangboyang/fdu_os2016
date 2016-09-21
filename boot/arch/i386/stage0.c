@@ -102,10 +102,10 @@ void __entry readdisk(void *buf, size_t size, size_t offset)
         readsect(sectbuf, offset);
         
         // copy to buffer
-        memcpy(buf, sectbuf + skip, cursize - skip);
+        memcpy(buf, sectbuf, cursize);
         
         size -= cursize;
-        buf += cursize - skip;
+        buf += cursize;
         offset++;
     }
 }
