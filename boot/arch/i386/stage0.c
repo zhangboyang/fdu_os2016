@@ -88,9 +88,8 @@ static unsigned int __entry get_elf_sector()
 void __entry readdisk(void *buf, size_t size, size_t offset)
 {   
     // round down to sector
-    size_t skip = offset % SECTSIZE;
-    offset /= SECTSIZE;
-    size += skip;
+    if (offset % SECTSIZE != 0) boot_panic();
+    
     
     // offset: sector number
     // skip: how many data should we skip
@@ -107,7 +106,6 @@ void __entry readdisk(void *buf, size_t size, size_t offset)
         
         size -= cursize;
         buf += cursize - skip;
-        skip = 0;
         offset++;
     }
 }
