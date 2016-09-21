@@ -89,9 +89,9 @@ cga_putc(int c)
 		// there is no memmove() in bootloader, we need write ourselves
 		// the loop below equals to 
 		//    memmove(crt_buf, crt_buf + CRT_COLS, (CRT_SIZE - CRT_COLS) * sizeof(uint16_t));
-		uint16_t *p = crt_buf;
+		uint8_t *p = crt_buf;
 		int count = (CRT_SIZE - CRT_COLS) * sizeof(uint16_t);
-		while (count--) *p = *(p + CRT_COLS);
+		while (count--) *p = *(p + CRT_COLS * sizeof(uint16_t));
 		
 		
 		for (i = CRT_SIZE - CRT_COLS; i < CRT_SIZE; i++)
