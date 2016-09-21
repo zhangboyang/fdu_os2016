@@ -84,11 +84,11 @@ int bprintf(const char *fmt, ...)
                     break;
                 case 'u':
                     u = va_arg(ap, unsigned int);
-                    cnt += write_int(u, 10);
+                    cnt += write_uint(u, 10);
                     break;
                 case 'x':
                     u = va_arg(ap, unsigned int);
-                    cnt += write_int(u, 16);
+                    cnt += write_uint(u, 16);
                     break;
                 case 'c':
                     c = va_arg(ap, int);
