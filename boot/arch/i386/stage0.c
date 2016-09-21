@@ -34,17 +34,13 @@
 
 
 
-static unsigned char __entry inb(unsigned short port)
+static unsigned char __entry stage0_inb(unsigned short port)
 {
     unsigned char data;
     __asm__ __volatile__ ("inb %1, %0": "=a"(data): "d"(port));
     return data;
 }
-static void __entry outb(unsigned short port, unsigned char data)
-{
-    __asm__ __volatile__ ("outb %0, %1":: "a"(data), "d"(port));
-}
-static void __entry insl(int port, void *addr, int cnt)
+static void __entry stage0_insl(int port, void *addr, int cnt)
 {
     __asm __volatile__ ("cld; rep insl" :
                         "=D" (addr), "=c" (cnt) :
@@ -67,7 +63,7 @@ static void __entry insl(int port, void *addr, int cnt)
 static void __entry waitdisk(void)
 {
     // Wait for disk ready.
-    while ((inb(0x1F7) & 0xC0) != 0x40);
+    while ((stage0_inb(0x1F7) & 0xC0) != 0x40);
 }
 static void __entry readsect(void *dst, unsigned int sect)
 {
@@ -106,7 +102,7 @@ static void __entry readsect(void *dst, unsigned int sect)
 
     // Read data.
     waitdisk();
-    insl(0x1F0, dst, SECTSIZE / 4);
+    stage0_insl(0x1F0, dst, SECTSIZE / 4);
 }
 
 static unsigned int __entry get_elf_sector()
