@@ -1,3 +1,14 @@
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif /* HAVE_CONFIG_H */
+
+#include <sys/types.h>
+
+/*
+ * this file is added by ZBY
+ */
+
+
 
 #define stage0_panic() while (1)
 #define BOOT_ELF_PRELOAD 4096
