@@ -35,7 +35,7 @@ master_early_entry:
     // clean up bss
     xor %eax, %eax
     mov $AIM_KERN_BSS_START, %edi
-    mov ($AIM_KERN_BSS_END - $AIM_KERN_BSS_START), %ecx
+    mov (AIM_KERN_BSS_END - AIM_KERN_BSS_START), %ecx
     rep movsb
     
     // prepare stack for C code
