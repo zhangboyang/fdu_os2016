@@ -36,7 +36,7 @@
 
 static void __entry stage0_memset(void *s, int c, size_t n)
 {
-    __asm__ __volatile__ ("rep movs"::"a"(c), "D"(s), "c"(n): "memory", "cc");
+    __asm__ __volatile__ ("rep movsb"::"a"(c), "D"(s), "c"(n): "memory", "cc");
 }
 
 static unsigned char __entry stage0_inb(unsigned short port)
