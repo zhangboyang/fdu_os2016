@@ -102,12 +102,12 @@ static inline void insl(int port, void *addr, int cnt)
 
 static inline void bmemset(void *s, int c, size_t n)
 {
-    __asm__ __volatile__ ("rep stosb"::"a"(c), "D"(s), "c"(n): "memory", "cc");
+    __asm__ __volatile__ ("rep stosb":"+a"(c), "+D"(s), "+c"(n):: "memory", "cc");
 }
 
 static inline void bmemcpy(void *dest, const void *src, size_t n)
 {
-    __asm__ __volatile__ ("rep movsb"::"S"(src), "D"(dest), "c"(n): "memory", "cc");
+    __asm__ __volatile__ ("rep movsb":"+S"(src), "+D"(dest), "+c"(n):: "memory", "cc");
 }
 
 // there is no "stdarg.h" in bootloader
