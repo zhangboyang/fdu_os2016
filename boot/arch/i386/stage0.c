@@ -107,7 +107,7 @@ static void __entry readsect(void *dst, unsigned int sect)
 
 static unsigned int __entry get_elf_sector()
 {
-    unsigned int *pentry = &mbr[0x1BE + 0x10 * BOOTLOADER_ELF_PART_ID + 0x8];
+    unsigned int *pentry = (void *) &mbr[0x1BE + 0x10 * BOOTLOADER_ELF_PART_ID + 0x8];
     return *pentry; // read this pointer as DWORD, to save code space
 }
 
