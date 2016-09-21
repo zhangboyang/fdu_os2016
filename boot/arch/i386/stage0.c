@@ -93,6 +93,7 @@ static void __entry readsect(void *dst, unsigned int sect)
         "outb %%al, (%%dx)\n\t"
         "inc %%edx\n\t"
         
+        "mov %%ecx, %%eax\n\t"
         "mov $0x4, %%ecx\n\t"
         "1:outb %%al, (%%dx)\n\t"
         "shr $0x8, %%eax\n\t"
@@ -101,7 +102,7 @@ static void __entry readsect(void *dst, unsigned int sect)
         
         "mov $0x20, %%al\n\t"
         "outb %%al, (%%dx)\n\t"
-        :"+a"(sect)::"ecx", "edx");
+        :"+c"(sect)::"eax", "edx");
 
     // Read data.
     waitdisk();
