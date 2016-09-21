@@ -35,7 +35,7 @@ bootasm:
 */
 .code16
 
-/*// print hello message
+// print hello message
   xor %ax, %ax
   mov %ax, %ds
   mov $hellostr_begin, %si
@@ -48,7 +48,7 @@ chloop:
   jmp chloop
   
 hellostr_begin:
-.asciz "welcome to ZBY's bootloader, stage0 ..."*/
+.asciz "stage0 ...\r\n"
 
 
 
