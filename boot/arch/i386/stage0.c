@@ -11,7 +11,7 @@
  */
 
 
-__noreturn static void __entry stage0_panic(unsigned int x) 
+static void __entry __noreturn stage0_panic(unsigned int x) 
 {
     __asm__ __volatile__ ("1: jmp 1b"::"a"(x));
 }
