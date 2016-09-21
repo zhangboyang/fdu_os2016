@@ -69,7 +69,7 @@ static void __entry waitdisk(void)
     // Wait for disk ready.
     while ((inb(0x1F7) & 0xC0) != 0x40);
 }
-static void __entry __attribute__((optimize("no-unroll-loops"))) readsect(void *dst, unsigned int sect)
+static void __entry readsect(void *dst, unsigned int sect)
 {
     // Issue command.
     waitdisk();
@@ -89,6 +89,14 @@ static void __entry __attribute__((optimize("no-unroll-loops"))) readsect(void *
         outb(port, sect);
         sect >>= 8;
     }
+    __asm__ __volatile__ (
+        "mov $0x4, %%ecx\n\t"
+        "1:outb %%ax, (%%dx)\n\t"
+        "shl $0x8, %%eax\n\t"
+        "inc %%edx\n\t"
+        "loop 1f\n\t"
+        :"=a"(sect), "=d"(port));
+    
     
     outb(0x1F7, 0x20);  // cmd 0x20 - read sectors
 
