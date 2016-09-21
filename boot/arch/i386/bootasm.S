@@ -48,13 +48,14 @@ chloop:
   jmp chloop
   
 hellostr_begin:
-.asciz "stage0 ...\r\n"
+.asciz "welcome to ZBY's bootloader, stage0 ...\r\n"
 
 
 
 // the real bootloader
 bootloader_start:
   cli                         # BIOS enabled interrupts; disable
+  cld
 
   # Zero data segment registers DS, ES, and SS.
   xorw    %ax,%ax             # Set %ax to zero
