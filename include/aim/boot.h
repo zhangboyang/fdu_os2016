@@ -21,8 +21,6 @@
 
 #ifndef __ASSEMBLER__
 
-extern uint8_t mbr[];
-
 extern void kernreader_init(void);
 extern void kernreader_readfile(void *buf, size_t size, size_t offset);
 

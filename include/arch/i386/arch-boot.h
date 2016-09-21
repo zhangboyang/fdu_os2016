@@ -78,7 +78,7 @@
 #include <elf.h>
 #define elf_phdr elf32_phdr
 #define elfhdr elf32hdr
-
+extern uint8_t mbr[];
 
 #endif /* !__ASSEMBLER__ */
 
