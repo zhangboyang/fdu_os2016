@@ -79,7 +79,7 @@
 #define elf_phdr elf32_phdr
 #define elfhdr elf32hdr
 extern uint8_t mbr[];
-extern uint8_t hitext[];
+extern uint8_t text_begin[];
 
 #endif /* !__ASSEMBLER__ */
 
