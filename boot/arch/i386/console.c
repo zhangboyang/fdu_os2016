@@ -91,7 +91,10 @@ cga_putc(int c)
 		//    memmove(crt_buf, crt_buf + CRT_COLS, (CRT_SIZE - CRT_COLS) * sizeof(uint16_t));
 		uint8_t *p = crt_buf;
 		int count = (CRT_SIZE - CRT_COLS) * sizeof(uint16_t);
-		while (count--) *p = *(p + CRT_COLS * sizeof(uint16_t));
+		while (count--) {
+		    *p = *(p + CRT_COLS * sizeof(uint16_t));
+		    p++;
+		}
 		
 		
 		for (i = CRT_SIZE - CRT_COLS; i < CRT_SIZE; i++)
