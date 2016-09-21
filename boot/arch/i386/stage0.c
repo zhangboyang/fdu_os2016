@@ -153,7 +153,7 @@ void __entry stage0()
         elf->e_ident[EI_MAG3] != ELFMAG3) stage0_panic(0xEEEE0000);
     
     // read program headers
-    int load_flag = 0;
+    unsigned char load_flag = 0;
     struct elf_phdr *ph, *eph;
     ph = (void *) elf + elf->e_phoff;
     eph = ph + elf->e_phnum;
