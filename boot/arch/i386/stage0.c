@@ -4,6 +4,7 @@
 
 #include <sys/types.h>
 #include <elf.h>
+#include <aim/boot.h>
 #include <arch-boot.h>
 
 /*
