@@ -72,12 +72,7 @@ cga_putc(int c)
 		crt_pos -= (crt_pos % CRT_COLS);
 		break;
 	case '\t':
-		cons_putc(' ');
-		cons_putc(' ');
-		cons_putc(' ');
-		cons_putc(' ');
-		cons_putc(' ');
-		break;
+	    c = (c & ~0xFF) | ' ';
 	default:
 		crt_buf[crt_pos++] = c;		/* write the character */
 		break;
