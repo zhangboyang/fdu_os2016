@@ -30,7 +30,16 @@ __noreturn
 void bootmain(void)
 {
     bioinit();
-    bputs("Hello World! We are now at Stage1");
+    bputs("welcome to ZBY's bootloader for AIM");
+    bputs(
+        "           _____ __  __         __  \n"
+        "     /\   |_   _|  \/  |       / /  \n"
+        "    /  \    | | | \  / |_   __/ /_  \n"
+        "   / /\ \   | | | |\/| \ \ / / '_ \ \n"
+        "  / ____ \ _| |_| |  | |\ V /| (_) |\n"
+        " /_/    \_\_____|_|  |_| \_/  \___/ \n"
+    );
+
     while (1);
     static unsigned char elfbuf[BOOT_ELF_PRELOAD];
     struct elfhdr *elf = (void *) elfbuf;
