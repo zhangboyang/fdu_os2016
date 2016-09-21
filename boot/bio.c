@@ -39,27 +39,23 @@ static int write_string(char *s)
     return cnt;
 }
 
-static int write_llint(long long lld, int r)
+static int write_int(int d, int r)
 {
     const char *dict = "0123456789abcdef";
     char buf[100];
     int p = 0, ret;
-    unsigned long long llu;
-    if (lld < 0) { write_char('-'); lld = -lld; }
-    llu = lld;
+    unsigned int u;
+    if (d < 0) { write_char('-'); d = -d; }
+    u = d;
     do {
-        buf[p++] = llu % r;
-        llu /= r;
-    } while (llu > 0);
+        buf[p++] = u % r;
+        u /= r;
+    } while (u > 0);
     ret = p;
     while (p > 0) write_char(dict[buf[--p]]);
     return ret;
 }
 
-static int write_int(int d, int r)
-{
-    return write_llint(d, r);
-}
 
 int bprintf(const char *fmt, ...)
 {
@@ -81,15 +77,13 @@ int bprintf(const char *fmt, ...)
                     d = va_arg(ap, int);
                     cnt += write_int(d, 10);
                     break;
+                case 'x':
+                    d = va_arg(ap, int);
+                    cnt += write_int(d, 16);
+                    break;
                 case 'c':
                     c = va_arg(ap, int);
                     cnt += write_char(c);
-                    break;
-                case 'l':
-                    if (*++fmt == 'l' && *++fmt == 'd') {
-                        lld = va_arg(ap, long long);
-                        cnt += write_llint(lld, 10);
-                    }
                     break;
                 case '%':
                     cnt += write_char('%');
