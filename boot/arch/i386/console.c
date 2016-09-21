@@ -7,6 +7,15 @@
 #include <aim/boot.h>
 #include <arch-boot.h>
 
+#define MONO_BASE	0x3B4
+#define MONO_BUF	0xB0000
+#define CGA_BASE	0x3D4
+#define CGA_BUF		0xB8000
+
+#define CRT_ROWS	25
+#define CRT_COLS	80
+#define CRT_SIZE	(CRT_ROWS * CRT_COLS)
+
 static unsigned addr_6845;
 static uint16_t *crt_buf;
 static uint16_t crt_pos;
@@ -18,11 +27,12 @@ cga_init(void)
 	uint16_t was;
 	unsigned pos;
 
-	cp = (uint16_t*) (KERNBASE + CGA_BUF);
+
+	cp = (uint16_t*) CGA_BUF;
 	was = *cp;
 	*cp = (uint16_t) 0xA55A;
 	if (*cp != 0xA55A) {
-		cp = (uint16_t*) (KERNBASE + MONO_BUF);
+		cp = (uint16_t*) MONO_BUF;
 		addr_6845 = MONO_BASE;
 	} else {
 		*cp = was;
