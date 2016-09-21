@@ -11,7 +11,10 @@
  */
 
 
-#define stage0_panic(x) do { __asm__ __volatile__ ("1: jmp 1b"::"a"(x)); } while (0)
+__noreturn static void __entry stage0_panic(unsigned int x) 
+{
+    __asm__ __volatile__ ("1: jmp 1b"::"a"(x));
+}
 
 #define SECTSIZE 512
 
