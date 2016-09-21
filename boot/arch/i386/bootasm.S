@@ -48,7 +48,7 @@ chloop:
   jmp chloop
   
 hellostr_begin:
-.asciz "welcome to ZBY's loader, hello world ..."
+.asciz "welcome to ZBY's loader ..."
 
 
 
