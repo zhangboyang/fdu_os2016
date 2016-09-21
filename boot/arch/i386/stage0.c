@@ -99,11 +99,8 @@ void __entry readdisk(void *buf, size_t size, size_t offset)
     
         // read sector from disk to sector buffer
         static unsigned char sectbuf[SECTSIZE];    
-        readsect(sectbuf, offset);
-        
-        // copy to buffer
-        memcpy(buf, sectbuf, cursize);
-        
+        readsect(buf, offset);
+
         size -= cursize;
         buf += cursize;
         offset++;
