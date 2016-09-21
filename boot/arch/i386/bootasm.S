@@ -48,7 +48,7 @@ chloop:
   jmp chloop
   
 hellostr_begin:
-.asciz "welcome to ZBY's loader ..."
+.asciz "welcome to ZBY's loader, stage0 ..."
 
 
 
@@ -107,7 +107,7 @@ start32:
 
   # Set up the stack pointer and call into C.
   movl    $_start, %esp
-  //call    bootmain
+  call    stage0
 
 spin: // infloop
   jmp     spin

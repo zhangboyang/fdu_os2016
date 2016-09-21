@@ -83,3 +83,8 @@ msim.conf
 # patch(1) remnants
 *.orig
 *.rej
+
+
+
+# ZBY
+*.img
