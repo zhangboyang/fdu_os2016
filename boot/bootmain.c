@@ -82,6 +82,8 @@ void bootmain(void)
     void (*entry)(void);
     entry = (void *) elf->e_entry;
     bprintf("kernel entry: %p\n", (void *) entry);
+    bputs("jump to kernel ...");
+    
     entry();
     
     bpanic("kernel entry returned!");

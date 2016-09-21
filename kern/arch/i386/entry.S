@@ -41,7 +41,7 @@ master_early_entry:
     
     // prepare stack for C code
     mov $AIM_KERN_STACK_HIGHLIMIT, %esp
-    xor %ebp, %ebp
+    xor %ebp, %ebp // make stack backtrace happy
     
     // call master_early_init()
     call master_early_init

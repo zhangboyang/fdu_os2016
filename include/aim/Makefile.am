@@ -19,5 +19,5 @@ include $(top_srcdir)/env.am
 
 noinst_HEADERS = \
 	boot.h \
-	init.h
-
+	init.h \
+    panic.h
