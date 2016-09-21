@@ -64,7 +64,6 @@ static int write_int(int d, unsigned int r)
 int bprintf(const char *fmt, ...)
 {
     va_list ap;
-    long long lld;
     int d;
     unsigned int u;
     char c, *s;
