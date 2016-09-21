@@ -86,10 +86,7 @@ static unsigned int __entry get_elf_sector()
 }
 
 void __entry readdisk(void *buf, size_t size, size_t offset)
-{
-    // translate fileoffset to diskoffset
-    offset += kdiskoffset;
-    
+{   
     // round down to sector
     size_t skip = offset % SECTSIZE;
     offset /= SECTSIZE;
