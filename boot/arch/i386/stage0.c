@@ -90,7 +90,7 @@ static void __entry readsect(void *dst, unsigned int sect)
         "shl $0x8, %%eax\n\t"
         "inc %%edx\n\t"
         "loop 1b\n\t"
-        :"+a"(sect), "+d"(port)::"c");
+        :"+a"(sect), "+d"(port)::"ecx");
     
     
     outb(0x1F7, 0x20);  // cmd 0x20 - read sectors
