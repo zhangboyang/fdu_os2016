@@ -25,3 +25,27 @@
 .globl _start
 _start:
 
+.globl master_early_entry
+master_early_entry:
+
+    // disable interrupts
+    cli
+    cld
+    
+    // clean up bss
+    xor %eax, %eax
+    mov $AIM_KERN_BSS_START, %edi
+    mov $(AIM_KERN_BSS_END - AIM_KERN_BSS_START), %ecx
+    rep movsb
+    
+    // prepare stack for C code
+    mov $AIM_KERN_STACK_HIGHLIMIT, %esp
+    xor %ebp, %ebp
+    
+    // call master_early_init()
+    call master_early_init
+    
+    // infloop in case of master_early_init() returns
+:spin
+    jmp spin
+
