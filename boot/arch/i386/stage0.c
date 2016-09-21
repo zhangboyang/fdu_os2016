@@ -34,6 +34,10 @@
 }*/
 
 
+static void __entry stage0_memset(void *s, int c, size_t n)
+{
+    __asm__ __volatile__ ("rep movs"::"a"(c), "D"(s), "c"(n): "memory", "cc", "eax", "edi", "ecx");
+}
 
 static unsigned char __entry stage0_inb(unsigned short port)
 {
@@ -43,7 +47,7 @@ static unsigned char __entry stage0_inb(unsigned short port)
 }
 static void __entry stage0_insl(int port, void *addr, int cnt)
 {
-    __asm __volatile__ ("cld; rep insl" :
+    __asm __volatile__ ("rep insl" :
                         "=D" (addr), "=c" (cnt) :
                         "d" (port), "0" (addr), "1" (cnt) :
                         "memory", "cc");
@@ -158,7 +162,7 @@ void __entry stage0()
         if (pa >= (void *) text_begin) {
             readdisk(pa, ph->p_filesz, diskoff + ph->p_offset);
             if (ph->p_memsz > ph->p_filesz) {
-                memset(pa + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
+                stage0_memset(pa + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
             }
             load_flag = 1;
         }
