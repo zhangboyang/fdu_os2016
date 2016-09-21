@@ -45,7 +45,7 @@ SECTIONS
     
     . = 0x10000;
     text_begin = .;
-    .text : { *(.text); }
+    .text : { *(.text); } : text
     .data : { *(.data) }
     .bss : { *(.bss) }
 }
