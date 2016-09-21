@@ -82,9 +82,9 @@ void bootmain(void)
     void (*entry)(void);
     entry = (void *) elf->e_entry;
     printf("kernel entry: %p\n", (void *) entry);
-    panic("here we go!");
+    bpanic("here we go!");
     entry();
     
-    panic("kernel entry returned!");
+    bpanic("kernel entry returned!");
 }
 
