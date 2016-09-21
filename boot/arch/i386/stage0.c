@@ -114,7 +114,7 @@ void __entry readdisk(void *buf, size_t size, size_t offset)
 
 void __entry stage0()
 {
-    static unsigned char elfbuf[];
+    static unsigned char elfbuf[BOOT_ELF_PRELOAD];
     
     // read elf header
     struct elfhdr *elf = elfbuf;
