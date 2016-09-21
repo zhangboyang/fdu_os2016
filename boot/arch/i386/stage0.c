@@ -87,7 +87,7 @@ static void __entry readsect(void *dst, unsigned int sect)
     __asm__ __volatile__ (
         "mov $0x4, %%ecx\n\t"
         "1:outb %%al, (%%dx)\n\t"
-        "shl $0x8, %%eax\n\t"
+        "shr $0x8, %%eax\n\t"
         "inc %%edx\n\t"
         "loop 1b\n\t"
         :"+a"(sect), "+d"(port)::"ecx");
