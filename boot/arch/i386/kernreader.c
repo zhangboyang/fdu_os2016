@@ -56,12 +56,13 @@ void kernreader_init(void)
 {
     // set kdiskoffset
     kdiskoffset = 206848 * 512; // FIXME, should read from MBR
-    unsigned char *pentry = &mbr[0x1BE + 0x10 * BOOTLOADER_ELF_PART_ID];
+    /*unsigned char *pentry = &mbr[0x1BE + 0x10 * BOOTLOADER_ELF_PART_ID];
     kdiskoffset =  (pentry[0x8] << 0) +
            (pentry[0x9] << 8) +
            (pentry[0xA] << 16) + 
            (pentry[0xB] << 24);
-}
+*/
+
 }
 
 void kernreader_readfile(void *buf, size_t size, size_t offset)
