@@ -54,20 +54,22 @@ void bootmain(void)
     if (elf->e_ident[EI_MAG0] != ELFMAG0 ||
         elf->e_ident[EI_MAG1] != ELFMAG1 ||
         elf->e_ident[EI_MAG2] != ELFMAG2 ||
-        elf->e_ident[EI_MAG3] != ELFMAG3) boot_panic("ELF magic mismatch!");
+        elf->e_ident[EI_MAG3] != ELFMAG3) bpanic("ELF magic mismatch!");
 
     // load each program segment (ignores ph flags)
     struct elf_phdr *ph, *eph;
     ph = (void *) elf + elf->e_phoff;
     eph = ph + elf->e_phnum;
+    
     bprintf("total %d program headers.\n", (int) elf->e_phnum);
+    if (elf->e_phnum == 0) bpanic("no program headers in ELF file!");
+    
     while (ph < eph) {
-        void *pa = (void *) ph->p_paddr;
-        boot_panic("ahaa");
         bprintf("phdr type=%x flags=%x offset=%x\n", (unsigned) ph->p_type, (unsigned) ph->p_flags, (unsigned) ph->p_offset);
         bprintf("     vaddr=%p paddr=%p\n", (void *) ph->p_vaddr, (void *) ph->p_paddr);
         bprintf("     filesz=%x memsz=%x align=%x\n", (unsigned) ph->p_filesz, (unsigned) ph->p_memsz, (unsigned) ph->p_align);
-        boot_panic("aha");
+        
+        void *pa = (void *) ph->p_paddr;
         kernreader_readfile(pa, ph->p_filesz, ph->p_offset);
         if (ph->p_memsz > ph->p_filesz) {
             memset(pa + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
@@ -75,10 +77,14 @@ void bootmain(void)
         ph++;
     }
 
-    boot_panic("haha");
+    
     // call entry point, should not return
-    void (*entry) (void) __attribute__((noreturn));
+    void (*entry)(void);
     entry = (void *) elf->e_entry;
+    printf("kernel entry: %p\n", (void *) entry);
+    panic("here we go!");
     entry();
+    
+    panic("kernel entry returned!");
 }
 

@@ -29,7 +29,7 @@ extern void bputc(int c); // bootloader putc (arch-dependent)
 extern void bputs(const char *str); // bootloader puts
 extern int bprintf(const char *fmt, ...); // bootloader printf
 
-#define boot_panic(fmt, ...) \
+#define bpanic(fmt, ...) \
     do { \
         bputs("=== BOOTLOADER PANIC ==="); \
         bprintf(fmt, ## __VA_ARGS__); \
