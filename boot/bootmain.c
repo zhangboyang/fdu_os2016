@@ -81,7 +81,7 @@ void bootmain(void)
     // call entry point, should not return
     void (*entry)(void);
     entry = (void *) elf->e_entry;
-    printf("kernel entry: %p\n", (void *) entry);
+    bprintf("kernel entry: %p\n", (void *) entry);
     bpanic("here we go!");
     entry();
     
