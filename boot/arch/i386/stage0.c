@@ -83,7 +83,7 @@ static void __entry readsect(void *dst, unsigned int sect)
 static unsigned int __entry get_elf_sector()
 {
     unsigned int *pentry = &mbr[0x1BE + 0x10 * BOOTLOADER_ELF_PART_ID + 0x8];
-    return *pentry;
+    return *pentry; // read this pointer as DWORD, to save code space
 }
 
 void __entry readdisk(void *buf, size_t size, size_t offset)
@@ -116,7 +116,6 @@ void __entry stage0()
     struct elfhdr *elf = elfbuf;
     size_t diskoff = get_elf_sector() * SECTSIZE;
     readdisk(elf, BOOT_ELF_PRELOAD, diskoff);
-    
     
     // check elf magic
     if (elf->e_ident[EI_MAG0] != ELFMAG0 ||
