@@ -38,6 +38,7 @@ bootasm:
 // print hello message
   xor %ax, %ax
   mov %ax, %ds
+  cld
   mov $hellostr_begin, %si
 chloop:
   lodsb
