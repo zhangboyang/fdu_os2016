@@ -22,6 +22,7 @@
 
 #include <sys/types.h>
 #include <aim/boot.h>
+#include <elf.h>
 
 __noreturn
 void bootmain(void)
