@@ -19,9 +19,13 @@ include $(top_srcdir)/env.am
 
 SUBDIRS = arch
 
+BUILT_SOURCES = boot.lds
+
 noinst_PROGRAMS = boot.elf
-nodist_noinst_DATA = boot.lds boot.bin boot.s
-CLEANFILES = boot.lds boot.bin boot.s
+nodist_noinst_DATA = \
+	boot.bin boot.s
+CLEANFILES = \
+	boot.bin boot.s
 
 BOOT_LIBS = \
 	arch/$(ARCH)/libentry.la \
@@ -30,9 +34,7 @@ BOOT_LIBS = \
 boot_elf_SOURCES = \
 	bootmain.c bio.c
 boot_elf_LDADD = $(BOOT_LIBS)
-boot_elf_DEPENDENCIES = \
-	boot.lds \
-	$(BOOT_LIBS)
+EXTRA_boot_elf_DEPENDENCIES = boot.lds
 boot_elf_CPPFLAGS = $(AM_CPPFLAGS_NOPIC)
 boot_elf_CFLAGS = $(AM_CFLAGS_NOPIC) -Os
 boot_elf_CCASFLAGS = $(AM_CCASFLAGS_NOPIC)

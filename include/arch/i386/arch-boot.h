@@ -76,8 +76,8 @@
 #ifndef __ASSEMBLER__
 
 #include <elf.h>
-#define elf_phdr elf32_phdr
-#define elfhdr elf32hdr
+typedef struct elf32hdr		elf_hdr;
+typedef struct elf32_phdr	elf_phdr;
 extern uint8_t mbr[];
 extern uint8_t text_begin[];
 

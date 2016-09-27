@@ -20,6 +20,8 @@
 #include <config.h>
 #endif /* HAVE_CONFIG_H */
 
+#define __LDSCRIPT__
+
 /*
  * Using the C preprocessor, we allow includes and macro expansion in this
  * linker script.
