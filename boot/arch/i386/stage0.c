@@ -141,7 +141,7 @@ void __entry stage0()
     static unsigned char elfbuf[BOOT_ELF_PRELOAD];
     
     // read elf header
-    struct elfhdr *elf = (void *) elfbuf;
+    elfhdr *elf = (void *) elfbuf;
     size_t diskoff = get_elf_sector() * SECTSIZE;
     readdisk(elf, BOOT_ELF_PRELOAD, diskoff);
     
@@ -153,7 +153,7 @@ void __entry stage0()
     
     // read program headers
     unsigned char load_flag = 0;
-    struct elf_phdr *ph, *eph;
+    elf_phdr *ph, *eph;
     ph = (void *) elf + elf->e_phoff;
     eph = ph + elf->e_phnum;
     while (ph < eph) {
