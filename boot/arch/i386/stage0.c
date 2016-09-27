@@ -123,7 +123,6 @@ void __entry readdisk(void *buf, size_t size, size_t offset)
     offset /= SECTSIZE;
     
     // offset: sector number
-    // skip: how many data should we skip
     while (size) {
         // cursize = min(size, SECTSIZE)
         size_t cursize = size < SECTSIZE ? size : SECTSIZE;
