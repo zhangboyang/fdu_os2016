@@ -43,7 +43,7 @@ void bootmain(void)
     );
 
     static unsigned char elfbuf[BOOT_ELF_PRELOAD];
-    struct elfhdr *elf = (void *) elfbuf;
+    elf_hdr *elf = (void *) elfbuf;
 
     // init elfreader
     kernreader_init();
@@ -58,7 +58,7 @@ void bootmain(void)
         elf->e_ident[EI_MAG3] != ELFMAG3) bpanic("ELF magic mismatch!");
 
     // load each program segment (ignores ph flags)
-    struct elf_phdr *ph, *eph;
+    elf_phdr *ph, *eph;
     ph = (void *) elf + elf->e_phoff;
     eph = ph + elf->e_phnum;
     
