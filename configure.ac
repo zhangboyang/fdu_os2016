@@ -214,6 +214,25 @@ AC_CONFIG_HEADERS([config.h])
 
 AC_CONFIG_FILES([
 	Makefile
+	boot/Makefile
+	boot/arch/Makefile
+	boot/arch/armv7a/Makefile
+	boot/arch/i386/Makefile
+	boot/arch/mips/Makefile
+	include/Makefile
+	include/aim/Makefile
+	include/arch/Makefile
+	include/arch/armv7a/Makefile
+	include/arch/i386/Makefile
+	include/arch/mips/Makefile
+	kern/Makefile
+	kern/arch/Makefile
+	kern/arch/armv7a/Makefile
+	kern/arch/i386/Makefile
+	kern/arch/mips/Makefile
+	kern/init/Makefile
+	lib/Makefile
+	lib/libc/Makefile
 ])
 AC_OUTPUT
 

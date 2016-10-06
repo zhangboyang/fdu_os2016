@@ -17,15 +17,20 @@
 
 include $(top_srcdir)/env.am
 
-ACLOCAL_AMFLAGS = -I ./m4
+dist_noinst_DATA = boot.lds.S
 
-if BUILD_BOOTLOADER
-BOOT = boot
-endif
+noinst_LTLIBRARIES = \
+	libentry.la \
+	libarch.la
 
-SUBDIRS = \
-	include \
-	lib \
-	$(BOOT) \
-	kern
+libentry_la_SOURCES = \
+	bootasm.S
+libentry_la_CPPFLAGS = $(AM_CPPFLAGS_NOPIC)
+libentry_la_CFLAGS = $(AM_CFLAGS_NOPIC) -Os
+libentry_la_CCASFLAGS = $(AM_CCASFLAGS_NOPIC)
+
+libarch_la_SOURCES =
+libarch_la_CPPFLAGS = $(AM_CPPFLAGS_NOPIC)
+libarch_la_CFLAGS = $(AM_CFLAGS_NOPIC) -Os
+libarch_la_CCASFLAGS = $(AM_CCASFLAGS_NOPIC)
 

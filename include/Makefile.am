@@ -17,15 +17,13 @@
 
 include $(top_srcdir)/env.am
 
-ACLOCAL_AMFLAGS = -I ./m4
-
-if BUILD_BOOTLOADER
-BOOT = boot
-endif
-
 SUBDIRS = \
-	include \
-	lib \
-	$(BOOT) \
-	kern
+	aim \
+	arch
+
+nobase_noinst_HEADERS = \
+	sys/types.h
+
+noinst_HEADERS = \
+	elf.h
 

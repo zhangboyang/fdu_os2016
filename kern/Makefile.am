@@ -17,15 +17,28 @@
 
 include $(top_srcdir)/env.am
 
-ACLOCAL_AMFLAGS = -I ./m4
-
-if BUILD_BOOTLOADER
-BOOT = boot
-endif
-
 SUBDIRS = \
-	include \
-	lib \
-	$(BOOT) \
-	kern
+	arch \
+	init
+
+BUILT_SOURCES = vmaim.lds
+
+noinst_PROGRAMS = vmaim.elf
+nodist_noinst_DATA = vmaim.s
+CLEANFILES = vmaim.s
+
+# This list should always be ordered carefully
+KERN_LIBS = \
+	arch/$(ARCH)/libentry.la \
+	init/libearlyinit.la \
+	arch/$(ARCH)/libarch.la
+
+vmaim_elf_SOURCES =
+vmaim_elf_LDADD = $(KERN_LIBS)
+EXTRA_vmaim_elf_DEPENDENCIES = vmaim.lds
+vmaim_elf_LDFLAGS = $(AM_LDFLAGS) -T vmaim.lds
+
+# This file has double suffix, makefile rule cannot wildcard him
+vmaim.lds: $(srcdir)/arch/$(ARCH)/vmaim.lds.S
+	$(AM_V_GEN) $(COMPILE) -E -P $^ -o $@
 

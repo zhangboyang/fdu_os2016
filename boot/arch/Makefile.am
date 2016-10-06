@@ -17,15 +17,6 @@
 
 include $(top_srcdir)/env.am
 
-ACLOCAL_AMFLAGS = -I ./m4
-
-if BUILD_BOOTLOADER
-BOOT = boot
-endif
-
-SUBDIRS = \
-	include \
-	lib \
-	$(BOOT) \
-	kern
+SUBDIRS = $(ARCH)
+DIST_SUBDIRS = armv7a i386 mips
 

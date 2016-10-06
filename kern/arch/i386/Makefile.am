@@ -17,15 +17,15 @@
 
 include $(top_srcdir)/env.am
 
-ACLOCAL_AMFLAGS = -I ./m4
+dist_noinst_DATA = vmaim.lds.S
 
-if BUILD_BOOTLOADER
-BOOT = boot
-endif
+noinst_LTLIBRARIES = \
+	libentry.la \
+	libarch.la
 
-SUBDIRS = \
-	include \
-	lib \
-	$(BOOT) \
-	kern
+libentry_la_SOURCES = \
+	entry.S
+
+libarch_la_SOURCES = \
+	arch_early_init.c
 

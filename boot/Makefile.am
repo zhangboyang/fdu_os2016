@@ -17,15 +17,30 @@
 
 include $(top_srcdir)/env.am
 
-ACLOCAL_AMFLAGS = -I ./m4
+SUBDIRS = arch
 
-if BUILD_BOOTLOADER
-BOOT = boot
-endif
+BUILT_SOURCES = boot.lds
 
-SUBDIRS = \
-	include \
-	lib \
-	$(BOOT) \
-	kern
+noinst_PROGRAMS = boot.elf
+nodist_noinst_DATA = \
+	boot.bin boot.s
+CLEANFILES = \
+	boot.bin boot.s
+
+BOOT_LIBS = \
+	arch/$(ARCH)/libentry.la \
+	arch/$(ARCH)/libarch.la
+
+boot_elf_SOURCES = \
+	bootmain.c
+boot_elf_LDADD = $(BOOT_LIBS)
+EXTRA_boot_elf_DEPENDENCIES = boot.lds
+boot_elf_CPPFLAGS = $(AM_CPPFLAGS_NOPIC)
+boot_elf_CFLAGS = $(AM_CFLAGS_NOPIC) -Os
+boot_elf_CCASFLAGS = $(AM_CCASFLAGS_NOPIC)
+boot_elf_LDFLAGS = $(AM_LDFLAGS_NOPIC) -T boot.lds
+
+# This file has double suffix, makefile rule cannot wildcard him
+boot.lds: $(srcdir)/arch/$(ARCH)/boot.lds.S
+	$(AM_V_GEN) $(COMPILE) -E -P $^ -o $@
 

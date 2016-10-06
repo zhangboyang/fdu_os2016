@@ -17,15 +17,9 @@
 
 include $(top_srcdir)/env.am
 
-ACLOCAL_AMFLAGS = -I ./m4
+noinst_LTLIBRARIES = \
+	libearlyinit.la
 
-if BUILD_BOOTLOADER
-BOOT = boot
-endif
-
-SUBDIRS = \
-	include \
-	lib \
-	$(BOOT) \
-	kern
+libearlyinit_la_SOURCES = \
+	early_init.c
 
