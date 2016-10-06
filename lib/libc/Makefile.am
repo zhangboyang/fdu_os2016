@@ -19,5 +19,6 @@ include $(top_srcdir)/env.am
 
 noinst_HEADERS = \
 	stdarg.h \
-	stddef.h
+	stddef.h \
+	stdio.h
 
