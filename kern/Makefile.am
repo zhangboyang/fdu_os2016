@@ -19,7 +19,9 @@ include $(top_srcdir)/env.am
 
 SUBDIRS = \
 	arch \
-	init
+	init \
+	mm \
+	panic
 
 BUILT_SOURCES = vmaim.lds
 
