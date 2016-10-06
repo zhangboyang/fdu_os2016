@@ -134,7 +134,7 @@ AIM_ARG_WITH([ustacksize], [USTACKSIZE],
 	[size of user stack], [32768])
 
 AIM_ARG_WITH([kstacksize], [KSTACKSIZE],
-	[size of kernel stack])
+	[size of kernel stack], [32768])
 
 AIM_ARG_WITH([root-partition-id], [ROOT_PARTITION_ID],
 	[root partition number], [4])
