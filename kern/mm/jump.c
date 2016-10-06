@@ -21,6 +21,7 @@
 #endif /* HAVE_CONFIG_H */
 
 #include <sys/types.h>
+#include <aim/panic.h>
 
 #define JUMP_HANDLER_QUEUE_LENGTH	10
 static int __jump_handler_queue_size;

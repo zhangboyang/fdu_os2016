@@ -26,7 +26,6 @@
 #include <libc/stdarg.h>
 #include <libc/stddef.h>
 #include <libc/stdio.h>
-#include <aim/irq.h>
 
 /*
  * The rest place for every processor during a panic.
