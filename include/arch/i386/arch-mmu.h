@@ -21,6 +21,11 @@
 
 #ifndef __ASSEMBLER__
 
+typedef uint32_t	pde_t;
+typedef uint32_t	pte_t;
+
+typedef pde_t	pgindex_t;
+
 #endif /* !__ASSEMBLER__ */
 
 #endif /* !_ARCH_MMU_H */
