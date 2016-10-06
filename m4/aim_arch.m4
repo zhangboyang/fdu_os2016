@@ -49,6 +49,8 @@ AC_DEFUN([AIM_INIT_ARCH], [
 			AS_VAR_SET([__enable_io_port_root], [no])
 		],
 		[i386], [
+			AS_VAR_SET([__with_ram_physbase], [0x01000000])
+			AS_VAR_SET([__with_kern_start], [0x01000000])
 			AS_VAR_SET([__enable_io_mem], [yes])
 			AS_VAR_SET([__enable_io_port], [yes])
 			AS_VAR_SET([__enable_io_mem], [yes])
