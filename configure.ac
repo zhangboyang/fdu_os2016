@@ -231,6 +231,9 @@ AC_CONFIG_FILES([
 	kern/arch/i386/Makefile
 	kern/arch/mips/Makefile
 	kern/init/Makefile
+	kern/mm/Makefile
+	kern/mm/kmmap/Makefile
+	kern/panic/Makefile
 	lib/Makefile
 	lib/libc/Makefile
 ])
