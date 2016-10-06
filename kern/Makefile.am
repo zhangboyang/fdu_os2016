@@ -25,7 +25,7 @@ BUILT_SOURCES = vmaim.lds
 
 noinst_PROGRAMS = vmaim.elf
 nodist_noinst_DATA = vmaim.s
-CLEANFILES = vmaim.s
+CLEANFILES = boot.lds vmaim.s
 
 # This list should always be ordered carefully
 KERN_LIBS = \

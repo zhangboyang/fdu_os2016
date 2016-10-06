@@ -25,7 +25,7 @@ noinst_PROGRAMS = boot.elf
 nodist_noinst_DATA = \
 	boot.bin boot.s
 CLEANFILES = \
-	boot.bin boot.s
+	boot.lds boot.bin boot.s
 
 BOOT_LIBS = \
 	arch/$(ARCH)/libentry.la \
