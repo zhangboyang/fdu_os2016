@@ -20,20 +20,27 @@
 #include <config.h>
 #endif /* HAVE_CONFIG_H */
 
-.text
+#include <sys/types.h>
+#include <aim/boot.h>
+#include <asm.h>
 
-.globl _start
-_start:
-	/* same as bootloader */
-	cli
-	cld
-	/* Set up the stack pointer */
-	mov	$kstack_top, %esp
-	xor	%eax, %eax
-	push	%eax		// eip=0
-	push	%eax		// ebp=0
-	mov	%esp, %ebp
+static inline
+void waitdisk(void)
+{
+	while ((inb(0x1F7) & 0xC0) != 0x40);
+}
 
-	/* and there we go */
-	call	master_early_init
+void readsect(void *dst, uint32_t offset)
+{
+	waitdisk();
+	outb(0x1F2, 1);
+	outb(0x1F3, offset);
+	outb(0x1F4, offset >> 8);
+	outb(0x1F5, offset >> 16);
+	outb(0x1F6, (offset >> 24) | 0xE0);
+	outb(0x1F7, 0x20);
+
+	waitdisk();
+	insl(0x1F0, dst, SECT_SIZE);
+}
 

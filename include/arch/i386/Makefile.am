@@ -18,5 +18,8 @@
 include $(top_srcdir)/env.am
 
 noinst_HEADERS = \
-	arch-boot.h
+	arch-boot.h \
+	asm.h \
+	cr.h \
+	segment.h
 
