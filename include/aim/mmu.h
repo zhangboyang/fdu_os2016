@@ -43,7 +43,10 @@
 addr_t get_mem_physbase();
 addr_t get_mem_size();
 
-void page_index_init(pgindex_t *boot_page_index);
+void page_index_clear(pgindex_t *boot_page_index);
+int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr,
+	void *vaddr, size_t size);
+int page_index_init(pgindex_t *boot_page_index);
 void mmu_init(pgindex_t *boot_page_index);
 
 void early_mm_init(void);	/* arch-specific */
