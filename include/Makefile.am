@@ -25,5 +25,6 @@ nobase_noinst_HEADERS = \
 	sys/types.h
 
 noinst_HEADERS = \
-	elf.h
+	elf.h \
+	util.h
 
