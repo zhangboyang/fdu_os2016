@@ -37,8 +37,8 @@
 #include <libc/stddef.h>
 
 /* 
- * Type usage should be unified across AIMv6.
- * When a foreign module is imported, it MUST either apply AIMv6 type naming, 
+ * Type usage should be unified across AIM.
+ * When a foreign module is imported, it MUST either apply AIM type naming, 
  * or provide typedefs by itself. Normally typedefs SHOULD NOT be added to
  * this header.
  */
@@ -102,7 +102,7 @@ typedef ulong	dev_t;
  * manner (for Linux, see /usr/include/sys/sysmacros.h).  The difference
  * of such usage between Linux and BSD's further made things worse.
  *
- * In AIMv6, we do not consider major and minor numbers exceeding 255, to
+ * In AIM, we do not consider major and minor numbers exceeding 255, to
  * comply with both Linux and BSD while keeping logics cleaner.  Note that
  * we do NOT enforce range checks over the numbers (yet).
  */
