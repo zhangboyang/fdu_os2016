@@ -67,8 +67,8 @@ AIM_INIT_MACH
 # Extra Functionalities
 AIM_ARG_ENABLE_FEATURE([debug], [DEBUG], [Debugging (kpdebug)], [yes])
 AIM_ARG_ENABLE_FEATURE([tests], [TESTS], [in-kernel test framework], [yes])
-AIM_ARG_ENABLE([firmware], [BUILD_FIRMWARE], [simple firmware shipped with AIMv6], [yes])
-AIM_ARG_ENABLE([bootloader], [BUILD_BOOTLOADER], [simple bootloader shipped with AIMv6], [yes])
+AIM_ARG_ENABLE([firmware], [BUILD_FIRMWARE], [simple firmware shipped with AIM], [yes])
+AIM_ARG_ENABLE([bootloader], [BUILD_BOOTLOADER], [simple bootloader shipped with AIM], [yes])
 
 # msim
 AIM_ARG_WITH([msim-kbd-pa], [MSIM_KBD_PHYSADDR],
