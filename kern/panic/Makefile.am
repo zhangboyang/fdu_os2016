@@ -17,14 +17,9 @@
 
 include $(top_srcdir)/env.am
 
-noinst_HEADERS = \
-	boot.h \
-	debug.h \
-	device.h \
-	early_kmmap.h \
-	gfp.h \
-	init.h \
-	mmu.h \
-	panic.h \
-	pmm.h
+noinst_LTLIBRARIES = \
+	libpanic.la
+
+libpanic_la_SOURCES = \
+	panic.c
 

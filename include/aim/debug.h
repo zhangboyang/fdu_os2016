@@ -16,38 +16,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif /* HAVE_CONFIG_H */
+#ifndef _AIM_DEBUG_H
+#define _AIM_DEBUG_H
 
-#define __LDSCRIPT__
+#ifndef __ASSEMBLER__
 
-/*
- * Using the C preprocessor, we allow includes and macro expansion in this
- * linker script.
+/* 
+ * We just want several function here, avoid include hell please.
  */
+__noreturn
+void panic(const char *fmt, ...);
 
-ENTRY(_start)
+#define assert(condition) \
+	do { \
+		if (!(condition)) \
+			panic("Assertion failed in %s (%s:%d): %s\n", \
+			    __func__, __FILE__, __LINE__, #condition); \
+	} while (0)
 
-// ZBY
-PHDRS
-{
-    entry PT_LOAD;
-    text PT_LOAD;
-}
+#ifdef DEBUG
+#define kpdebug(...) //kprintf("DEBUG: " __VA_ARGS__)
+#else
+#define kpdebug(...)
+#endif
 
-SECTIONS
-{
-    . = 0x7c00;
-    mbr = .;
-    .entry : {
-        *(.entry);
-        *(.entry_end);
-    } : entry
-    
-    . = 0x10000;
-    text_begin = .;
-    .text : { *(.text); } : text
-    .data : { *(.data) }
-    .bss : { *(.bss) }
-}
+#endif /* !__ASSEMBLER__ */
+
+#endif /* !_AIM_DEBUG_H */
+

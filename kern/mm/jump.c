@@ -20,34 +20,37 @@
 #include <config.h>
 #endif /* HAVE_CONFIG_H */
 
-#define __LDSCRIPT__
+#include <sys/types.h>
+#include <aim/panic.h>
 
-/*
- * Using the C preprocessor, we allow includes and macro expansion in this
- * linker script.
- */
+#define JUMP_HANDLER_QUEUE_LENGTH	10
+static int __jump_handler_queue_size;
+static generic_fp __jump_handler_queue[JUMP_HANDLER_QUEUE_LENGTH];
 
-ENTRY(_start)
-
-// ZBY
-PHDRS
+void jump_handlers_clear(void)
 {
-    entry PT_LOAD;
-    text PT_LOAD;
+	__jump_handler_queue_size = 0;
 }
 
-SECTIONS
+int jump_handlers_add(generic_fp entry)
 {
-    . = 0x7c00;
-    mbr = .;
-    .entry : {
-        *(.entry);
-        *(.entry_end);
-    } : entry
-    
-    . = 0x10000;
-    text_begin = .;
-    .text : { *(.text); } : text
-    .data : { *(.data) }
-    .bss : { *(.bss) }
+	if (__jump_handler_queue_size > JUMP_HANDLER_QUEUE_LENGTH) {
+		/* Bad data structure. Panic immediately to prevent damage. */
+		panic("JUMP handler data structure invalid.\n");
+	}
+	if (__jump_handler_queue_size == JUMP_HANDLER_QUEUE_LENGTH) {
+		/* Queue full */
+		return EOF;
+	}
+	__jump_handler_queue[__jump_handler_queue_size] = entry;
+	__jump_handler_queue_size += 1;
+	return 0;
 }
+
+void jump_handlers_apply(void)
+{
+	for (int i = 0; i < __jump_handler_queue_size; ++i) {
+		__jump_handler_queue[i]();
+	}
+}
+

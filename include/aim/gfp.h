@@ -16,38 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif /* HAVE_CONFIG_H */
-
-#define __LDSCRIPT__
+#ifndef _AIM_GFP_H
+#define _AIM_GFP_H
 
 /*
- * Using the C preprocessor, we allow includes and macro expansion in this
- * linker script.
+ * gfp.h provides various flags controlling behaviors or providing constraints
+ * for allocating/freeing.
  */
+#ifndef __ASSEMBLER__
+typedef uint32_t gfp_t;
+#endif /* !__ASSEMBLER__ */
 
-ENTRY(_start)
+#define GFP_UNSAFE	0x1	/* Do not fill in junk before freeing */
+#define GFP_ZERO	0x2	/* Zero out the buffer after allocation */
 
-// ZBY
-PHDRS
-{
-    entry PT_LOAD;
-    text PT_LOAD;
-}
+#endif /* !_AIM_GFP_H */
 
-SECTIONS
-{
-    . = 0x7c00;
-    mbr = .;
-    .entry : {
-        *(.entry);
-        *(.entry_end);
-    } : entry
-    
-    . = 0x10000;
-    text_begin = .;
-    .text : { *(.text); } : text
-    .data : { *(.data) }
-    .bss : { *(.bss) }
-}

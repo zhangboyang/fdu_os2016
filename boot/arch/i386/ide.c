@@ -20,34 +20,27 @@
 #include <config.h>
 #endif /* HAVE_CONFIG_H */
 
-#define __LDSCRIPT__
+#include <sys/types.h>
+#include <aim/boot.h>
+#include <asm.h>
 
-/*
- * Using the C preprocessor, we allow includes and macro expansion in this
- * linker script.
- */
-
-ENTRY(_start)
-
-// ZBY
-PHDRS
+static inline
+void waitdisk(void)
 {
-    entry PT_LOAD;
-    text PT_LOAD;
+	while ((inb(0x1F7) & 0xC0) != 0x40);
 }
 
-SECTIONS
+void readsect(void *dst, uint32_t offset)
 {
-    . = 0x7c00;
-    mbr = .;
-    .entry : {
-        *(.entry);
-        *(.entry_end);
-    } : entry
-    
-    . = 0x10000;
-    text_begin = .;
-    .text : { *(.text); } : text
-    .data : { *(.data) }
-    .bss : { *(.bss) }
+	waitdisk();
+	outb(0x1F2, 1);
+	outb(0x1F3, offset);
+	outb(0x1F4, offset >> 8);
+	outb(0x1F5, offset >> 16);
+	outb(0x1F6, (offset >> 24) | 0xE0);
+	outb(0x1F7, 0x20);
+
+	waitdisk();
+	insl(0x1F0, dst, SECT_SIZE);
 }
+

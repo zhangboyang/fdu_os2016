@@ -1,4 +1,5 @@
-/* Copyright (C) 2016 David Gao <davidgao1001@gmail.com>
+/* Copyright (C) 2016 Gan Quan <coin2028@hotmail.com>
+ * Copyright (C) 2016 David Gao <davidgao1001@gmail.com>
  *
  * This file is part of AIM.
  *
@@ -16,38 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif /* HAVE_CONFIG_H */
+#ifndef _LIBC_STDARG_H
+#define _LIBC_STDARG_H
 
-#define __LDSCRIPT__
+typedef __builtin_va_list	va_list;
 
-/*
- * Using the C preprocessor, we allow includes and macro expansion in this
- * linker script.
- */
+#define va_start(ap, last)	(__builtin_va_start(ap, last))
+#define va_arg(ap, type)	(__builtin_va_arg(ap, type))
+#define va_end(ap)		(__builtin_va_end(ap))
 
-ENTRY(_start)
+#endif /* _LIBC_STDARG_H */
 
-// ZBY
-PHDRS
-{
-    entry PT_LOAD;
-    text PT_LOAD;
-}
-
-SECTIONS
-{
-    . = 0x7c00;
-    mbr = .;
-    .entry : {
-        *(.entry);
-        *(.entry_end);
-    } : entry
-    
-    . = 0x10000;
-    text_begin = .;
-    .text : { *(.text); } : text
-    .data : { *(.data) }
-    .bss : { *(.bss) }
-}

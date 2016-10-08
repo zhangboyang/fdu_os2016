@@ -16,38 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif /* HAVE_CONFIG_H */
+#ifndef _ARCH_MMU_H
+#define _ARCH_MMU_H
 
-#define __LDSCRIPT__
+#ifndef __ASSEMBLER__
 
-/*
- * Using the C preprocessor, we allow includes and macro expansion in this
- * linker script.
- */
+typedef uint32_t	pde_t;
+typedef uint32_t	pte_t;
 
-ENTRY(_start)
+typedef pde_t	pgindex_t;
 
-// ZBY
-PHDRS
-{
-    entry PT_LOAD;
-    text PT_LOAD;
-}
+#endif /* !__ASSEMBLER__ */
 
-SECTIONS
-{
-    . = 0x7c00;
-    mbr = .;
-    .entry : {
-        *(.entry);
-        *(.entry_end);
-    } : entry
-    
-    . = 0x10000;
-    text_begin = .;
-    .text : { *(.text); } : text
-    .data : { *(.data) }
-    .bss : { *(.bss) }
-}
+#endif /* !_ARCH_MMU_H */
+

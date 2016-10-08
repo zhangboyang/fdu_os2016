@@ -20,34 +20,41 @@
 #include <config.h>
 #endif /* HAVE_CONFIG_H */
 
-#define __LDSCRIPT__
+#include <sys/types.h>
+#include <aim/panic.h>
+
+#include <libc/stdarg.h>
+#include <libc/stddef.h>
+#include <libc/stdio.h>
 
 /*
- * Using the C preprocessor, we allow includes and macro expansion in this
- * linker script.
+ * The rest place for every processor during a panic.
+ *
+ * __local_panic() is executed once per processor.
  */
-
-ENTRY(_start)
-
-// ZBY
-PHDRS
+__noreturn
+void __local_panic(void)
 {
-    entry PT_LOAD;
-    text PT_LOAD;
+	/*
+	 * We cannot simply do tight loops at panic. Modern kernels turn down
+	 * processors and other devices to keep energy consumption and heat
+	 * generation low.
+	 * Later on there will be interfaces for the targets and drivers.
+	 * We currently do a tight loop.
+	 */
+
+	for (;;)
+		/* nothing */;
 }
 
-SECTIONS
+/*
+ * The place where a panic starts.
+ *
+ * panic() is executed only on the processor throwing the panic.
+ */
+__noreturn
+void panic(const char *fmt, ...)
 {
-    . = 0x7c00;
-    mbr = .;
-    .entry : {
-        *(.entry);
-        *(.entry_end);
-    } : entry
-    
-    . = 0x10000;
-    text_begin = .;
-    .text : { *(.text); } : text
-    .data : { *(.data) }
-    .bss : { *(.bss) }
+	__local_panic();
 }
+

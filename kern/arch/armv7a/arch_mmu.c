@@ -20,34 +20,11 @@
 #include <config.h>
 #endif /* HAVE_CONFIG_H */
 
-#define __LDSCRIPT__
+#include <sys/types.h>
+#include <aim/mmu.h>
 
-/*
- * Using the C preprocessor, we allow includes and macro expansion in this
- * linker script.
- */
-
-ENTRY(_start)
-
-// ZBY
-PHDRS
+void mmu_init(pgindex_t *boot_page_index)
 {
-    entry PT_LOAD;
-    text PT_LOAD;
+	return EOF;
 }
 
-SECTIONS
-{
-    . = 0x7c00;
-    mbr = .;
-    .entry : {
-        *(.entry);
-        *(.entry_end);
-    } : entry
-    
-    . = 0x10000;
-    text_begin = .;
-    .text : { *(.text); } : text
-    .data : { *(.data) }
-    .bss : { *(.bss) }
-}

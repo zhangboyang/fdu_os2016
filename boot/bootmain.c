@@ -1,13 +1,13 @@
 /* Copyright (C) 2016 David Gao <davidgao1001@gmail.com>
  *
- * This file is part of AIMv6.
+ * This file is part of AIM.
  *
- * AIMv6 is free software: you can redistribute it and/or modify
+ * AIM is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * AIMv6 is distributed in the hope that it will be useful,
+ * AIM is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -34,12 +34,12 @@ void bootmain(void)
     bioinit();
     bputs("welcome to ZBY's bootloader for AIM");
     bputs(
-        "           _____ __  __         __  \n"
-        "     /\\   |_   _|  \\/  |       / /  \n"
-        "    /  \\    | | | \\  / |_   __/ /_  \n"
-        "   / /\\ \\   | | | |\\/| \\ \\ / / '_ \\ \n"
-        "  / ____ \\ _| |_| |  | |\\ V /| (_) |\n"
-        " /_/    \\_\\_____|_|  |_| \\_/  \\___/ \n"
+        "           _____ __  __\n"
+        "     /\\   |_   _|  \\/  |\n"
+        "    /  \\    | | | \\  / |\n"
+        "   / /\\ \\   | | | |\\/|\n"
+        "  / ____ \\ _| |_| |  | |\n"
+        " /_/    \\_\\_____|_|  |_|\n"
     );
 
     static unsigned char elfbuf[BOOT_ELF_PRELOAD];

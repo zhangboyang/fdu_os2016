@@ -1,4 +1,5 @@
-/* Copyright (C) 2016 David Gao <davidgao1001@gmail.com>
+/* Copyright (C) 2016 Gan Quan <coin2028@hotmail.com>
+ * Copyright (C) 2016 David Gao <davidgao1001@gmail.com>
  *
  * This file is part of AIM.
  *
@@ -16,38 +17,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif /* HAVE_CONFIG_H */
+#ifndef _LIBC_STDIO_H
+#define _LIBC_STDIO_H
 
-#define __LDSCRIPT__
+#include <libc/stdarg.h>
+#include <libc/stddef.h>
 
-/*
- * Using the C preprocessor, we allow includes and macro expansion in this
- * linker script.
- */
+int putchar(int c);
+int puts(const char *s);
+int snprintf(char *str, size_t size, const char *fmt, ...);
+int vsnprintf(char *str, size_t size, const char *fmt, va_list ap);
+int printf(const char *fmt, ...);
+int vprintf(const char *fmt, va_list ap);
 
-ENTRY(_start)
+int getchar(void);
+char *gets(char *s);
 
-// ZBY
-PHDRS
-{
-    entry PT_LOAD;
-    text PT_LOAD;
-}
+#endif /* _LIBC_STDIO_H */
 
-SECTIONS
-{
-    . = 0x7c00;
-    mbr = .;
-    .entry : {
-        *(.entry);
-        *(.entry_end);
-    } : entry
-    
-    . = 0x10000;
-    text_begin = .;
-    .text : { *(.text); } : text
-    .data : { *(.data) }
-    .bss : { *(.bss) }
-}

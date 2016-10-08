@@ -17,14 +17,9 @@
 
 include $(top_srcdir)/env.am
 
-noinst_HEADERS = \
-	boot.h \
-	debug.h \
-	device.h \
-	early_kmmap.h \
-	gfp.h \
-	init.h \
-	mmu.h \
-	panic.h \
-	pmm.h
+noinst_LTLIBRARIES = \
+	libkmmap.la
+
+libkmmap_la_SOURCES = \
+	early_kmmap.c
 
