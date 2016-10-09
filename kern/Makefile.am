@@ -33,6 +33,7 @@ CLEANFILES = boot.lds vmaim.s
 KERN_LIBS = \
 	arch/$(ARCH)/libentry.la \
 	init/libearlyinit.la \
+	mm/libmm.la \
 	arch/$(ARCH)/libarch.la
 
 vmaim_elf_SOURCES =
