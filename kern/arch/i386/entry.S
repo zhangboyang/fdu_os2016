@@ -21,6 +21,7 @@
 #endif /* HAVE_CONFIG_H */
 
 #define KOFFSET (KERN_START_HIGH - KERN_START)
+#define VMA2LMA(x) ((x) - KOFFSET)
 .text
 
 .globl _start
@@ -35,13 +36,13 @@ master_early_entry:
     
     // clean up bss
     xor %eax, %eax
-    mov $KOFFSET, %edi
-    mov $AIM_KERN_BSS_END_EARLY, %ecx
+    mov $VMA2LMA(AIM_KERN_BSS_START), %edi
+    mov $VMA2LMA(AIM_KERN_BSS_END), %ecx
     sub %edi, %ecx
     rep stosb
     
     // prepare stack for C code
-    mov $AIM_KERN_STACK_BOTTOM_EARLY, %esp
+    mov $VMA2LMA(AIM_KERN_STACK_BOTTOM), %esp
     xor %ebp, %ebp // make stack backtrace happy
     
     // call master_early_init()

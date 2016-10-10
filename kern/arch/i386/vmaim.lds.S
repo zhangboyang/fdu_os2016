@@ -57,6 +57,7 @@ SECTIONS
         
         . = ALIGN(4096);
         . += KSTACKSIZE;
+        AIM_KERN_STACK_BOTTOM = .;
         AIM_KERN_STACK_BOTTOM_EARLY = . - KOFFSET;
     } : data
 }
