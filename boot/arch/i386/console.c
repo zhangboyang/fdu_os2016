@@ -152,21 +152,6 @@ delay(void)
 
 static bool serial_exists;
 
-static int
-serial_proc_data(void)
-{
-	if (!(inb(COM1+COM_LSR) & COM_LSR_DATA))
-		return -1;
-	return inb(COM1+COM_RX);
-}
-
-void
-serial_intr(void)
-{
-	if (serial_exists)
-		cons_intr(serial_proc_data);
-}
-
 static void
 serial_putc(int c)
 {
