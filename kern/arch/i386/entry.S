@@ -20,7 +20,7 @@
 #include <config.h>
 #endif /* HAVE_CONFIG_H */
 
-#include <arch/mmu.h>
+#include <arch/i386/mmu.h>
 #define VMA2LMA(x) ((x) - KOFFSET)
 
 .text
