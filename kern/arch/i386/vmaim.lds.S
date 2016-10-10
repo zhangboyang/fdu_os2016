@@ -27,11 +27,13 @@
  * linker script.
  */
 
+#define KOFFSET 0xC0000000
+
 ENTRY(_start)
 
 PHDRS
 {
-    text PT_LOAD FLAGS(5) AT(ADDR(.text) + 0xC0000000);
+    text PT_LOAD FLAGS(5) AT(ADDR(.text) - KOFFSET);
     rodata PT_LOAD FLAGS(4);
     data PT_LOAD FLAGS(6);
 }
@@ -39,7 +41,7 @@ PHDRS
 
 SECTIONS
 {
-    . = KERN_START;
+    . = KERN_START + KOFFSET;
     .text : { *(.text*) } : text
     .rodata : { *(.rodata*) } : rodata
     .data : {
