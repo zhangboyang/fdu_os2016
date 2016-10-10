@@ -29,18 +29,29 @@
 
 ENTRY(_start)
 
+PHDRS
+{
+    text PT_LOAD FLAGS(5);
+    rodata PT_LOAD FLAGS(4);
+    data PT_LOAD FLAGS(6);
+}
+
+
 SECTIONS
 {
     . = KERN_START;
-    .text : { *(.text) }
-    .data : { *(.data) }
-    
-    AIM_KERN_BSS_START = .;
-    .bss : { *(.bss) }
-    AIM_KERN_BSS_END = .;
-    
-	 . = ALIGN(4096);
-    AIM_KERN_STACK_LOWLIMIT = .;
-    . += KSTACKSIZE;
-    AIM_KERN_STACK_HIGHLIMIT = .;
+    .text : { *(.text*) }
+    .data : {
+        *(.data)
+        
+        AIM_KERN_BSS_START = .;
+        *(.bss)
+        AIM_KERN_BSS_END = .;
+        
+        . = ALIGN(4096);
+        AIM_KERN_STACK_LOWLIMIT = .;
+        . += KSTACKSIZE;
+        AIM_KERN_STACK_HIGHLIMIT = .;
+    }
+
 }
