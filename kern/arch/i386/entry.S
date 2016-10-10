@@ -69,7 +69,7 @@ spin:
 
 
 
-.rodata
+.section .rodata
 .p2align 2                                # force 4 byte alignment
 gdt:
   SEG_NULLASM                             # null seg
