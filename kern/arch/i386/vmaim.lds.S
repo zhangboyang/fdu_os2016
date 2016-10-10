@@ -31,7 +31,7 @@ ENTRY(_start)
 
 PHDRS
 {
-    text PT_LOAD FLAGS(5);
+    text PT_LOAD FLAGS(5) AT(ADDR(.text) + 0xC0000000);
     rodata PT_LOAD FLAGS(4);
     data PT_LOAD FLAGS(6);
 }
@@ -40,9 +40,9 @@ PHDRS
 SECTIONS
 {
     . = KERN_START;
-    .text : AT(. + 0xC0000000) { *(.text*) } : text
-    .rodata : AT(. + 0xC0000000) { *(.rodata*) } : rodata
-    .data : AT(. + 0xC0000000) {
+    .text : { *(.text*) } : text
+    .rodata : { *(.rodata*) } : rodata
+    .data : {
         *(.data)
         
         AIM_KERN_BSS_START = .;
