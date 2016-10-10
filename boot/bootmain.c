@@ -68,7 +68,7 @@ void bootmain(void)
     if (elf->e_phnum == 0) bpanic("no program headers in ELF file!");
     
     void *entry;
-    entry = elf->e_entry;
+    entry = (void *) elf->e_entry;
     
     while (ph < eph) {
         bprintf("phdr type=%x flags=%x offset=%x\n", (unsigned) ph->p_type, (unsigned) ph->p_flags, (unsigned) ph->p_offset);
@@ -100,7 +100,7 @@ void bootmain(void)
             #define bprintf ((int (*)(const char *fmt, ...)) 0x7c00)
         to call bprintf() in kernel
     */
-    unsigned joffset = bprintf - (0x7c00 + 5);
+    unsigned joffset = (unsigned) bprintf - (0x7c00 + 5);
     mbr[0] = '\xE9'; // opcode of JMP
     memcpy(&mbr[1], &joffset, 4);
     
