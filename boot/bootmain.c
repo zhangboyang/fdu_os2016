@@ -42,7 +42,8 @@ void bootmain(void)
         " /_/    \\_\\_____|_|  |_|\n"
     );
 
-    bprintf("bootloader itself is located from %x to %x, length %x\n", text_begin, text_end, text_end - text_begin);
+    bprintf("bootloader itself is located from %x to %x, length %x\n\n", text_begin, text_end, text_end - text_begin);
+    
     static unsigned char elfbuf[BOOT_ELF_PRELOAD];
     elf_hdr *elf = (void *) elfbuf;
 
@@ -63,7 +64,7 @@ void bootmain(void)
     ph = (void *) elf + elf->e_phoff;
     eph = ph + elf->e_phnum;
     
-    bprintf("total %d program headers.\n", (int) elf->e_phnum);
+    bprintf("there are %d program headers in kernel ELF.\n", (int) elf->e_phnum);
     if (elf->e_phnum == 0) bpanic("no program headers in ELF file!");
     
     while (ph < eph) {
