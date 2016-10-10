@@ -40,7 +40,7 @@ master_early_entry:
     rep stosb
     
     // prepare stack for C code
-    mov $AIM_KERN_STACK_HIGHLIMIT_EARLY, %esp
+    mov $AIM_KERN_STACK_BOTTOM_EARLY, %esp
     xor %ebp, %ebp // make stack backtrace happy
     
     // call master_early_init()
