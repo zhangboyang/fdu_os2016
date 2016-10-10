@@ -100,7 +100,7 @@ void bootmain(void)
     void (*entry)(void);
     entry = (void *) elf->e_entry;
     bprintf("kernel entry: %p\n", (void *) entry);
-    bputs("jump to kernel ...");
+    bputs("jump to kernel ...\n");
     entry();
     
     bpanic("kernel entry returned!");
