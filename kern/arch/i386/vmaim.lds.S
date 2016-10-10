@@ -29,7 +29,7 @@
 
 #define KOFFSET 0xC0000000
 
-ENTRY(_start)
+ENTRY(_start - KOFFSET)
 
 PHDRS
 {
