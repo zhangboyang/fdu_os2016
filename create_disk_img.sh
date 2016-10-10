@@ -24,3 +24,5 @@ dd if=boot/boot.elf of=disk.img conv=notrunc bs=512 seek=2048 || fail "can't cop
 
 # the magic number 34816 is offset of partition 2
 dd if=kern/vmaim.elf of=disk.img conv=notrunc bs=512 seek=34816 || fail "can't copy kernel"
+
+echo '========================================'
