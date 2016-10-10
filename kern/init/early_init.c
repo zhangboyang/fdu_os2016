@@ -24,6 +24,7 @@
 #include <aim/init.h>
 
 #include <libc/stdio.h>
+#include <aim/panic.h>
 
 __noreturn
 void master_early_init(void)
