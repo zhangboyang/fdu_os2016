@@ -67,15 +67,24 @@ void bootmain(void)
     bprintf("there are %d program headers in kernel ELF.\n", (int) elf->e_phnum);
     if (elf->e_phnum == 0) bpanic("no program headers in ELF file!");
     
+    void (*entry)(void);
+    entry = (void *) elf->e_entry;
+    
     while (ph < eph) {
         bprintf("phdr type=%x flags=%x offset=%x\n", (unsigned) ph->p_type, (unsigned) ph->p_flags, (unsigned) ph->p_offset);
         bprintf("     vaddr=%p paddr=%p\n", (void *) ph->p_vaddr, (void *) ph->p_paddr);
         bprintf("     filesz=%x memsz=%x align=%x\n", (unsigned) ph->p_filesz, (unsigned) ph->p_memsz, (unsigned) ph->p_align);
         
+        // load
         void *pa = (void *) ph->p_paddr;
         kernreader_readfile(pa, ph->p_filesz, ph->p_offset);
         if (ph->p_memsz > ph->p_filesz) {
             bmemset(pa + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
+        }
+        
+        // adjust entry if necessary
+        if (ph->p_paddr <= entry && entry < ph->p_paddr + ph->p_memsz) {
+            entry = entry - ph->p_vaddr + ph->p_paddr;
         }
         ph++;
     }
@@ -97,8 +106,6 @@ void bootmain(void)
     
  
     // call entry point, should not return
-    void (*entry)(void);
-    entry = (void *) elf->e_entry;
     bprintf("\nkernel entry: %p\n", (void *) entry);
     bputs("jump to kernel ...\n");
     entry();
