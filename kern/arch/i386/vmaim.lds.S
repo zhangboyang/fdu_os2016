@@ -33,9 +33,9 @@ ENTRY(_start)
 
 PHDRS
 {
-    text PT_LOAD FLAGS(5);
-    rodata PT_LOAD FLAGS(4);
-    data PT_LOAD FLAGS(6);
+    text PT_LOAD FLAGS(5) AT(ADDR(.text) - KOFFSET);
+    rodata PT_LOAD FLAGS(4) AT(ADDR(.rodata) - KOFFSET);
+    data PT_LOAD FLAGS(6) AT(ADDR(.data) - KOFFSET);
 }
 
 
