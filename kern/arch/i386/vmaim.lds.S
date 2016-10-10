@@ -40,8 +40,8 @@ PHDRS
 SECTIONS
 {
     . = KERN_START;
-    .text : { *(.text*) }
-    .rodata : { *(.rodata*) }
+    .text : { *(.text*) } : text
+    .rodata : { *(.rodata*) } : rodata
     .data : {
         *(.data)
         
@@ -53,6 +53,5 @@ SECTIONS
         AIM_KERN_STACK_LOWLIMIT = .;
         . += KSTACKSIZE;
         AIM_KERN_STACK_HIGHLIMIT = .;
-    }
-
+    } : data
 }
