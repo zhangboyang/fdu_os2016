@@ -20,8 +20,9 @@
 #include <config.h>
 #endif /* HAVE_CONFIG_H */
 
-#define KOFFSET (KERN_START_HIGH - KERN_START)
+#include <arch/mmu.h>
 #define VMA2LMA(x) ((x) - KOFFSET)
+
 .text
 
 .globl _start

@@ -19,6 +19,8 @@
 #ifndef _ARCH_MMU_H
 #define _ARCH_MMU_H
 
+#define KOFFSET 0xC0000000
+
 #ifndef __ASSEMBLER__
 
 typedef uint32_t	pde_t;
