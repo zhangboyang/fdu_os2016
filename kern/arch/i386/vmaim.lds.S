@@ -42,6 +42,8 @@ PHDRS
 SECTIONS
 {
     . = KERN_START + KOFFSET;
+    KERN_START_HIGH = .;
+    
     .text : AT(KERN_START) { *(.text*) } : text
     .rodata : { *(.rodata*) } : rodata
     .data : {

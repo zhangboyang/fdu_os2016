@@ -20,6 +20,7 @@
 #include <config.h>
 #endif /* HAVE_CONFIG_H */
 
+#define KOFFSET (KERN_START_HIGH - KERN_START)
 .text
 
 .globl _start
@@ -34,7 +35,7 @@ master_early_entry:
     
     // clean up bss
     xor %eax, %eax
-    mov $AIM_KERN_BSS_START_EARLY, %edi
+    mov $KOFFSET, %edi
     mov $AIM_KERN_BSS_END_EARLY, %ecx
     sub %edi, %ecx
     rep stosb
