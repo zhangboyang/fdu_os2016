@@ -37,7 +37,7 @@ master_early_entry:
     
     // reload GDT using kernel data segment
     lgdt VMA2LMA(gdtdesc)
-    ljmp    $(SEG_KCODE<<3), $start32
+    ljmp    $(SEG_KCODE<<3), $VMA2LMA(start32)
     
 start32:
     movw    $(SEG_KDATA<<3), %ax    # Our data segment selector
