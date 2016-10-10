@@ -83,9 +83,10 @@ void bootmain(void)
         }
         
         // adjust entry if necessary
-        if (ph->p_paddr <= entry && entry < ph->p_paddr + ph->p_memsz) {
+        if (pa <= entry && entry < pa + ph->p_memsz) {
             entry = entry - ph->p_vaddr + ph->p_paddr;
         }
+        
         ph++;
     }
 
