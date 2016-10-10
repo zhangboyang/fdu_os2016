@@ -20,6 +20,7 @@
 #define _ARCH_MMU_H
 
 #define KOFFSET 0xC0000000
+#define VMA2LMA(x) ((x) - KOFFSET)
 
 #ifndef __ASSEMBLER__
 

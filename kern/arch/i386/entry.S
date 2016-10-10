@@ -21,7 +21,7 @@
 #endif /* HAVE_CONFIG_H */
 
 #include <aim/mmu.h>
-#define VMA2LMA(x) ((x) - KOFFSET)
+
 
 .text
 
