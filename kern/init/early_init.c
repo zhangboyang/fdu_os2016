@@ -31,6 +31,7 @@ __noreturn
 void master_early_init(void)
 {
     bprintf("hello world! this is the AIM kernel!\n");
+    bprintf("%x\n", a);
 
 	arch_early_init();
 	
