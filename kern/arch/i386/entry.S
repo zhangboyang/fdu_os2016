@@ -35,6 +35,18 @@ master_early_entry:
     cli
     cld
     
+    // reload GDT using kernel data segment
+    lgdt VMA2LMA(gdtdesc)
+    ljmp    $(SEG_KCODE<<3), $start32
+start32:
+    movw    $(SEG_KDATA<<3), %ax    # Our data segment selector
+    movw    %ax, %ds                # -> DS: Data Segment
+    movw    %ax, %es                # -> ES: Extra Segment
+    movw    %ax, %ss                # -> SS: Stack Segment
+    movw    $0, %ax                 # Zero segments not ready for use
+    movw    %ax, %fs                # -> FS
+    movw    %ax, %gs                # -> GS
+    
     // clean up bss
     xor %eax, %eax
     mov $VMA2LMA(AIM_KERN_BSS_START), %edi
@@ -53,3 +65,17 @@ master_early_entry:
 spin:
     jmp spin
 
+
+
+
+
+.rodata
+.p2align 2                                # force 4 byte alignment
+gdt:
+  SEG_NULLASM                             # null seg
+  SEG_ASM(STA_X|STA_R, 0x0, 0xffffffff)   # code seg
+  SEG_ASM(STA_W, 0x0, 0xffffffff)         # data seg
+
+gdtdesc:
+  .word   (gdtdesc - gdt - 1)             # sizeof(gdt) - 1
+  .long   gdt                             # address gdt
