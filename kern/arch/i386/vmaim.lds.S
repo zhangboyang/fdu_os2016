@@ -41,6 +41,7 @@ SECTIONS
 {
     . = KERN_START;
     .text : { *(.text*) }
+    .rodata : { *(.rodata*) }
     .data : {
         *(.data)
         
