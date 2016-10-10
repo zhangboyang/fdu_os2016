@@ -79,4 +79,4 @@ gdt:
 
 gdtdesc:
   .word   (gdtdesc - gdt - 1)             # sizeof(gdt) - 1
-  .long   gdt                             # address gdt
+  .long   VMA2LMA(gdt)                    # address gdt
