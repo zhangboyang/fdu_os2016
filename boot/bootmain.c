@@ -79,12 +79,25 @@ void bootmain(void)
     }
 
     
+    /* FIXME: THIS IS THE SUPER DIRTY bprintf() HACK
+        currently, there is no printf() in kernel
+        fortunately, the loader bootloader has it own bprintf()
+        so we make a 'JMP bprintf' at 0x7c00
+        thus, we can use
+            #define bprintf ((int (*)(const char *fmt, ...)) 0x7c00)
+        to call bprintf() in kernel
+    */
+    unsigned joffset = bprintf - (0x7c00 + 5);
+    mbr[0] = '\xE9'; // opcode of JMP
+    memcpy(&mbr[1], &joffset, 4);
+    
+ #define bprintf ((int (*)(const char *fmt, ...)) 0x7c00)
+ 
     // call entry point, should not return
     void (*entry)(void);
     entry = (void *) elf->e_entry;
     bprintf("kernel entry: %p\n", (void *) entry);
     bputs("jump to kernel ...");
-    
     entry();
     
     bpanic("kernel entry returned!");
