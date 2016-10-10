@@ -48,12 +48,13 @@ SECTIONS
         *(.data)
         
         AIM_KERN_BSS_START = .;
+        AIM_KERN_BSS_START_EARLY = . - KOFFSET;
         *(.bss)
         AIM_KERN_BSS_END = .;
+        AIM_KERN_BSS_END_EARLY = . - KOFFSET;
         
         . = ALIGN(4096);
-        AIM_KERN_STACK_LOWLIMIT = .;
         . += KSTACKSIZE;
-        AIM_KERN_STACK_HIGHLIMIT = .;
+        AIM_KERN_STACK_BOTTOM_EARLY = . - KOFFSET;
     } : data
 }

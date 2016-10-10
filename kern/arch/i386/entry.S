@@ -34,13 +34,13 @@ master_early_entry:
     
     // clean up bss
     xor %eax, %eax
-    mov $AIM_KERN_BSS_START, %edi
-    mov $AIM_KERN_BSS_END, %ecx
+    mov $AIM_KERN_BSS_START_EARLY, %edi
+    mov $AIM_KERN_BSS_END_EARLY, %ecx
     sub %edi, %ecx
     rep stosb
     
     // prepare stack for C code
-    mov $AIM_KERN_STACK_HIGHLIMIT, %esp
+    mov $AIM_KERN_STACK_HIGHLIMIT_EARLY, %esp
     xor %ebp, %ebp // make stack backtrace happy
     
     // call master_early_init()
