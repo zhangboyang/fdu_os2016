@@ -50,4 +50,5 @@ SECTIONS
     .text : { *(.text); } : text
     .data : { *(.data) }
     .bss : { *(.bss) }
+    text_end = .;
 }

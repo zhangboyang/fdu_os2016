@@ -42,6 +42,7 @@ void bootmain(void)
         " /_/    \\_\\_____|_|  |_|\n"
     );
 
+    bprintf("bootloader itself is located from %x to %x, length %x\n", text_begin, text_end, text_end - text_begin);
     static unsigned char elfbuf[BOOT_ELF_PRELOAD];
     elf_hdr *elf = (void *) elfbuf;
 
