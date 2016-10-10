@@ -28,7 +28,7 @@
 __noreturn
 void master_early_init(void)
 {
-    bprintf("hello world! this is AIM kernel!");
+    bprintf("hello world! this is the AIM kernel!\n");
 
 	arch_early_init();
 	goto panic;
