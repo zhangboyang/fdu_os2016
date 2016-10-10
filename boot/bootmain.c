@@ -102,7 +102,7 @@ void bootmain(void)
     */
     unsigned joffset = (unsigned) bprintf - (0x7c00 + 5);
     mbr[0] = '\xE9'; // opcode of JMP
-    *(unsigned *) &mbr[1] = joffset;
+    bmemcpy(&mbr[1], &joffset, 4);
     
     
     
