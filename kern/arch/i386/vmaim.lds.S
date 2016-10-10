@@ -42,7 +42,7 @@ PHDRS
 SECTIONS
 {
     . = KERN_START + KOFFSET;
-    .text : { *(.text*) } : text
+    .text : AT(ADDR(.text) - KOFFSET) { *(.text*) } : text
     .rodata : { *(.rodata*) } : rodata
     .data : {
         *(.data)
