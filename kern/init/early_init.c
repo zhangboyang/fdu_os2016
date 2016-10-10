@@ -26,12 +26,10 @@
 #include <libc/stdio.h>
 #include <aim/panic.h>
 
-static int a[1000];
 __noreturn
 void master_early_init(void)
 {
     bprintf("hello world! this is the AIM kernel!\n");
-    bprintf("%x\n", a);
 
 	arch_early_init();
 	
