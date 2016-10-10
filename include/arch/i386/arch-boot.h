@@ -80,6 +80,7 @@ typedef struct elf32hdr		elf_hdr;
 typedef struct elf32_phdr	elf_phdr;
 extern uint8_t mbr[];
 extern uint8_t text_begin[];
+extern uint8_t text_end[];
 
 
 static inline unsigned char inb(unsigned short port)
