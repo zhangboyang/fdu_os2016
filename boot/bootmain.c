@@ -91,7 +91,8 @@ void bootmain(void)
     mbr[0] = '\xE9'; // opcode of JMP
     memcpy(&mbr[1], &joffset, 4);
     
- #define bprintf ((int (*)(const char *fmt, ...)) 0x7c00)
+    
+    
  
     // call entry point, should not return
     void (*entry)(void);
