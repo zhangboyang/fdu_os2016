@@ -55,7 +55,7 @@ void __local_panic(void)
 __noreturn
 void panic(const char *fmt, ...)
 {
-    bprintf("%s", fmt);
+    bprintf("KERNEL PANIC: %s\n", fmt);
 	__local_panic();
 }
 
