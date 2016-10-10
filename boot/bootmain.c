@@ -67,8 +67,8 @@ void bootmain(void)
     bprintf("there are %d program headers in kernel ELF.\n", (int) elf->e_phnum);
     if (elf->e_phnum == 0) bpanic("no program headers in ELF file!");
     
-    void (*entry)(void);
-    entry = (void *) elf->e_entry;
+    void *entry;
+    entry = elf->e_entry;
     
     while (ph < eph) {
         bprintf("phdr type=%x flags=%x offset=%x\n", (unsigned) ph->p_type, (unsigned) ph->p_flags, (unsigned) ph->p_offset);
@@ -108,9 +108,9 @@ void bootmain(void)
     
  
     // call entry point, should not return
-    bprintf("\nkernel entry: %p\n", (void *) entry);
+    bprintf("\nkernel entry: %p\n", entry);
     bputs("jump to kernel ...\n");
-    entry();
+    ((void (*)(void)) entry)();
     
     bpanic("kernel entry returned!");
 }
