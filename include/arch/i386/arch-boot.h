@@ -20,11 +20,7 @@
 #define _ARCH_BOOT_H
 
 
-/*
-    ZBY: some macros copied from xv6
-*/
-
-#include <mmu.h>
+#include <arch-mmu.h>
 
                 
 #ifndef __ASSEMBLER__
