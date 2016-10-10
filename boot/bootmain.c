@@ -99,7 +99,7 @@ void bootmain(void)
     // call entry point, should not return
     void (*entry)(void);
     entry = (void *) elf->e_entry;
-    bprintf("kernel entry: %p\n", (void *) entry);
+    bprintf("\nkernel entry: %p\n", (void *) entry);
     bputs("jump to kernel ...\n");
     entry();
     
