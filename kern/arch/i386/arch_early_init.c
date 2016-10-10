@@ -25,6 +25,6 @@
 
 void arch_early_init(void)
 {
-    bprintf("hello world! this is AIM kernel!");
+    
 }
 

@@ -23,9 +23,13 @@
 #include <sys/types.h>
 #include <aim/init.h>
 
+#include <stdio.h>
+
 __noreturn
 void master_early_init(void)
 {
+    bprintf("hello world! this is AIM kernel!");
+
 	arch_early_init();
 	goto panic;
 
