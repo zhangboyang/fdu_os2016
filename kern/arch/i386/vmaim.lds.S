@@ -22,12 +22,13 @@
 
 #define __LDSCRIPT__
 
+#include <aim/mmu.h>
+
 /*
  * Using the C preprocessor, we allow includes and macro expansion in this
  * linker script.
  */
 
-#define KOFFSET 0xC0000000
 
 ENTRY(_start)
 
