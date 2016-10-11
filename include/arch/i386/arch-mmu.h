@@ -138,13 +138,20 @@ typedef pte_t pgtable_t;
 #define ROUNDTO_PAGE(x)     (PAGE_OFF(x))
 #define ROUNDTO_BIGPAGE(x)  (BIGPAGE_OFF(x))
 
+
+
+
+
+
 #define PTR2ADDR(x) ((addr_t)(uint32_t)(x))
+#define ADDR2PTR(x) ((void *)(unsigned long)(x))
 
 
 #ifndef PREMAP
 #define KVA2PA(x) (PTR2ADDR(x))
+#define PA2KVA(x) (ADDR2PTR(x))
 #else
-#define KVA2PA(x) (PTR2ADDR(VMA2LMA(x)))
+//#define KVA2PA(x) (PTR2ADDR(VMA2LMA(x)))
 #endif
 
 
@@ -161,7 +168,7 @@ typedef pte_t pgtable_t;
 #define MKPGINDEX(pgmid)    (KVA2PA(pgmid) | PGINDEX_P)
 
 // walk a pgindex_t (i.e. get the VA in pgindex_t)
-#define WKPGINDEX(pgindex)  (PA2KVA((pgindex) ))
+#define WKPGINDEX(pgindex)  (PA2KVA(PAGE_FN(pgindex)))
 
 
 #endif /* !__ASSEMBLER__ */
