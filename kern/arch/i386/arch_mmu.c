@@ -70,7 +70,7 @@ bool early_mapping_valid(struct early_mapping *entry)
     // we use 2MB pages in early mapping
     return entry->paddr == ROUNDTO_BIGPAGE(entry->paddr) &&
            PTR2ADDR(entry->vaddr) == ROUNDTO_BIGPAGE(PTR2ADDR(entry->vaddr)) &&
-           size == ROUNDTO_BIGPAGE(size);
+           entry->size == ROUNDTO_BIGPAGE(entry->size);
 }
 
 
