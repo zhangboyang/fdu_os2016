@@ -78,7 +78,6 @@
 #define KOFFSET 0xC0000000
 #define VMA2LMA(x) ((x) - KOFFSET)
 
-
 #ifndef __ASSEMBLER__
 
 
@@ -96,16 +95,36 @@ typedef pde_t pgmid_t;
 typedef pte_t pgtable_t;
 
 
-#define PGINDEX_SIZE    32
-#define PGMID_SIZE      4096
-#define PGTABLE_SIZE    4096
 
 
-#define PGINDEX_ALIGN   PGINDEX_SIZE
-#define PGMID_ALIGN     PGMID_SIZE
-#define PGTABLE_ALIGN   PGTABLE_SIZE
+
+#define PGINDEX_BITS    2
+#define PGMID_BITS      9
+#define PGTABLE_BITS    9
+#define PAGE_SIZE       12
+
+#define PGTABLE_SHIFT   PAGE_SIZE                           // 12
+#define PGMID_SHIFT     (PGTABLE_SHIFT + PGTABLE_BITS)      // 12 + 9 = 21
+#define PGINDEX_SHIFT   (PGMID_SHIFT + PGMID_BITS)          // 21 + 9 = 30
+
+#define PGINDEX_SIZE    (sizeof(pgindex_t) * (1 << PGINDEX_BITS)) // 8 * 4 = 32
+#define PGMID_SIZE      (sizeof(pgmid_t) * (1 << PGMID_BITS))     // 8 * 512 = 4096
+#define PGTABLE_SIZE    (sizeof(pgtable_t) * (1 << PGTABLE_BITS)) // 8 * 512 = 4096
 
 
+#define PGINDEX_ALIGN   PGINDEX_SIZE        // 32
+#define PGMID_ALIGN     PGMID_SIZE          // 4096
+#define PGTABLE_ALIGN   PGTABLE_SIZE        // 4096
+
+
+
+
+
+#define PGINDEX_P       1
+
+
+// make a pgindex_t points to pgmid_t
+#define MKPGINDEX(pgmid)    (KVA2PA(pgmid) | PGINDEX_P)
 
 
 #endif /* !__ASSEMBLER__ */

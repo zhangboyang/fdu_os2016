@@ -23,22 +23,49 @@
 #include <sys/types.h>
 #include <aim/mmu.h>
 
-void mmu_init(pgindex_t *boot_page_index)
-{
-    // FIXME: add some early mapping
-    
-    page_index_init(boot_page_index);
-}
-
 
 /*
    ZBY: use PAE for i386
 */
 
+
+
 static __attribute((aligned(PGINDEX_ALIGN))) pgindex_t __boot_page_index[PGINDEX_SIZE];
+
+static __attribute((aligned(PGMID_ALIGN))) pgmid_t __boot_page_mid_all[PGINDEX_SIZE][PGMID_SIZE];
+
+
+/*
+    ZBY: instead clearing the @boot_page_index
+         we initialize the @boot_page_index using kernel .bss memory
+         only init first two level of pgindex
+         we will use 2MB pages later
+*/
+void page_index_clear(pgindex_t *boot_page_index)
+{
+    int i, j;
+    
+    // init the first level of pgindex
+    for (i = 0; i < PGINDEX_SIZE; i++) {
+        __boot_page_index = MKPGINDEX(__boot_page_mid_all[i]);
+    }
+    
+    // clear the second level of pgindex
+    memset(__boot_page_mid_all, 0, sizeof(__boot_page_mid_all));
+}
+
+
+void mmu_init(pgindex_t *boot_page_index)
+{
+    page_index_init(boot_page_index);
+}
+
+
 
 void early_mm_init(void)
 {
+    // FIXME: add some early mapping
+
     mmu_init(__boot_page_index);
 }
 
