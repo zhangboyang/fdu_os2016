@@ -34,6 +34,7 @@ KERN_LIBS = \
 	arch/$(ARCH)/libentry.la \
 	init/libearlyinit.la \
 	arch/$(ARCH)/libarch.la \
+	mm/libmm.la \
 	panic/libpanic.la
 
 vmaim_elf_SOURCES =
