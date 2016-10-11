@@ -27,7 +27,7 @@ void mmu_init(pgindex_t *boot_page_index)
 {
     // FIXME: add some early mapping
     
-    page_index_init();
+    page_index_init(boot_page_index);
 }
 
 
@@ -35,10 +35,10 @@ void mmu_init(pgindex_t *boot_page_index)
    ZBY: use PAE for i386
 */
 
-static __attribute((aligned(PGINDEX_ALIGN))) pgindex_t boot_page_index[PGINDEX_SIZE];
+static __attribute((aligned(PGINDEX_ALIGN))) pgindex_t __boot_page_index[PGINDEX_SIZE];
 
 void early_mm_init(void)
 {
-    mmu_init(boot_page_index);
+    mmu_init(__boot_page_index);
 }
 
