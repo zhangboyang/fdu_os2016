@@ -20,6 +20,9 @@
 #include <config.h>
 #endif /* HAVE_CONFIG_H */
 
+#define PREMAP
+
+
 #include <sys/types.h>
 #include <aim/mmu.h>
 #include <libc/string.h>

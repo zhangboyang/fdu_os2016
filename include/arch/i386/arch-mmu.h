@@ -123,6 +123,12 @@ typedef pte_t pgtable_t;
 #define PGINDEX_P       1
 
 
+#ifndef PREMAP
+#define KVA2PA(x) (x)
+#else
+#define KVA2PA(x) (VMA2LMA(x))
+#endif
+
 // make a pgindex_t points to pgmid_t
 #define MKPGINDEX(pgmid)    (KVA2PA(pgmid) | PGINDEX_P)
 
