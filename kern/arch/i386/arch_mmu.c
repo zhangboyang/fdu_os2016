@@ -27,6 +27,7 @@
 
 #include <sys/types.h>
 #include <util.h>
+#include <aim/debug.h>
 #include <aim/mmu.h>
 #include <aim/early_kmmap.h>
 #include <libc/string.h>
