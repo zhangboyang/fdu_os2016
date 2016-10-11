@@ -124,9 +124,9 @@ typedef pte_t pgtable_t;
 
 
 #ifndef PREMAP
-#define KVA2PA(x) ((addr_t) (x))
+#define KVA2PA(x) ((addr_t) (uint32_t) (x))
 #else
-#define KVA2PA(x) ((addr_t) (VMA2LMA(x))
+#define KVA2PA(x) ((addr_t) (uint32_t) (VMA2LMA(x))
 #endif
 
 // make a pgindex_t points to pgmid_t
