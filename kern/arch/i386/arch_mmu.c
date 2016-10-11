@@ -22,6 +22,7 @@
 
 #include <sys/types.h>
 #include <aim/mmu.h>
+#include <libc/string.h>
 
 
 /*
