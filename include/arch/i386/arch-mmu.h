@@ -127,15 +127,16 @@ typedef pte_t pgtable_t;
 #define PGINDEX_FN(x)   (((x) >> PGINDEX_SHIFT) & ((1 << PGINDEX_BITS) - 1))
 #define PGMID_FN(x)     (((x) >> PGMID_SHIFT) & ((1 << PGMID_BITS) - 1))
 #define PGTABLE_FN(x)   (((x) >> PGTABLE_SHIFT) & ((1 << PGTABLE_BITS) - 1))
-#define PAGE_FN(x)      ((x) & (PAGE_SIZE - 1))
-#define BIGPAGE_FN(x)   ((x) & (BIGPAGE_SIZE - 1))
+#define PAGE_FN(x)      ((x) & ~(PAGE_SIZE - 1))
+#define BIGPAGE_FN(x)   ((x) & ~(BIGPAGE_SIZE - 1))
 
 
 
 
-#define ROUNDTO_PAGE(x)     (ROUNDDOWN(x, PAGE_SIZE))
-#define ROUNDTO_BIGPAGE(x)  (ROUNDDOWN(x, BIGPAGE_SIZE))
-
+#define PAGE_OFF(x)     ((x) & (PAGE_SIZE - 1))
+#define BIGPAGE_OFF(x)  ((x) & (BIGPAGE_SIZE - 1))
+#define ROUNDTO_PAGE(x)     (PAGE_OFF(x))
+#define ROUNDTO_BIGPAGE(x)  (BIGPAGE_OFF(x))
 
 #define PTR2ADDR(x) ((addr_t)(uint32_t)(x))
 
@@ -158,6 +159,9 @@ typedef pte_t pgtable_t;
 
 // make a pgindex_t points to pgmid_t
 #define MKPGINDEX(pgmid)    (KVA2PA(pgmid) | PGINDEX_P)
+
+// walk a pgindex_t (i.e. get the VA in pgindex_t)
+#define WKPGINDEX(pgindex)  (PA2KVA((pgindex) ))
 
 
 #endif /* !__ASSEMBLER__ */

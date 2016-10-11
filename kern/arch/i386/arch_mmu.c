@@ -45,7 +45,18 @@ static __attribute((aligned(PGMID_ALIGN))) pgmid_t __boot_page_mid_all[PGINDEX_S
 
 int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr, void *vaddr, size_t size)
 {
+    // assert for alignment
+    assert(BIGPAGE_FN(paddr) == 0);
+    assert(BIGPAGE_FN(vaddr) == 0);
+    assert(BIGPAGE_FN(size) == 0);
     
+    addr_t pa, va;
+    for (pa = paddr, va = PTR2ADDR(vaddr); pa < paddr + size; pa += BIGPAGE_SIZE, va += BIGPAGE_SIZE) {
+        // map VA to PA
+        pgmid_t *pgmid = WKPGINDEX()
+    }
+    
+    return 0;
 }
 
 
