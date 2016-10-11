@@ -59,6 +59,17 @@ void page_index_clear(pgindex_t *boot_page_index)
 }
 
 
+// check alignment of struct early_mapping
+// see 'early_kmmap.c' for details
+bool early_mapping_valid(struct early_mapping *entry)
+{
+    // we use 2MB pages in early mapping
+    return entry->paddr == ROUNDTO_BIGPAGE(entry->paddr) &&
+           PTR2ADDR(entry->vaddr) == ROUNDTO_BIGPAGE(PTR2ADDR(entry->vaddr)) &&
+           size == ROUNDTO_BIGPAGE(size);
+}
+
+
 void mmu_init(pgindex_t *boot_page_index)
 {
     page_index_init(boot_page_index);

@@ -101,9 +101,10 @@ typedef pte_t pgtable_t;
 #define PGINDEX_BITS    2
 #define PGMID_BITS      9
 #define PGTABLE_BITS    9
-#define PAGE_SIZE       12
+#define PGOFFSET_BITS   12
+#define PGBIGOFFSET_BITS  (PGTABLE_BITS + PGOFFSET_BITS)
 
-#define PGTABLE_SHIFT   PAGE_SIZE                           // 12
+#define PGTABLE_SHIFT   PGOFFSET_BITS                       // 12
 #define PGMID_SHIFT     (PGTABLE_SHIFT + PGTABLE_BITS)      // 12 + 9 = 21
 #define PGINDEX_SHIFT   (PGMID_SHIFT + PGMID_BITS)          // 21 + 9 = 30
 
@@ -120,14 +121,34 @@ typedef pte_t pgtable_t;
 
 
 
-#define PGINDEX_P       1
+
+#define PAGE_SIZE       (1 << PGOFFSET_BITS)
+#define BIGPAGE_SIZE    (1 << PGBIGOFFSET_BITS)
+
+
+
+#define ROUNDTO_PAGE(x)     (ROUNDDOWN(x, PAGE_SIZE))
+#define ROUNDTO_BIGPAGE(x)  (ROUNDDOWN(x, BIGPAGE_SIZE))
+
+
+#define PTR2ADDR(x) ((addr_t)(uint32_t)(x))
 
 
 #ifndef PREMAP
-#define KVA2PA(x) ((addr_t) (uint32_t) (x))
+#define KVA2PA(x) (PTR2ADDR(x))
 #else
-#define KVA2PA(x) ((addr_t) (uint32_t) (VMA2LMA(x)))
+#define KVA2PA(x) (PTR2ADDR(VMA2LMA(x)))
 #endif
+
+
+
+
+
+
+#define PGINDEX_P       1
+
+
+
 
 // make a pgindex_t points to pgmid_t
 #define MKPGINDEX(pgmid)    (KVA2PA(pgmid) | PGINDEX_P)
