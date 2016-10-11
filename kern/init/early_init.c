@@ -33,6 +33,8 @@ void master_early_init(void)
 
 	arch_early_init();
 	
+	early_mm_init();
+	
 	panic("haha");
 }
 

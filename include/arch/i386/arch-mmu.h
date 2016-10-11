@@ -72,7 +72,7 @@
 
 
 
-
+#define CR4_PAE         (1 << 5)
 
 
 #define KOFFSET 0xC0000000
@@ -81,10 +81,32 @@
 
 #ifndef __ASSEMBLER__
 
-typedef uint32_t	pde_t;
-typedef uint32_t	pte_t;
 
-typedef pde_t	pgindex_t;
+/*
+   ZBY: use PAE for i386
+*/
+
+
+typedef uint64_t pdpte_t; // level 3
+typedef uint64_t pde_t; // level 2
+typedef uint64_t pte_t; // level 1
+
+typedef pdpte_t pgindex_t;
+typedef pde_t pgmid_t;
+typedef pte_t pgtable_t;
+
+
+#define PGINDEX_SIZE    32
+#define PGMID_SIZE      4096
+#define PGTABLE_SIZE    4096
+
+
+#define PGINDEX_ALIGN   PGINDEX_SIZE
+#define PGMID_ALIGN     PGMID_SIZE
+#define PGTABLE_ALIGN   PGTABLE_SIZE
+
+
+
 
 #endif /* !__ASSEMBLER__ */
 

@@ -54,6 +54,14 @@ void early_mm_init(void);	/* arch-specific */
 void mm_init(void);
 void arch_mm_init(void);	/* arch-specific */
 
+
+
+
+
+
+
+
+
 /* Clear all MMU init callback handlers */
 void mmu_handlers_clear(void);
 /* Add one MMU init callback handler, which will be called *after*
@@ -66,6 +74,12 @@ void jump_handlers_clear(void);
 int jump_handlers_add(generic_fp entry);
 void jump_handlers_apply(void);
 
+
+
+
+
+
+
 /*
  * This routine jumps to an absolute address, regardless of MMU and page index
  * state.
@@ -74,6 +88,12 @@ void jump_handlers_apply(void);
  */
 __noreturn
 void abs_jump(void *addr);
+
+
+
+
+
+
 
 /*
  * Architecture-specific interfaces
@@ -86,6 +106,24 @@ pgindex_t *init_pgindex(void);
 /* Destroy the page index table itself assuming that everything underlying is
  * already done with */
 void destroy_pgindex(pgindex_t *pgindex);
+
+
+
+
+
+
+/* Switch page index to the given one */
+int switch_pgindex(pgindex_t *pgindex);
+/* Get the currently loaded page index structure */
+pgindex_t *get_pgindex(void);
+
+
+
+
+
+
+
+
 /* Map virtual address starting at @vaddr to physical pages at @paddr, with
  * VMA flags @flags (VMA_READ, etc.) Additional flags apply as in kmmap.h.
  */
@@ -108,12 +146,16 @@ int set_pages_perm(pgindex_t *pgindex, void *vaddr, size_t size, uint32_t flags)
  */
 ssize_t invalidate_pages(pgindex_t *pgindex, void *vaddr, size_t size,
     addr_t *paddr);
-/* Switch page index to the given one */
-int switch_pgindex(pgindex_t *pgindex);
-/* Get the currently loaded page index structure */
-pgindex_t *get_pgindex(void);
+
+
+
+
+
+
+
+
 /* Trace a page index to convert from user address to kernel address */
-void *uva2kva(pgindex_t *pgindex, void *uaddr);
+//void *uva2kva(pgindex_t *pgindex, void *uaddr);
 
 #endif /* !__ASSEMBLER__ */
 

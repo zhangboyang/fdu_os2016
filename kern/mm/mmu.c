@@ -59,6 +59,9 @@ int page_index_init(pgindex_t *boot_page_index)
 	return 0;
 }
 
+
+
+
 /* handlers after mmu start and after jump */
 #define MMU_HANDLER_QUEUE_LENGTH	10
 static int __mmu_handler_queue_size;
