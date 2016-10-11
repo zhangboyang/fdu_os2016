@@ -43,6 +43,12 @@ static __attribute((aligned(PGINDEX_ALIGN))) pgindex_t __boot_page_index[PGINDEX
 static __attribute((aligned(PGMID_ALIGN))) pgmid_t __boot_page_mid_all[PGINDEX_SIZE][PGMID_SIZE];
 
 
+int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr, void *vaddr, size_t size)
+{
+    
+}
+
+
 /*
     ZBY: instead clearing the @boot_page_index
          we initialize the @boot_page_index using kernel .bss memory
@@ -68,9 +74,9 @@ void page_index_clear(pgindex_t *boot_page_index)
 bool early_mapping_valid(struct early_mapping *entry)
 {
     // we use 2MB pages in early mapping
-    return entry->paddr == ROUNDTO_BIGPAGE(entry->paddr) &&
-           PTR2ADDR(entry->vaddr) == ROUNDTO_BIGPAGE(PTR2ADDR(entry->vaddr)) &&
-           entry->size == ROUNDTO_BIGPAGE(entry->size);
+    return BIGPAGE_FN(entry->paddr) == 0 &&
+           BIGPAGE_FN(PTR2ADDR(entry->vaddr)) == 0 &&
+           BIGPAGE_FN(entry->size) == 0;
 }
 
 

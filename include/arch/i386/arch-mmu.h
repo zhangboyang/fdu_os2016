@@ -119,11 +119,17 @@ typedef pte_t pgtable_t;
 
 
 
-
-
-
 #define PAGE_SIZE       (1 << PGOFFSET_BITS)
 #define BIGPAGE_SIZE    (1 << PGBIGOFFSET_BITS)
+
+
+// FN means frame number
+#define PGINDEX_FN(x)   (((x) >> PGINDEX_SHIFT) & ((1 << PGINDEX_BITS) - 1))
+#define PGMID_FN(x)     (((x) >> PGMID_SHIFT) & ((1 << PGMID_BITS) - 1))
+#define PGTABLE_FN(x)   (((x) >> PGTABLE_SHIFT) & ((1 << PGTABLE_BITS) - 1))
+#define PAGE_FN(x)      ((x) & (PAGE_SIZE - 1))
+#define BIGPAGE_FN(x)   ((x) & (BIGPAGE_SIZE - 1))
+
 
 
 
