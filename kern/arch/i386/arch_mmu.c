@@ -46,9 +46,9 @@ static __attribute((aligned(PGMID_ALIGN))) pgmid_t __boot_page_mid_all[PGINDEX_S
 int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr, void *vaddr, size_t size)
 {
     // assert for alignment
-    assert(BIGPAGE_FN(paddr) == 0);
-    assert(BIGPAGE_FN(vaddr) == 0);
-    assert(BIGPAGE_FN(size) == 0);
+    assert(BIGPAGE_OFF(paddr) == 0);
+    assert(BIGPAGE_OFF(vaddr) == 0);
+    assert(BIGPAGE_OFF(size) == 0);
     
     addr_t pa, va;
     for (pa = paddr, va = PTR2ADDR(vaddr); pa < paddr + size; pa += BIGPAGE_SIZE, va += BIGPAGE_SIZE) {
@@ -85,9 +85,9 @@ void page_index_clear(pgindex_t *boot_page_index)
 bool early_mapping_valid(struct early_mapping *entry)
 {
     // we use 2MB pages in early mapping
-    return BIGPAGE_FN(entry->paddr) == 0 &&
-           BIGPAGE_FN(PTR2ADDR(entry->vaddr)) == 0 &&
-           BIGPAGE_FN(entry->size) == 0;
+    return BIGPAGE_OFF(entry->paddr) == 0 &&
+           BIGPAGE_OFF(PTR2ADDR(entry->vaddr)) == 0 &&
+           BIGPAGE_OFF(entry->size) == 0;
 }
 
 
