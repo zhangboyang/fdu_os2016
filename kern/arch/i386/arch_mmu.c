@@ -47,7 +47,7 @@ int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr, void *vaddr, 
 {
     // assert for alignment
     assert(BIGPAGE_OFF(paddr) == 0);
-    assert(BIGPAGE_OFF(vaddr) == 0);
+    assert(BIGPAGE_OFF(PTR2ADDR(vaddr)) == 0);
     assert(BIGPAGE_OFF(size) == 0);
     
     addr_t pa, va;
