@@ -44,14 +44,14 @@ static __attribute((aligned(PGMID_ALIGN))) pgmid_t __boot_page_mid_all[PGINDEX_S
 */
 void page_index_clear(pgindex_t *boot_page_index)
 {
-    int i, j;
+    int i;
     
     // init the first level of pgindex
     for (i = 0; i < PGINDEX_SIZE; i++) {
         __boot_page_index[i] = MKPGINDEX(__boot_page_mid_all[i]);
     }
     
-    // clear the second level of pgindex
+    // clear the second level of pgindex (clear P bit to 0)
     memset(__boot_page_mid_all, 0, sizeof(__boot_page_mid_all));
 }
 
