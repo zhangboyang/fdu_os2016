@@ -20,10 +20,13 @@
 #include <config.h>
 #endif /* HAVE_CONFIG_H */
 
+
+// make macros in PREMAP mode in 'mmu.h'
 #define PREMAP
 
 
 #include <sys/types.h>
+#include <util.h>
 #include <aim/mmu.h>
 #include <aim/early_kmmap.h>
 #include <libc/string.h>
