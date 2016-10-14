@@ -36,7 +36,8 @@ KERN_LIBS = \
 	init/libearlyinit.la \
 	mm/libmm.la \
 	panic/libpanic.la \
-	arch/$(ARCH)/libarch.la
+	arch/$(ARCH)/libarch.la \
+	../lib/libc/libc.la
 
 libkernel_la_SOURCES =
 libkernel_la_LIBADD = $(KERN_LIBS)

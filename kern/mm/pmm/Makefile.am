@@ -17,15 +17,9 @@
 
 include $(top_srcdir)/env.am
 
-noinst_HEADERS = \
-	boot.h \
-	debug.h \
-	device.h \
-	early_kmmap.h \
-	gfp.h \
-	init.h \
-	mmu.h \
-	panic.h \
-	pmm.h \
-	vmm.h
+noinst_LTLIBRARIES = libpmm.la
+
+SRCS = pmm.c
+
+libpmm_la_SOURCES = $(SRCS)
 
