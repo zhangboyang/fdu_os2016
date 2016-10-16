@@ -129,7 +129,7 @@ void early_mm_init(void)
 
 void mmu_jump()
 {
-    __asm__ __volatile__ ("mov %0, %cr3"::"r"(boot_page_index));
+    __asm__ __volatile__ ("mov %0, %cr3"::"r"(__boot_page_index));
     abs_jump(master_entry);
 }
 
