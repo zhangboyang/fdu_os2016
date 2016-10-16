@@ -132,6 +132,7 @@ __asm__ (
     ".globl mmu_jump\n"
     "mmu_jump:\n"
     "mov $__boot_page_index, %eax\n"
+    "sub $KOFFSET, %eax\n"
     "mov %eax, %cr3\n"
     "mov %cr0, %eax\n"
     "or $0x80000000, %eax\n"
