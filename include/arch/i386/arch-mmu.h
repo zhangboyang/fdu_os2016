@@ -179,7 +179,7 @@ typedef pte_t pgtable_t;
 
 // make a pgindex_t points to pgmid_t
 #define MKPGINDEX(pgmid)    (KVA2PA(pgmid) | PGINDEX_P)
-#define MKPGMID_BIG(pa)     ((pa) | PGMID_P)
+#define MKPGMID_BIG(pa)     ((pa) | PGMID_P | PGMID_PS)
 
 // walk a pgindex_t (i.e. get the VA in pgindex_t)
 #define WKPGINDEX(pgindex)  (PA2KVA(PAGE_FN(pgindex)))
