@@ -76,7 +76,7 @@ master_entry:
     
     // reload GDT using kernel data segment in high address
     lgdt gdtdesc
-    ljmp    $(SEG_KCODE<<3), $VMA2LMA(start32)
+    ljmp    $(SEG_KCODE<<3), $start32
 start32:
     movw    $(SEG_KDATA<<3), %ax    # Our data segment selector
     movw    %ax, %ds                # -> DS: Data Segment
