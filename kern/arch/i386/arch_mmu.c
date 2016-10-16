@@ -32,6 +32,7 @@
 #include <aim/early_kmmap.h>
 #include <libc/string.h>
 #include <libc/stdio.h>
+#include <aim/init.h>
 
 /*
    ZBY: use PAE for i386

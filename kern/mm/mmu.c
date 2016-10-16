@@ -24,7 +24,6 @@
 #include <aim/early_kmmap.h>
 #include <aim/mmu.h>
 #include <aim/panic.h>
-#include <aim/init.h>
 
 /*
  * This source file provides upper-level utilities to handle memory mappings.
