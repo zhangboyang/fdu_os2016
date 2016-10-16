@@ -21,23 +21,11 @@
 #endif /* HAVE_CONFIG_H */
 
 #include <sys/types.h>
-#include <aim/init.h>
-#include <aim/early_kmmap.h>
-#include <arch-mmu.h>
-#include <util.h>
+
 
 void arch_early_init(void)
 {
-    early_mapping_clear();
-    
-    addr_t ksize = PTR2ADDR(KERN_END_HIGH) - KOFFSET;
-    struct early_mapping entry = {
-		.paddr	= 0,
-		.vaddr	= ADDR2PTR(KOFFSET),
-		.size	= ROUNDUP(ksize, BIGPAGE_SIZE),
-		.type	= EARLY_MAPPING_MEMORY
-	};
-	
-	early_mapping_add(&entry);
+
 }
+
 

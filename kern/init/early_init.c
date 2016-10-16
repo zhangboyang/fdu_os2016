@@ -27,6 +27,7 @@
 #include <aim/panic.h>
 #include <aim/mmu.h>
 
+
 __noreturn
 void master_early_init(void)
 {
