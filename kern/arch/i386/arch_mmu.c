@@ -103,8 +103,18 @@ void mmu_init(pgindex_t *boot_page_index)
 
 void early_mm_init(void)
 {
-    // FIXME: add some early mapping
-
+    early_mapping_clear();
+    
+    addr_t ksize = PTR2ADDR(KERN_END_HIGH) - KOFFSET;
+    struct early_mapping entry = {
+		.paddr	= 0,
+		.vaddr	= ADDR2PTR(KOFFSET),
+		.size	= ROUNDUP(ksize, BIGPAGE_SIZE),
+		.type	= EARLY_MAPPING_MEMORY
+	};
+	
+	early_mapping_add(&entry);
+	
     mmu_init(__boot_page_index);
 }
 
