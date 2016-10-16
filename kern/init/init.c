@@ -10,6 +10,8 @@
 
 void master_init()
 {
-    while (1);
+    bprintf("hello world! we are now at high address!\n");
+    
+    panic("haha");
 }
 
