@@ -30,16 +30,15 @@ _start:
 
 .globl master_early_entry
 master_early_entry:
-
     // disable interrupts
     cli
     cld
     
     // reload GDT using kernel data segment
     lgdt VMA2LMA(gdtdesc_early)
-    ljmp    $(SEG_KCODE<<3), $VMA2LMA(start32)
+    ljmp    $(SEG_KCODE<<3), $VMA2LMA(start32_early)
     
-start32:
+start32_early:
     movw    $(SEG_KDATA<<3), %ax    # Our data segment selector
     movw    %ax, %ds                # -> DS: Data Segment
     movw    %ax, %es                # -> ES: Extra Segment
@@ -63,8 +62,8 @@ start32:
     call master_early_init
     
     // infloop in case of master_early_init() returns
-spin:
-    jmp spin
+1:
+    jmp 1b
 
 
 // after jump to high address
@@ -73,8 +72,32 @@ spin:
 .text
 .globl master_entry
 master_entry:
-    jmp master_entry
-
+    cld
+    
+    // reload GDT using kernel data segment in high address
+    lgdt gdtdesc
+    ljmp    $(SEG_KCODE<<3), $VMA2LMA(start32)
+start32:
+    movw    $(SEG_KDATA<<3), %ax    # Our data segment selector
+    movw    %ax, %ds                # -> DS: Data Segment
+    movw    %ax, %es                # -> ES: Extra Segment
+    movw    %ax, %ss                # -> SS: Stack Segment
+    movw    $0, %ax                 # Zero segments not ready for use
+    movw    %ax, %fs                # -> FS
+    movw    %ax, %gs                # -> GS
+    
+    // no need to clean up bss
+    
+    // prepare stack for C code
+    mov $AIM_KERN_STACK_BOTTOM, %esp
+    xor %ebp, %ebp // make stack backtrace happy
+    
+    // call master_init
+    call master_init
+    
+    // infloop in case of master_early_init() returns
+1:
+    jmp 1b
 
 
 
@@ -84,7 +107,6 @@ gdt:
   SEG_NULLASM                             # null seg
   SEG_ASM(STA_X|STA_R, 0x0, 0xffffffff)   # code seg
   SEG_ASM(STA_W, 0x0, 0xffffffff)         # data seg
-  
 gdtdesc:
   .word   (gdtdesc - gdt - 1)             # sizeof(gdt) - 1
   .long   gdt                             # address gdt 
