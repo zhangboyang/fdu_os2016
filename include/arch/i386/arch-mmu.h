@@ -80,6 +80,9 @@
 
 #ifndef __ASSEMBLER__
 
+extern uint8_t KERN_START_HIGH[];
+extern uint8_t KERN_END_HIGH[];
+
 
 /*
    ZBY: use PAE for i386
