@@ -108,9 +108,9 @@ typedef pte_t pgtable_t;
 #define PGMID_SHIFT     (PGTABLE_SHIFT + PGTABLE_BITS)      // 12 + 9 = 21
 #define PGINDEX_SHIFT   (PGMID_SHIFT + PGMID_BITS)          // 21 + 9 = 30
 
-#define PGINDEX_SIZE    (1 << PGINDEX_BITS)     // 4
-#define PGMID_SIZE      (1 << PGMID_BITS)       // 512
-#define PGTABLE_SIZE    (1 << PGTABLE_BITS)     // 512
+#define PGINDEX_SIZE    (1ULL << PGINDEX_BITS)     // 4
+#define PGMID_SIZE      (1ULL << PGMID_BITS)       // 512
+#define PGTABLE_SIZE    (1ULL << PGTABLE_BITS)     // 512
 
 
 #define PGINDEX_ALIGN   (sizeof(pgindex_t) * PGINDEX_SIZE)        // 32
@@ -119,14 +119,14 @@ typedef pte_t pgtable_t;
 
 
 
-#define PAGE_SIZE       (1 << PGOFFSET_BITS)
-#define BIGPAGE_SIZE    (1 << PGBIGOFFSET_BITS)
+#define PAGE_SIZE       (1ULL << PGOFFSET_BITS)
+#define BIGPAGE_SIZE    (1ULL << PGBIGOFFSET_BITS)
 
 
 // FN means frame number
-#define PGINDEX_FN(x)   (((x) >> PGINDEX_SHIFT) & ((1 << PGINDEX_BITS) - 1))
-#define PGMID_FN(x)     (((x) >> PGMID_SHIFT) & ((1 << PGMID_BITS) - 1))
-#define PGTABLE_FN(x)   (((x) >> PGTABLE_SHIFT) & ((1 << PGTABLE_BITS) - 1))
+#define PGINDEX_FN(x)   (((x) >> PGINDEX_SHIFT) & ((1ULL << PGINDEX_BITS) - 1))
+#define PGMID_FN(x)     (((x) >> PGMID_SHIFT) & ((1ULL << PGMID_BITS) - 1))
+#define PGTABLE_FN(x)   (((x) >> PGTABLE_SHIFT) & ((1ULL << PGTABLE_BITS) - 1))
 #define PAGE_FN(x)      ((x) & ~(PAGE_SIZE - 1))
 #define BIGPAGE_FN(x)   ((x) & ~(BIGPAGE_SIZE - 1))
 
@@ -159,15 +159,24 @@ typedef pte_t pgtable_t;
 
 
 
-#define PGINDEX_P       1
-#define PGMID_P         1
+#define PGINDEX_P       (1ULL << 0)
+
+#define PGMID_P         (1ULL << 0)
+#define PGMID_RW        (1ULL << 1)
+#define PGMID_US        (1ULL << 2)
+#define PGMID_PWT       (1ULL << 3)
+#define PGMID_PCD       (1ULL << 4)
+#define PGMID_A         (1ULL << 5)
+#define PGMID_PS        (1ULL << 7)
+#define PGMID_XD        (1ULL << 63)
+
 
 
 
 
 // make a pgindex_t points to pgmid_t
 #define MKPGINDEX(pgmid)    (KVA2PA(pgmid) | PGINDEX_P)
-#define MKPGMID_BIG(pa)     (pa | PGMID_P)
+#define MKPGMID_BIG(pa)     ((pa) | PGMID_P)
 
 // walk a pgindex_t (i.e. get the VA in pgindex_t)
 #define WKPGINDEX(pgindex)  (PA2KVA(PAGE_FN(pgindex)))

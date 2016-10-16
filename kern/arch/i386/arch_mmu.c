@@ -55,7 +55,7 @@ int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr, void *vaddr, 
     for (pa = paddr, va = PTR2ADDR(vaddr); pa < paddr + size; pa += BIGPAGE_SIZE, va += BIGPAGE_SIZE) {
         // map VA to PA
         pgmid_t *pgmid = WKPGINDEX(boot_page_index[PGINDEX_FN(va)]);
-        pgmid[PGMID_FN(va)] = MKPGMID_BIG(pa);
+        pgmid[PGMID_FN(va)] = MKPGMID_BIG(pa) | PGMID_RW;
     }
     
     return 0;

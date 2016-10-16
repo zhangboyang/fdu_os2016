@@ -25,6 +25,16 @@
 
 void arch_early_init(void)
 {
+    early_mapping_clear();
     
+    addr_t ksize = KERN_END_HIGH - KOFFSET;
+    struct early_mapping entry = {
+		.paddr	= 0,
+		.vaddr	= KOFFSET,
+		.size	= ROUNDUP(ksize, BIGPAGE_SIZE),
+		.type	= EARLY_MAPPING_MEMORY
+	};
+	
+	early_mapping_add(&entry);
 }
 
