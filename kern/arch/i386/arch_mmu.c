@@ -118,7 +118,7 @@ void early_mm_init(void)
     mmu_init(__boot_page_index);
 }
 
-__asm__ __volatile__ (
+__asm__ (
     ".globl abs_jump\n"
     "abs_jump:\n"
     "   pop %eax\n"
