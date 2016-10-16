@@ -128,18 +128,18 @@ void early_mm_init(void)
     mmu_init(__boot_page_index);
 }
 
-__asm__ (
-    ".globl mmu_jump\n"
-    "mmu_jump:\n"
-    "mov $__boot_page_index, %eax\n"
-    "sub $KOFFSET, %eax\n"
-    "mov %eax, %cr3\n"
-    "mov %cr0, %eax\n"
-    "or $0x80000000, %eax\n"
-    "mov %eax, %cr0\n"
-    "push $master_entry\n"
-    "call abs_jump\n"
-);
+void mmu_jump()
+{
+    __asm__ __volatile__ ("mov %0, %%cr3\n\t"::__boot_page_index);
+    
+    __asm__ __volatile__ (
+        "mov %cr0, %eax\n\t"
+        "or $0x80000000, %eax\n\t"
+        "mov %eax, %cr0\n\t"
+        :::"eax"
+    );
+    abs_jump(master_entry);
+}
 
 
 __asm__ (
