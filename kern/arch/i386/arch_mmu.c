@@ -130,8 +130,18 @@ void early_mm_init(void)
 
 void mmu_jump()
 {
+    // enable PAE
+    __asm__ __volatile__ (
+        "mov %%cr4, %%eax\n\t"
+        "or $0x00000010, %%eax\n\t"
+        "mov %%eax, %%cr4\n\t"
+        :::"eax"
+    );
+    
+    // move page table to cr3
     __asm__ __volatile__ ("mov %0, %%cr3\n\t"::"r"(__boot_page_index));
     
+    // enable pageing
     __asm__ __volatile__ (
         "mov %%cr0, %%eax\n\t"
         "or $0x80000000, %%eax\n\t"
