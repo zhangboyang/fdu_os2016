@@ -23,6 +23,7 @@
 #include <sys/types.h>
 #include <aim/init.h>
 #include <aim/early_kmmap.h>
+#include <arch-mmu.h>
 
 void arch_early_init(void)
 {
