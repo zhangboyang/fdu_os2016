@@ -36,7 +36,7 @@ master_early_entry:
     cld
     
     // reload GDT using kernel data segment
-    lgdt VMA2LMA(gdtdesc)
+    lgdt VMA2LMA(gdtdesc_early)
     ljmp    $(SEG_KCODE<<3), $VMA2LMA(start32)
     
 start32:
@@ -67,6 +67,14 @@ spin:
     jmp spin
 
 
+// after jump to high address
+// rebuild C runtime environment (esp, balabala)
+
+.text
+.globl master_entry
+master_entry:
+    jmp master_entry
+
 
 
 
@@ -76,13 +84,11 @@ gdt:
   SEG_NULLASM                             # null seg
   SEG_ASM(STA_X|STA_R, 0x0, 0xffffffff)   # code seg
   SEG_ASM(STA_W, 0x0, 0xffffffff)         # data seg
-
+  
 gdtdesc:
+  .word   (gdtdesc - gdt - 1)             # sizeof(gdt) - 1
+  .long   gdt                             # address gdt 
+gdtdesc_early:
   .word   (gdtdesc - gdt - 1)             # sizeof(gdt) - 1
   .long   VMA2LMA(gdt)                    # address gdt
 
-
-
-.globl master_entry
-master_entry:
-    jmp master_entry
