@@ -3,6 +3,8 @@
 #endif /* HAVE_CONFIG_H */
 
 #include <sys/types.h>
+#include <aim/panic.h>
+#include <libc/stdio.h>
 
 /*
  * this file is added by ZBY
