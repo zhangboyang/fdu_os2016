@@ -108,14 +108,14 @@ typedef pte_t pgtable_t;
 #define PGMID_SHIFT     (PGTABLE_SHIFT + PGTABLE_BITS)      // 12 + 9 = 21
 #define PGINDEX_SHIFT   (PGMID_SHIFT + PGMID_BITS)          // 21 + 9 = 30
 
-#define PGINDEX_SIZE    (sizeof(pgindex_t) * (1 << PGINDEX_BITS)) // 8 * 4 = 32
-#define PGMID_SIZE      (sizeof(pgmid_t) * (1 << PGMID_BITS))     // 8 * 512 = 4096
-#define PGTABLE_SIZE    (sizeof(pgtable_t) * (1 << PGTABLE_BITS)) // 8 * 512 = 4096
+#define PGINDEX_SIZE    (1 << PGINDEX_BITS)     // 4
+#define PGMID_SIZE      (1 << PGMID_BITS)       // 512
+#define PGTABLE_SIZE    (1 << PGTABLE_BITS)     // 512
 
 
-#define PGINDEX_ALIGN   PGINDEX_SIZE        // 32
-#define PGMID_ALIGN     PGMID_SIZE          // 4096
-#define PGTABLE_ALIGN   PGTABLE_SIZE        // 4096
+#define PGINDEX_ALIGN   (sizeof(pgindex_t) * PGINDEX_SIZE)        // 32
+#define PGMID_ALIGN     (sizeof(pgmid_t) * PGMID_SIZE)            // 4096
+#define PGTABLE_ALIGN   (sizeof(pgtable_t) * PGTABLE_SIZE)        // 4096
 
 
 
@@ -160,12 +160,14 @@ typedef pte_t pgtable_t;
 
 
 #define PGINDEX_P       1
+#define PGMID_P         1
 
 
 
 
 // make a pgindex_t points to pgmid_t
 #define MKPGINDEX(pgmid)    (KVA2PA(pgmid) | PGINDEX_P)
+#define MKPGMID_BIG(pa)     (pa | PGMID_P)
 
 // walk a pgindex_t (i.e. get the VA in pgindex_t)
 #define WKPGINDEX(pgindex)  (PA2KVA(PAGE_FN(pgindex)))
