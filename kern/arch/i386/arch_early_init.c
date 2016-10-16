@@ -22,6 +22,7 @@
 
 #include <sys/types.h>
 #include <aim/init.h>
+#include <aim/early_kmmap.h>
 
 void arch_early_init(void)
 {
