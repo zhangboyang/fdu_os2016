@@ -25,6 +25,8 @@ void arch_early_init(void);
 
 void master_init(void);
 
+void master_entry(void);
+
 #endif /* !__ASSEMBLER__ */
 
 #endif /* !_AIM_INIT_H */
