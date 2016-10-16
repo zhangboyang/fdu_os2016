@@ -172,7 +172,7 @@ typedef pte_t pgtable_t;
 #define PGMID_A         (1ULL << 5)
 #define PGMID_D         (1ULL << 5)
 #define PGMID_PS        (1ULL << 7)
-#define PGMID_PS        (1ULL << G)
+#define PGMID_G         (1ULL << 8)
 #define PGMID_XD        (1ULL << 63)
 
 
