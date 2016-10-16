@@ -133,7 +133,7 @@ void mmu_jump()
     // enable PAE
     __asm__ __volatile__ (
         "mov %%cr4, %%eax\n\t"
-        "or $0x00000010, %%eax\n\t"
+        "or $0x00000020, %%eax\n\t"
         "mov %%eax, %%cr4\n\t"
         :::"eax"
     );
