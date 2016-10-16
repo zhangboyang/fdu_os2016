@@ -134,7 +134,7 @@ void mmu_jump()
     
     __asm__ __volatile__ (
         "mov %%cr0, %%eax\n\t"
-        "or $0x80000000, %eax\n\t"
+        "or $0x80000000, %%eax\n\t"
         "mov %%eax, %%cr0\n\t"
         :::"eax"
     );
