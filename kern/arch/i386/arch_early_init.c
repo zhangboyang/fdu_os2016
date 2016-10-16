@@ -29,7 +29,7 @@ void arch_early_init(void)
 {
     early_mapping_clear();
     
-    addr_t ksize = KERN_END_HIGH - KOFFSET;
+    addr_t ksize = PTR2ADDR(KERN_END_HIGH) - KOFFSET;
     struct early_mapping entry = {
 		.paddr	= 0,
 		.vaddr	= KOFFSET,
