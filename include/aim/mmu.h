@@ -90,6 +90,9 @@ __noreturn
 void abs_jump(void *addr);
 
 
+// jump to high address
+__noreturn
+void mmu_jump();
 
 
 

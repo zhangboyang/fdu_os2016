@@ -106,17 +106,33 @@ void early_mm_init(void)
     early_mapping_clear();
     
     addr_t ksize = PTR2ADDR(KERN_END_HIGH) - KOFFSET;
-    struct early_mapping entry = {
+    struct early_mapping entry;
+    
+    entry = {
+		.paddr	= 0,
+		.vaddr	= 0,
+		.size	= ROUNDUP(ksize, BIGPAGE_SIZE),
+		.type	= EARLY_MAPPING_MEMORY
+	};
+	early_mapping_add(&entry);
+	
+	entry = {
 		.paddr	= 0,
 		.vaddr	= ADDR2PTR(KOFFSET),
 		.size	= ROUNDUP(ksize, BIGPAGE_SIZE),
 		.type	= EARLY_MAPPING_MEMORY
 	};
-	
 	early_mapping_add(&entry);
 	
     mmu_init(__boot_page_index);
 }
+
+void mmu_jump()
+{
+    __asm__ __volatile__ ("mov %0, %cr3"::"r"(boot_page_index));
+    abs_jump(master_entry);
+}
+
 
 __asm__ (
     ".globl abs_jump\n"

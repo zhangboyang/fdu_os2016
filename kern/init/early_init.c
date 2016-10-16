@@ -37,6 +37,6 @@ void master_early_init(void)
 	
 	early_mm_init();
 	
-	panic("haha");
+	mmu_jump();
 }
 
