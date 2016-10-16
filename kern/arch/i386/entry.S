@@ -80,3 +80,9 @@ gdt:
 gdtdesc:
   .word   (gdtdesc - gdt - 1)             # sizeof(gdt) - 1
   .long   VMA2LMA(gdt)                    # address gdt
+
+
+
+.globl master_entry
+master_entry:
+    jmp master_entry
