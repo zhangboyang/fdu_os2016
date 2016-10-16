@@ -31,7 +31,7 @@
 #include <aim/mmu.h>
 #include <aim/early_kmmap.h>
 #include <libc/string.h>
-
+#include <libc/stdio.h>
 
 /*
    ZBY: use PAE for i386
