@@ -157,7 +157,16 @@ load_elf_phdr:
   push $phdr_str3
   call bootprint
 
-  call bootreaddisk
+  call bootreaddisk // read disk to load this phdr
+  
+  // cleanup [filesz, memsz)
+  mov 0x14(%bx), %cx // memsz
+  mov 0x10(%bx), %dx // filesz
+  mov 0xc(%bx), %di // paddr
+  add %dx, %di // DI: paddr + filesz
+  sub %dx, %cx // CX: memsz - filesz
+  xor %ax, %ax
+  rep stosb
   
 2:
   pop %di
@@ -272,7 +281,7 @@ jumpstr:
 
 // phdr msg format: [PADDR] <= [SECTORS], [LBA]
 phdr_str1:
-.asciz " <= sectors "
+.asciz " <= SECT "
 phdr_str2:
 .asciz ", LBA "
 phdr_str3:
