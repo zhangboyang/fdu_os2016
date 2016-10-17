@@ -141,7 +141,7 @@ void __entry stage0()
     static unsigned char elfbuf[BOOT_ELF_PRELOAD];
     
     // read elf header
-    elf_hdr *elf = (void *) elfbuf;
+    elf_hdr *elf = 0x1000;
     size_t diskoff = get_elf_sector() * SECTSIZE;
     readdisk(elf, BOOT_ELF_PRELOAD, diskoff);
     
