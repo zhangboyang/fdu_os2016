@@ -126,7 +126,7 @@ load_elf_phdr:
   add $0x200, %ax
 1:
   shr $9, %ax
-  push $ax // push sector count
+  push %ax // push sector count
   
   
   mov 0x4(%bx), %si
