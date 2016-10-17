@@ -48,9 +48,8 @@ bootasm:
 1:
 
 // display hello message
-  push hellostr
+  push $hellostr
   call errorstr
-  call 
   
 
 
@@ -74,7 +73,7 @@ bootprint:
 
 // function: display error message and spin forever
 errorspin:
-  push errorstr
+  push $errorstr
   call bootprint
   pop %ax // AX will be address of caller's next instruction
 1:
