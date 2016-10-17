@@ -74,7 +74,7 @@ bootasm:
   mov (0x7C00 + 0x1BE + 0x10 * 0 + 0x8 + 0x2), %di // HIGH
   
 // read ELF header
-  push $8
+  push $1
   push %si
   push %di
   call bootreaddisk
