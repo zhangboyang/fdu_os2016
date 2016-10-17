@@ -27,5 +27,6 @@ nobase_noinst_HEADERS = \
 
 noinst_HEADERS = \
 	elf.h \
+	list.h \
 	util.h
 
