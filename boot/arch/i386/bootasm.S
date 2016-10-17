@@ -68,17 +68,48 @@ bootasm:
   call bootpanic
 1:
 
+
+// read MBR
+  mov (0x1BE + 0x10 * 0 + 0x8), %ax // LOW
+  mov (0x1BE + 0x10 * 0 + 0x8 + 0x2), %dx // HIGH
+  
 // read ELF header
+  push $1
+  push %dx
+  push %ax
+  call bootreaddisk
   call bootpanic
 
 
 
-
+// function: read disk sector using BIOS functions
+//   usage: push COUNT; push HIGH; push LOW; call bootreaddisk;
+//   data read to 0x1000
+bootreaddisk:
+  push %bp
+  mov %sp, %bp
+  pushw $0
+  pushw $0
+  pushw 6(%bp) // HIGH
+  pushw 4(%bp) // LOW
+  pushw $0  // segment
+  pushw $0x1000 // offset
+  pushw 8(%bp) // COUNT
+  pushw $1
+  mov $0x42, %ah
+  mov $0x80, %dl // first HDD
+  mov %sp, %si
+  int $0x13
+  jnc 1f
+  call bootpanic
+1:
+  leave
+  ret
 
 
 
 // function: print message using BIOS functions
-//   DS:[SP+2H] = c-style string to print
+//   DS:ARG1 = c-style string to print
 bootprint:
   push %bp
   push %si
