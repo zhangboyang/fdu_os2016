@@ -151,8 +151,8 @@ load_elf_phdr:
   shrd $9, %di, %si
   shr $9, %di
   call getpartition // DX:AX  LBA
-  add %ax, %si
-  adc %dx, %di // DI:SI  LBA+offset
+  mov %ax, %si
+  mov %dx, %di // DI:SI  LBA+offset
   push %di
   push %si // push LBA
   push %di
