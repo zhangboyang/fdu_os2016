@@ -146,7 +146,7 @@ bootprint:
 //   ARG1 = word to print
 bootprintword:
   mov %sp, %dx
-  mov 2(%dx), %dx
+  mov (%dx), %dx
   push %bp
   pushw $0x0
   mov %sp, %bp
