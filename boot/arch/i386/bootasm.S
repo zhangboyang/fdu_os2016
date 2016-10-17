@@ -165,7 +165,7 @@ bootprintword:
   loop 2b
   push %bp
   call bootprint
-  add $8, %sp
+  add $6, %sp
   pop %bp
   ret $2
 
