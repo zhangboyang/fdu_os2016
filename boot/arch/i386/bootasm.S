@@ -74,7 +74,7 @@ bootasm:
   mov (0x7C00 + 0x1BE + 0x10 * 0 + 0x8 + 0x2), %di // HIGH
   
 // read ELF header
-  push $4
+  push $8     // read 4096 bytes, 4096/512=8
   push %di
   push %si
   call bootreaddisk
@@ -90,8 +90,21 @@ bootasm:
 
 
 // load ELF program headers
+  mov (0x101c), %bx
+  add $0x1000, %bx
+  mov (0x102c), %cx
+1:
+  push %bx
+  call load_elf_phdr
+  add $32, %bx
+  loop 1b
   
   call bootpanic
+
+
+// function: load PHDR from ELF file
+load_elf_phdr:
+  jmp bootprintword
 
 
 // function: read disk sector using BIOS functions
