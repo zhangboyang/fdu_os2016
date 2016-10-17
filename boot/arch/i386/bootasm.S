@@ -122,7 +122,7 @@ load_elf_phdr:
 
   mov 0x10(%bx), %ax // AX: (short) filesz
   test $0x1ff, %ax
-  jz 1f:
+  jz 1f
   add $0x200, %ax
 1:
   shr $9, %ax
