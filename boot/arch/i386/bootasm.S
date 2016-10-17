@@ -273,7 +273,7 @@ bootpanic:
   jmp 1b
 
 hellostr:
-.asciz "ZBY's AIM bootloader, stage0 ...\r\n"
+.asciz "boot stage0 ...\r\n"
 errorstr:
 .asciz "error! [sp]="
 jumpstr:
