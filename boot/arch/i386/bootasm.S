@@ -83,11 +83,9 @@ bootpanic:
   push $errorstr
   call bootprint
   pop %dx // DX will be address of caller's next instruction
-  mov $0x01EF, %dx
+  pushw $0xA
   mov %sp, %bp
-  dec %bp
-  movb $0, (%bp)
-  sub $6, %sp
+  sub $4, %sp
   mov $4, %cx
 2:
   mov %dx, %ax
