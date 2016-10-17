@@ -100,7 +100,14 @@ bootasm:
   
   
 // jump to 'high' address
+  push $jumpstr
+  call bootprint
   jmp bootloader_start
+
+
+
+
+
 
 
 // function: load PHDR from ELF file
@@ -137,7 +144,6 @@ load_elf_phdr:
   call bootprintword
   push $phdr_str2
   call bootprint
-  
   
   mov 0x4(%bx), %si
   mov 0x6(%bx), %di // DI:SI  offset
@@ -262,9 +268,11 @@ bootpanic:
   jmp 1b
 
 hellostr:
-.asciz "stage0 ...\r\n"
+.asciz "AIM bootloader stage0 ...\r\n"
 errorstr:
 .asciz "error! [sp]="
+jumpstr:
+.asciz "jump to stage1 ...\r\n"
 
 // phdr msg format: [PADDR] <= [SECTORS], [LBA]
 phdr_str1:

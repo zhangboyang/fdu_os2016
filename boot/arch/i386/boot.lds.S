@@ -38,8 +38,6 @@ PHDRS
 
 SECTIONS
 {
-    disksect = 0x1000; // temp memory for reading disk sector
-    
     . = 0x7c00; // bootsector entry
     mbr = .;
     .entry : {
