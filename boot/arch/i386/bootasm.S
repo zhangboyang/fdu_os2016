@@ -92,12 +92,13 @@ bootasm:
 // load ELF program headers
   mov (0x101c), %bx
   add $0x1000, %bx
-  mov (0x102c), %cx
+  mov (0x102c), %si
 1:
   push %bx
   call load_elf_phdr
   add $32, %bx
-  loop 1b
+  dec si
+  jnz 1b
   
   call bootpanic
 
