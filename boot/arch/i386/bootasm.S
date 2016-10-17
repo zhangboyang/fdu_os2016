@@ -81,9 +81,9 @@ bootasm:
   call bootpanic
 
 // check ELF magic
-  cmp $0x457f, (0x1000)
+  cmpw $0x457f, (0x1000)
   jne 1f
-  cmp $0x464c, (0x1002)
+  cmpw $0x464c, (0x1002)
   je 2f
 1:
   call bootpanic
