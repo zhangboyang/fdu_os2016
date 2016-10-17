@@ -65,7 +65,7 @@ bootprint:
   push %bp
   push %si
   mov %sp, %bp
-  mov 2(%bp), %si
+  mov 6(%bp), %si
 1:
   lodsb
   test %al, %al
