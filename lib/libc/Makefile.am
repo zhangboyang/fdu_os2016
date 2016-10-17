@@ -22,7 +22,8 @@ noinst_LTLIBRARIES = \
 	libc.la
 
 SRCS = \
-	memcpy.c
+	memcpy.c \
+	memset.c
 
 noinst_HEADERS = \
 	stdarg.h \
