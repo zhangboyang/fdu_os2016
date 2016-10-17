@@ -93,10 +93,10 @@ bootpanic:
   shr $4, %dx
   and $0xf, %al
   sub $0x9, %al
-  add $0x30, %al
   jbe 3f
   add $0x10, %al
 3:
+  add $0x30, %al
   dec %bp
   mov %al, (%bp)
   loop 2b
