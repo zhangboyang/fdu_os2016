@@ -417,7 +417,7 @@ retn_to_realmode:
   jz 1f
   invd
 1:
-  andb %0x10, al
+  andb $0x10, al
   movl %eax, %cr0
 
 
