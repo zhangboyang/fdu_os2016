@@ -78,7 +78,6 @@ bootasm:
   push %di
   push %si
   call bootreaddisk
-  call bootpanic
 
 // check ELF magic
   cmpw $0x457f, (0x1000)
