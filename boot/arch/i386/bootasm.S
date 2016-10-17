@@ -80,6 +80,15 @@ bootasm:
   call bootreaddisk
   call bootpanic
 
+// check ELF magic
+  cmp $457f, (0x1000)
+  jne 1f
+  cmp $464c, (0x1002)
+  je 2f
+1:
+  call bootpanic
+2:
+  call bootpanic
 
 
 // function: read disk sector using BIOS functions
