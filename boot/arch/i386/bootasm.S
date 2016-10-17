@@ -49,7 +49,7 @@ bootasm:
 
 // display hello message
   push $hellostr
-  call errorstr
+  call bootprint
   
 
 
@@ -72,7 +72,7 @@ bootprint:
   jmp 1b
 
 // function: display error message and spin forever
-errorspin:
+bootpanic:
   push $errorstr
   call bootprint
   pop %ax // AX will be address of caller's next instruction
