@@ -32,8 +32,8 @@ ENTRY(_start)
 // ZBY
 PHDRS
 {
-    entry PT_LOAD;
-    text PT_LOAD;
+    entry PT_LOAD FLAGS(7);
+    text PT_LOAD FLAGS(7);
 }
 
 SECTIONS
