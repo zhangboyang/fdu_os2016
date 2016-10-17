@@ -114,9 +114,12 @@ load_elf_phdr:
   mov 4(%bp), %bx
 
   mov 0xc(%bx), %dx // paddr
-  /*  cmp $0x7c00, %dx /// overwrite myself is OK!
-  je 1f
-1:*/
+  
+  // overwrite myself is not allowed
+  // since it might overwrite partition LBA
+  // which we will use later
+  cmp $0x7c00, %dx
+  je 2f
 
   push %dx // push buffer
   push %dx
@@ -164,6 +167,7 @@ load_elf_phdr:
 
   call bootreaddisk
   
+2:
   pop %di
   pop %si
   pop %bx
@@ -173,14 +177,14 @@ load_elf_phdr:
 
 // function: get LBA of first partition, to DX:AX
 getpartition:
-  push $phdr_str3
+  /*push $phdr_str3
   call bootprint
   mov (0x7C00 + 0x1BE + 0x10 * 0 + 0x8), %ax // LOW
   push %ax
   call bootprintword
   mov (0x7C00 + 0x1BE + 0x10 * 0 + 0x8 + 0x2), %dx // HIGH
   push %dx
-  call bootprintword
+  call bootprintword*/
   mov (0x7C00 + 0x1BE + 0x10 * 0 + 0x8), %ax // LOW
   mov (0x7C00 + 0x1BE + 0x10 * 0 + 0x8 + 0x2), %dx // HIGH
   ret
