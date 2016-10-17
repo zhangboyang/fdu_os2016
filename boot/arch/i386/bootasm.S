@@ -119,6 +119,10 @@ load_elf_phdr:
 1:*/
 
   push %dx // push buffer
+  push %dx
+  call bootprintword
+  push $phdr_str1
+  call bootprint
 
   mov 0x10(%bx), %ax // AX: (short) filesz
   test $0x1ff, %ax
@@ -127,6 +131,10 @@ load_elf_phdr:
 1:
   shr $9, %ax
   push %ax // push sector count
+  push %ax
+  call bootprintword
+  push $phdr_str2
+  call bootprint
   
   
   mov 0x4(%bx), %si
@@ -136,6 +144,12 @@ load_elf_phdr:
   adc %dx, %di // DI:SI  LBA+offset
   push %di
   push %si // push LBA
+  push %di
+  call bootprintword
+  push %si
+  call bootprintword
+  push $phdr_str3
+  call bootprint
   
   call bootreaddisk
 
@@ -238,6 +252,14 @@ hellostr:
 .asciz "stage0 ...\r\n"
 errorstr:
 .asciz "error! [sp]="
+
+// phdr msg format: [PADDR] <= [SECTORS], [LBA]
+phdr_str1:
+.asciz " <= "
+phdr_str2:
+.asciz ", "
+phdr_str3:
+.asciz "\r\n"
 
 
 
