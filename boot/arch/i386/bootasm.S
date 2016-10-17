@@ -151,8 +151,8 @@ load_elf_phdr:
   shrd $9, %di, %si
   shr $9, %di
   call getpartition // DX:AX  LBA
-  mov %ax, %si
-  mov %dx, %di // DI:SI  LBA+offset
+  add %ax, %si
+  adc %dx, %di // DI:SI  LBA+offset
   push %di
   push %si // push LBA
   push %di
@@ -173,6 +173,14 @@ load_elf_phdr:
 
 // function: get LBA of first partition, to DX:AX
 getpartition:
+  push $phdr_str3
+  call bootprint
+  mov (0x7C00 + 0x1BE + 0x10 * 0 + 0x8), %ax // LOW
+  push %ax
+  call bootprintword
+  mov (0x7C00 + 0x1BE + 0x10 * 0 + 0x8 + 0x2), %dx // HIGH
+  push %dx
+  call bootprintword
   mov (0x7C00 + 0x1BE + 0x10 * 0 + 0x8), %ax // LOW
   mov (0x7C00 + 0x1BE + 0x10 * 0 + 0x8 + 0x2), %dx // HIGH
   ret
