@@ -66,7 +66,9 @@ bootprint:
 1:
   lodsb
   test %al, %al
+  jnz 2f
   ret $0x2
+2:
   mov $0x0e, %ah
   int $0x10
   jmp 1b
