@@ -21,16 +21,12 @@
 #endif /* HAVE_CONFIG_H */
 #include <arch-boot.h>
 
-.section .entry
-
-
-
 
 
 //////////////////////////// stage 1 entry (16 bit) //////////////////////////
 
 // note: functions in 16-bit mode using pascal calling convention
-
+.section .entry
 .globl _start
 _start:
 bootasm:
