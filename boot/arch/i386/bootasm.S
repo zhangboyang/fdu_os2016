@@ -51,6 +51,7 @@ bootasm:
   push $hellostr
   call bootprint
   
+  call bootpanic
 
 
 
