@@ -70,13 +70,14 @@ bootasm:
 
 
 // read MBR
-  mov (0x7C00 + 0x1BE + 0x10 * 0 + 0x8), %si // LOW
-  mov (0x7C00 + 0x1BE + 0x10 * 0 + 0x8 + 0x2), %di // HIGH
+
   
 // read ELF header
+  call getpartition
+  push $0x1000
   push $8     // read 4096 bytes, 4096/512=8
-  push %di
-  push %si
+  push %dx
+  push %ax
   call bootreaddisk
 
 // check ELF magic
@@ -108,21 +109,51 @@ load_elf_phdr:
   push %bp
   mov %sp, %bp
   push %bx
+  push %si
+  push %di
   mov 4(%bp), %bx
-  mov 0xc(%bx), %ax
-  cmp $0x7c00, %ax
+
+  mov 0xc(%bx), %dx // paddr
+  /*  cmp $0x7c00, %dx
   je 1f
-  push %ax
-  call bootprintword
+1:*/
+
+  push %dx // push buffer
+
+  mov 0x10(%bx), %ax // AX: (short) filesz
+  test $0x1ff, %ax
+  jz 1f:
+  add $0x200, %ax
 1:
+  shr $9, %ax
+  push $ax // push sector count
+  
+  
+  mov 0x4(%bx), %si
+  mov 0x6(%bx), %di // DI:SI  offset
+  call getpartition // DX:AX  LBA
+  add %ax, %si
+  adc %dx, %di // DI:SI  LBA+offset
+  push %di
+  push %si // push LBA
+  
+  call bootreaddisk
+
+  pop %di
+  pop %si
   pop %bx
   leave
   ret
 
 
+// function: get LBA of first partition, to DX:AX
+getpartition:
+  mov (0x7C00 + 0x1BE + 0x10 * 0 + 0x8), %ax // LOW
+  mov (0x7C00 + 0x1BE + 0x10 * 0 + 0x8 + 0x2), %dx // HIGH
+  ret
+
 // function: read disk sector using BIOS functions
-//   usage: push COUNT; push HIGH; push LOW; call bootreaddisk;
-//   data read to 0x1000
+//   usage: push buffer; push COUNT; push HIGH; push LOW; call bootreaddisk;
 bootreaddisk:
   push %si
   push %bp
@@ -133,7 +164,7 @@ bootreaddisk:
   pushw 8(%bp) // HIGH
   pushw 6(%bp) // LOW
   pushw $0  // segment
-  pushw $0x1000 // offset
+  pushw 12(%bp) // buffer
   pushw 10(%bp) // COUNT
   pushw $1
   mov $0x42, %ah
@@ -145,7 +176,7 @@ bootreaddisk:
 1:
   leave
   pop %si
-  ret $0x6
+  ret $0x8
 
 
 
