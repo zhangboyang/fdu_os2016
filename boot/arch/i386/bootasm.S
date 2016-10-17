@@ -36,6 +36,8 @@ bootasm:
 
 
 .code16
+
+// prepare environment
   cli
   cld
   xorw    %ax,%ax
@@ -44,7 +46,11 @@ bootasm:
   movw    %ax,%ss
   ljmp $0x0000, $1f
 1:
-  jmp 1b
+
+// display hello message
+  push hellostr
+  call errorstr
+  call 
   
 
 
@@ -54,7 +60,7 @@ bootasm:
 
 
 // function: print message using BIOS functions
-// DS:[SP+2H] = c-style string to print
+//   DS:[SP+2H] = c-style string to print
 bootprint:
   mov %sp, %bp
   mov 2(%bp), %si
@@ -66,14 +72,18 @@ bootprint:
   int $0x10
   jmp 1b
 
-
+// function: display error message and spin forever
+errorspin:
+  push errorstr
+  call bootprint
+  pop %ax // AX will be address of caller's next instruction
+1:
+  jmp 1b
 
 hellostr:
 .asciz "stage0 ... "
 errorstr:
 .asciz "error!"
-
-
 
 
 
