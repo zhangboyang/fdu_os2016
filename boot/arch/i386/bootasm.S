@@ -92,7 +92,7 @@ bootpanic:
   shr $4, %dx
   or $0xf, %ax
   add $0x30, %ax
-  dec $bp
+  dec %bp
   mov %al, (%bp)
   loop 2b
   push %bp
