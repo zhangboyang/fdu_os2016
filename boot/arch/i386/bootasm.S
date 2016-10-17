@@ -97,7 +97,7 @@ bootasm:
   push %bx
   call load_elf_phdr
   add $32, %bx
-  dec si
+  dec %si
   jnz 1b
   
   call bootpanic
