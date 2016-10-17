@@ -162,7 +162,7 @@ load_elf_phdr:
   push $phdr_str3
   call bootprint
   
- // call bootpanic
+  call bootpanic
 
   call bootreaddisk
   
