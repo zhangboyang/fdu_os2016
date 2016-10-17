@@ -105,7 +105,19 @@ bootasm:
 
 // function: load PHDR from ELF file
 load_elf_phdr:
-  jmp bootprintword
+  push %bp
+  mov %sp, %bp
+  push %bx
+  mov 4(%bp), %bx
+  mov 0xc(%bx), %ax
+  cmp $0x7c00, %ax
+  je 1f
+  push %ax
+  call bootprintword
+1:
+  pop %bx
+  leave
+  ret
 
 
 // function: read disk sector using BIOS functions
