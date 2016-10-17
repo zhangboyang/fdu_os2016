@@ -42,7 +42,7 @@ bootasm:
   movw    %ax,%ds
   movw    %ax,%es
   movw    %ax,%ss
-  jmp $0x0000, 1f
+  ljmp $0x0000, $0x7c00
 1:
   jmp 1b
   
