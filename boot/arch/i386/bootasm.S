@@ -152,6 +152,8 @@ load_elf_phdr:
   call bootprint
   
   call bootreaddisk
+  
+  call bootpanic
 
   pop %di
   pop %si
