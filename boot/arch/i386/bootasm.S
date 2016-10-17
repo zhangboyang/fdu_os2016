@@ -88,6 +88,8 @@ bootasm:
 bootreaddisk:
   push %bp
   mov %sp, %bp
+  sub $0x10, %sp
+  and $0xfff0, %sp
   pushw $0
   pushw $0
   pushw 6(%bp) // HIGH
