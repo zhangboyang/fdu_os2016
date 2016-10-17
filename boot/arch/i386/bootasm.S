@@ -145,11 +145,10 @@ bootprint:
 // function: print a word in dex using BIOS functions
 //   ARG1 = word to print
 bootprintword:
-  mov %sp, %dx
-  movw (%dx), %dx
   push %bp
   pushw $0x0
   mov %sp, %bp
+  mov 6(%bp), %dx
   sub $4, %sp
   mov $4, %cx
 2:
