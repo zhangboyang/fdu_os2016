@@ -45,7 +45,7 @@ SECTIONS
         *(.entry_end);
     } : entry
     
-    . = 0x8000; // 'high' entry, must < 64K, since CS=0000H
+    . = 0x8000; // 'high' entry, must < 32K, since CS=0000H
     text_begin = .;
     .text : { *(.text); } : text
     .data : { *(.data) }
