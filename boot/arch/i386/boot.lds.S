@@ -38,14 +38,16 @@ PHDRS
 
 SECTIONS
 {
-    . = 0x7c00;
+    disksect = 0x1000; // temp memory for reading disk sector
+    
+    . = 0x7c00; // bootsector entry
     mbr = .;
     .entry : {
         *(.entry);
         *(.entry_end);
     } : entry
     
-    . = 0x10000;
+    . = 0x8000; // 'high' entry, must < 64K, since CS=0000H
     text_begin = .;
     .text : { *(.text); } : text
     .data : { *(.data) }

@@ -30,30 +30,75 @@ bootasm:
 
 
 
-/*
-   ZBY: most code are copied from xv6
-*/
-.code16
+//////////////////////////// stage 1 entry (16 bit) //////////////////////////
 
-// print hello message
+// note: functions in 16-bit mode using pascal calling convention
+
+
+.code16
+  cli
+  cld
+  xorw    %ax,%ax
+  movw    %ax,%ds
+  movw    %ax,%es
+  movw    %ax,%ss
+  ljmp $0x0000, 1f
+1:
+  jmp 1b
+  
+
+
+
+
+
+
+
+// function: print message using BIOS functions
+// [SP+2H] = c-style string to print
+bootprint:
   xor %ax, %ax
   mov %ax, %ds
   cld
   mov $hellostr_begin, %si
-chloop:
+1:
   lodsb
   test %al, %al
-  jz bootloader_start
+  ret $0x2
   mov $0x0e, %ah
   int $0x10
-  jmp chloop
-  
-hellostr_begin:
-.asciz "stage0 ...\r\n"
+  jmp 1b
 
 
 
-// the real bootloader
+hellostr:
+.asciz "stage0 ... "
+errorstr:
+.asciz "error!"
+
+
+
+
+
+
+
+.section .entry_end
+.fill 0x10, 1, 0x90
+
+
+
+
+
+
+//////////////////////////// stage 1 entry (16 bit) //////////////////////////
+
+.text
+
+.code16
+/*
+   ZBY: most code are copied from xv6
+*/
+
+// the real-mode bootloader
 bootloader_start:
   cli                         # BIOS enabled interrupts; disable
   cld
@@ -114,6 +159,10 @@ start32:
 spin: // infloop
   jmp     spin
 
+
+
+.data
+
 # Bootstrap GDT
 .p2align 2                                # force 4 byte alignment
 gdt:
@@ -126,5 +175,4 @@ gdtdesc:
   .long   gdt                             # address gdt
 
 
-.section .entry_end
-.fill 0x10, 1, 0x90
+
