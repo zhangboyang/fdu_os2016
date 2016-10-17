@@ -281,9 +281,9 @@ jumpstr:
 
 // phdr msg format: [PADDR] <= [SECTORS], [LBA]
 phdr_str1:
-.asciz " <= SECT "
+.asciz " <= "
 phdr_str2:
-.asciz ", LBA "
+.asciz " SECTS, LBA "
 phdr_str3:
 .asciz "\r\n"
 
