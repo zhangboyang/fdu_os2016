@@ -92,8 +92,8 @@ bootpanic:
   mov %dx, %ax
   shr $4, %dx
   and $0xf, %al
-  sub $0x9, %al
-  jae 3f
+  cmp $0x9, %al
+  jbe 3f
   add $0x10, %al
 3:
   add $0x30, %al
