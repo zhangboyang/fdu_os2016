@@ -90,7 +90,7 @@ bootasm:
 
 
 // load ELF program headers
-  mov 
+  
   call bootpanic
 
 
