@@ -87,6 +87,10 @@ bootasm:
 1:
   call bootpanic
 2:
+
+
+// load ELF program headers
+
   call bootpanic
 
 
@@ -115,7 +119,7 @@ bootreaddisk:
 1:
   leave
   pop %si
-  ret
+  ret $0x6
 
 
 
@@ -138,11 +142,12 @@ bootprint:
   int $0x10
   jmp 1b
 
-// function: display error message and spin forever
-bootpanic:
-  push $errorstr
-  call bootprint
-  pop %dx // DX will be address of caller's next instruction
+// function: print a word in dex using BIOS functions
+//   ARG1 = word to print
+bootprintword:
+  mov %sp, %dx
+  mov 2(%dx), %dx
+  push %bp
   pushw $0x0
   mov %sp, %bp
   sub $4, %sp
@@ -161,11 +166,20 @@ bootpanic:
   loop 2b
   push %bp
   call bootprint
+  add $8, %sp
+  pop %bp
+  ret $2
+
+// function: display error message and spin forever
+bootpanic:
+  push $errorstr
+  call bootprint
+  call bootprintword
 1:
   jmp 1b
 
 hellostr:
-.asciz "stage0 ... "
+.asciz "stage0 ...\r\n"
 errorstr:
 .asciz "error! [sp]="
 
