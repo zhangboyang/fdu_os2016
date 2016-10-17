@@ -90,8 +90,8 @@ bootpanic:
 2:
   mov %dx, %ax
   shr $4, %dx
-  or $0xf, %ax
-  add $0x30, %ax
+  or $0xf, %al
+  add $0x30, %al
   dec %bp
   mov %al, (%bp)
   loop 2b
