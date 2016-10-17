@@ -148,7 +148,7 @@ load_elf_phdr:
   push %si
   call bootprintword
   
-  shrd $9, %si, %di
+  shrd $9, %di, %si
   shr $9, %di
   call getpartition // DX:AX  LBA
   add %ax, %si
