@@ -264,7 +264,7 @@ bootpanic:
   jmp 1b
 
 hellostr:
-.asciz "AIM bootloader stage0 ...\r\n"
+.asciz "ZBY's AIM bootloader, stage0 ...\r\n"
 errorstr:
 .asciz "error! [sp]="
 jumpstr:
@@ -272,18 +272,13 @@ jumpstr:
 
 // phdr msg format: [PADDR] <= [SECTORS], [LBA]
 phdr_str1:
-.asciz " <= "
+.asciz " <= sectors "
 phdr_str2:
-.asciz ", "
+.asciz ", LBA "
 phdr_str3:
 .asciz "\r\n"
 
 
-
-
-
-.section .entry_end, "ax"
-.fill 0x10, 1, 0x90
 
 
 
