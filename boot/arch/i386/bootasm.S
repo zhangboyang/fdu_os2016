@@ -88,7 +88,6 @@ bootasm:
 bootreaddisk:
   push %bp
   mov %sp, %bp
-  sub $0x10, %sp
   and $0xfff0, %sp
   pushw $0
   pushw $0
@@ -158,7 +157,7 @@ bootpanic:
 hellostr:
 .asciz "stage0 ... "
 errorstr:
-.asciz "error! next="
+.asciz "error! [sp]="
 
 
 
