@@ -94,7 +94,7 @@ bootpanic:
   and $0xf, %al
   sub $0x9, %al
   add $0x30, %al
-  ja 3f
+  jbe 3f
   add $0x10, %al
 3:
   dec %bp
