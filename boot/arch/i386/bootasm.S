@@ -86,16 +86,17 @@ bootasm:
 //   usage: push COUNT; push HIGH; push LOW; call bootreaddisk;
 //   data read to 0x1000
 bootreaddisk:
+  push %si
   push %bp
   mov %sp, %bp
   and $0xfff0, %sp
   pushw $0
   pushw $0
-  pushw 6(%bp) // HIGH
-  pushw 4(%bp) // LOW
+  pushw 8(%bp) // HIGH
+  pushw 6(%bp) // LOW
   pushw $0  // segment
   pushw $0x1000 // offset
-  pushw 8(%bp) // COUNT
+  pushw 10(%bp) // COUNT
   pushw $1
   mov $0x42, %ah
   mov $0x80, %dl // first HDD
@@ -105,6 +106,7 @@ bootreaddisk:
   call bootpanic
 1:
   leave
+  pop %si
   ret
 
 
