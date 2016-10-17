@@ -68,9 +68,6 @@ bootasm:
   call bootpanic
 1:
 
-
-// read MBR
-
   
 // read ELF header
   call getpartition
@@ -101,7 +98,9 @@ bootasm:
   dec %si
   jnz 1b
   
-  call bootpanic
+  
+// jump to 'high' address
+  jmp bootloader_start
 
 
 // function: load PHDR from ELF file
@@ -114,7 +113,7 @@ load_elf_phdr:
   mov 4(%bp), %bx
 
   mov 0xc(%bx), %dx // paddr
-  /*  cmp $0x7c00, %dx
+  /*  cmp $0x7c00, %dx /// overwrite myself is OK!
   je 1f
 1:*/
 
