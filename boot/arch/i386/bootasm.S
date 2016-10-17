@@ -359,6 +359,7 @@ start32:
 
   # Set up the stack pointer and call into C.
   movl    $_start, %esp
+  jmp retn_to_realmode
   call    bootmain
 
 spin: // infloop
@@ -380,4 +381,55 @@ gdtdesc:
   .long   gdt                             # address gdt
 
 
+
+
+
+
+//////////// return from 32-bit protected mode to real mode //////////////////
+
+// most code copied from linux 2.4.0
+
+.text
+retn_to_realmode:
+.code32
+
+  // jmp to 16-bit protected mode
+  lgdt gdtdesc_16
+  ljmp $(1<<3), $1f
+.code16
+1:
+  movl    $(2<<3), %eax
+  movl    %eax, %ds
+  movl    %eax, %es
+  movl    %eax, %ss
+  movl    $0, %eax
+  movl    %eax, %fs
+  movl    %eax, %gs
+
+  // return to real mode
+  movl %cr0, %eax
+  andl $0x11, %eax
+  orl $0x60000000, %eax
+  movl %eax, %cr0
+  movl %eax, %cr3
+  movl %cr0, %ebx
+  andl $0x60000000, %ebx
+  jz 1f
+  invd
+1:
+  andb %0x10, al
+  movl %eax, %cr0
+
+
+
+1:
+  jmp 1b
+
+gdt_16:
+.quad 0x0000000000000000 /* Null descriptor */
+.quad 0x00009a000000ffff /* 16-bit real-mode 64k code at 0x00000000 */
+.quad 0x000092000100ffff /* 16-bit real-mode 64k data at 0x00000100 */
+gdtdesc_16:
+  .word   (gdtdesc_16 - gdt_16 - 1)
+  .long   gdt_16
 
