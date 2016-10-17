@@ -64,7 +64,7 @@ bootasm:
   call bootpanic
 1:
   test $0x1, %cx // check extensions bits
-  jnz 1f:
+  jnz 1f
   call bootpanic
 1:
 
