@@ -74,13 +74,12 @@ bootasm:
   mov (0x7C00 + 0x1BE + 0x10 * 0 + 0x8 + 0x2), %di // HIGH
   
 // read ELF header
-  push $(4096 / 512)
+  push $8
   push %si
   push %di
   call bootreaddisk
 
 // read ELF segments
-  
   call bootpanic
 
 
