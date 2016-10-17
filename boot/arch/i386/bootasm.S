@@ -86,7 +86,7 @@ bootpanic:
   mov %sp, %bp
   dec %bp
   movb $0, (%bp)
-  sub $8, %sp
+  sub $6, %sp
   mov $4, %cx
 2:
   mov %dx, %ax
@@ -94,7 +94,7 @@ bootpanic:
   and $0xf, %al
   cmp $0x9, %al
   jbe 3f
-  add $0x10-0x9, %al
+  add $0x7, %al
 3:
   add $0x30, %al
   dec %bp
