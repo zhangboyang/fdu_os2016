@@ -100,7 +100,6 @@ bootasm:
   
   
 // jump to 'high' address
-call bootpanic
   jmp bootloader_start
 
 
