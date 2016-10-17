@@ -62,12 +62,16 @@ bootasm:
 // function: print message using BIOS functions
 //   DS:[SP+2H] = c-style string to print
 bootprint:
+  push %bp
+  push %si
   mov %sp, %bp
   mov 2(%bp), %si
 1:
   lodsb
   test %al, %al
   jnz 2f
+  pop %si
+  pop %bp
   ret $0x2
 2:
   mov $0x0e, %ah
@@ -78,7 +82,21 @@ bootprint:
 bootpanic:
   push $errorstr
   call bootprint
-  pop %ax // AX will be address of caller's next instruction
+  pop %dx // DX will be address of caller's next instruction
+  mov %sp, %bp
+  mov $0, (%bp)
+  sub $8, %sp
+  mov $4, %cx
+2:
+  mov %dx, %ax
+  shr %dx, 4
+  or $0xf, %ax
+  add $0x30, %ax
+  dec $bp
+  mov %al, (%bp)
+  loop 2b
+  push %bp
+  call bootprint
 1:
   jmp 1b
 
