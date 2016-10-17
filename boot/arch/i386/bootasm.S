@@ -50,7 +50,25 @@ bootasm:
 // display hello message
   push $hellostr
   call bootprint
-  
+
+// check INT 13H extensions
+  mov $0x41, %ah
+  mov $0x80, %dl // first HDD
+  mov $0x55AA, %bx
+  int $0x13
+  jnc 1f // check BIOS error
+  call bootpanic
+1:
+  cmp $0xAA55, %bx // check magic
+  je 1f
+  call bootpanic
+1:
+  test $0x1, %cx // check extensions bits
+  jnz 1f:
+  call bootpanic
+1:
+
+// read ELF header
   call bootpanic
 
 
