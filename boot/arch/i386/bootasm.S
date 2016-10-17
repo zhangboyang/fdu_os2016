@@ -151,10 +151,10 @@ load_elf_phdr:
   push $phdr_str3
   call bootprint
   
-  call bootreaddisk
-  
   call bootpanic
 
+  call bootreaddisk
+  
   pop %di
   pop %si
   pop %bx
