@@ -26,7 +26,7 @@
 //////////////////////////// stage 1 entry (16 bit) //////////////////////////
 
 // note: functions in 16-bit mode using pascal calling convention
-.section .entry
+.section .entry, "wx"
 .globl _start
 _start:
 bootasm:
