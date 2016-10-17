@@ -26,7 +26,7 @@
 //////////////////////////// stage 1 entry (16 bit) //////////////////////////
 
 // note: functions in 16-bit mode using pascal calling convention
-.section .entry, "wx"
+.section .entry, "ax"
 .globl _start
 _start:
 bootasm:
@@ -282,7 +282,7 @@ phdr_str3:
 
 
 
-.section .entry_end
+.section .entry_end, "ax"
 .fill 0x10, 1, 0x90
 
 
