@@ -161,8 +161,6 @@ load_elf_phdr:
   call bootprintword
   push $phdr_str3
   call bootprint
-  
-  call bootpanic
 
   call bootreaddisk
   
