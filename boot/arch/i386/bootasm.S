@@ -84,7 +84,7 @@ bootpanic:
   call bootprint
   pop %dx // DX will be address of caller's next instruction
   mov %sp, %bp
-  mov $0, (%bp)
+  movb $0, (%bp)
   sub $8, %sp
   mov $4, %cx
 2:
