@@ -56,7 +56,7 @@ bootasm:
 // function: print message using BIOS functions
 // DS:[SP+2H] = c-style string to print
 bootprint:
-  movw 2(%sp), %si
+  movw 2(%bp), %si
 1:
   lodsb
   test %al, %al
