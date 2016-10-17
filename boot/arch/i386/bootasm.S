@@ -359,7 +359,7 @@ start32:
 
   # Set up the stack pointer and call into C.
   movl    $_start, %esp
-  call    stage0
+  call    bootmain
 
 spin: // infloop
   jmp     spin
