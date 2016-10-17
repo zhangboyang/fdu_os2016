@@ -90,8 +90,8 @@ bootasm:
 
 
 // load ELF program headers
-
-  call bootpanic
+  push %sp
+  jmp bootpanic
 
 
 // function: read disk sector using BIOS functions
