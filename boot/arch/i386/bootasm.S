@@ -103,7 +103,7 @@ bootpanic:
 hellostr:
 .asciz "stage0 ... "
 errorstr:
-.asciz "error!"
+.asciz "error! ip="
 
 
 
