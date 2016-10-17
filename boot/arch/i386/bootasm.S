@@ -23,10 +23,7 @@
 
 .section .entry
 
-.globl _start
-_start:
 
-bootasm:
 
 
 
@@ -34,7 +31,9 @@ bootasm:
 
 // note: functions in 16-bit mode using pascal calling convention
 
-
+.globl _start
+_start:
+bootasm:
 .code16
 
 // prepare environment
@@ -46,6 +45,7 @@ bootasm:
   movw    %ax,%ss
   ljmp $0x0000, $1f
 1:
+  movw    $bootasm, %sp
 
 // display hello message
   push $hellostr
