@@ -89,7 +89,7 @@ bootpanic:
   mov $4, %cx
 2:
   mov %dx, %ax
-  shr %dx, 4
+  shr $4, %dx
   or $0xf, %ax
   add $0x30, %ax
   dec $bp
