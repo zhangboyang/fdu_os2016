@@ -54,12 +54,9 @@ bootasm:
 
 
 // function: print message using BIOS functions
-// [SP+2H] = c-style string to print
+// DS:[SP+2H] = c-style string to print
 bootprint:
-  xor %ax, %ax
-  mov %ax, %ds
-  cld
-  mov $hellostr_begin, %si
+  mov 2(%sp), %si
 1:
   lodsb
   test %al, %al
