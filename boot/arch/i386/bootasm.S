@@ -70,16 +70,14 @@ bootasm:
 
 
 // read MBR
-  mov (0x7C00 + 0x1BE + 0x10 * 0 + 0x8), %si // LOW
-  mov (0x7C00 + 0x1BE + 0x10 * 0 + 0x8 + 0x2), %di // HIGH
+  mov (0x7C00 + 0x1BE + 0x10 * 0 + 0x8), %ax // LOW
+  mov (0x7C00 + 0x1BE + 0x10 * 0 + 0x8 + 0x2), %dx // HIGH
   
 // read ELF header
   push $1
-  push %si
-  push %di
+  push %dx
+  push %ax
   call bootreaddisk
-
-// read ELF segments
   call bootpanic
 
 
@@ -90,15 +88,14 @@ bootasm:
 bootreaddisk:
   push %bp
   mov %sp, %bp
-  push %si
   and $0xfff0, %sp
   pushw $0
   pushw $0
-  pushw 8(%bp) // HIGH
-  pushw 6(%bp) // LOW
+  pushw 6(%bp) // HIGH
+  pushw 4(%bp) // LOW
   pushw $0  // segment
   pushw $0x1000 // offset
-  pushw 10(%bp) // COUNT
+  pushw 8(%bp) // COUNT
   pushw $1
   mov $0x42, %ah
   mov $0x80, %dl // first HDD
@@ -107,7 +104,6 @@ bootreaddisk:
   jnc 1f
   call bootpanic
 1:
-  pop %si
   leave
   ret
 
