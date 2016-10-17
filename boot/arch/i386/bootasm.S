@@ -140,6 +140,7 @@ load_elf_phdr:
   mov 0x4(%bx), %si
   mov 0x6(%bx), %di // DI:SI  offset
   shrd $9, %di, %si
+  shr $9, %di
   call getpartition // DX:AX  LBA
   add %ax, %si
   adc %dx, %di // DI:SI  LBA+offset
