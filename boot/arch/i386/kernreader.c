@@ -17,10 +17,13 @@
 
 static void readsect(void *dst, unsigned int sect)
 {
+    bprintf("read disk sector %x ... ", sect);
     if (!readsect_realmode(0x1000, sect)) {
         bpanic("can't read disk in real mode.");
     }
+    bprintf("read OK, copy to dest... ");
     bmemcpy(dst, (void *) 0x1000, SECTSIZE);
+    bprintf("OK\n");
 }
 
 static size_t kdiskoffset;
