@@ -71,7 +71,7 @@ typedef __gnuc_va_list va_list;
 #define va_arg(v,l) __builtin_va_arg(v,l)
 
 
-extern void readsect_realmode(unsigned lowaddr, unsigned int sect);
+extern int readsect_realmode(unsigned lowaddr, unsigned int sect);
 
 #endif /* !__ASSEMBLER__ */
 

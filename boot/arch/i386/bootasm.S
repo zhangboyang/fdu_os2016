@@ -388,7 +388,7 @@ gdtdesc:
 //////////// return from 32-bit protected mode to real mode //////////////////
 
 // function to read disk real mode
-//    void readsect_realmode(unsigned lowaddr, unsigned int sect)
+//    int readsect_realmode(unsigned lowaddr, unsigned int sect)
 //    return 1 if read OK, 0 on read fail
 // most code to retn to real mode is copied from linux 2.4.0
 .text
