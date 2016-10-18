@@ -20,7 +20,7 @@ static void readsect(void *dst, unsigned int sect)
     if (!readsect_realmode(0x1000, sect)) {
         bpanic("can't read disk in real mode.");
     }
-    memcpy(dst, (void *) 0x1000, SECTSIZE);
+    bmemcpy(dst, (void *) 0x1000, SECTSIZE);
 }
 
 static size_t kdiskoffset;
