@@ -439,7 +439,7 @@ readsect_realmode:
   mov %sp, %si
   int $0x13
   mov $0, %al
-  jc 1b
+  jc 1f
   inc %al
 1:
 
@@ -449,10 +449,10 @@ readsect_realmode:
   orl     $CR0_PE, %eax
   movl    %eax, %cr0
 
-  ljmp    $(SEG_KCODE<<3), $start32
+  ljmp    $(SEG_KCODE<<3), $1f
 
 .code32
-start32:
+1:
   movw    $(SEG_KDATA<<3), %ax
   movw    %ax, %ds
   movw    %ax, %es
