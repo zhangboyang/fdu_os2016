@@ -21,7 +21,7 @@
 #endif /* HAVE_CONFIG_H */
 
 #include <sys/types.h>
-
+#include <libc/stdio.h>
 
 static void check_cpu(void)
 {
