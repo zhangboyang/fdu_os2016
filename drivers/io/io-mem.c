@@ -29,12 +29,11 @@
 
 #include <sys/types.h>
 #include <sys/param.h>
-#include <io.h>
-#include <mm.h>
 #include <aim/device.h>
-#include <panic.h>
-#include <aim/initcalls.h>
-#include <asm-generic/funcs.h>
+#include <aim/gfp.h>
+#include <aim/io.h>
+#include <aim/mmu.h>
+#include <aim/panic.h>
 #include <errno.h>
 
 #include <io-mem.h>
@@ -121,13 +120,17 @@ int io_mem_init(struct bus_device *memory_bus)
 	memory_bus->bus_driver.get_read_fp = __get_read_fp;
 	memory_bus->bus_driver.get_write_fp = __get_write_fp;
 #ifndef RAW
-	if (jump_handlers_add((generic_fp)(size_t)postmap_addr(__jump_handler)) != 0)
+	if (jump_handlers_add((generic_fp)__jump_handler) != 0)
 		return EOF;
 #endif /* RAW */
 	return 0;
 }
 
 #ifndef RAW
+
+#define DEVICE_MODEL	"io-mem"
+#if 0
+static struct bus_driver drv;
 
 static int __new(struct devtree_entry *entry)
 {
@@ -144,7 +147,6 @@ static struct bus_driver drv = {
 
 static int __driver_init(void)
 {
-	kpdebug("<io-mem> initializing.\n");
 	struct bus_device *memory_bus;
 	register_driver(NOMAJOR, &drv);
 #ifdef IO_MEM_ROOT
@@ -152,10 +154,9 @@ static int __driver_init(void)
 	initdev(memory_bus, DEVCLASS_BUS, "memory", NODEV, &drv);
 	dev_add(memory_bus);
 #endif
-	kpdebug("<io-mem> done.\n");
 	return 0;
 }
 INITCALL_DRIVER(__driver_init);
-
-#endif
+#endif /* 0 */
+#endif /* !RAW */
 
