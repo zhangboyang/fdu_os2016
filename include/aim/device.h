@@ -19,8 +19,7 @@
 #ifndef _DEVICE_H
 #define _DEVICE_H
 
-#include <sys/types.h>
-#include <aim/sync.h>
+//#include <aim/sync.h>
 #include <list.h>
 #include <libc/stddef.h>
 
@@ -150,7 +149,7 @@ struct device {
 		struct bus_driver bus_driver;
 	};
 
-	lock_t lock;
+	//lock_t lock;
 };
 
 struct chr_device {
@@ -161,7 +160,7 @@ struct chr_device {
 		unsigned char buf[BUFSIZ];
 		int head;
 		int tail;
-		lock_t lock;
+		//lock_t lock;
 	} cbuf;
 };
 
