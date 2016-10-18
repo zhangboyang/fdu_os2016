@@ -22,6 +22,10 @@
 
 #include <arch-mmu.h>
 
+#ifndef PAGE_SIZE
+#define PAGE_SIZE	4096
+#endif /* !PAGE_SIZE */
+
 #ifndef __ASSEMBLER__
 
 /* premap_addr: always returns low address.

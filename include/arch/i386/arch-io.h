@@ -1,4 +1,4 @@
-/* Copyright (C) 2016 Gan Quan <coin2028@hotmail.com>
+/* Copyright (C) 2016 David Gao <davidgao1001@gmail.com>
  *
  * This file is part of AIM.
  *
@@ -16,24 +16,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _STRING_H
-#define _STRING_H
-
-#include <sys/types.h>
+#ifndef _ARCH_IO_H
+#define _ARCH_IO_H
 
 #ifndef __ASSEMBLER__
 
-void *memset(void *dst, int c, size_t n);
-int memcmp(const void *s1, const void *s2, size_t n);
-void *memcpy(void *dst, const void *src, size_t n);
-void *memmove(void *dst0, const void *src0, size_t length);
-int strcmp(const char *s1, const char *s2);
-size_t strlcat(char *dst, const char *src, size_t dsize);
-size_t strlcpy(char *dst, const char *src, size_t dsize);
-size_t strlen(const char *str);
-size_t strnlen(const char *str, size_t maxlen);
+/*
+ * We use macros here so that, when involved in lab assignments, students
+ * do not have to implement them all to compile the whole project.
+ * In this way, only invoked routines need to be implemented.
+ */
+
+#define in8(port)	inb(port)
+#define in16(port)	inw(port)
+#define in32(port)	inl(port)
+
+#define out8(port, data)	outb(port, data)
+#define out16(port, data)	outw(port, data)
+#define out32(port, data)	outl(port, data)
 
 #endif /* !__ASSEMBLER__ */
 
-#endif
+#endif /* _ARCH_IO_H */
 

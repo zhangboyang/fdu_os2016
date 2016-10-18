@@ -25,6 +25,5 @@
 
 void mmu_init(pgindex_t *boot_page_index)
 {
-	return EOF;
 }
 

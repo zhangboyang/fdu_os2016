@@ -21,7 +21,9 @@
 #endif /* HAVE_CONFIG_H */
 
 #include <sys/types.h>
+#include <aim/early_kmmap.h>
 #include <aim/init.h>
+#include <aim/mmu.h>
 
 #include <libc/stdio.h>
 #include <aim/panic.h>

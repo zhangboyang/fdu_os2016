@@ -31,6 +31,18 @@ uint8_t inb(uint16_t port)
 }
 
 static inline
+uint16_t inw(uint16_t port)
+{
+	return 0;
+}
+
+static inline
+uint32_t inl(uint16_t port)
+{
+	return 0;
+}
+
+static inline
 void insl(int port, void *addr, int cnt)
 {
 	asm volatile (
@@ -55,6 +67,16 @@ void outb(uint16_t port, uint8_t data)
 		[data] "a" (data),	// A reg
 		[port] "Nd" (port)	// imm8 or D reg
 	);
+}
+
+static inline
+void outw(uint16_t port, uint8_t data)
+{
+}
+
+static inline
+void outl(uint16_t port, uint8_t data)
+{
 }
 
 static inline

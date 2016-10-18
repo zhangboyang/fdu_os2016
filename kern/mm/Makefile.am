@@ -18,7 +18,9 @@
 include $(top_srcdir)/env.am
 
 SUBDIRS = \
-	kmmap
+	kmmap \
+	pmm \
+	vmm
 
 noinst_LTLIBRARIES = \
 	libmm.la
@@ -27,5 +29,7 @@ libmm_la_SOURCES = \
 	mmu.c \
 	jump.c
 libmm_la_LIBADD = \
-	kmmap/libkmmap.la
+	kmmap/libkmmap.la \
+	pmm/libpmm.la \
+	vmm/libvmm.la
 

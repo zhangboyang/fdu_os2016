@@ -17,25 +17,9 @@
 
 include $(top_srcdir)/env.am
 
-noinst_LTLIBRARIES = \
-	libc-nopic.la \
-	libc.la
+noinst_LTLIBRARIES = libpmm.la
 
-SRCS = \
-	memcpy.c \
-	memset.c
+SRCS = pmm.c
 
-noinst_HEADERS = \
-	stdarg.h \
-	stddef.h \
-	stdio.h \
-	string.h
-
-libc_nopic_la_SOURCES = $(SRCS)
-libc_nopic_la_CPPFLAGS = $(AM_CPPFLAGS_NOPIC)
-libc_nopic_la_CFLAGS = $(AM_CFLAGS_NOPIC)
-libc_nopic_la_CCASFLAGS = $(AM_CCASFLAGS_NOPIC)
-libc_nopic_la_LDFLAGS = $(AM_LDFLAGS_NOPIC)
-
-libc_la_SOURCES = $(SRCS)
+libpmm_la_SOURCES = $(SRCS)
 
