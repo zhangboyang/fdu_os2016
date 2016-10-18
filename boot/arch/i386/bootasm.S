@@ -107,6 +107,8 @@ bootasm:
 
 
 // function: load PHDR from ELF file
+// phdr size (memsz, filesz) must < 64K
+// file offset can larger than 64K
 load_elf_phdr:
   push %bp
   mov %sp, %bp
@@ -388,6 +390,7 @@ gdtdesc:
 
 // function to read disk real mode
 //    int readsect_realmode(unsigned lowaddr, unsigned int sect)
+//       lowaddr must < 64K
 //    return 1 if read OK, 0 on read fail
 // most code to retn to real mode is copied from linux 2.4.0
 .text
@@ -466,7 +469,7 @@ readsect_realmode:
   popa
   ret
 
-
+.data
 
 gdt_16:
 .quad 0x0000000000000000 /* Null descriptor */
