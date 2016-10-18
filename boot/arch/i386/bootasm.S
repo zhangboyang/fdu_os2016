@@ -413,7 +413,7 @@ readsect_realmode:
 
   // disable protected mode
   movl    %cr0, %eax
-  orl     $CR0_PE, %eax
+  andl     $(~CR0_PE), %eax
   movl    %eax, %cr0
 
   // ljmp to real mode
