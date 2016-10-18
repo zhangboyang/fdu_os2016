@@ -38,7 +38,7 @@ static void check_cpu(void)
     if (!(edx & (1 << 20))) {
         panic("no NX/XD support in this processor!");
     } 
-    bprintf("\n");
+    bprintf("OK\n");
 }
 void arch_early_init(void)
 {
