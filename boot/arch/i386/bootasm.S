@@ -463,7 +463,7 @@ readsect_realmode:
   movzbl %al, %eax
   mov %eax, 0x1c(%esp)
   popa
-  retn
+  ret
 
 
 
