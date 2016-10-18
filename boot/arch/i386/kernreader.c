@@ -18,13 +18,14 @@
 static void readsect(void *dst, unsigned int sect)
 {
     bmemset((void *) 0x1000, -1, SECTSIZE);
-    bprintf("read disk sector %x to addr %p ... ", sect, dst);
+//    bprintf("read disk sector %x to addr %p ... ", sect, dst);
     if (!readsect_realmode(0x1000, sect)) {
         bpanic("can't read disk in real mode.");
     }
-    bprintf("read OK, copy to dest... ");
+//    bprintf("read OK, copy to dest... ");
     bmemcpy(dst, (void *) 0x1000, SECTSIZE);
-    bprintf("OK\n");
+//    bprintf("OK\n");
+    bputc('.');
 }
 
 static size_t kdiskoffset;
