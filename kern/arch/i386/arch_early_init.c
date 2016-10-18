@@ -22,6 +22,7 @@
 
 #include <sys/types.h>
 #include <libc/stdio.h>
+#include <aim/panic.h>
 
 static void check_cpu(void)
 {
