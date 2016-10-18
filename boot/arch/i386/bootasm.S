@@ -359,7 +359,6 @@ start32:
 
   # Set up the stack pointer and call into C.
   movl    $_start, %esp
-  jmp retn_to_realmode
   call    bootmain
 
 spin: // infloop
