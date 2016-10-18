@@ -438,10 +438,11 @@ readsect_realmode:
   mov $0x80, %dl // first HDD
   mov %sp, %si
   int $0x13
-  mov $0, %al
+  mov $0, %dl
   jc 1f
-  inc %al
+  inc %dl
 1:
+  mov %bp, %sp
 
   // go back to protected-mode
   lgdt    gdtdesc
@@ -460,8 +461,8 @@ readsect_realmode:
   movw    $0, %ax
   movw    %ax, %fs
   movw    %ax, %gs
-  movzbl %al, %eax
-  mov %eax, 0x1c(%esp)
+  movzbl %dl, %edx
+  mov %edx, 0x1c(%esp)
   popa
   ret
 
