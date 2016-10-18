@@ -395,8 +395,8 @@ gdtdesc:
 .globl readsect_realmode
 readsect_realmode:
   pusha // save all registers
-  mov 0x24(%esp), %esi // LBA
-  mov 0x28(%esp), %edi // buffer
+  mov 0x24(%esp), %edi // buffer
+  mov 0x28(%esp), %esi // LBA
   
   // jmp to 16-bit protected mode
   lgdt gdtdesc_16
