@@ -54,6 +54,8 @@ AX_GCC_BUILTIN(__builtin_popcountll)
 AX_GCC_BUILTIN(__builtin_bswap32)
 AX_GCC_BUILTIN(__builtin_bswap64)
 
+AC_SUBST([AIM_CFLAGS], [$aim_cflags])
+
 AM_PROG_AS
 AM_PROG_AR
 AC_CHECK_TOOL([OBJDUMP], [objdump])
