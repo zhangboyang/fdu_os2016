@@ -14,25 +14,13 @@
 #define KERNEL_ELF_PART_ID 1
 
 
-static void waitdisk(void)
-{
-    // Wait for disk ready.
-    while ((inb(0x1F7) & 0xC0) != 0x40);
-}
+
 static void readsect(void *dst, unsigned int sect)
 {
-    // Issue command.
-    waitdisk();
-    outb(0x1F2, 1);   // count = 1
-    outb(0x1F3, sect);
-    outb(0x1F4, sect >> 8);
-    outb(0x1F5, sect >> 16);
-    outb(0x1F6, (sect >> 24) | 0xE0);
-    outb(0x1F7, 0x20);  // cmd 0x20 - read sectors
-
-    // Read data.
-    waitdisk();
-    insl(0x1F0, dst, SECTSIZE / 4);
+    if (!readsect_realmode(0x1000, sect)) {
+        bpanic("can't read disk in real mode.");
+    }
+    memcpy(dst, (void *) 0x1000, SECTSIZE);
 }
 
 static size_t kdiskoffset;

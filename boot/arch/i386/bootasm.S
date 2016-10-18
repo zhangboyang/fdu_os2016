@@ -387,12 +387,18 @@ gdtdesc:
 
 //////////// return from 32-bit protected mode to real mode //////////////////
 
-// most code copied from linux 2.4.0
-
+// function to read disk real mode
+//    void readsect_realmode(unsigned lowaddr, unsigned int sect)
+//    return 1 if read OK, 0 on read fail
+// most code to retn to real mode is copied from linux 2.4.0
 .text
-retn_to_realmode:
-.code32
-
+.code32  
+.globl readsect_realmode
+readsect_realmode:
+  pusha // save all registers
+  mov 4(%esp), %esi // LBA
+  mov 8(%esp), %edi // buffer
+  
   // jmp to 16-bit protected mode
   lgdt gdtdesc_16
   ljmp $(1<<3), $1f
@@ -406,24 +412,60 @@ retn_to_realmode:
   movl    %eax, %fs
   movl    %eax, %gs
 
-  // return to real mode
-  movl %cr0, %eax
-  andl $0x11, %eax
-  orl $0x60000000, %eax
-  movl %eax, %cr0
-  movl %eax, %cr3
-  movl %cr0, %ebx
-  andl $0x60000000, %ebx
-  jz 1f
-  invd
+  // disable protected mode
+  movl    %cr0, %eax
+  orl     $CR0_PE, %eax
+  movl    %eax, %cr0
+
+  // ljmp to real mode
+  ljmp $0x0000, $1f
+  xorw    %ax,%ax
+  movw    %ax,%ds
+  movw    %ax,%es
+  movw    %ax,%ss
+
+  // read disk
+  mov %sp, %bp
+  and $0xfff0, %sp
+  pushw $0
+  pushw $0
+  pushl %esi
+  pushw $0  // segment
+  pushw %di
+  pushw $1
+  pushw $1
+  mov $0x42, %ah
+  mov $0x80, %dl // first HDD
+  mov %sp, %si
+  int $0x13
+  mov $0, %al
+  jc 1b
+  inc %al
 1:
-  andb $0x10, %al
-  movl %eax, %cr0
+
+  // go back to protected-mode
+  lgdt    gdtdesc
+  movl    %cr0, %eax
+  orl     $CR0_PE, %eax
+  movl    %eax, %cr0
+
+  ljmp    $(SEG_KCODE<<3), $start32
+
+.code32
+start32:
+  movw    $(SEG_KDATA<<3), %ax
+  movw    %ax, %ds
+  movw    %ax, %es
+  movw    %ax, %ss
+  movw    $0, %ax
+  movw    %ax, %fs
+  movw    %ax, %gs
+  movzbl %al, %eax
+  mov %eax, 0x1c(%esp)
+  popa
+  retn
 
 
-
-1:
-  jmp 1b
 
 gdt_16:
 .quad 0x0000000000000000 /* Null descriptor */
