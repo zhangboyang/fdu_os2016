@@ -13,8 +13,8 @@
 #include <config.h>
 #endif
 
-#include <regdef.h>
-#include <cp0regdef.h>
+//#include <regdef.h>
+//#include <cp0regdef.h>
 
 /*
  * LEAF - declare leaf routine

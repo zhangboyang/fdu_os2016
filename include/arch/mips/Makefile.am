@@ -20,5 +20,7 @@ include $(top_srcdir)/env.am
 noinst_HEADERS = \
 	arch-boot.h \
 	arch-io.h \
-	asm.h
+	asm.h \
+	cp0regdef.h \
+	regdef.h
 
