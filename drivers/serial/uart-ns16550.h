@@ -1,4 +1,5 @@
-/* Copyright (C) 2016 David Gao <davidgao1001@gmail.com>
+/* Copyright (C) 2016 Gan Quan <coin2028@hotmail.com>
+ * Copyright (C) 2016 David Gao <davidgao1001@gmail.com>
  *
  * This file is part of AIM.
  *
@@ -16,25 +17,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _ARCH_MMU_H
-#define _ARCH_MMU_H
+#ifndef _DRIVERS_SERIAL_UART_NS16550_H
+#define _DRIVERS_SERIAL_UART_NS16550_H
 
-/* addresses before and after early MMU mapping */
-#define __premap_addr(kva)	(ULCAST(kva) - KERN_BASE)
-#define __postmap_addr(pa)	(ULCAST(pa) + KERN_BASE)
+#ifdef RAW /* baremetal driver */
 
-/* kernel virtual address and physical address conversion */
-#define kva2pa(kva)		(ULCAST(kva) - KERN_BASE)
-#define pa2kva(pa)		(PTRCAST(pa) + KERN_BASE)
+#else /* not RAW, or kernel driver */
 
-#ifndef __ASSEMBLER__
+#endif /* RAW */
 
-typedef uint32_t	pde_t;
-typedef uint32_t	pte_t;
 
-typedef pde_t	pgindex_t;
-
-#endif /* !__ASSEMBLER__ */
-
-#endif /* !_ARCH_MMU_H */
+#endif
 

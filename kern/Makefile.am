@@ -19,6 +19,7 @@ include $(top_srcdir)/env.am
 
 SUBDIRS = \
 	arch \
+	dev \
 	init \
 	mm \
 	panic

@@ -21,10 +21,15 @@
 #define _AIM_MMU_H
 
 #include <arch-mmu.h>
+#include <util.h>
 
 #ifndef PAGE_SIZE
 #define PAGE_SIZE	4096
 #endif /* !PAGE_SIZE */
+
+#ifndef EARLY_PAGE_SIZE
+#define EARLY_PAGE_SIZE	PAGE_SIZE
+#endif /* !EARLY_PAGE_SIZE */
 
 #ifndef __ASSEMBLER__
 

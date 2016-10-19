@@ -1,7 +1,7 @@
 # Copyright (C) 2016 David Gao <davidgao1001@gmail.com>
 # Copyright (C) 2016 Gan Quan <coin2028@hotmail.com>
 #
-# This file is part of AIM.
+# This program is part of AIM.
 #
 # AIM is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,21 +18,26 @@
 
 include $(top_srcdir)/env.am
 
-SUBDIRS = \
-	io \
-	serial
+noinst_LTLIBRARIES = libserial-raw.la libserial.la
+noinst_PROGRAMS =
+noinst_HEADERS =
 
-noinst_LTLIBRARIES = libdrivers-raw.la libdrivers.la
+SRCS =
+MODULE_SRCS =
 
-libdrivers_raw_la_SOURCES =
-libdrivers_raw_la_LIBADD = \
-	$(builddir)/io/libio-raw.la
-libdrivers_raw_la_CPPFLAGS = $(AM_CPPFLAGS_NOPIC)
-libdrivers_raw_la_CFLAGS = $(AM_CFLAGS_NOPIC)
-libdrivers_raw_la_CCASFLAGS = $(AM_CCASFLAGS_NOPIC)
-libdrivers_raw_la_LDFLAGS = $(AM_LDFLAGS_NOPIC)
+if UART_NS16550
+MODULE_SRCS += uart-ns16550.c
+noinst_PROGRAMS += uart-ns16550.ko
+uart_ns16550_ko_SOURCES = uart-ns16550.c #uart-ns16550-kernel.c
+uart_ns16550_ko_LDFLAGS = $(AM_LDFLAGS) -Wl,-r
+noinst_HEADERS += uart-ns16550-hw.h
+endif
 
-libdrivers_la_SOURCES =
-libdrivers_la_LIBADD = \
-	$(builddir)/io/libio.la
+libserial_raw_la_SOURCES = $(SRCS) $(MODULE_SRCS)
+libserial_raw_la_CPPFLAGS = $(AM_CPPFLAGS_NOPIC)
+libserial_raw_la_CFLAGS = $(AM_CFLAGS_NOPIC)
+libserial_raw_la_CCASFLAGS = $(AM_CCASFLAGS_NOPIC)
+libserial_raw_la_LDFLAGS = $(AM_LDFLAGS_NOPIC)
+
+libserial_la_SOURCES = $(SRCS)
 

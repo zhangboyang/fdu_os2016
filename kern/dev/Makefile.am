@@ -1,5 +1,4 @@
 # Copyright (C) 2016 David Gao <davidgao1001@gmail.com>
-# Copyright (C) 2016 Gan Quan <coin2028@hotmail.com>
 #
 # This file is part of AIM.
 #
@@ -18,21 +17,7 @@
 
 include $(top_srcdir)/env.am
 
-SUBDIRS = \
-	io \
-	serial
+noinst_LTLIBRARIES = libdev.la
 
-noinst_LTLIBRARIES = libdrivers-raw.la libdrivers.la
-
-libdrivers_raw_la_SOURCES =
-libdrivers_raw_la_LIBADD = \
-	$(builddir)/io/libio-raw.la
-libdrivers_raw_la_CPPFLAGS = $(AM_CPPFLAGS_NOPIC)
-libdrivers_raw_la_CFLAGS = $(AM_CFLAGS_NOPIC)
-libdrivers_raw_la_CCASFLAGS = $(AM_CCASFLAGS_NOPIC)
-libdrivers_raw_la_LDFLAGS = $(AM_LDFLAGS_NOPIC)
-
-libdrivers_la_SOURCES =
-libdrivers_la_LIBADD = \
-	$(builddir)/io/libio.la
+libdev_la_SOURCES = console.c
 
