@@ -21,12 +21,15 @@
 #endif /* HAVE_CONFIG_H */
 
 #include <sys/types.h>
+#include <aim/console.h>
 #include <aim/device.h>
 #include <aim/early_kmmap.h>
 #include <aim/init.h>
 #include <aim/mmu.h>
+#include <aim/panic.h>
 #include <drivers/io/io-mem.h>
 #include <drivers/io/io-port.h>
+#include <platform.h>
 
 static inline
 int early_devices_init(void)
@@ -54,6 +57,9 @@ void master_early_init(void)
 		goto panic;
 	/* other preperations, including early secondary buses */
 	arch_early_init();
+	if (early_console_init(&early_port_bus, EARLY_CONSOLE_BASE, MAP_NONE) < 0)
+		panic("Early console init failed.\n");
+	kputs("Hello, world!\n");
 
 	goto panic;
 
