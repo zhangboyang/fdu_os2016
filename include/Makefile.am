@@ -22,11 +22,12 @@ SUBDIRS = \
 	arch
 
 nobase_noinst_HEADERS = \
-	sys/types.h \
-	sys/param.h
+	sys/param.h \
+	sys/types.h
 
 noinst_HEADERS = \
 	elf.h \
+	errno.h \
 	list.h \
 	util.h
 

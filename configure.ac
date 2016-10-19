@@ -221,6 +221,9 @@ AC_CONFIG_FILES([
 	boot/arch/armv7a/Makefile
 	boot/arch/i386/Makefile
 	boot/arch/mips/Makefile
+	drivers/Makefile
+	drivers/io/Makefile
+	drivers/serial/Makefile
 	include/Makefile
 	include/aim/Makefile
 	include/arch/Makefile
@@ -232,6 +235,7 @@ AC_CONFIG_FILES([
 	kern/arch/armv7a/Makefile
 	kern/arch/i386/Makefile
 	kern/arch/mips/Makefile
+	kern/dev/Makefile
 	kern/init/Makefile
 	kern/mm/Makefile
 	kern/mm/kmmap/Makefile

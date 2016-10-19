@@ -21,8 +21,8 @@
 #endif /* HAVE_CONFIG_H */
 
 #include <sys/types.h>
+#include <aim/console.h>
 #include <aim/panic.h>
-
 #include <libc/stdarg.h>
 #include <libc/stddef.h>
 #include <libc/stdio.h>
@@ -35,6 +35,7 @@
 __noreturn
 void __local_panic(void)
 {
+	//local_irq_disable();
 	/*
 	 * We cannot simply do tight loops at panic. Modern kernels turn down
 	 * processors and other devices to keep energy consumption and heat
@@ -55,6 +56,28 @@ void __local_panic(void)
 __noreturn
 void panic(const char *fmt, ...)
 {
+	/*
+	 * We might be in some strange state with limited stack, use a static
+	 * buffer
+	 */
+	static char __buf[BUFSIZ];
+	va_list args;
+	int result;
+
+	//local_irq_disable();
+
+	//panic_other_cpus();
+
+	va_start(args, fmt);
+	result = vsnprintf(__buf, BUFSIZ, fmt, args);
+	va_end(args);
+
+	kputs("----- KERNEL PANIC -----\n");
+	if (result >= BUFSIZ) {
+		kputs("PANIC: message is truncated.");
+	}
+	kputs(__buf);
+	
 	__local_panic();
 }
 

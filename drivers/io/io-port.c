@@ -21,16 +21,26 @@
 #endif /* HAVE_CONFIG_H */
 
 #include <sys/types.h>
-#include <aim/io.h>
-/*#include <sys/param.h>
+#include <sys/param.h>
 #include <aim/device.h>
+#include <aim/gfp.h>
+#include <aim/io.h>
+#include <aim/mmu.h>
+#include <aim/panic.h>
+#include <errno.h>
+
+#include <io-port.h>
+
+#ifdef IO_PORT_ROOT
+#include <asm.h>
+#endif /* IO_PORT_ROOT */
+/*#include <sys/param.h>
 #include <aim/initcalls.h>
 #include <util.h>
 #include <asm-generic/funcs.h>*/
 
 //#include <asm.h>	/* inb() and outb() should be declared there */
 /*#include <io-port.h>
-#include <mm.h>
 #include <errno.h>*/
 
 /*
@@ -56,7 +66,11 @@ static int __read8(struct bus_device *inst, addr_t base, addr_t offset,
 		bus_read8 = bus->bus_driver.get_read_fp(bus, 8);
 		bus_read8(bus, inst->base, base + offset, ptr);
 	} else {
-		*ptr = inb((uint16_t)(base + offset));
+#ifdef IO_PORT_ROOT
+		*ptr = in8((uint16_t)(base + offset));
+#else
+		panic("Invalid IO port bus routine invoked.\n");
+#endif /* IO_PORT_ROOT */
 	}
 
 	return 0;
@@ -72,7 +86,11 @@ static int __write8(struct bus_device *inst, addr_t base, addr_t offset,
 		bus_write8 = bus->bus_driver.get_write_fp(bus, 8);
 		return bus_write8(bus, inst->base, base + offset, val);
 	} else {
-		outb((uint16_t)(base + offset), val);
+#ifdef IO_PORT_ROOT
+		out8((uint16_t)(base + offset), val);
+#else
+		panic("Invalid IO port bus routine invoked.\n");
+#endif /* IO_PORT_ROOT */
 		return 0;
 	}
 }
@@ -87,7 +105,11 @@ static int __read16(struct bus_device *inst, addr_t base, addr_t offset,
 		bus_read16 = bus->bus_driver.get_read_fp(bus, 16);
 		bus_read16(bus, inst->base, base + offset, ptr);
 	} else {
-		*ptr = inw((uint16_t)(base + offset));
+#ifdef IO_PORT_ROOT
+		*ptr = in16((uint16_t)(base + offset));
+#else
+		panic("Invalid IO port bus routine invoked.\n");
+#endif /* IO_PORT_ROOT */
 	}
 
 	return 0;
@@ -103,7 +125,11 @@ static int __write16(struct bus_device *inst, addr_t base, addr_t offset,
 		bus_write16 = bus->bus_driver.get_write_fp(bus, 16);
 		return bus_write16(bus, inst->base, base + offset, val);
 	} else {
-		outw((uint16_t)(base + offset), val);
+#ifdef IO_PORT_ROOT
+		out16((uint16_t)(base + offset), val);
+#else
+		panic("Invalid IO port bus routine invoked.\n");
+#endif /* IO_PORT_ROOT */
 		return 0;
 	}
 }
@@ -118,7 +144,11 @@ static int __read32(struct bus_device *inst, addr_t base, addr_t offset,
 		bus_read32 = bus->bus_driver.get_read_fp(bus, 32);
 		bus_read32(bus, inst->base, base + offset, ptr);
 	} else {
-		*ptr = ind((uint16_t)(base + offset));
+#ifdef IO_PORT_ROOT
+		*ptr = in32((uint16_t)(base + offset));
+#else
+		panic("Invalid IO port bus routine invoked.\n");
+#endif /* IO_PORT_ROOT */
 	}
 
 	return 0;
@@ -134,7 +164,11 @@ static int __write32(struct bus_device *inst, addr_t base, addr_t offset,
 		bus_write32 = bus->bus_driver.get_write_fp(bus, 32);
 		return bus_write32(bus, inst->base, base + offset, val);
 	} else {
-		outd((uint16_t)(base + offset), val);
+#ifdef IO_PORT_ROOT
+		out32((uint16_t)(base + offset), val);
+#else
+		panic("Invalid IO port bus routine invoked.\n");
+#endif /* IO_PORT_ROOT */
 		return 0;
 	}
 }
@@ -179,37 +213,39 @@ static void __portio_bus_init(struct bus_device *portio)
 	portio->bus_driver.get_write_fp = __get_write_fp;
 }
 
-static void __jump_handler(void)
-{
-	__portio_bus_init(&early_portio_bus);
-}
-
-int io_port_init(struct bus_device *port_bus)
-{
-	__portio_bus_init(portio);
-#ifndef RAW
-	if (jump_handlers_add((generic_fp)postmap_addr(__jump_handler)) != 0)
-		return EOF;
-#endif /* RAW */
-	return 0;
-}
-
 /*
  * IMPORTANT NOTE:
  * Port I/O bus structure should be further initialized in
  * machine-dependent code in case of accessing ports via
  * address spaces.
  */
-struct bus_device early_portio_bus = {
+struct bus_device early_port_bus = {
 	/* FIXME ? */
 	.addr_width = 32,
 	.class = DEVCLASS_BUS,
 };
 
 #ifndef RAW
+static void __jump_handler(void)
+{
+	__portio_bus_init(&early_port_bus);
+}
+#endif /* RAW */
 
-#define DEVICE_MODEL	"portio"
+int io_port_init(struct bus_device *port_bus)
+{
+	__portio_bus_init(port_bus);
+#ifndef RAW
+	if (jump_handlers_add((generic_fp)__jump_handler) != 0)
+		return EOF;
+#endif /* RAW */
+	return 0;
+}
 
+#ifndef RAW
+
+#define DEVICE_MODEL	"io-port"
+#if 0
 static struct bus_driver drv;
 
 static int __new(struct devtree_entry *entry)
@@ -248,5 +284,6 @@ static int __driver_init(void)
 	return 0;
 }
 INITCALL_DRIVER(__driver_init);
+#endif /* 0 */
+#endif /* !RAW */
 
-#endif

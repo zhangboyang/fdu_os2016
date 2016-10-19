@@ -19,6 +19,7 @@ include $(top_srcdir)/env.am
 
 noinst_HEADERS = \
 	boot.h \
+	console.h \
 	debug.h \
 	device.h \
 	early_kmmap.h \
