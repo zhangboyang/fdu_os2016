@@ -23,7 +23,6 @@
 #include <sys/types.h>
 #include <aim/early_kmmap.h>
 #include <aim/mmu.h>
-#include <libc/string.h>
 
 bool early_mapping_valid(struct early_mapping *entry)
 {

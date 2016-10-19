@@ -230,6 +230,7 @@ AC_CONFIG_FILES([
 	include/arch/armv7a/Makefile
 	include/arch/i386/Makefile
 	include/arch/mips/Makefile
+	include/arch/mips/mach-loongson3a/Makefile
 	kern/Makefile
 	kern/arch/Makefile
 	kern/arch/armv7a/Makefile

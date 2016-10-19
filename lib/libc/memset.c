@@ -37,8 +37,8 @@
 #include <libc/string.h>
 
 /* If we have architecture-tuned memset(), use that */
-void __weak *
-memset(void *dst, int c, size_t n)
+__weak
+void *memset(void *dst, int c, size_t n)
 {
 	if (n != 0) {
 		unsigned char *d = dst;
