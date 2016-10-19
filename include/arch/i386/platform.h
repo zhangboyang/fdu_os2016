@@ -26,7 +26,9 @@
 #define UART_BASE	COM1
 #define UART_FREQ	1843200
 
+#define EARLY_CONSOLE_BUS	(&early_port_bus)
 #define EARLY_CONSOLE_BASE	UART_BASE
+#define EARLY_CONSOLE_MAPPING	MAP_NONE
 
 #endif
 

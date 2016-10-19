@@ -57,7 +57,11 @@ void master_early_init(void)
 		goto panic;
 	/* other preperations, including early secondary buses */
 	arch_early_init();
-	if (early_console_init(&early_port_bus, EARLY_CONSOLE_BASE, MAP_NONE) < 0)
+	if (early_console_init(
+		EARLY_CONSOLE_BUS,
+		EARLY_CONSOLE_BASE,
+		EARLY_CONSOLE_MAPPING
+	) < 0)
 		panic("Early console init failed.\n");
 	kputs("Hello, world!\n");
 

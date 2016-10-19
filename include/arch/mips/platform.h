@@ -1,4 +1,5 @@
 /* Copyright (C) 2016 Gan Quan <coin2028@hotmail.com>
+ * Copyright (C) 2016 David Gao <davidgao1001@gmail.com>
  *
  * This file is part of AIM.
  *
@@ -18,6 +19,8 @@
 
 #ifndef _PLATFORM_H
 #define _PLATFORM_H
+
+#include <mach-platform.h>
 
 #endif
 
