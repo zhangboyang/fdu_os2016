@@ -23,6 +23,11 @@
 #include <sys/types.h>
 #include <aim/mmu.h>
 
+bool early_mapping_valid(struct early_mapping *entry)
+{
+	return true;
+}
+
 void mmu_init(pgindex_t *boot_page_index)
 {
 }
