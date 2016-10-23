@@ -10,10 +10,17 @@
  * this file is added by ZBY
  */
 
+// FIXME: dirty hack!
+#define bprintf ((int (*)(const char *, ...)) (0x7c00 + KOFFSET))
+
 void master_init()
 {
+    bprintf("this is bprintf, at highaddr!\n");
+    
+    jump_handlers_apply();
+    
     kprintf("hello world! we are now at high address!\n");
     
-    panic("haha");
+    panic("bye");
 }
 

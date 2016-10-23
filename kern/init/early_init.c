@@ -58,7 +58,7 @@ int early_devices_init(void)
 __noreturn
 void master_early_init(void)
 {
-    bprintf("Hello, world!\n");
+    bprintf("this is bprintf, at lowaddr!\n");
     
 	/* clear address-space-related callback handlers */
 	early_mapping_clear();
