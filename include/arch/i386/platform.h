@@ -16,20 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _SYS_PARAM_H
-#define _SYS_PARAM_H
+#ifndef _PLATFORM_H
+#define _PLATFORM_H
 
-#include <sys/types.h>
+/* port base for x86 UART */
+#define COM1		0x3f8
 
-/*
- * Kernel hyper-parameters which probably should not reside in configure script
- */
+/* for UART */
+#define UART_BASE	COM1
+#define UART_FREQ	1843200
 
-#define NODEV	((dev_t)(-1))
-#define NOMAJOR	((unsigned int)(-1))
-#define MAJOR_MAX	16
-#define DEVICE_MAX	32
-#define SECTOR_SIZE	512
-#define JUNKBYTE	0x20
+#define EARLY_CONSOLE_BUS	(&early_port_bus)
+#define EARLY_CONSOLE_BASE	UART_BASE
+#define EARLY_CONSOLE_MAPPING	MAP_NONE
 
 #endif
+

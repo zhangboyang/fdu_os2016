@@ -1,4 +1,4 @@
-/* Copyright (C) 2016 Gan Quan <coin2028@hotmail.com>
+/* Copyright (C) 2016 David Gao <davidgao1001@gmail.com>
  *
  * This file is part of AIM.
  *
@@ -16,20 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _SYS_PARAM_H
-#define _SYS_PARAM_H
+#ifndef _DRIVERS_IO_MEM_H
+#define _DRIVERS_IO_MEM_H
 
-#include <sys/types.h>
+#ifdef IO_MEM_ROOT
+__attribute__ ((visibility ("hidden")))
+extern struct bus_device early_memory_bus;
+#endif /* IO_MEM_ROOT */
 
-/*
- * Kernel hyper-parameters which probably should not reside in configure script
- */
+int io_mem_init(struct bus_device *memory_bus);
 
-#define NODEV	((dev_t)(-1))
-#define NOMAJOR	((unsigned int)(-1))
-#define MAJOR_MAX	16
-#define DEVICE_MAX	32
-#define SECTOR_SIZE	512
-#define JUNKBYTE	0x20
+#endif /* _DRIVERS_IO_MEM_H */
 
-#endif

@@ -33,6 +33,7 @@
 #include <sys/types.h>
 #include <aim/early_kmmap.h>
 #include <aim/debug.h>
+#include <errno.h>
 #include <util.h>
 
 /* TODO move this to configuration */
@@ -57,16 +58,16 @@ int early_mapping_add(struct early_mapping *entry)
 
 	/* Fail in case of full queue. */
 	if (queue_size == EARLY_MAPPING_QUEUE_LENGTH)
-		return EOF;
+		return -ENOMEM;
 	/* Alignment check */
 	if (!early_mapping_valid(entry))
-		return EOF;
+		return -EINVAL;
 	/* VADDR overlap check */
 	for (int i = 0; i < queue_size; i += 1) {
 		if (OVERLAP(
 			entry->vaddr, entry->size,
 			queue[i].vaddr, queue[i].size
-		)) return EOF;
+		)) return -EINVAL;
 	}
 	/* Commit change */
 	queue[queue_size++] = *entry;
@@ -110,7 +111,7 @@ void *early_mapping_add_kmmap(addr_t base, size_t size)
 	};
 	/* Apply */
 	if (early_mapping_add(&entry) < 0)
-		return 0;
+		return NULL;
 	kmmap_top += size;
 	return (void *)entry.vaddr;
 }

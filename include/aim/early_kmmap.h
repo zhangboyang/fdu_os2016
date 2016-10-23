@@ -19,8 +19,6 @@
 #ifndef _AIM_EARLY_KMMAP_H
 #define _AIM_EARLY_KMMAP_H
 
-#include <sys/types.h>
-
 #ifndef __ASSEMBLER__
 
 struct early_mapping {

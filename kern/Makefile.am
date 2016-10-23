@@ -16,9 +16,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 include $(top_srcdir)/env.am
+include $(top_srcdir)/modules.am
 
 SUBDIRS = \
 	arch \
+	dev \
 	init \
 	mm \
 	panic
@@ -33,17 +35,19 @@ CLEANFILES = boot.lds vmaim.s
 # This list should always be ordered carefully
 KERN_LIBS = \
 	arch/$(ARCH)/libentry.la \
+	dev/libdev.la \
 	init/libearlyinit.la \
 	mm/libmm.la \
 	panic/libpanic.la \
 	arch/$(ARCH)/libarch.la \
+	../drivers/libdrivers.la \
 	../lib/libc/libc.la
 
 libkernel_la_SOURCES =
 libkernel_la_LIBADD = $(KERN_LIBS)
 
 vmaim_elf_SOURCES =
-vmaim_elf_LDADD = libkernel.la
+vmaim_elf_LDADD = libkernel.la $(MODULES)
 EXTRA_vmaim_elf_DEPENDENCIES = vmaim.lds
 vmaim_elf_LDFLAGS = $(AM_LDFLAGS) -T vmaim.lds
 

@@ -21,7 +21,23 @@
 #endif /* HAVE_CONFIG_H */
 
 #include <sys/types.h>
+#include <aim/early_kmmap.h>
 #include <aim/mmu.h>
+
+bool early_mapping_valid(struct early_mapping *entry)
+{
+	return true;
+}
+
+void page_index_clear(pgindex_t *index)
+{
+}
+
+int page_index_early_map(pgindex_t *index, addr_t paddr,
+	void *vaddr, size_t length)
+{
+	return -1;
+}
 
 void mmu_init(pgindex_t *boot_page_index)
 {
