@@ -54,9 +54,6 @@ int early_devices_init(void)
 __noreturn
 void master_early_init(void)
 {
-    bprintf("hello world! this is the AIM kernel!\n");
-
-bprintf("%p\n", early_mapping_clear);
 	/* clear address-space-related callback handlers */
 	early_mapping_clear();
 	mmu_handlers_clear();
@@ -70,11 +67,12 @@ bprintf("%p\n", early_mapping_clear);
 	if (early_console_init(EARLY_CONSOLE_BUS, EARLY_CONSOLE_BASE, EARLY_CONSOLE_MAPPING) < 0) {
 		panic("Early console init failed.\n");
 	}
-bprintf("hahahaha1\n");
+
 	kputs("Hello, world!\n");
-bprintf("hahahaha2\n");
+	kprintf("hello world! this is the AIM kernel!\n");
+
 	early_mm_init();
-bprintf("hahahaha3\n");
+	
 	mmu_jump();
 }
 

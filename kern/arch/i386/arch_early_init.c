@@ -24,28 +24,9 @@
 #include <libc/stdio.h>
 #include <aim/panic.h>
 
-static void check_cpu(void)
-{
-    bprintf("checking CPUID ... ");
-    unsigned eax, ecx, edx, ebx;
-    eax = 0x00000001;
-    __asm__ __volatile__ ("cpuid":"+eax"(eax),"=ecx"(ecx),"=edx"(edx),"=ebx"(ebx));
-    if (!(edx & (1 << 6))) {
-        panic("no PAE support in this processor!");
-    }
-    if (!(edx & (1 << 5))) {
-        panic("no RDMSR/WRMSR in this processor!");
-    }
-    eax = 0x80000001;
-    __asm__ __volatile__ ("cpuid":"+eax"(eax),"=ecx"(ecx),"=edx"(edx),"=ebx"(ebx));
-    if (!(edx & (1 << 20))) {
-        panic("no NX/XD support in this processor!");
-    }
-    bprintf("OK\n");
-}
+
 void arch_early_init(void)
 {
-    check_cpu();
 }
 
 

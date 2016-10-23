@@ -57,7 +57,7 @@ int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr, void *vaddr, 
         // map VA to PA
         pgmid_t *pgmid = WKPGINDEX(boot_page_index[PGINDEX_FN(va)]);
         pgmid[PGMID_FN(va)] = MKPGMID_BIG(pa) | PGMID_RW;
-        bprintf("pgmid=%x midfn=%x val=%x\n", (unsigned) pgmid, (unsigned) PGMID_FN(va), (unsigned) pgmid[PGMID_FN(va)]);
+        kprintf("pgmid=%x midfn=%x val=%x\n", (unsigned) pgmid, (unsigned) PGMID_FN(va), (unsigned) pgmid[PGMID_FN(va)]);
     }
     
     return 0;
@@ -100,10 +100,30 @@ void mmu_init(pgindex_t *boot_page_index)
     page_index_init(boot_page_index);
 }
 
-
+static void check_cpu(void)
+{
+    kprintf("checking CPUID ... ");
+    unsigned eax, ecx, edx, ebx;
+    eax = 0x00000001;
+    __asm__ __volatile__ ("cpuid":"+eax"(eax),"=ecx"(ecx),"=edx"(edx),"=ebx"(ebx));
+    if (!(edx & (1 << 6))) {
+        panic("no PAE support in this processor!");
+    }
+    if (!(edx & (1 << 5))) {
+        panic("no RDMSR/WRMSR in this processor!");
+    }
+    eax = 0x80000001;
+    __asm__ __volatile__ ("cpuid":"+eax"(eax),"=ecx"(ecx),"=edx"(edx),"=ebx"(ebx));
+    if (!(edx & (1 << 20))) {
+        panic("no NX/XD support in this processor!");
+    }
+    kprintf("OK\n");
+}
 
 void early_mm_init(void)
 {
+    check_cpu();
+    
     addr_t ksize = PTR2ADDR(KERN_END_HIGH) - KOFFSET;
     struct early_mapping entry;
     
