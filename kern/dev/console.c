@@ -57,12 +57,8 @@ void set_console(putchar_fp putchar, puts_fp puts)
 	//spinlock_init(&__lock);
 }
 
-// FIXME: dirty hack!
-#define bprintf ((int (*)(const char *, ...)) 0x7c00)
-
 int kprintf(const char *fmt, ...)
 {
-    bprintf("fmt=%s", fmt);
 	int result;
 	char printf_buf[BUFSIZ];
 	va_list ap;
@@ -70,8 +66,6 @@ int kprintf(const char *fmt, ...)
 	result = vsnprintf(printf_buf, BUFSIZ, fmt, ap);
 	va_end(ap);
 	kputs(printf_buf);
-
-	bprintf("%s", printf_buf);
 	return result;
 }
 

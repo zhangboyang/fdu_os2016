@@ -153,6 +153,10 @@ int __uart_ns16550_putchar(struct chr_device *inst, unsigned char c)
 static inline
 int early_console_putchar(int c)
 {
+// FIXME: dirty hack!
+#define bprintf ((int (*)(const char *, ...)) 0x7c00)
+bprintf("%c", c);
+
 	__uart_ns16550_putchar(&__early_uart_ns16550, c);
 	return 0;
 }
