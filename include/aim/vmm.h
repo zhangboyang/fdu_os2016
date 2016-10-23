@@ -20,6 +20,7 @@
 #define _AIM_VMM_H
 
 #include <aim/gfp.h>
+#include <libc/string.h>
 
 /*
  * Two kinds of memory object allocators (may) exist inside a running kernel.

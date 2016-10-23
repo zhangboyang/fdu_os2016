@@ -50,11 +50,6 @@ int kputs(const char *s);	/* Atomic */
 int __default_kputs(const char *s);
 #define DEFAULT_KPUTS __default_kputs
 
-#ifdef DEBUG
-#define kpdebug(...) kprintf("DEBUG: " __VA_ARGS__)
-#else
-#define kpdebug(...)
-#endif
 
 #endif /* !__ASSEMBLER__ */
 
