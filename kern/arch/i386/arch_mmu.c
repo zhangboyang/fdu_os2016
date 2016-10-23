@@ -138,6 +138,15 @@ void mmu_jump()
         :::"eax"
     );
     
+    // enable NX/XD
+    __asm__ __volatile__ (
+        "mov $0xC0000080, %%ecx\n\t" // IA32_EFER
+        "rdmsr\n\t"
+        "orl $(1 << 11), %%eax\n\t" // IA32_EFER.NXE
+        "wrmsr\n\t"
+        :::"eax", "ecx", "edx"
+    );
+    
     // move page table to cr3
     __asm__ __volatile__ ("mov %0, %%cr3\n\t"::"r"(__boot_page_index));
     
