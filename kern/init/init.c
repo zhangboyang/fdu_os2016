@@ -5,6 +5,7 @@
 #include <sys/types.h>
 #include <aim/panic.h>
 #include <aim/console.h>
+#include <aim/mmu.h>
 
 /*
  * this file is added by ZBY
