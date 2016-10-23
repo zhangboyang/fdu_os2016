@@ -21,8 +21,8 @@
 
 
 /* addresses before and after early MMU mapping */
-#define __premap_addr(kva)	(ULCAST(kva) - KERN_BASE)
-#define __postmap_addr(pa)	(ULCAST(pa) + KERN_BASE)
+#define __premap_addr(kva)	(ULCAST(kva) - KOFFSET)
+#define __postmap_addr(pa)	(ULCAST(pa) + KOFFSET)
 
 
 /*
