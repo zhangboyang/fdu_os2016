@@ -26,8 +26,8 @@
 #include <aim/early_kmmap.h>
 #include <aim/mmu.h>
 //#include <aim/sync.h>
-//#include <libc/stdio.h>
 #include <errno.h>
+#include <libc/stdarg.h>
 
 static putchar_fp __putchar = NULL;
 static puts_fp __puts = NULL;
@@ -51,7 +51,6 @@ static puts_fp __puts = NULL;
  */
 void set_console(putchar_fp putchar, puts_fp puts)
 {
-//bprintf("console vfptrs set to %p %p, caller is %p\n", putchar, puts, __builtin_return_address(0));
 	__putchar = putchar;
 	__puts = puts;
 	//spinlock_init(&__lock);
