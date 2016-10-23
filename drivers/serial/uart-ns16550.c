@@ -25,6 +25,7 @@
 #include <aim/console.h>
 #include <aim/device.h>
 #include <aim/mmu.h>
+#include <arch-mmu.h>
 
 #include <uart-ns16550-hw.h>
 
@@ -182,7 +183,7 @@ int __early_console_init(struct bus_device *bus, addr_t base, addr_t mapped_base
 	__uart_ns16550_init(&__early_uart_ns16550);
 	__uart_ns16550_enable(&__early_uart_ns16550);
 
-	set_console(early_console_putchar, DEFAULT_KPUTS);
+	set_console(early_console_putchar, premap_addr(DEFAULT_KPUTS));
 
 	if (jump_handlers_add((generic_fp)__jump_handler) != 0)
 		for (;;) ;	/* panic */
