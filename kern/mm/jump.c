@@ -54,9 +54,10 @@ bprintf("jump_handler: %x\n retaddr=%x\n", entry, __builtin_return_address(0));
 
 void jump_handlers_apply(void)
 {
+    int i;
     generic_fp fp;
     
-	for (int i = 0; i < __jump_handler_queue_size; ++i) {
+	for (i = 0; i < __jump_handler_queue_size; ++i) {
 		fp = postmap_addr(__jump_handler_queue[i]);
 		fp();
 	}
