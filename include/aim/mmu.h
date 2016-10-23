@@ -33,21 +33,23 @@
 
 #ifndef __ASSEMBLER__
 
+
 /* premap_addr: always returns low address.
  * The function which assumes that the argument is a high address
  * becomes __premap_addr(). */
 #define premap_addr(a)	({ \
-	size_t i = (size_t)(a); \
-	(i >= KERN_BASE) ? __premap_addr(i) : i; \
+	size_t ___i = (size_t)(a); \
+	(___i >= KERN_BASE) ? __premap_addr(___i) : ___i; \
 })
 
 /* postmap_addr: always returns high address.
  * The function which assumes that the argument is a low address
  * becomes __postmap_addr(). */
 #define postmap_addr(a)	({ \
-	size_t i = (size_t)(a); \
-	(i >= KERN_BASE) ? (i) : __postmap_addr(i); \
+	size_t ___i = (size_t)(a); \
+	(___i >= KERN_BASE) ? (___i) : __postmap_addr(___i); \
 })
+
 
 addr_t get_mem_physbase();
 addr_t get_mem_size();

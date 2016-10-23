@@ -44,9 +44,6 @@ int jump_handlers_add(generic_fp entry)
 		return EOF;
 	}
 	
-// FIXME: dirty hack!
-#define bprintf ((int (*)(const char *, ...)) 0x7c00)
-bprintf("jump_handler: %x\n retaddr=%x\n", entry, __builtin_return_address(0));
 	__jump_handler_queue[__jump_handler_queue_size] = entry;
 	__jump_handler_queue_size += 1;
 	return 0;
@@ -54,12 +51,8 @@ bprintf("jump_handler: %x\n retaddr=%x\n", entry, __builtin_return_address(0));
 
 void jump_handlers_apply(void)
 {
-    int i;
-    generic_fp fp;
-    
-	for (i = 0; i < __jump_handler_queue_size; ++i) {
-		fp = postmap_addr(__jump_handler_queue[i]);
-		fp();
+	for (int i = 0; i < __jump_handler_queue_size; ++i) {
+		((generic_fp)postmap_addr(__jump_handler_queue[i]))();
 	}
 }
 
