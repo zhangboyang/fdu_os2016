@@ -55,29 +55,26 @@ __noreturn
 void master_early_init(void)
 {
     bprintf("hello world! this is the AIM kernel!\n");
+
 	/* clear address-space-related callback handlers */
 	early_mapping_clear();
 	mmu_handlers_clear();
+
 	/* prepare early devices like memory bus and port bus */
-	if (early_devices_init() < 0)
-		goto panic;
+	if (early_devices_init() < 0) {
+		panic("early_devices_init() failed.");
+    }
+    
 	/* other preperations, including early secondary buses */
 	arch_early_init();
-	if (early_console_init(
-		EARLY_CONSOLE_BUS,
-		EARLY_CONSOLE_BASE,
-		EARLY_CONSOLE_MAPPING
-	) < 0)
+	if (early_console_init(EARLY_CONSOLE_BUS, EARLY_CONSOLE_BASE, EARLY_CONSOLE_MAPPING) < 0) {
 		panic("Early console init failed.\n");
+	}
+
 	kputs("Hello, world!\n");
-
-
-	arch_early_init();
 	
 	early_mm_init();
 	
 	mmu_jump();
-panic:
-    goto panic;
 }
 
