@@ -46,7 +46,7 @@ int jump_handlers_add(generic_fp entry)
 	
 // FIXME: dirty hack!
 #define bprintf ((int (*)(const char *, ...)) 0x7c00)
-bprintf("jump_handler: %x\n retaddr=", entry, __builtin_return_address(0));
+bprintf("jump_handler: %x\n retaddr=%x\n", entry, __builtin_return_address(0));
 	__jump_handler_queue[__jump_handler_queue_size] = entry;
 	__jump_handler_queue_size += 1;
 	return 0;
