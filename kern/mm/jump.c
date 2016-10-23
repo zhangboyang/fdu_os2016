@@ -43,6 +43,10 @@ int jump_handlers_add(generic_fp entry)
 		/* Queue full */
 		return EOF;
 	}
+	
+// FIXME: dirty hack!
+#define bprintf ((int (*)(const char *, ...)) 0x7c00)
+bprintf("jump_handler: %x", entry);
 	__jump_handler_queue[__jump_handler_queue_size] = entry;
 	__jump_handler_queue_size += 1;
 	return 0;
