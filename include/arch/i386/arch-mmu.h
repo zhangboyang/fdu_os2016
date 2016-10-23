@@ -80,7 +80,7 @@
 #define CR4_PAE         (1 << 5)
 
 
-#define KOFFSET 0xC0000000
+#define KOFFSET KERN_BASE
 #define VMA2LMA(x) ((x) - KOFFSET)
 
 #ifndef __ASSEMBLER__

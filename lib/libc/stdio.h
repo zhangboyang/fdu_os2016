@@ -30,9 +30,6 @@ int vsnprintf(char *str, size_t size, const char *fmt, va_list ap);
 int printf(const char *fmt, ...);
 int vprintf(const char *fmt, va_list ap);
 
-// FIXME: THIS IS THE SUPER DIRTY bprintf() HACK, see bootmain.c
-#define bprintf ((int (*)(const char *fmt, ...)) 0x7c00)
-
 int getchar(void);
 char *gets(char *s);
 
