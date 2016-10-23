@@ -33,6 +33,7 @@
 #include <libc/string.h>
 #include <libc/stdio.h>
 #include <aim/init.h>
+#include <aim/console.h>
 
 /*
    ZBY: use PAE for i386
