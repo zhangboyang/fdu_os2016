@@ -20,6 +20,11 @@
 #define _ARCH_MMU_H
 
 
+/* addresses before and after early MMU mapping */
+#define __premap_addr(kva)	(ULCAST(kva) - KERN_BASE)
+#define __postmap_addr(pa)	(ULCAST(pa) + KERN_BASE)
+
+
 /*
     ZBY: some macros copied from xv6
 */
@@ -151,10 +156,6 @@ typedef pte_t pgtable_t;
 
 
 #ifdef PREMAP
-
-/* addresses before and after early MMU mapping */
-#define __premap_addr(kva)	(ULCAST(kva) - KERN_BASE)
-#define __postmap_addr(pa)	(ULCAST(pa) + KERN_BASE)
 
 #define KVA2PA(x) (PTR2ADDR(x))
 #define PA2KVA(x) (ADDR2PTR(x))
