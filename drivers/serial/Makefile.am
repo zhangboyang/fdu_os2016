@@ -34,10 +34,10 @@ noinst_HEADERS += uart-ns16550-hw.h
 endif
 
 libserial_raw_la_SOURCES = $(SRCS) $(MODULE_SRCS)
-libserial_raw_la_CPPFLAGS = $(AM_CPPFLAGS_NOPIC)
-libserial_raw_la_CFLAGS = $(AM_CFLAGS_NOPIC)
-libserial_raw_la_CCASFLAGS = $(AM_CCASFLAGS_NOPIC)
-libserial_raw_la_LDFLAGS = $(AM_LDFLAGS_NOPIC)
+libserial_raw_la_CPPFLAGS = $(AM_CPPFLAGS)
+libserial_raw_la_CFLAGS = $(AM_CFLAGS)
+libserial_raw_la_CCASFLAGS = $(AM_CCASFLAGS)
+libserial_raw_la_LDFLAGS = $(AM_LDFLAGS)
 
 libserial_la_SOURCES = $(SRCS)
 

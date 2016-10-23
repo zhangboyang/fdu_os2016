@@ -1,0 +1,295 @@
+make  all-recursive
+make[1]: 正在进入目录 `/home/zby/src/os2016/AIM-zby'
+Making all in include
+make[2]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/include'
+Making all in aim
+make[3]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/include/aim'
+make[3]: 没有什么可以做的为 `all'。
+make[3]:正在离开目录 `/home/zby/src/os2016/AIM-zby/include/aim'
+Making all in arch
+make[3]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/include/arch'
+Making all in i386
+make[4]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/include/arch/i386'
+make[4]: 没有什么可以做的为 `all'。
+make[4]:正在离开目录 `/home/zby/src/os2016/AIM-zby/include/arch/i386'
+make[4]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/include/arch'
+make[4]: 没有什么可以做的为 `all-am'。
+make[4]:正在离开目录 `/home/zby/src/os2016/AIM-zby/include/arch'
+make[3]:正在离开目录 `/home/zby/src/os2016/AIM-zby/include/arch'
+make[3]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/include'
+make[3]: 没有什么可以做的为 `all-am'。
+make[3]:正在离开目录 `/home/zby/src/os2016/AIM-zby/include'
+make[2]:正在离开目录 `/home/zby/src/os2016/AIM-zby/include'
+Making all in lib
+make[2]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/lib'
+Making all in libc
+make[3]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/lib/libc'
+/bin/bash ../../libtool  --tag=CC   --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../..  -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -fno-pic -DRAW  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fno-pic -DRAW   -g -MT libc_nopic_la-memcpy.lo -MD -MP -MF .deps/libc_nopic_la-memcpy.Tpo -c -o libc_nopic_la-memcpy.lo `test -f 'memcpy.c' || echo './'`memcpy.c
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../.. -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -fno-pic -DRAW -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -fno-pic -DRAW -g -MT libc_nopic_la-memcpy.lo -MD -MP -MF .deps/libc_nopic_la-memcpy.Tpo -c memcpy.c -o libc_nopic_la-memcpy.o
+mv -f .deps/libc_nopic_la-memcpy.Tpo .deps/libc_nopic_la-memcpy.Plo
+/bin/bash ../../libtool  --tag=CC   --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../..  -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -fno-pic -DRAW  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fno-pic -DRAW   -g -MT libc_nopic_la-memset.lo -MD -MP -MF .deps/libc_nopic_la-memset.Tpo -c -o libc_nopic_la-memset.lo `test -f 'memset.c' || echo './'`memset.c
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../.. -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -fno-pic -DRAW -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -fno-pic -DRAW -g -MT libc_nopic_la-memset.lo -MD -MP -MF .deps/libc_nopic_la-memset.Tpo -c memset.c -o libc_nopic_la-memset.o
+mv -f .deps/libc_nopic_la-memset.Tpo .deps/libc_nopic_la-memset.Plo
+/bin/bash ../../libtool  --tag=CC   --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../..  -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -fno-pic -DRAW  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fno-pic -DRAW   -g -MT libc_nopic_la-snprintf.lo -MD -MP -MF .deps/libc_nopic_la-snprintf.Tpo -c -o libc_nopic_la-snprintf.lo `test -f 'snprintf.c' || echo './'`snprintf.c
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../.. -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -fno-pic -DRAW -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -fno-pic -DRAW -g -MT libc_nopic_la-snprintf.lo -MD -MP -MF .deps/libc_nopic_la-snprintf.Tpo -c snprintf.c -o libc_nopic_la-snprintf.o
+mv -f .deps/libc_nopic_la-snprintf.Tpo .deps/libc_nopic_la-snprintf.Plo
+/bin/bash ../../libtool  --tag=CC   --mode=link i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fno-pic -DRAW   -g -nostdlib     -o libc-nopic.la  libc_nopic_la-memcpy.lo libc_nopic_la-memset.lo libc_nopic_la-snprintf.lo  
+libtool: link: i386-unknown-elf-ar cru .libs/libc-nopic.a  libc_nopic_la-memcpy.o libc_nopic_la-memset.o libc_nopic_la-snprintf.o
+libtool: link: i386-unknown-elf-ranlib .libs/libc-nopic.a
+libtool: link: ( cd ".libs" && rm -f "libc-nopic.la" && ln -s "../libc-nopic.la" "libc-nopic.la" )
+/bin/bash ../../libtool  --tag=CC   --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../..  -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -fPIE  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -MT memcpy.lo -MD -MP -MF .deps/memcpy.Tpo -c -o memcpy.lo memcpy.c
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../.. -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -g -MT memcpy.lo -MD -MP -MF .deps/memcpy.Tpo -c memcpy.c -fPIE -fPIE -o memcpy.o
+mv -f .deps/memcpy.Tpo .deps/memcpy.Plo
+/bin/bash ../../libtool  --tag=CC   --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../..  -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -fPIE  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -MT memset.lo -MD -MP -MF .deps/memset.Tpo -c -o memset.lo memset.c
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../.. -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -g -MT memset.lo -MD -MP -MF .deps/memset.Tpo -c memset.c -fPIE -fPIE -o memset.o
+mv -f .deps/memset.Tpo .deps/memset.Plo
+/bin/bash ../../libtool  --tag=CC   --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../..  -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -fPIE  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -MT snprintf.lo -MD -MP -MF .deps/snprintf.Tpo -c -o snprintf.lo snprintf.c
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../.. -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -g -MT snprintf.lo -MD -MP -MF .deps/snprintf.Tpo -c snprintf.c -fPIE -fPIE -o snprintf.o
+mv -f .deps/snprintf.Tpo .deps/snprintf.Plo
+/bin/bash ../../libtool  --tag=CC   --mode=link i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -nostdlib      -o libc.la  memcpy.lo memset.lo snprintf.lo  
+libtool: link: i386-unknown-elf-ar cru .libs/libc.a  memcpy.o memset.o snprintf.o
+libtool: link: i386-unknown-elf-ranlib .libs/libc.a
+libtool: link: ( cd ".libs" && rm -f "libc.la" && ln -s "../libc.la" "libc.la" )
+make[3]:正在离开目录 `/home/zby/src/os2016/AIM-zby/lib/libc'
+make[3]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/lib'
+make[3]: 没有什么可以做的为 `all-am'。
+make[3]:正在离开目录 `/home/zby/src/os2016/AIM-zby/lib'
+make[2]:正在离开目录 `/home/zby/src/os2016/AIM-zby/lib'
+Making all in drivers
+make[2]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/drivers'
+Making all in io
+make[3]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/drivers/io'
+/bin/bash ../../libtool  --tag=CC   --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../..  -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -fno-pic -DRAW  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fno-pic -DRAW   -g -MT libio_raw_la-io-mem.lo -MD -MP -MF .deps/libio_raw_la-io-mem.Tpo -c -o libio_raw_la-io-mem.lo `test -f 'io-mem.c' || echo './'`io-mem.c
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../.. -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -fno-pic -DRAW -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -fno-pic -DRAW -g -MT libio_raw_la-io-mem.lo -MD -MP -MF .deps/libio_raw_la-io-mem.Tpo -c io-mem.c -o libio_raw_la-io-mem.o
+mv -f .deps/libio_raw_la-io-mem.Tpo .deps/libio_raw_la-io-mem.Plo
+/bin/bash ../../libtool  --tag=CC   --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../..  -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -fno-pic -DRAW  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fno-pic -DRAW   -g -MT libio_raw_la-io-port.lo -MD -MP -MF .deps/libio_raw_la-io-port.Tpo -c -o libio_raw_la-io-port.lo `test -f 'io-port.c' || echo './'`io-port.c
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../.. -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -fno-pic -DRAW -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -fno-pic -DRAW -g -MT libio_raw_la-io-port.lo -MD -MP -MF .deps/libio_raw_la-io-port.Tpo -c io-port.c -o libio_raw_la-io-port.o
+mv -f .deps/libio_raw_la-io-port.Tpo .deps/libio_raw_la-io-port.Plo
+/bin/bash ../../libtool  --tag=CC   --mode=link i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fno-pic -DRAW   -g -nostdlib     -o libio-raw.la  libio_raw_la-io-mem.lo libio_raw_la-io-port.lo  
+libtool: link: i386-unknown-elf-ar cru .libs/libio-raw.a  libio_raw_la-io-mem.o libio_raw_la-io-port.o
+libtool: link: i386-unknown-elf-ranlib .libs/libio-raw.a
+libtool: link: ( cd ".libs" && rm -f "libio-raw.la" && ln -s "../libio-raw.la" "libio-raw.la" )
+/bin/bash ../../libtool  --tag=CC   --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../..  -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -fPIE  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -MT io-mem.lo -MD -MP -MF .deps/io-mem.Tpo -c -o io-mem.lo io-mem.c
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../.. -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -g -MT io-mem.lo -MD -MP -MF .deps/io-mem.Tpo -c io-mem.c -fPIE -fPIE -o io-mem.o
+mv -f .deps/io-mem.Tpo .deps/io-mem.Plo
+/bin/bash ../../libtool  --tag=CC   --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../..  -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -fPIE  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -MT io-port.lo -MD -MP -MF .deps/io-port.Tpo -c -o io-port.lo io-port.c
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../.. -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -g -MT io-port.lo -MD -MP -MF .deps/io-port.Tpo -c io-port.c -fPIE -fPIE -o io-port.o
+mv -f .deps/io-port.Tpo .deps/io-port.Plo
+/bin/bash ../../libtool  --tag=CC   --mode=link i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -nostdlib      -o libio.la  io-mem.lo io-port.lo  
+libtool: link: i386-unknown-elf-ar cru .libs/libio.a  io-mem.o io-port.o
+libtool: link: i386-unknown-elf-ranlib .libs/libio.a
+libtool: link: ( cd ".libs" && rm -f "libio.la" && ln -s "../libio.la" "libio.la" )
+make[3]:正在离开目录 `/home/zby/src/os2016/AIM-zby/drivers/io'
+Making all in serial
+make[3]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/drivers/serial'
+/bin/bash ../../libtool  --tag=CC   --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../..  -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -fno-pic -DRAW  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fno-pic -DRAW   -g -MT libserial_raw_la-uart-ns16550.lo -MD -MP -MF .deps/libserial_raw_la-uart-ns16550.Tpo -c -o libserial_raw_la-uart-ns16550.lo `test -f 'uart-ns16550.c' || echo './'`uart-ns16550.c
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../.. -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -fno-pic -DRAW -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -fno-pic -DRAW -g -MT libserial_raw_la-uart-ns16550.lo -MD -MP -MF .deps/libserial_raw_la-uart-ns16550.Tpo -c uart-ns16550.c -o libserial_raw_la-uart-ns16550.o
+mv -f .deps/libserial_raw_la-uart-ns16550.Tpo .deps/libserial_raw_la-uart-ns16550.Plo
+/bin/bash ../../libtool  --tag=CC   --mode=link i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fno-pic -DRAW   -g -nostdlib     -o libserial-raw.la   libserial_raw_la-uart-ns16550.lo  
+libtool: link: i386-unknown-elf-ar cru .libs/libserial-raw.a  libserial_raw_la-uart-ns16550.o
+libtool: link: i386-unknown-elf-ranlib .libs/libserial-raw.a
+libtool: link: ( cd ".libs" && rm -f "libserial-raw.la" && ln -s "../libserial-raw.la" "libserial-raw.la" )
+/bin/bash ../../libtool  --tag=CC   --mode=link i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -nostdlib      -o libserial.la    
+libtool: link: i386-unknown-elf-ar cru .libs/libserial.a 
+libtool: link: i386-unknown-elf-ranlib .libs/libserial.a
+libtool: link: ( cd ".libs" && rm -f "libserial.la" && ln -s "../libserial.la" "libserial.la" )
+i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../..  -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -fPIE  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -MT uart-ns16550.o -MD -MP -MF .deps/uart-ns16550.Tpo -c -o uart-ns16550.o uart-ns16550.c
+mv -f .deps/uart-ns16550.Tpo .deps/uart-ns16550.Po
+/bin/bash ../../libtool  --tag=CC   --mode=link i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -nostdlib     -Wl,-r  -o uart-ns16550.ko uart-ns16550.o  
+libtool: link: i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -fPIE -g -nostdlib -Wl,-r -o uart-ns16550.ko uart-ns16550.o 
+make[3]:正在离开目录 `/home/zby/src/os2016/AIM-zby/drivers/serial'
+make[3]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/drivers'
+/bin/bash ../libtool  --tag=CC   --mode=link i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fno-pic -DRAW   -g -nostdlib     -o libdrivers-raw.la   io/libio-raw.la serial/libserial-raw.la 
+libtool: link: (cd .libs/libdrivers-raw.lax/libio-raw.a && i386-unknown-elf-ar x "/home/zby/src/os2016/AIM-zby/drivers/io/.libs/libio-raw.a")
+libtool: link: (cd .libs/libdrivers-raw.lax/libserial-raw.a && i386-unknown-elf-ar x "/home/zby/src/os2016/AIM-zby/drivers/serial/.libs/libserial-raw.a")
+libtool: link: i386-unknown-elf-ar cru .libs/libdrivers-raw.a   .libs/libdrivers-raw.lax/libio-raw.a/libio_raw_la-io-mem.o .libs/libdrivers-raw.lax/libio-raw.a/libio_raw_la-io-port.o  .libs/libdrivers-raw.lax/libserial-raw.a/libserial_raw_la-uart-ns16550.o 
+libtool: link: i386-unknown-elf-ranlib .libs/libdrivers-raw.a
+libtool: link: rm -fr .libs/libdrivers-raw.lax
+libtool: link: ( cd ".libs" && rm -f "libdrivers-raw.la" && ln -s "../libdrivers-raw.la" "libdrivers-raw.la" )
+/bin/bash ../libtool  --tag=CC   --mode=link i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -nostdlib      -o libdrivers.la   io/libio.la serial/libserial.la 
+libtool: link: (cd .libs/libdrivers.lax/libio.a && i386-unknown-elf-ar x "/home/zby/src/os2016/AIM-zby/drivers/io/.libs/libio.a")
+libtool: link: (cd .libs/libdrivers.lax/libserial.a && i386-unknown-elf-ar x "/home/zby/src/os2016/AIM-zby/drivers/serial/.libs/libserial.a")
+libtool: link: i386-unknown-elf-ar cru .libs/libdrivers.a   .libs/libdrivers.lax/libio.a/io-mem.o .libs/libdrivers.lax/libio.a/io-port.o  
+libtool: link: i386-unknown-elf-ranlib .libs/libdrivers.a
+libtool: link: rm -fr .libs/libdrivers.lax
+libtool: link: ( cd ".libs" && rm -f "libdrivers.la" && ln -s "../libdrivers.la" "libdrivers.la" )
+make[3]:正在离开目录 `/home/zby/src/os2016/AIM-zby/drivers'
+make[2]:正在离开目录 `/home/zby/src/os2016/AIM-zby/drivers'
+Making all in boot
+make[2]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/boot'
+i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I..  -nostdinc -I../include/arch/i386/mach-unknown -I../include/arch/i386 -I../include -I../lib -I.. -fPIE  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -E -P arch/i386/boot.lds.S -o boot.lds
+make  all-recursive
+make[3]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/boot'
+Making all in arch
+make[4]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/boot/arch'
+Making all in i386
+make[5]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/boot/arch/i386'
+/bin/bash ../../../libtool    --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../../..  -nostdinc -I../../../include/arch/i386/mach-unknown -I../../../include/arch/i386 -I../../../include -I../../../lib -I../../.. -fno-pic -DRAW    -m32 -DRAW   -g -MT libentry_la-bootasm.lo -MD -MP -MF .deps/libentry_la-bootasm.Tpo -c -o libentry_la-bootasm.lo `test -f 'bootasm.S' || echo './'`bootasm.S
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../../.. -nostdinc -I../../../include/arch/i386/mach-unknown -I../../../include/arch/i386 -I../../../include -I../../../lib -I../../.. -fno-pic -DRAW -m32 -DRAW -g -MT libentry_la-bootasm.lo -MD -MP -MF .deps/libentry_la-bootasm.Tpo -c bootasm.S -o libentry_la-bootasm.o
+mv -f .deps/libentry_la-bootasm.Tpo .deps/libentry_la-bootasm.Plo
+/bin/bash ../../../libtool  --tag=CC   --mode=link i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fno-pic -DRAW   -Os -g -nostdlib      -o libentry.la  libentry_la-bootasm.lo  
+libtool: link: i386-unknown-elf-ar cru .libs/libentry.a  libentry_la-bootasm.o
+libtool: link: i386-unknown-elf-ranlib .libs/libentry.a
+libtool: link: ( cd ".libs" && rm -f "libentry.la" && ln -s "../libentry.la" "libentry.la" )
+/bin/bash ../../../libtool  --tag=CC   --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../../..  -nostdinc -I../../../include/arch/i386/mach-unknown -I../../../include/arch/i386 -I../../../include -I../../../lib -I../../.. -fno-pic -DRAW  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fno-pic -DRAW   -Os -g -MT libarch_la-kernreader.lo -MD -MP -MF .deps/libarch_la-kernreader.Tpo -c -o libarch_la-kernreader.lo `test -f 'kernreader.c' || echo './'`kernreader.c
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../../.. -nostdinc -I../../../include/arch/i386/mach-unknown -I../../../include/arch/i386 -I../../../include -I../../../lib -I../../.. -fno-pic -DRAW -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -fno-pic -DRAW -Os -g -MT libarch_la-kernreader.lo -MD -MP -MF .deps/libarch_la-kernreader.Tpo -c kernreader.c -o libarch_la-kernreader.o
+mv -f .deps/libarch_la-kernreader.Tpo .deps/libarch_la-kernreader.Plo
+/bin/bash ../../../libtool  --tag=CC   --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../../..  -nostdinc -I../../../include/arch/i386/mach-unknown -I../../../include/arch/i386 -I../../../include -I../../../lib -I../../.. -fno-pic -DRAW  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fno-pic -DRAW   -Os -g -MT libarch_la-console.lo -MD -MP -MF .deps/libarch_la-console.Tpo -c -o libarch_la-console.lo `test -f 'console.c' || echo './'`console.c
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../../.. -nostdinc -I../../../include/arch/i386/mach-unknown -I../../../include/arch/i386 -I../../../include -I../../../lib -I../../.. -fno-pic -DRAW -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -fno-pic -DRAW -Os -g -MT libarch_la-console.lo -MD -MP -MF .deps/libarch_la-console.Tpo -c console.c -o libarch_la-console.o
+mv -f .deps/libarch_la-console.Tpo .deps/libarch_la-console.Plo
+/bin/bash ../../../libtool  --tag=CC   --mode=link i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fno-pic -DRAW   -Os -g -nostdlib      -o libarch.la  libarch_la-kernreader.lo libarch_la-console.lo  
+libtool: link: i386-unknown-elf-ar cru .libs/libarch.a  libarch_la-kernreader.o libarch_la-console.o
+libtool: link: i386-unknown-elf-ranlib .libs/libarch.a
+libtool: link: ( cd ".libs" && rm -f "libarch.la" && ln -s "../libarch.la" "libarch.la" )
+make[5]:正在离开目录 `/home/zby/src/os2016/AIM-zby/boot/arch/i386'
+make[5]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/boot/arch'
+make[5]: 没有什么可以做的为 `all-am'。
+make[5]:正在离开目录 `/home/zby/src/os2016/AIM-zby/boot/arch'
+make[4]:正在离开目录 `/home/zby/src/os2016/AIM-zby/boot/arch'
+make[4]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/boot'
+i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I..  -nostdinc -I../include/arch/i386/mach-unknown -I../include/arch/i386 -I../include -I../lib -I.. -fno-pic -DRAW  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fno-pic -DRAW   -Os -g -MT boot_elf-bootmain.o -MD -MP -MF .deps/boot_elf-bootmain.Tpo -c -o boot_elf-bootmain.o `test -f 'bootmain.c' || echo './'`bootmain.c
+mv -f .deps/boot_elf-bootmain.Tpo .deps/boot_elf-bootmain.Po
+i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I..  -nostdinc -I../include/arch/i386/mach-unknown -I../include/arch/i386 -I../include -I../lib -I.. -fno-pic -DRAW  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fno-pic -DRAW   -Os -g -MT boot_elf-bio.o -MD -MP -MF .deps/boot_elf-bio.Tpo -c -o boot_elf-bio.o `test -f 'bio.c' || echo './'`bio.c
+mv -f .deps/boot_elf-bio.Tpo .deps/boot_elf-bio.Po
+/bin/bash ../libtool  --tag=CC   --mode=link i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fno-pic -DRAW   -Os -g -nostdlib    -T boot.lds  -o boot.elf boot_elf-bootmain.o boot_elf-bio.o arch/i386/libentry.la arch/i386/libarch.la 
+libtool: link: i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -fno-pic -DRAW -Os -g -nostdlib -T boot.lds -o boot.elf boot_elf-bootmain.o boot_elf-bio.o  arch/i386/.libs/libentry.a arch/i386/.libs/libarch.a
+i386-unknown-elf-objcopy -O binary -S boot.elf boot.bin
+i386-unknown-elf-objdump -Ss boot.elf > boot.s
+make[4]:正在离开目录 `/home/zby/src/os2016/AIM-zby/boot'
+make[3]:正在离开目录 `/home/zby/src/os2016/AIM-zby/boot'
+make[2]:正在离开目录 `/home/zby/src/os2016/AIM-zby/boot'
+Making all in kern
+make[2]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/kern'
+make  all-recursive
+make[3]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/kern'
+Making all in arch
+make[4]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/kern/arch'
+Making all in i386
+make[5]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/kern/arch/i386'
+/bin/bash ../../../libtool    --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../../..  -nostdinc -I../../../include/arch/i386/mach-unknown -I../../../include/arch/i386 -I../../../include -I../../../lib -I../../.. -fPIE    -m32   -g -MT entry.lo -MD -MP -MF .deps/entry.Tpo -c -o entry.lo entry.S
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../../.. -nostdinc -I../../../include/arch/i386/mach-unknown -I../../../include/arch/i386 -I../../../include -I../../../lib -I../../.. -m32 -g -MT entry.lo -MD -MP -MF .deps/entry.Tpo -c entry.S -fPIE -o entry.o
+mv -f .deps/entry.Tpo .deps/entry.Plo
+/bin/bash ../../../libtool  --tag=CC   --mode=link i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -nostdlib      -o libentry.la  entry.lo  
+libtool: link: i386-unknown-elf-ar cru .libs/libentry.a  entry.o
+libtool: link: i386-unknown-elf-ranlib .libs/libentry.a
+libtool: link: ( cd ".libs" && rm -f "libentry.la" && ln -s "../libentry.la" "libentry.la" )
+/bin/bash ../../../libtool  --tag=CC   --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../../..  -nostdinc -I../../../include/arch/i386/mach-unknown -I../../../include/arch/i386 -I../../../include -I../../../lib -I../../.. -fPIE  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -MT arch_early_init.lo -MD -MP -MF .deps/arch_early_init.Tpo -c -o arch_early_init.lo arch_early_init.c
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../../.. -nostdinc -I../../../include/arch/i386/mach-unknown -I../../../include/arch/i386 -I../../../include -I../../../lib -I../../.. -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -g -MT arch_early_init.lo -MD -MP -MF .deps/arch_early_init.Tpo -c arch_early_init.c -fPIE -fPIE -o arch_early_init.o
+mv -f .deps/arch_early_init.Tpo .deps/arch_early_init.Plo
+/bin/bash ../../../libtool  --tag=CC   --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../../..  -nostdinc -I../../../include/arch/i386/mach-unknown -I../../../include/arch/i386 -I../../../include -I../../../lib -I../../.. -fPIE  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -MT arch_mmu.lo -MD -MP -MF .deps/arch_mmu.Tpo -c -o arch_mmu.lo arch_mmu.c
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../../.. -nostdinc -I../../../include/arch/i386/mach-unknown -I../../../include/arch/i386 -I../../../include -I../../../lib -I../../.. -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -g -MT arch_mmu.lo -MD -MP -MF .deps/arch_mmu.Tpo -c arch_mmu.c -fPIE -fPIE -o arch_mmu.o
+mv -f .deps/arch_mmu.Tpo .deps/arch_mmu.Plo
+/bin/bash ../../../libtool  --tag=CC   --mode=link i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -nostdlib      -o libarch.la  arch_early_init.lo arch_mmu.lo  
+libtool: link: i386-unknown-elf-ar cru .libs/libarch.a  arch_early_init.o arch_mmu.o
+libtool: link: i386-unknown-elf-ranlib .libs/libarch.a
+libtool: link: ( cd ".libs" && rm -f "libarch.la" && ln -s "../libarch.la" "libarch.la" )
+make[5]:正在离开目录 `/home/zby/src/os2016/AIM-zby/kern/arch/i386'
+make[5]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/kern/arch'
+make[5]: 没有什么可以做的为 `all-am'。
+make[5]:正在离开目录 `/home/zby/src/os2016/AIM-zby/kern/arch'
+make[4]:正在离开目录 `/home/zby/src/os2016/AIM-zby/kern/arch'
+Making all in dev
+make[4]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/kern/dev'
+/bin/bash ../../libtool  --tag=CC   --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../..  -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -fPIE  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -MT console.lo -MD -MP -MF .deps/console.Tpo -c -o console.lo console.c
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../.. -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -g -MT console.lo -MD -MP -MF .deps/console.Tpo -c console.c -fPIE -fPIE -o console.o
+mv -f .deps/console.Tpo .deps/console.Plo
+/bin/bash ../../libtool  --tag=CC   --mode=link i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -nostdlib      -o libdev.la  console.lo  
+libtool: link: i386-unknown-elf-ar cru .libs/libdev.a  console.o
+libtool: link: i386-unknown-elf-ranlib .libs/libdev.a
+libtool: link: ( cd ".libs" && rm -f "libdev.la" && ln -s "../libdev.la" "libdev.la" )
+make[4]:正在离开目录 `/home/zby/src/os2016/AIM-zby/kern/dev'
+Making all in init
+make[4]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/kern/init'
+/bin/bash ../../libtool  --tag=CC   --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../..  -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -fPIE  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -MT early_init.lo -MD -MP -MF .deps/early_init.Tpo -c -o early_init.lo early_init.c
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../.. -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -g -MT early_init.lo -MD -MP -MF .deps/early_init.Tpo -c early_init.c -fPIE -fPIE -o early_init.o
+mv -f .deps/early_init.Tpo .deps/early_init.Plo
+/bin/bash ../../libtool  --tag=CC   --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../..  -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -fPIE  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -MT init.lo -MD -MP -MF .deps/init.Tpo -c -o init.lo init.c
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../.. -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -g -MT init.lo -MD -MP -MF .deps/init.Tpo -c init.c -fPIE -fPIE -o init.o
+mv -f .deps/init.Tpo .deps/init.Plo
+/bin/bash ../../libtool  --tag=CC   --mode=link i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -nostdlib      -o libearlyinit.la  early_init.lo init.lo  
+libtool: link: i386-unknown-elf-ar cru .libs/libearlyinit.a  early_init.o init.o
+libtool: link: i386-unknown-elf-ranlib .libs/libearlyinit.a
+libtool: link: ( cd ".libs" && rm -f "libearlyinit.la" && ln -s "../libearlyinit.la" "libearlyinit.la" )
+make[4]:正在离开目录 `/home/zby/src/os2016/AIM-zby/kern/init'
+Making all in mm
+make[4]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/kern/mm'
+Making all in kmmap
+make[5]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/kern/mm/kmmap'
+/bin/bash ../../../libtool  --tag=CC   --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../../..  -nostdinc -I../../../include/arch/i386/mach-unknown -I../../../include/arch/i386 -I../../../include -I../../../lib -I../../.. -fPIE  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -MT early_kmmap.lo -MD -MP -MF .deps/early_kmmap.Tpo -c -o early_kmmap.lo early_kmmap.c
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../../.. -nostdinc -I../../../include/arch/i386/mach-unknown -I../../../include/arch/i386 -I../../../include -I../../../lib -I../../.. -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -g -MT early_kmmap.lo -MD -MP -MF .deps/early_kmmap.Tpo -c early_kmmap.c -fPIE -fPIE -o early_kmmap.o
+mv -f .deps/early_kmmap.Tpo .deps/early_kmmap.Plo
+/bin/bash ../../../libtool  --tag=CC   --mode=link i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -nostdlib      -o libkmmap.la  early_kmmap.lo  
+libtool: link: i386-unknown-elf-ar cru .libs/libkmmap.a  early_kmmap.o
+libtool: link: i386-unknown-elf-ranlib .libs/libkmmap.a
+libtool: link: ( cd ".libs" && rm -f "libkmmap.la" && ln -s "../libkmmap.la" "libkmmap.la" )
+make[5]:正在离开目录 `/home/zby/src/os2016/AIM-zby/kern/mm/kmmap'
+Making all in pmm
+make[5]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/kern/mm/pmm'
+/bin/bash ../../../libtool  --tag=CC   --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../../..  -nostdinc -I../../../include/arch/i386/mach-unknown -I../../../include/arch/i386 -I../../../include -I../../../lib -I../../.. -fPIE  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -MT pmm.lo -MD -MP -MF .deps/pmm.Tpo -c -o pmm.lo pmm.c
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../../.. -nostdinc -I../../../include/arch/i386/mach-unknown -I../../../include/arch/i386 -I../../../include -I../../../lib -I../../.. -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -g -MT pmm.lo -MD -MP -MF .deps/pmm.Tpo -c pmm.c -fPIE -fPIE -o pmm.o
+mv -f .deps/pmm.Tpo .deps/pmm.Plo
+/bin/bash ../../../libtool  --tag=CC   --mode=link i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -nostdlib      -o libpmm.la  pmm.lo  
+libtool: link: i386-unknown-elf-ar cru .libs/libpmm.a  pmm.o
+libtool: link: i386-unknown-elf-ranlib .libs/libpmm.a
+libtool: link: ( cd ".libs" && rm -f "libpmm.la" && ln -s "../libpmm.la" "libpmm.la" )
+make[5]:正在离开目录 `/home/zby/src/os2016/AIM-zby/kern/mm/pmm'
+Making all in vmm
+make[5]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/kern/mm/vmm'
+/bin/bash ../../../libtool  --tag=CC   --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../../..  -nostdinc -I../../../include/arch/i386/mach-unknown -I../../../include/arch/i386 -I../../../include -I../../../lib -I../../.. -fPIE  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -MT vmm.lo -MD -MP -MF .deps/vmm.Tpo -c -o vmm.lo vmm.c
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../../.. -nostdinc -I../../../include/arch/i386/mach-unknown -I../../../include/arch/i386 -I../../../include -I../../../lib -I../../.. -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -g -MT vmm.lo -MD -MP -MF .deps/vmm.Tpo -c vmm.c -fPIE -fPIE -o vmm.o
+mv -f .deps/vmm.Tpo .deps/vmm.Plo
+/bin/bash ../../../libtool  --tag=CC   --mode=link i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -nostdlib      -o libvmm.la  vmm.lo  
+libtool: link: i386-unknown-elf-ar cru .libs/libvmm.a  vmm.o
+libtool: link: i386-unknown-elf-ranlib .libs/libvmm.a
+libtool: link: ( cd ".libs" && rm -f "libvmm.la" && ln -s "../libvmm.la" "libvmm.la" )
+make[5]:正在离开目录 `/home/zby/src/os2016/AIM-zby/kern/mm/vmm'
+make[5]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/kern/mm'
+/bin/bash ../../libtool  --tag=CC   --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../..  -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -fPIE  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -MT mmu.lo -MD -MP -MF .deps/mmu.Tpo -c -o mmu.lo mmu.c
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../.. -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -g -MT mmu.lo -MD -MP -MF .deps/mmu.Tpo -c mmu.c -fPIE -fPIE -o mmu.o
+mv -f .deps/mmu.Tpo .deps/mmu.Plo
+/bin/bash ../../libtool  --tag=CC   --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../..  -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -fPIE  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -MT jump.lo -MD -MP -MF .deps/jump.Tpo -c -o jump.lo jump.c
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../.. -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -g -MT jump.lo -MD -MP -MF .deps/jump.Tpo -c jump.c -fPIE -fPIE -o jump.o
+mv -f .deps/jump.Tpo .deps/jump.Plo
+/bin/bash ../../libtool  --tag=CC   --mode=link i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -nostdlib      -o libmm.la  mmu.lo jump.lo kmmap/libkmmap.la pmm/libpmm.la vmm/libvmm.la 
+libtool: link: (cd .libs/libmm.lax/libkmmap.a && i386-unknown-elf-ar x "/home/zby/src/os2016/AIM-zby/kern/mm/kmmap/.libs/libkmmap.a")
+libtool: link: (cd .libs/libmm.lax/libpmm.a && i386-unknown-elf-ar x "/home/zby/src/os2016/AIM-zby/kern/mm/pmm/.libs/libpmm.a")
+libtool: link: (cd .libs/libmm.lax/libvmm.a && i386-unknown-elf-ar x "/home/zby/src/os2016/AIM-zby/kern/mm/vmm/.libs/libvmm.a")
+libtool: link: i386-unknown-elf-ar cru .libs/libmm.a  mmu.o jump.o  .libs/libmm.lax/libkmmap.a/early_kmmap.o  .libs/libmm.lax/libpmm.a/pmm.o  .libs/libmm.lax/libvmm.a/vmm.o 
+libtool: link: i386-unknown-elf-ranlib .libs/libmm.a
+libtool: link: rm -fr .libs/libmm.lax
+libtool: link: ( cd ".libs" && rm -f "libmm.la" && ln -s "../libmm.la" "libmm.la" )
+make[5]:正在离开目录 `/home/zby/src/os2016/AIM-zby/kern/mm'
+make[4]:正在离开目录 `/home/zby/src/os2016/AIM-zby/kern/mm'
+Making all in panic
+make[4]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/kern/panic'
+/bin/bash ../../libtool  --tag=CC   --mode=compile i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../..  -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -fPIE  -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -MT panic.lo -MD -MP -MF .deps/panic.Tpo -c -o panic.lo panic.c
+libtool: compile:  i386-unknown-elf-gcc -DHAVE_CONFIG_H -I. -I../.. -nostdinc -I../../include/arch/i386/mach-unknown -I../../include/arch/i386 -I../../include -I../../lib -I../.. -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -g -MT panic.lo -MD -MP -MF .deps/panic.Tpo -c panic.c -fPIE -fPIE -o panic.o
+mv -f .deps/panic.Tpo .deps/panic.Plo
+/bin/bash ../../libtool  --tag=CC   --mode=link i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -nostdlib      -o libpanic.la  panic.lo  
+libtool: link: i386-unknown-elf-ar cru .libs/libpanic.a  panic.o
+libtool: link: i386-unknown-elf-ranlib .libs/libpanic.a
+libtool: link: ( cd ".libs" && rm -f "libpanic.la" && ln -s "../libpanic.la" "libpanic.la" )
+make[4]:正在离开目录 `/home/zby/src/os2016/AIM-zby/kern/panic'
+make[4]: 正在进入目录 `/home/zby/src/os2016/AIM-zby/kern'
+/bin/bash ../libtool  --tag=CC   --mode=link i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -nostdlib      -o libkernel.la   arch/i386/libentry.la dev/libdev.la init/libearlyinit.la mm/libmm.la panic/libpanic.la arch/i386/libarch.la ../drivers/libdrivers.la ../lib/libc/libc.la 
+libtool: link: (cd .libs/libkernel.lax/libentry.a && i386-unknown-elf-ar x "/home/zby/src/os2016/AIM-zby/kern/arch/i386/.libs/libentry.a")
+libtool: link: (cd .libs/libkernel.lax/libdev.a && i386-unknown-elf-ar x "/home/zby/src/os2016/AIM-zby/kern/dev/.libs/libdev.a")
+libtool: link: (cd .libs/libkernel.lax/libearlyinit.a && i386-unknown-elf-ar x "/home/zby/src/os2016/AIM-zby/kern/init/.libs/libearlyinit.a")
+libtool: link: (cd .libs/libkernel.lax/libmm.a && i386-unknown-elf-ar x "/home/zby/src/os2016/AIM-zby/kern/mm/.libs/libmm.a")
+libtool: link: (cd .libs/libkernel.lax/libpanic.a && i386-unknown-elf-ar x "/home/zby/src/os2016/AIM-zby/kern/panic/.libs/libpanic.a")
+libtool: link: (cd .libs/libkernel.lax/libarch.a && i386-unknown-elf-ar x "/home/zby/src/os2016/AIM-zby/kern/arch/i386/.libs/libarch.a")
+libtool: link: (cd .libs/libkernel.lax/libdrivers.a && i386-unknown-elf-ar x "/home/zby/src/os2016/AIM-zby/kern/../drivers/.libs/libdrivers.a")
+libtool: link: (cd .libs/libkernel.lax/libc.a && i386-unknown-elf-ar x "/home/zby/src/os2016/AIM-zby/kern/../lib/libc/.libs/libc.a")
+libtool: link: i386-unknown-elf-ar cru .libs/libkernel.a   .libs/libkernel.lax/libentry.a/entry.o  .libs/libkernel.lax/libdev.a/console.o  .libs/libkernel.lax/libearlyinit.a/early_init.o .libs/libkernel.lax/libearlyinit.a/init.o  .libs/libkernel.lax/libmm.a/early_kmmap.o .libs/libkernel.lax/libmm.a/jump.o .libs/libkernel.lax/libmm.a/mmu.o .libs/libkernel.lax/libmm.a/pmm.o .libs/libkernel.lax/libmm.a/vmm.o  .libs/libkernel.lax/libpanic.a/panic.o  .libs/libkernel.lax/libarch.a/arch_early_init.o .libs/libkernel.lax/libarch.a/arch_mmu.o  .libs/libkernel.lax/libdrivers.a/io-mem.o .libs/libkernel.lax/libdrivers.a/io-port.o  .libs/libkernel.lax/libc.a/memcpy.o .libs/libkernel.lax/libc.a/memset.o .libs/libkernel.lax/libc.a/snprintf.o 
+libtool: link: i386-unknown-elf-ranlib .libs/libkernel.a
+libtool: link: rm -fr .libs/libkernel.lax
+libtool: link: ( cd ".libs" && rm -f "libkernel.la" && ln -s "../libkernel.la" "libkernel.la" )
+/bin/bash ../libtool  --tag=CC   --mode=link i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions    -m32  -fPIE   -g -nostdlib     -T vmaim.lds  -o vmaim.elf  libkernel.la ../drivers/serial/uart-ns16550.o 
+libtool: link: i386-unknown-elf-gcc -Wall -O2 -fno-stack-protector -fplan9-extensions -m32 -fPIE -g -nostdlib -T vmaim.lds -o vmaim.elf ../drivers/serial/uart-ns16550.o  ./.libs/libkernel.a
+i386-unknown-elf-objdump -Ss vmaim.elf > vmaim.s
+make[4]:正在离开目录 `/home/zby/src/os2016/AIM-zby/kern'
+make[3]:正在离开目录 `/home/zby/src/os2016/AIM-zby/kern'
+make[2]:正在离开目录 `/home/zby/src/os2016/AIM-zby/kern'
+make[2]: 正在进入目录 `/home/zby/src/os2016/AIM-zby'
+make[2]:正在离开目录 `/home/zby/src/os2016/AIM-zby'
+make[1]:正在离开目录 `/home/zby/src/os2016/AIM-zby'
