@@ -4,7 +4,7 @@
 
 #include <sys/types.h>
 #include <aim/panic.h>
-#include <libc/console.h>
+#include <aim/console.h>
 
 /*
  * this file is added by ZBY
