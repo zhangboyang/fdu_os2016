@@ -51,9 +51,15 @@ int early_devices_init(void)
 #include <aim/mmu.h>
 
 
+// FIXME: dirty hack!
+#define bprintf ((int (*)(const char *, ...)) 0x7c00)
+
+
 __noreturn
 void master_early_init(void)
 {
+    bprintf("Hello, world!\n");
+    
 	/* clear address-space-related callback handlers */
 	early_mapping_clear();
 	mmu_handlers_clear();
