@@ -51,7 +51,7 @@ static puts_fp __puts = NULL;
  */
 void set_console(putchar_fp putchar, puts_fp puts)
 {
-printb("console vfptrs set to %p %p\n", putchar, puts);
+bprintf("console vfptrs set to %p %p\n", putchar, puts);
 	__putchar = putchar;
 	__puts = puts;
 	//spinlock_init(&__lock);
