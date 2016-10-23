@@ -56,6 +56,7 @@ void master_early_init(void)
 {
     bprintf("hello world! this is the AIM kernel!\n");
 
+bprintf("%p\n", early_mapping_clear);
 	/* clear address-space-related callback handlers */
 	early_mapping_clear();
 	mmu_handlers_clear();
