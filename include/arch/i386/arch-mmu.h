@@ -19,10 +19,18 @@
 #ifndef _ARCH_MMU_H
 #define _ARCH_MMU_H
 
+#define KOFFSET KERN_BASE
+
+#define VMA2LMA(x) ((x) - KOFFSET)
+
 
 /* addresses before and after early MMU mapping */
-#define __premap_addr(kva)	(ULCAST(kva) - KOFFSET)
-#define __postmap_addr(pa)	(ULCAST(pa) + KOFFSET)
+#define __premap_addr(kva)	(ULCAST(kva) - KERN_BASE)
+#define __postmap_addr(pa)	(ULCAST(pa) + KERN_BASE)
+
+/* kernel virtual address and physical address conversion */
+#define kva2pa(kva)		(ULCAST(kva) - KERN_BASE)
+#define pa2kva(pa)		(PTRCAST(pa) + KERN_BASE)
 
 
 /*
@@ -80,8 +88,6 @@
 #define CR4_PAE         (1 << 5)
 
 
-#define KOFFSET KERN_BASE
-#define VMA2LMA(x) ((x) - KOFFSET)
 
 #ifndef __ASSEMBLER__
 

@@ -36,7 +36,7 @@ void panic(const char *fmt, ...);
 
 
 #ifdef DEBUG
-#define kpdebug(...) bprintf("DEBUG: " __VA_ARGS__)
+#define kpdebug(...) kprintf("DEBUG: " __VA_ARGS__)
 #else
 #define kpdebug(...)
 #endif
