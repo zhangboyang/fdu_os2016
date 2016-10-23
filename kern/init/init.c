@@ -19,6 +19,7 @@ void master_init()
     bprintf("this is bprintf, at highaddr!\n");
     
     jump_handlers_apply();
+    bprintf("apply");
     
     kprintf("hello world! we are now at high address!\n");
     
