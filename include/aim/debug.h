@@ -21,6 +21,8 @@
 
 #ifndef __ASSEMBLER__
 
+#include <aim/console.h>
+
 /* 
  * We just want several function here, avoid include hell please.
  */
