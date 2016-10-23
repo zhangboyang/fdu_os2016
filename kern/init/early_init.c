@@ -77,5 +77,7 @@ void master_early_init(void)
 	early_mm_init();
 	
 	mmu_jump();
+panic:
+    goto panic;
 }
 
