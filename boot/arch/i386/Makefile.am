@@ -30,7 +30,7 @@ libentry_la_CFLAGS = $(AM_CFLAGS_NOPIC) -Os
 libentry_la_CCASFLAGS = $(AM_CCASFLAGS_NOPIC)
 
 libarch_la_SOURCES = \
-	kernreader.c console.c
+	kernreader.c console.c memdetect.c
 libarch_la_CPPFLAGS = $(AM_CPPFLAGS_NOPIC)
 libarch_la_CFLAGS = $(AM_CFLAGS_NOPIC) -Os
 libarch_la_CCASFLAGS = $(AM_CCASFLAGS_NOPIC)
