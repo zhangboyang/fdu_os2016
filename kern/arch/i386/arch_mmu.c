@@ -154,7 +154,7 @@ static void copy_memory_map()
     kprintf("total memory size: %d MB\n\n", (total >> 20));
     
     
-    *LOWADDR(unsigned, &nr_mach_mem_map) = cnt;
+    *LOWADDR(unsigned *, &nr_mach_mem_map) = cnt;
 }
 
 void early_mm_init(void)
