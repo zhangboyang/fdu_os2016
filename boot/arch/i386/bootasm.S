@@ -488,8 +488,8 @@ readsect_realmode:
 
 .text
 .code32  
-.globl readsect_realmode
-readsect_realmode:
+.globl detectmemory_realmode
+detectmemory_realmode:
   pusha // save all registers
   mov 0x24(%esp), %edi // buffer
   mov 0x28(%esp), %esi // LBA
@@ -523,7 +523,7 @@ readsect_realmode:
   // detect memory
   mov %sp, %bp
   sub $2, %sp
-  mov $0, -2(%bp)
+  movw $0, -2(%bp)
   
 4:
   movl $0x534D4150, %edx
@@ -531,10 +531,12 @@ readsect_realmode:
   movl $24, %ecx
   int $0x15
   jc 2f
-  inc -2(%bp)
+  incw -2(%bp)
   add $24, %di
   test %ebx, %ebx
   jnz 4b
+  
+  movw -2(%bp), %dx
   jmp 3f
 
 2: // error
