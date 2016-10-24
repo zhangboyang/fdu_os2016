@@ -49,7 +49,7 @@ void detectmemory()
         }
         bprintf("  base %x %x size %x %x end %x %x type %d\n", map[i].base_high, map[i].base_low, map[i].size_high, map[i].size_low, (uint32_t) ((map[i].base + map[i].size) >> 32), (uint32_t) (map[i].base + map[i].size), map[i].type);
     }
-    bprintf("total memory: %d MB\n\n", (total >> 20));
+    bprintf("total memory: %d MB\n\n", (unsigned)(total >> 20));
 
 
     // at 0x10000, there will be an "magic" item

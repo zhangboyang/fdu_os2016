@@ -131,6 +131,7 @@ unsigned nr_mach_mem_map;
 
 static void copy_memory_map()
 {
+    // read memory map from bootloader
     if (memcmp((void *) 0x10000, "_AIM_MEMORY_MAP", 16) != 0) {
         panic("no memory map at 0x10000!");
     }
@@ -139,15 +140,19 @@ static void copy_memory_map()
         panic("too many memory regions!");
     }
     memcpy(mach_mem_map, (void *) (0x10000 + 0x24), sizeof(struct machine_memory_map) * nr_mach_mem_map);
-    
+
+    // print memory map to console    
     int i;
-    kprintf("here is the AIM kernel memory map: (%d regions)\n", nr_mach_mem_map);
+    uint64_t total = 0;
+    kprintf("AIM kernel memory map: (%d regions)\n", nr_mach_mem_map);
     for (i = 0; i < nr_mach_mem_map; i++) {
         struct machine_memory_map *r = &mach_mem_map[i];
+        if (r->type == 1) {
+            total += r->size;
+        }
         kprintf("  base %08x %08x size %08x %08x end %08x %08x type %d\n", (unsigned)(r->base >> 32), (unsigned)(r->base), (unsigned)(r->size >> 32), (unsigned)(r->size), (unsigned)((r->base + r->size) >> 32), (unsigned)(r->base + r->size), r->type);
-
     }
-    kprintf("\n");
+    kprintf("total memory size: %d MB\n\n", (total >> 20));
 }
 
 void early_mm_init(void)
