@@ -476,9 +476,9 @@ readsect_realmode:
 
 // function to detect memory in real mode
 // using INT 0x15, EAX = 0xE820
-//    int detectmemory_realmode(unsigned lowaddr, unsigned int maxitem)
+//    int detectmemory_realmode(unsigned lowaddr)
 //       lowaddr must < 64K
-//    after calling, lowaddr should be an array (not more than maxitem) of 
+//    after calling, lowaddr should be an array of 
 //        struct {
 //          uint64_t base, length;
 //          uint32_t type, unknown;
@@ -492,7 +492,6 @@ readsect_realmode:
 detectmemory_realmode:
   pusha // save all registers
   mov 0x24(%esp), %edi // buffer
-  mov 0x28(%esp), %esi // LBA
   
   // jmp to 16-bit protected mode
   lgdt gdtdesc_16
