@@ -26,12 +26,12 @@ struct memmap {
 }; // 24 bytes
 
 extern int detectmemory_realmode(void *lowaddr);
-static void detectmemory()
+void detectmemory()
 {
     struct memmap map[MAX_MEMORY_REGIONS];
     
     bmemset((void *) 0x1000, 0xCD, MAX_MEMORY_REGIONS * sizeof(struct memmap));
-    int cnt = detectmemory_realmode(0x1000);
+    int cnt = detectmemory_realmode((void *) 0x1000);
     
     if (!cnt) {
         bpanic("can't detect memory in real mode.");
