@@ -24,6 +24,7 @@ noinst_LTLIBRARIES = \
 SRCS = \
 	memcpy.c \
 	memset.c \
+	memcmp.c \
 	snprintf.c
 
 noinst_HEADERS = \
