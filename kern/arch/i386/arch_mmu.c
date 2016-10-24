@@ -144,7 +144,7 @@ static void copy_memory_map()
     kprintf("here is the AIM kernel memory map: (%d regions)\n", nr_mach_mem_map);
     for (i = 0; i < nr_mach_mem_map; i++) {
         struct machine_memory_map *r = &mach_mem_map[i];
-        kprintf("  base %08x %08x size %08x %08x end %08x %08x type %d\n", (unsigned)(r->base >> 32), (unsigned)(r->base), (unsigned)(r->size >> 32), (unsigned)(r->size), (unsigned)((r->base + r->size) >> 32), (unsigned)(r->base + r->size), r->type);
+        kprintf("  base %016llx size %016llx end %016llx type %d\n", r->base, r->size, r->base + r->size, r->type);
     }
     kprintf("\n");
 }
