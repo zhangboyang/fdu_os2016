@@ -28,7 +28,7 @@
 #define __premap_addr(kva)	(ULCAST(kva) - KERN_BASE)
 #define __postmap_addr(pa)	(ULCAST(pa) + KERN_BASE)
 
-#define LOWADDR(highaddr) ((typeof(highaddr)) (((void *)(highaddr)) - KERN_BASE))
+#define LOWADDR(highaddr) ((typeof(highaddr + 0)) (((void *)(highaddr)) - KERN_BASE))
 
 /* kernel virtual address and physical address conversion */
 #define kva2pa(kva)		(ULCAST(kva) - KERN_BASE)
