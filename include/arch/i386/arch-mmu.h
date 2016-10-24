@@ -28,6 +28,8 @@
 #define __premap_addr(kva)	(ULCAST(kva) - KERN_BASE)
 #define __postmap_addr(pa)	(ULCAST(pa) + KERN_BASE)
 
+#define LOWADDR(highaddr) ((typeof(highaddr)) (((void *)(highaddr)) - KERN_BASE))
+
 /* kernel virtual address and physical address conversion */
 #define kva2pa(kva)		(ULCAST(kva) - KERN_BASE)
 #define pa2kva(pa)		(PTRCAST(pa) + KERN_BASE)
@@ -197,6 +199,10 @@ typedef pte_t pgtable_t;
 
 // walk a pgindex_t (i.e. get the VA in pgindex_t)
 #define WKPGINDEX(pgindex)  (PA2KVA(PAGE_FN(pgindex)))
+
+
+
+
 
 
 #endif /* !__ASSEMBLER__ */

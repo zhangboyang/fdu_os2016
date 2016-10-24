@@ -121,13 +121,16 @@ static void check_cpu(void)
     kprintf("OK\n");
 }
 
+
 #define MAX_MACHINE_MEMORY_MAP 20
 struct machine_memory_map {
     uint64_t base, size;
     uint32_t type, unknown;
 };
+// must be 'static', or premap_addr() or simliar macros should be used
 static struct machine_memory_map mach_mem_map[MAX_MACHINE_MEMORY_MAP];
 static unsigned nr_mach_mem_map;
+
 
 static void copy_memory_map()
 {
