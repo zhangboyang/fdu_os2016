@@ -523,7 +523,8 @@ detectmemory_realmode:
   mov %sp, %bp
   sub $2, %sp
   movw $0, -2(%bp)
-  
+
+  xor %ebx, %ebx  
 4:
   movl $0x534D4150, %edx
   movl $0xE820, %eax
