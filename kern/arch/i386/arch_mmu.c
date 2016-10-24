@@ -121,9 +121,38 @@ static void check_cpu(void)
     kprintf("OK\n");
 }
 
+#define MAX_MACHINE_MEMORY_MAP 20
+struct machine_memory_map {
+    uint64_t base, size;
+    uint32_t type, unknown;
+};
+struct machine_memory_map mach_mem_map[MAX_MACHINE_MEMORY_MAP];
+unsigned nr_mach_mem_map;
+
+static void copy_memory_map()
+{
+    if (memcmp((void *) 0x10000, "_AIM_MEMORY_MAP", 16) != 0) {
+        panic("no memory map at 0x10000!");
+    }
+    nr_mach_mem_map = *(unsigned *) (0x10000 + 16);
+    if (nr_mach_mem_map > MAX_MACHINE_MEMORY_MAP) {
+        panic("too many memory regions!");
+    }
+    memcpy(mach_mem_map, (void *) (0x10000 + 0x24), sizeof(struct machine_memory_map) * nr_mach_mem_map);
+    
+    int i;
+    kprintf("here is the AIM kernel memory map: (%d regions)\n", nr_mach_mem_map);
+    for (i = 0; i < nr_mach_mem_map; i++) {
+        struct machine_memory_map *r = &mach_mem_map[i];
+        kprintf("  base %016X size %016X end %016X type %d\n", r->base, r->size, r->base + r->size, r->type);
+    }
+    kputc('\n');
+}
+
 void early_mm_init(void)
 {
     check_cpu();
+    copy_memory_map();
     
     addr_t ksize = PTR2ADDR(KERN_END_HIGH) - KOFFSET;
     struct early_mapping entry;

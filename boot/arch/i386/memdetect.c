@@ -28,9 +28,9 @@ struct memmap {
 extern int detectmemory_realmode(void *lowaddr);
 void detectmemory()
 {
-    struct memmap *map = 0x10000;
+    // the memory map will be saved at 0x10000+24
+    struct memmap *map = 0x10000 + 24;
     
-    // the list will end with 'map[cnt].type == 0'
     bmemset((void *) 0x1000, 0, MAX_MEMORY_REGIONS * sizeof(struct memmap));
     
     int cnt = detectmemory_realmode((void *) 0x1000);
@@ -50,5 +50,10 @@ void detectmemory()
         bprintf("  base %x %x size %x %x end %x %x type %d\n", map[i].base_high, map[i].base_low, map[i].size_high, map[i].size_low, (uint32_t) ((map[i].base + map[i].size) >> 32), (uint32_t) (map[i].base + map[i].size), map[i].type);
     }
     bprintf("total memory: %d MB\n\n", (total >> 20));
+
+
+    // at 0x10000, there will be an "magic" item
+    bmemcpy((void *) 0x10000, "_AIM_MEMORY_MAP", 16);
+    *(int *) (0x10000 + 16) = cnt;
 }
 
