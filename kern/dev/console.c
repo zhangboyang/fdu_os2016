@@ -89,9 +89,9 @@ static inline int __kputs(const char *s)
 	return 0;
 }
 
-int __default_kputs(const char *s)
+puts_fp get_default_kputs(void)
 {
-	return __kputs(s);
+	return &__kputs;
 }
 
 int kputs(const char *s)
