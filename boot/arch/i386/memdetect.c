@@ -39,8 +39,11 @@ void detectmemory()
     bmemcpy(map, (void *) 0x1000, MAX_MEMORY_REGIONS * sizeof(struct memmap));
     
     int i;
+    bputs("memory map: ");
     for (i = 0; i < cnt; i++) {
-        bprintf("base %x %x size %x %x end %x %x type %d\n", map[i].base_high, map[i].base_low, map[i].size_high, map[i].size_low, (uint32_t) ((map[i].base + map[i].size) >> 32), (uint32_t) (map[i].base + map[i].size), map[i].type);
+        bprintf("  base %x %x size %x %x end %x %x type %d\n", map[i].base_high, map[i].base_low, map[i].size_high, map[i].size_low, (uint32_t) ((map[i].base + map[i].size) >> 32), (uint32_t) (map[i].base + map[i].size), map[i].type);
     }
+    bputc('\n');
+    bputc('\n');
 }
 
