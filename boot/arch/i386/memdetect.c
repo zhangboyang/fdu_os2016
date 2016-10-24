@@ -29,7 +29,7 @@ extern int detectmemory_realmode(void *lowaddr);
 void detectmemory()
 {
     // the memory map will be saved at 0x10000+24
-    struct memmap *map = 0x10000 + 24;
+    struct memmap *map = (void *) (0x10000 + 24);
     
     bmemset((void *) 0x1000, 0, MAX_MEMORY_REGIONS * sizeof(struct memmap));
     

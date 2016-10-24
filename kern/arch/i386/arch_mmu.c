@@ -146,7 +146,7 @@ static void copy_memory_map()
         struct machine_memory_map *r = &mach_mem_map[i];
         kprintf("  base %016X size %016X end %016X type %d\n", r->base, r->size, r->base + r->size, r->type);
     }
-    kputc('\n');
+    kprintf("\n");
 }
 
 void early_mm_init(void)
