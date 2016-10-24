@@ -126,8 +126,8 @@ struct machine_memory_map {
     uint64_t base, size;
     uint32_t type, unknown;
 };
-struct machine_memory_map mach_mem_map[MAX_MACHINE_MEMORY_MAP];
-unsigned nr_mach_mem_map;
+static struct machine_memory_map mach_mem_map[MAX_MACHINE_MEMORY_MAP];
+static unsigned nr_mach_mem_map;
 
 static void copy_memory_map()
 {
