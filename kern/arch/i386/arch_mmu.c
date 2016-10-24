@@ -138,14 +138,14 @@ static void copy_memory_map()
     if (cnt > MAX_MACHINE_MEMORY_MAP) {
         panic("too many memory regions!");
     }
-    memcpy(LOWADDR(mach_mem_map), (void *) (0x10000 + 24), sizeof(struct machine_memory_map) * cnt);
+    memcpy(LOWADDR(struct machine_memory_map *, mach_mem_map), (void *) (0x10000 + 24), sizeof(struct machine_memory_map) * cnt);
 
     // print memory map to console    
     unsigned i;
     uint64_t total = 0;
     kprintf("AIM kernel memory map: (%d regions)\n", cnt);
     for (i = 0; i < cnt; i++) {
-        struct machine_memory_map *r = LOWADDR(&mach_mem_map[i]);
+        struct machine_memory_map *r = LOWADDR(struct machine_memory_map *, &mach_mem_map[i]);
         if (r->type == 1) {
             total += r->size;
         }
@@ -154,7 +154,7 @@ static void copy_memory_map()
     kprintf("total memory size: %d MB\n\n", (total >> 20));
     
     
-    *LOWADDR(&nr_mach_mem_map) = cnt;
+    *LOWADDR(unsigned, &nr_mach_mem_map) = cnt;
 }
 
 void early_mm_init(void)
