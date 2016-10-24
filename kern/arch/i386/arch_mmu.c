@@ -134,14 +134,14 @@ static void copy_memory_map()
     if (memcmp((void *) 0x10000, "_AIM_MEMORY_MAP", 16) != 0) {
         panic("no memory map at 0x10000!");
     }
-    cnt = *(unsigned *) (0x10000 + 16);
+    unsigned cnt = *(unsigned *) (0x10000 + 16);
     if (cnt > MAX_MACHINE_MEMORY_MAP) {
         panic("too many memory regions!");
     }
     memcpy(LOWADDR(mach_mem_map), (void *) (0x10000 + 24), sizeof(struct machine_memory_map) * cnt);
 
     // print memory map to console    
-    int i;
+    unsigned i;
     uint64_t total = 0;
     kprintf("AIM kernel memory map: (%d regions)\n", cnt);
     for (i = 0; i < cnt; i++) {
