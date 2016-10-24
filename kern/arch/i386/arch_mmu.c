@@ -139,7 +139,7 @@ static void copy_memory_map()
     if (nr_mach_mem_map > MAX_MACHINE_MEMORY_MAP) {
         panic("too many memory regions!");
     }
-    memcpy(mach_mem_map, (void *) (0x10000 + 0x24), sizeof(struct machine_memory_map) * nr_mach_mem_map);
+    memcpy(mach_mem_map, (void *) (0x10000 + 24), sizeof(struct machine_memory_map) * nr_mach_mem_map);
 
     // print memory map to console    
     int i;
