@@ -469,6 +469,112 @@ readsect_realmode:
   popa
   ret
 
+
+
+
+
+
+// function to detect memory in real mode
+// using INT 0x15, EAX = 0xE820
+//    int detectmemory_realmode(unsigned lowaddr, unsigned int maxitem)
+//       lowaddr must < 64K
+//    after calling, lowaddr should be an array (not more than maxitem) of 
+//        struct {
+//          uint64_t base, length;
+//          uint32_t type, unknown;
+//        }; (total 24 bytes)
+//    return memory region count if read OK, 0 on read fail
+// most code to retn to real mode is copied from linux 2.4.0
+
+.text
+.code32  
+.globl readsect_realmode
+readsect_realmode:
+  pusha // save all registers
+  mov 0x24(%esp), %edi // buffer
+  mov 0x28(%esp), %esi // LBA
+  
+  // jmp to 16-bit protected mode
+  lgdt gdtdesc_16
+  ljmp $(1<<3), $1f
+.code16
+1:
+  movl    $(2<<3), %eax
+  movl    %eax, %ds
+  movl    %eax, %es
+  movl    %eax, %ss
+  movl    $0, %eax
+  movl    %eax, %fs
+  movl    %eax, %gs
+
+  // disable protected mode
+  movl    %cr0, %eax
+  andl     $(~CR0_PE), %eax
+  movl    %eax, %cr0
+
+  // ljmp to real mode
+  ljmp $0x0000, $1f
+1:
+  xorw    %ax,%ax
+  movw    %ax,%ds
+  movw    %ax,%es
+  movw    %ax,%ss
+
+  // detect memory
+  mov %sp, %bp
+  sub $2, %sp
+  mov $0, -2(%bp)
+  
+4:
+  movl $0x534D4150, %edx
+  movl $0xE820, %eax
+  movl $24, %ecx
+  int $0x15
+  jc 2f
+  inc -2(%bp)
+  add $24, %di
+  test %ebx, %ebx
+  jnz 4b
+  jmp 3f
+
+2: // error
+  xor %dl, %dl
+3:
+  mov %bp, %sp
+
+
+  // go back to protected-mode
+  lgdt    gdtdesc
+  movl    %cr0, %eax
+  orl     $CR0_PE, %eax
+  movl    %eax, %cr0
+
+  ljmp    $(SEG_KCODE<<3), $1f
+
+.code32
+1:
+  movw    $(SEG_KDATA<<3), %ax
+  movw    %ax, %ds
+  movw    %ax, %es
+  movw    %ax, %ss
+  movw    $0, %ax
+  movw    %ax, %fs
+  movw    %ax, %gs
+  movzbl %dl, %edx
+  mov %edx, 0x1c(%esp)
+  popa
+  ret
+
+
+
+
+
+
+
+
+
+
+
 .data
 
 gdt_16:
