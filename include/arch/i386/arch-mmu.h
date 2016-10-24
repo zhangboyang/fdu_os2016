@@ -202,7 +202,14 @@ typedef pte_t pgtable_t;
 
 
 
+#define MAX_MACHINE_MEMORY_MAP 20
+struct machine_memory_map {
+    uint64_t base, size;
+    uint32_t type, unknown;
+};
 
+extern struct machine_memory_map mach_mem_map[MAX_MACHINE_MEMORY_MAP];
+extern unsigned nr_mach_mem_map;
 
 
 #endif /* !__ASSEMBLER__ */

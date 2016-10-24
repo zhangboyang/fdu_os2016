@@ -122,15 +122,11 @@ static void check_cpu(void)
 }
 
 
-#define MAX_MACHINE_MEMORY_MAP 20
-struct machine_memory_map {
-    uint64_t base, size;
-    uint32_t type, unknown;
-};
-// must be 'static', or premap_addr() or simliar macros should be used
-static struct machine_memory_map mach_mem_map[MAX_MACHINE_MEMORY_MAP];
-static unsigned nr_mach_mem_map;
 
+
+
+struct machine_memory_map mach_mem_map[MAX_MACHINE_MEMORY_MAP];
+unsigned nr_mach_mem_map;
 
 static void copy_memory_map()
 {
@@ -138,24 +134,27 @@ static void copy_memory_map()
     if (memcmp((void *) 0x10000, "_AIM_MEMORY_MAP", 16) != 0) {
         panic("no memory map at 0x10000!");
     }
-    nr_mach_mem_map = *(unsigned *) (0x10000 + 16);
-    if (nr_mach_mem_map > MAX_MACHINE_MEMORY_MAP) {
+    cnt = *(unsigned *) (0x10000 + 16);
+    if (cnt > MAX_MACHINE_MEMORY_MAP) {
         panic("too many memory regions!");
     }
-    memcpy(mach_mem_map, (void *) (0x10000 + 24), sizeof(struct machine_memory_map) * nr_mach_mem_map);
+    memcpy(LOWADDR(mach_mem_map), (void *) (0x10000 + 24), sizeof(struct machine_memory_map) * cnt);
 
     // print memory map to console    
     int i;
     uint64_t total = 0;
-    kprintf("AIM kernel memory map: (%d regions)\n", nr_mach_mem_map);
-    for (i = 0; i < nr_mach_mem_map; i++) {
-        struct machine_memory_map *r = &mach_mem_map[i];
+    kprintf("AIM kernel memory map: (%d regions)\n", cnt);
+    for (i = 0; i < cnt; i++) {
+        struct machine_memory_map *r = LOWADDR(&mach_mem_map[i]);
         if (r->type == 1) {
             total += r->size;
         }
         kprintf("  base %08x %08x size %08x %08x end %08x %08x type %d\n", (unsigned)(r->base >> 32), (unsigned)(r->base), (unsigned)(r->size >> 32), (unsigned)(r->size), (unsigned)((r->base + r->size) >> 32), (unsigned)(r->base + r->size), r->type);
     }
     kprintf("total memory size: %d MB\n\n", (total >> 20));
+    
+    
+    *LOWADDR(&nr_mach_mem_map) = cnt;
 }
 
 void early_mm_init(void)
