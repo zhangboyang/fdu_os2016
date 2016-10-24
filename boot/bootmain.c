@@ -31,6 +31,7 @@
 __noreturn
 void bootmain(void)
 {
+    /////////////////// INIT I/O //////////////////////////////////////////
     bioinit();
     bputs("welcome to ZBY's bootloader for AIM");
     bputs(
@@ -44,6 +45,12 @@ void bootmain(void)
 
     bprintf("bootloader itself is located from %x to %x, length %x\n\n", text_begin, text_end, text_end - text_begin);
     
+    
+    /////////////////// DETECT MEMORY /////////////////////////////////////
+    detectmemory();
+    
+    
+    /////////////////// LOAD ELF //////////////////////////////////////////
     static unsigned char elfbuf[BOOT_ELF_PRELOAD];
     elf_hdr *elf = (void *) elfbuf;
 
@@ -95,6 +102,8 @@ void bootmain(void)
     }
 
     
+
+    //////////////// JUMP TO KERNEL //////////////////////////////////////    
     /* FIXME: THIS IS THE SUPER DIRTY bprintf() HACK
         currently, there is no printf() in kernel
         fortunately, the loader bootloader has it own bprintf()
@@ -106,10 +115,7 @@ void bootmain(void)
     unsigned joffset = (unsigned) bprintf - (0x7c00 + 5);
     mbr[0] = '\xE9'; // opcode of JMP
     bmemcpy(&mbr[1], &joffset, 4);
-    
-    
-    
- 
+
     // call entry point, should not return
     bprintf("\nkernel entry: %p\n", entry);
     bputs("jump to kernel ...\n");
