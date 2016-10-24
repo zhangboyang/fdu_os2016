@@ -25,6 +25,7 @@ struct memmap {
     uint32_t unknown;
 }; // 24 bytes
 
+extern int detectmemory_realmode(void *lowaddr);
 static void detectmemory()
 {
     struct memmap map[MAX_MEMORY_REGIONS];

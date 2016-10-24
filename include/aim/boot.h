@@ -42,6 +42,9 @@ extern int bprintf(const char *fmt, ...); // bootloader printf
 extern void kernreader_init(void);
 extern void kernreader_readfile(void *buf, size_t size, size_t offset);
 
+// detect memory functions
+extern void detectmemory();
+
 #endif /* !__ASSEMBLER__ */
 
 #include <arch-boot.h>
