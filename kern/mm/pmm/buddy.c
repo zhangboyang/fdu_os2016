@@ -164,7 +164,7 @@ void pmalloc_bootstrip(struct bootstrap_vmalloc *valloc)
     }
     
     // free allocable memory regions
-    arch_init_free_pmm_zone();
+    //arch_init_free_pmm_zone();
     
     kprintf("alloc = %016llx\n", VF(pmm_zone[ZONE_NORMAL].allocator, malloc, 0x100 * 1));
     kprintf("alloc = %016llx\n", VF(pmm_zone[ZONE_NORMAL].allocator, malloc, 0x100 * 1));
