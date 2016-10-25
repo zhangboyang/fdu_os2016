@@ -82,5 +82,5 @@ void pmalloc_bootstrip(struct bootstrap_vmalloc *valloc)
         z->allocator = BC(bpa);
     }
     
-    
+    panic("hello!");
 }
