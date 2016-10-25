@@ -47,7 +47,6 @@ struct simple_allocator {
 	size_t (*size)(void *obj);
 };
 
-int simple_allocator_bootstrap(void *pt, size_t size);
 int simple_allocator_init(void);
 void set_simple_allocator(struct simple_allocator *allocator);
 void get_simple_allocator(struct simple_allocator *allocator);
@@ -96,9 +95,13 @@ void cache_trim(struct allocator_cache *cache);
 DECLARE_BASE_VCLASS(virt_vmalloc, struct {
     void *(*malloc)(THIS, size_t size);
     void (*free)(THIS, void *ptr);
+    size_t (*size)(void *obj);
 }, struct {
     // no data here
 });
+
+extern struct virt_vmalloc *g_vmalloc; // the global allocator
+
 
 DECLARE_DERIVED_VCLASS(bootstrap_vmalloc, virt_vmalloc, struct {
     size_t (*area)(THIS);
@@ -107,9 +110,14 @@ DECLARE_DERIVED_VCLASS(bootstrap_vmalloc, virt_vmalloc, struct {
     void *cur;
 });
 
+DECLARE_DERIVED_VCLASS(use_page_vmalloc, virt_vmalloc, struct {
+}, struct {
+    struct virt_pmalloc *palloc;
+});
 
+extern void use_page_vmalloc__ctor(struct use_page_vmalloc *this, struct virt_pmalloc *palloc);
 extern void bootstrap_vmalloc__ctor(struct bootstrap_vmalloc *this, void *base, size_t max_size);
-extern void vmalloc_bootstrap();
+extern void vmm_bootstrap();
 
 
 

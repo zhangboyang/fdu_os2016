@@ -166,3 +166,30 @@ void cache_trim(struct allocator_cache *cache)
 	//spin_unlock_irq_restore(&cache->lock, flags);
 }
 
+
+/////////////////////// ZBY //////////////////////////////////////////////
+
+struct virt_vmalloc *g_vmalloc = NULL;
+
+static void *alloc__adapter(size_t size, gfp_t flags)
+{
+    return VF(g_vmalloc, malloc, size);
+}
+static void free__adapter(void *obj)
+{
+    return VF(g_vmalloc, free, obj);
+}
+static size_t size__adapter(void *obj)
+{
+    return VF(g_vmalloc, size, obj);
+}
+
+void install_vmm_adapter()
+{
+    static struct simple_allocator vmalloc__adapter = {
+	    .alloc	= alloc__adapter,
+	    .free	= free__adapter,
+	    .size	= size__adapter,
+    };
+    set_simple_allocator(&vmalloc__adapter);
+}

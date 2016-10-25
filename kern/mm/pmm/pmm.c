@@ -111,7 +111,7 @@ addr_t get_free_memory(void)
 /////////////////////////////// ZBY /////////////////////////////////////////
 
 // here will be all physical memory zones
-struct zone pmm_zone[MAX_MEMORY_ZONE];
+struct zone pmm_zone[MAX_MEMORY_ZONE] = {};
 
 #define ADAPTER_ZONE ZONE_NORMAL
 

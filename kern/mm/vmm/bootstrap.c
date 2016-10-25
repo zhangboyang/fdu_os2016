@@ -46,6 +46,7 @@ void bootstrap_vmalloc__ctor(struct bootstrap_vmalloc *this, void *base, size_t 
     INST_VTBL_SINGLETON(this, {
         .malloc = bootstrap_vmalloc__malloc,
         .free = bootstrap_vmalloc__free,
+        .size = L (size_t, (void *), { panic("bootstrip_vmalloc::size() is called"); }),
         .area = bootstrap_vmalloc__area,
     });
     
@@ -56,7 +57,7 @@ void bootstrap_vmalloc__ctor(struct bootstrap_vmalloc *this, void *base, size_t 
 
 
 
-void vmalloc_bootstrap()
+void vmm_bootstrap()
 {
     // this function will bootstrip the virtual memory allocation system
     
@@ -116,8 +117,13 @@ void vmalloc_bootstrap()
     panic("OK!");*/
     
     
+    // set global vmm allocator
+    static struct use_page_vmalloc vmalloc;
+    use_page_vmalloc__ctor(&vmalloc, pmm_zone[ZONE_NORMAL].allocator);
+    g_vmalloc = &vmalloc;
     
+    
+    // install adapter for AIM interface
     install_pmm_adapter();
-    
-
+    install_vmm_adapter();
 }

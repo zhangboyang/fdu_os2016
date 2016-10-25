@@ -17,6 +17,13 @@
 #define CONCAT6(a, b, c, d, e, f) CONCAT(CONCAT5(a, b, c, d, e), f)
 
 
+//////////////////// lambda functions /////////////////////////////////////////
+#define LAMBDA(ret_type, args, body...) \
+    ({ \
+        ret_type __c_with_lamda__temp_function args body \
+        __c_with_lamda__temp_function; \
+    })
+#define L LAMBDA
 
 //////////////////// class manipulate macros //////////////////////////////////
 
@@ -85,11 +92,11 @@
         (ptr)->vfptr = &__c_with_virtual_class__vtbl_singleton; \
     } while (0) \
 
-// VF stands for Virtual Function
-#define VF(this, func, ...) ({ \
+#define VIRTUAL_FUNC(this, func, ...) ({ \
         typeof(this) __c_with_virtual_class__temp_this = (this); \
         __c_with_virtual_class__temp_this->vfptr->func(__c_with_virtual_class__temp_this, ##__VA_ARGS__); \
     })
+#define VF VIRTUAL_FUNC
 
 
 #endif
