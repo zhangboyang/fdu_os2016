@@ -43,8 +43,8 @@ PHDRS
 SECTIONS
 {
     . = KERN_START + KOFFSET;
-    KERN_START_LOW = . - KOFFSET;
-    KERN_START_HIGH = .;
+    PROVIDE(KERN_START_LOW = . - KOFFSET);
+    PROVIDE(KERN_START_HIGH = .);
     
     .text : AT(KERN_START) { *(.text*); } : text
     
@@ -56,18 +56,18 @@ SECTIONS
         *(.data*);
         *(.got*);
         
-        AIM_KERN_BSS_START = .;
+        PROVIDE(AIM_KERN_BSS_START = .);
         *(.bss);
-        AIM_KERN_BSS_END = .;
+        PROVIDE(AIM_KERN_BSS_END = .);
         
         . = ALIGN(4096);
         . += KSTACKSIZE;
-        AIM_KERN_STACK_BOTTOM = .;
+        PROVIDE(AIM_KERN_STACK_BOTTOM = .);
     } : data
     
     . = ALIGN(4096);
-    KERN_END_LOW = . - KOFFSET;
-    KERN_END_HIGH = .;
+    PROVIDE(KERN_END_LOW = . - KOFFSET);
+    PROVIDE(KERN_END_HIGH = .);
     
     /DISCARD/ : {
         *(.eh_frame);
