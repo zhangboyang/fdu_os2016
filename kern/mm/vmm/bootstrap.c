@@ -125,7 +125,7 @@ void vmm_bootstrap()
     // set global vmm allocator
     static struct use_page_vmalloc vmalloc;
     use_page_vmalloc__ctor(&vmalloc, pmm_zone[ZONE_NORMAL].allocator);
-    g_vmalloc = &vmalloc;
+    g_vmalloc = BC(&vmalloc);
     
     
     // install adapter for AIM interface
