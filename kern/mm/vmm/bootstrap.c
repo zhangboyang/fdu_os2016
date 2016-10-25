@@ -116,7 +116,7 @@ void vmalloc_bootstrap()
             *x = magic;
             if (r & 1) {
                 *x = 0;
-                VF(pmm_zone[ZONE_DMA].allocator, free, page);
+                VF(pmm_zone[ZONE_NORMAL].allocator, free, page);
             }
         }
     }
