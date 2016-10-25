@@ -120,6 +120,7 @@ void vmalloc_bootstrap()
             }
         }
     }
+    VF(pmm_zone[ZONE_NORMAL].allocator, print);
     panic("OK!");
     
 }
