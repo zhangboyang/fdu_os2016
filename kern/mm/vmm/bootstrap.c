@@ -105,7 +105,7 @@ void vmalloc_bootstrap()
     addr_t page;
     int magic = 0x38276abd;
     while ((page = VF(pmm_zone[ZONE_NORMAL].allocator, malloc, 0x1000)) != -1) {
-        kprintf("got page %016x\n", page);
+        //kprintf("got page %016x\n", page);
         int *x = (void *) (long)(page + KOFFSET);
         if (*x == magic) {
             panic("error!");
@@ -116,5 +116,6 @@ void vmalloc_bootstrap()
             //VF(pmm_zone[ZONE_DMA].allocator, free, page);
         }
     }
+    panic("OK!");
         
 }
