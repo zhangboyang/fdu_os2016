@@ -52,10 +52,10 @@ SECTIONS
     .rodata : { *(.rodata*); } : rodata
     
     .data : {
-        *(.data)
+        *(.data);
         
         AIM_KERN_BSS_START = .;
-        *(.bss)
+        *(.bss);
         AIM_KERN_BSS_END = .;
         
         . = ALIGN(4096);
