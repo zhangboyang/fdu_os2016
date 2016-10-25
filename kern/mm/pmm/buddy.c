@@ -73,6 +73,6 @@ void pmalloc_bootstrip(struct bootstrap_vmalloc *valloc)
         struct zone *z = &pmm_zone[i];
         z->allocator = VF(valloc, malloc, sizeof(struct buddy_pmalloc));
         if (!z->allocator) panic("can't alloc memory for zone %d", i);
-        buddy_pmalloc__ctor(z->allocator, valloc, z->base, z->page_size, z->size / z->page_size);
+        buddy_pmalloc__ctor(z->allocator, BASECLASS_CAST(valloc), z->base, z->page_size, z->size / z->page_size);
     }
 }
