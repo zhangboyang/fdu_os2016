@@ -52,7 +52,8 @@ SECTIONS
     .rodata : { *(.rodata*); } : rodata
     
     .data : {
-        *(.data);
+        *(.data*);
+        *(.got*);
         
         AIM_KERN_BSS_START = .;
         *(.bss);
