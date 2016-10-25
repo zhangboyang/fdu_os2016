@@ -31,7 +31,7 @@ static void buddy_pmalloc__print(THIS)
             kprintf("  index %08x addr %016llx\n", pp - M(pages), M(base) + M(page_size) * (pp - M(pages)));
         }
     }
-    kprintf("eof\n");
+    kprintf("end of summary\n");
 }
 
 static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
