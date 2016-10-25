@@ -88,9 +88,9 @@ static void buddy_pmalloc__free(THIS, addr_t ptr)
         size_t buddy_index = get_buddy(index, order);
         if (buddy_index >= M(page_count)) break; // if the buddy index is invalid (out of range), exit loop
         struct buddy_page *buddy_pp = &M(pages)[buddy_index];
-        kprintf("free: in_use=%d order=%d pporder=%d\n", buddy_pp->in_use, buddy_pp->order, pp->order);
+        kprintf("free: in_use=%d order=%d pporder=%d\n", buddy_pp->in_use, buddy_pp->order, order);
         if (buddy_pp->in_use) break; // if the buddy is currently in use, can't merge
-        if (buddy_pp->order != pp->order) break; // the buddy is empty, and not in the same order, can't merge
+        if (buddy_pp->order != order) break; // the buddy is empty, and not in the same order, can't merge
         
         // do merge
         kprintf("free: merge %d with %d\n", index, buddy_index);
