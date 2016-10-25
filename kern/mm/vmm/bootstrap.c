@@ -117,16 +117,16 @@ void vmalloc_bootstrap()
     
     install_pmm_adapter();
     
-    struct pages *pages;
+    struct pages pages;
     pages = (struct pages) {
         .size = 0x1000,
         .flags = 0,
     };
     
-    alloc_pages(pages);
-    kprintf("alloc_pages: %016llx\n", pages->paddr);
+    alloc_pages(&pages);
+    kprintf("alloc_pages: %016llx\n", pages.paddr);
     
     kprintf("free_memory: %016llx\n", get_free_memory);
-    free_pages(pages);
+    free_pages(&pages);
     kprintf("free_memory: %016llx\n", get_free_memory);
 }
