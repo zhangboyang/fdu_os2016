@@ -27,11 +27,11 @@ void master_init()
     vmm_bootstrap();
     
     void *ptr = kmalloc(15, 0);
-    kprintf("kmalloc() = %p\n", kmalloc(0x100, 0);
-    kprintf("kmalloc() = %p\n", kmalloc(0x100, 0);
-    kprintf("kmalloc() = %p\n", kmalloc(0x100, 0);
-    kprintf("kmalloc() = %p\n", kmalloc(0x100, 0);
-    kprintf("kmalloc() = %p\n", kmalloc(0x100, 0);
+    kprintf("kmalloc() = %p\n", kmalloc(0x100, 0));
+    kprintf("kmalloc() = %p\n", kmalloc(0x100, 0));
+    kprintf("kmalloc() = %p\n", kmalloc(0x100, 0));
+    kprintf("kmalloc() = %p\n", kmalloc(0x100, 0));
+    kprintf("kmalloc() = %p\n", kmalloc(0x100, 0));
     kfree(ptr);
     
     panic("bye");
