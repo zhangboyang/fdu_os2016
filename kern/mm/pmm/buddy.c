@@ -134,7 +134,7 @@ static lsize_t buddy_pmalloc__get_size(THIS, addr_t ptr)
     struct buddy_page *pp = &M(pages)[index];
     return pp->cur_page_count * M(page_size);
 }
-static lsize_t buddy_pmalloc__get_free_mem(THIS)
+static lsize_t buddy_pmalloc__get_free_bytes(THIS)
 {
     DECLARE_THIS(buddy_pmalloc);
     return M(free_page_count) * M(page_size);
@@ -151,7 +151,7 @@ void buddy_pmalloc__ctor(struct buddy_pmalloc *this, struct virt_vmalloc *valloc
         .malloc = buddy_pmalloc__malloc,
         .free = buddy_pmalloc__free,
         .get_size = buddy_pmalloc__get_size,
-        .get_free_mem = buddy_pmalloc__get_free_mem,
+        .get_free_bytes = buddy_pmalloc__get_free_bytes,
         .print = buddy_pmalloc__print,
     });
     

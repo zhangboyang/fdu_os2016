@@ -112,3 +112,39 @@ addr_t get_free_memory(void)
 // here will be all physical memory zones
 struct zone pmm_zone[MAX_MEMORY_ZONE];
 
+#define ADAPTER_ZONE ZONE_NORMAL
+
+static int alloc__adapter(struct pages *pages)
+{
+    addr_t pa = VF(pmm_zone[ADAPTER_ZONE].allocator, malloc, pages->size);
+    if (pa == -1) return EOF;
+    pages->paddr = pa;
+    return 0;
+}
+
+static void free__adapter(struct pages *pages)
+{
+    lsize_t cur_size = VF(pmm_zone[ADAPTER_ZONE].allocator, get_size, pages->paddr);
+    if (cur_size != pages->size) {
+        panic("size mismatch, allocator %016llx, user %016llx", cur_size, pages->size);
+    }
+    VF(pmm_zone[ADAPTER_ZONE].allocator, free, pages->paddr);
+}
+
+static addr_t get_free_alloc__adapter(void)
+{
+    return VF(pmm_zone[ADAPTER_ZONE].allocator, get_free_bytes);
+}
+
+void install_pmm_adapter()
+{
+    static struct page_allocator adapter_allocator = {
+	    .alloc		= alloc__adapter,
+	    .free		= free__adapter,
+	    .get_free	= get_free_alloc__adapter,
+    };
+    
+    set_page_allocator(&adapter_allocator);
+}
+
+

@@ -89,7 +89,7 @@ void vmalloc_bootstrap()
 
     
     
-    kprintf("testing pmm...\n");
+    /*kprintf("testing pmm...\n");
     addr_t page;
     int magic = 0x38276abd;
     unsigned r = 123456;
@@ -113,6 +113,7 @@ void vmalloc_bootstrap()
     }
     VF(pmm_zone[ZONE_NORMAL].allocator, print);
     kprintf("total memory is %lld KB\n", (tot >> 10));
-    panic("OK!");
+    panic("OK!");*/
     
+    install_pmm_adapter();
 }

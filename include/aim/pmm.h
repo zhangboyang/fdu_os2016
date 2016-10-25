@@ -100,7 +100,7 @@ DECLARE_BASE_VCLASS(virt_pmalloc, struct {
     void (*free)(THIS, addr_t ptr);
     
     lsize_t (*get_size)(THIS, addr_t ptr);
-    lsize_t (*get_free_mem)(THIS);
+    lsize_t (*get_free_bytes)(THIS);
     void (*print)(THIS);
 }, struct {
     // no data here
@@ -132,6 +132,8 @@ struct zone {
 };
 
 extern struct zone pmm_zone[MAX_MEMORY_ZONE];
+
+extern void install_pmm_adapter();
 
 #endif /* !__ASSEMBLER__ */
 
