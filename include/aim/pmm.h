@@ -103,6 +103,7 @@ DECLARE_BASE_VCLASS(virt_pmalloc, struct {
 });
 
 DECLARE_DERIVED_VCLASS(buddy_pmalloc, virt_pmalloc, struct {
+    void (*print)(THIS);
 }, struct {
     struct buddy_page       *pages;                 // internal data-structure
 
