@@ -26,6 +26,7 @@ static void *bootstrap_vmalloc__malloc(THIS, size_t size)
         return NULL;
     }
     M(cur) += size;
+    kprintf("[ptr=%p]", ret);
     memset(ret, 0xCD, size); // fill memory with junk, to avoid programming mistakes
     kprintf("%p\n", ret);
     return ret;
