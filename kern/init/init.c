@@ -6,6 +6,7 @@
 #include <aim/panic.h>
 #include <aim/console.h>
 #include <aim/mmu.h>
+#include <aim/vmm.h>
 
 /*
  * this file is added by ZBY
