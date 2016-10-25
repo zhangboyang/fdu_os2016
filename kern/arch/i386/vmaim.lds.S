@@ -46,8 +46,11 @@ SECTIONS
     KERN_START_LOW = . - KOFFSET;
     KERN_START_HIGH = .;
     
-    .text : AT(KERN_START) { *(.text*) } : text
-    .rodata : { *(.rodata*) } : rodata
+    .text : AT(KERN_START) { *(.text*); } : text;
+    
+    . = ALIGN(4096);
+    .rodata : { *(.rodata*); } : rodata;
+    
     .data : {
         *(.data)
         
@@ -55,10 +58,12 @@ SECTIONS
         *(.bss)
         AIM_KERN_BSS_END = .;
         
+        . = ALIGN(4096);
         . += KSTACKSIZE;
         AIM_KERN_STACK_BOTTOM = .;
-    } : data
+    } : data;
     
+    . = ALIGN(4096);
     KERN_END_LOW = . - KOFFSET;
     KERN_END_HIGH = .;
 }
