@@ -24,7 +24,7 @@ void master_init()
     kprintf("hello world! we are now at high address!\n");
     
     // bootstrip the pmm and vmm
-    vmalloc_bootstrap();
+    vmm_bootstrap();
     
     panic("bye");
 }
