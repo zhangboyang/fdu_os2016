@@ -72,7 +72,49 @@ void vmalloc_bootstrap()
     VF(&vmalloc_tmp, malloc, 4096 * 0x10);
     VF(&vmalloc_tmp, malloc, 12);*/
     
-    // let the physical memory allocator bootstrip
-    pmalloc_bootstrip(&vmalloc_tmp);
     
+    
+    
+    
+    // init pmm zones
+    arch_init_pmm_zone();
+
+    // new buddy allocator for each zone
+    for (int i = 0; i < MAX_MEMORY_ZONE; i++) {
+        struct zone *z = &pmm_zone[i];
+
+        struct buddy_pmalloc *bpa = VF(valloc, malloc, sizeof(struct buddy_pmalloc));
+        if (!bpa) panic("can't alloc memory for zone %d", i);
+        
+        buddy_pmalloc__ctor(bpa, BC(valloc), z->base, z->page_size, z->size / z->page_size);
+        z->allocator = BC(bpa);
+    }
+    
+    
+    
+    // free allocable memory regions
+    addr_t kstart = ROUNDDOWN(ULCAST(KERN_START_LOW), PAGE_SIZE);
+    addr_t kend = ROUNDUP(ULCAST(KERN_END_LOW), PAGE_SIZE);
+    addr_t real_kend = kend + VF(&vmalloc_tmp, area);
+    real_kend = ROUNDUP(real_kend, PAGE_SIZE);
+    arch_init_free_pmm_zone(kstart, real_kend);
+    
+    
+    
+    
+    addr_t page;
+    int magic = 0x38276abd;
+    while ((page = VF(pmm_zone[ZONE_NORMAL].allocator, malloc, 0x1000)) != -1) {
+        kprintf("got page %016x\n", page);
+        int *x = (void *) (long)(page + KOFFSET);
+        if (*x == magic) {
+            panic("error!");
+        } else {
+            
+            memset(x, 'A', 0x1000);
+            *x = magic;
+            //VF(pmm_zone[ZONE_DMA].allocator, free, page);
+        }
+    }
+        
 }

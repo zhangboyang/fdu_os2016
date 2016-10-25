@@ -181,7 +181,7 @@ ssize_t invalidate_pages(pgindex_t *pgindex, void *vaddr, size_t size,
 //////////////////////////// ZBY ////////////////////////////////////////////
 
 extern void arch_init_pmm_zone();
-extern void arch_init_free_pmm_zone();
+extern void arch_init_free_pmm_zone(addr_t kstart, addr_t kend);
 
 
 
