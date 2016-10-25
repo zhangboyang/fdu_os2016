@@ -220,6 +220,14 @@ extern uint8_t KERN_END_LOW[];
 extern size_t size_after_kernel; // how many bytes can we use after the kernel
 
 
+enum {
+    ZONE_DMA,
+    ZONE_NORMAL,
+    ZONE_HIGHMEM,
+    
+    MAX_MEMORY_ZONE // EOF
+};
+
 #endif /* !__ASSEMBLER__ */
 
 #endif /* !_ARCH_MMU_H */

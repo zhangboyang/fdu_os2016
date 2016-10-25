@@ -17,17 +17,17 @@
 #define MSG_SIGN " bsvma: " // BootStrap Virtual Memory Allocator
 static void *bootstrap_vmalloc__malloc(THIS, size_t size)
 {
-    kprintf(MSG_SIGN "malloc(%u) = ", (unsigned) size);
+    //kprintf(MSG_SIGN "malloc(%u) = ", (unsigned) size);
     DECLARE_THIS(bootstrap_vmalloc);
     M(cur) = PTRCAST(ROUNDUP(ULCAST(M(cur)), PAGE_SIZE)); // align to PAGE_SIZE
     void *ret = M(cur);
     if (M(cur) + size > M(limit)) {
-        kprintf("NULL\n");
+        //kprintf("NULL\n");
         return NULL;
     }
     M(cur) += size;
     memset(ret, 0xCD, size); // fill memory with junk, to avoid programming mistakes
-    kprintf("%p\n", ret);
+    //kprintf("%p\n", ret);
     return ret;
 }
 static void bootstrap_vmalloc__free(THIS, void *ptr)
@@ -66,10 +66,10 @@ void vmalloc_bootstrap()
     bootstrap_vmalloc__ctor(&vmalloc_tmp, KERN_END_HIGH, size_after_kernel);
     
     // do some tests
-    VF(&vmalloc_tmp, malloc, 12);
+    /*VF(&vmalloc_tmp, malloc, 12);
     VF(&vmalloc_tmp, malloc, 120);
     VF(&vmalloc_tmp, malloc, 4096 * 0x10);
-    VF(&vmalloc_tmp, malloc, 12);
+    VF(&vmalloc_tmp, malloc, 12);*/
     
     // let the physical memory allocator bootstrip
     pmalloc_bootstrip(&vmalloc_tmp);

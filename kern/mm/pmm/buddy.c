@@ -13,8 +13,10 @@
 #include <aim/vmm.h>
 
 
-static addr_t buddy_pmalloc__malloc(THIS, size_t size)
+static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
 {
+    DECLARE_THIS(buddy_pmalloc);
+    size_t pcnt = DIV_ROUND_UP(size, M(page_size));
     return -1;    
 }
 
@@ -65,4 +67,12 @@ void buddy_pmalloc__ctor(struct buddy_pmalloc *this, struct virt_vmalloc *valloc
 
 void pmalloc_bootstrip(struct bootstrap_vmalloc *valloc)
 {
+    // new buddy allocator for each zone
+    int i = 0;
+    for (i = 0; i < MAX_MEMORY_ZONE; i++) {
+        struct zone *z = &pmm_zone[i];
+        z->allocator = VF(valloc, malloc, sizeof(struct buddy_pmalloc));
+        if (!z->allocator) panic("can't alloc memory for zone %d", i);
+        buddy_pmalloc__ctor(z->allocator, valloc, z->base, z->page_size, z->);
+    }
 }

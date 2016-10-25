@@ -93,7 +93,7 @@ DECLARE_DERIVED_CLASS(buddy_page, page, struct {
 DECLARE_BASE_VCLASS(virt_pmalloc, struct {
     // malloc: return -1 if no more pages avaliable
     // @size: page count, not bytes!
-    addr_t (*malloc)(THIS, size_t size);
+    addr_t (*malloc)(THIS, lsize_t size);
     
     void (*free)(THIS, addr_t ptr);
 }, struct {
@@ -103,8 +103,8 @@ DECLARE_BASE_VCLASS(virt_pmalloc, struct {
 DECLARE_DERIVED_VCLASS(buddy_pmalloc, virt_pmalloc, struct {
 }, struct {
     struct buddy_page       *pages;                 // internal data-structure
-    
-#define MAX_BUDDY_ORDER 36
+
+#define MAX_BUDDY_ORDER 64
     struct list_head        list[MAX_BUDDY_ORDER];  // linked-list for each order
     int                     max_order;              // max order
     
@@ -116,6 +116,14 @@ DECLARE_DERIVED_VCLASS(buddy_pmalloc, virt_pmalloc, struct {
 #include <aim/vmm.h>
 extern void pmalloc_bootstrip(struct bootstrap_vmalloc *valloc);
 
+struct zone {
+    struct virt_pmalloc *allocator;
+    addr_t base;
+    lsize_t size;
+    size_t page_size;
+};
+
+extern struct zone pmm_zone[MAX_MEMORY_ZONE];
 
 #endif /* !__ASSEMBLER__ */
 

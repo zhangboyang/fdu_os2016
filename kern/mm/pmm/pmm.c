@@ -106,3 +106,9 @@ addr_t get_free_memory(void)
 	return __allocator.get_free();
 }
 
+
+/////////////////////////////// ZBY /////////////////////////////////////////
+
+// here will be all physical memory zones
+struct zone pmm_zone[MAX_MEMORY_ZONE];
+
