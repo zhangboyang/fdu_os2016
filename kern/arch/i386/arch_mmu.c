@@ -306,7 +306,6 @@ void try_free_page(int zone, addr_t page)
 void arch_init_free_pmm_zone(addr_t kstart, addr_t kend)
 {
     // query memory zones
-    addr_t kstart = ROUNDDOWN(ULCAST(KERN_START_LOW), PAGE_SIZE);
     for (size_t i = 0; i < nr_mach_mem_map; i++) {
         struct machine_memory_map *r = &mach_mem_map[i];
         if (r->type == 1) { // useable memory
