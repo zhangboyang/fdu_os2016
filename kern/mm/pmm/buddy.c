@@ -53,7 +53,7 @@ static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
         order--;
         if (high_index < M(page_count)) { // if buddy index is valid
             // insert the high node to the linked list
-            struct buddy_page *buddy_pp = M(pages)[high_index];
+            struct buddy_page *buddy_pp = &M(pages)[high_index];
             buddy_pp->in_use = 0;
             buddy_pp->order = order;
             list_add(&buddy_pp->node, M(list[order]));
