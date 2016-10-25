@@ -21,6 +21,8 @@
 #define _AIM_PMM_H
 
 #include <aim/gfp.h>
+#include <aim/mmu.h>
+
 
 #ifndef __ASSEMBLER__
 
