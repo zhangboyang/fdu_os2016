@@ -119,11 +119,12 @@ void vmalloc_bootstrap()
     
     struct pages pages;
     pages = (struct pages) {
+        .paddr = 0xaabbccdd,
         .size = 0x1000,
         .flags = 0,
     };
     
-    alloc_pages(&pages);
+    kprintf("%d\n", alloc_pages(&pages));
     kprintf("alloc_pages: %016llx\n", pages.paddr);
     
     kprintf("free_memory: %016llx\n", get_free_memory);
