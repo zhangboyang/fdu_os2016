@@ -51,6 +51,7 @@ SECTIONS
     . = ALIGN(4096);
     .rodata : { *(.rodata*); } : rodata
     
+    . = ALIGN(4096);
     .data : {
         *(.data*);
         *(.got*);
