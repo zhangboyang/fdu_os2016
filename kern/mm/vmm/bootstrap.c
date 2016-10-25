@@ -133,5 +133,5 @@ void vmm_bootstrap()
     install_vmm_adapter();
     
     // print ZONE_NORMAL summary
-    VF(pmm_zone[ZONE_NORMAL].allocator, free, page);
+    VF(pmm_zone[ZONE_NORMAL].allocator, print);
 }
