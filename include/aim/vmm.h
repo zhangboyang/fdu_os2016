@@ -117,8 +117,10 @@ DECLARE_DERIVED_VCLASS(use_page_vmalloc, virt_vmalloc, struct {
 
 extern void use_page_vmalloc__ctor(struct use_page_vmalloc *this, struct virt_pmalloc *palloc);
 extern void bootstrap_vmalloc__ctor(struct bootstrap_vmalloc *this, void *base, size_t max_size);
-extern void vmm_bootstrap();
 
+extern void install_vmm_adapter();
+
+extern void vmm_bootstrap();
 
 
 #endif /* !__ASSEMBLER__ */
