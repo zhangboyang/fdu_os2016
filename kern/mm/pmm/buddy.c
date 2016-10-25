@@ -27,7 +27,7 @@ static void buddy_pmalloc__print(THIS)
         kprintf(" order %d:\n", order);
         struct buddy_page *pp;
         for_each_entry(pp, &M(list[order]), node) {
-            kprintf("  index %08x addr %016llx\n", pp - M(pages), M(base) + M(pagesize) * (pp - M(pages)));
+            kprintf("  index %08x addr %016llx\n", pp - M(pages), M(base) + M(page_size) * (pp - M(pages)));
         }
     }
 }
