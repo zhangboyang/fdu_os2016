@@ -21,7 +21,7 @@ static void *bootstrap_vmalloc__malloc(THIS, size_t size)
     M(cur) = PTRCAST(ROUNDUP(ULCAST(M(cur)), PAGE_SIZE)); // align to PAGE_SIZE
     void *ret = M(cur);
     if (M(cur) + size > M(limit)) {
-        kputs("NULL");
+        kprintf("NULL\n");
         return NULL;
     }
     M(cur) += size;
