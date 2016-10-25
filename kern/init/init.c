@@ -26,7 +26,7 @@ void master_init()
     // bootstrip the pmm and vmm
     vmm_bootstrap();
     
-    void *ptr = kmalloc(0x100);
+    void *ptr = kmalloc(0x100, 0);
     kprintf("ptr = %p\n", ptr);
     kfree(ptr);
     
