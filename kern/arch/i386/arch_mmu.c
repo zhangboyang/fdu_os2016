@@ -298,7 +298,7 @@ void arch_init_pmm_zone()
 
 void try_free_page(int zone, addr_t page)
 {
-    if (pmm_zone[zone].base < page && page < pmm_zone[zone].base + pmm_zone[zone].size) {
+    if (pmm_zone[zone].base <= page && page < pmm_zone[zone].base + pmm_zone[zone].size) {
         VF(pmm_zone[zone].allocator, free, page);
     }
 }
