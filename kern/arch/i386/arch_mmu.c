@@ -312,7 +312,7 @@ void arch_init_free_pmm_zone()
             addr_t st = r->base, ed = r->base + r->size;
             st = ROUNDUP(st, PAGE_SIZE);
             ed = ROUNDDOWN(ed, PAGE_SIZE);
-            kprintf("free memory from %016llx to %016llx\n", st, ed);
+            kprintf("free memory from %016llx to %016llx, %lld KB\n", st, ed, ((ed - st) >> 10));
             for (addr_t page = st; page < ed; page += PAGE_SIZE) {
                 // try free 'page'
                 for (int i = 0; i < MAX_MEMORY_ZONE; i++) {
