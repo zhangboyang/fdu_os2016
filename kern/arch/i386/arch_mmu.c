@@ -319,6 +319,5 @@ void arch_init_free_pmm_zone()
                 }
             }
         }
-        max_physmem = max2(max_physmem, (r->base + r->size));
     }
 }
