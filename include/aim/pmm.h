@@ -116,7 +116,7 @@ DECLARE_DERIVED_VCLASS(buddy_pmalloc, virt_pmalloc, struct {
 });
 
 #include <aim/vmm.h>
-extern void pmalloc_bootstrip(struct bootstrap_vmalloc *valloc);
+extern void buddy_pmalloc__ctor(struct buddy_pmalloc *this, struct virt_vmalloc *valloc, addr_t base, size_t page_size, size_t page_count);
 
 struct zone {
     struct virt_pmalloc *allocator;
