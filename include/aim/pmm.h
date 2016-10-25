@@ -114,6 +114,7 @@ DECLARE_DERIVED_VCLASS(buddy_pmalloc, virt_pmalloc, struct {
 });
 
 
+extern void pmalloc_bootstrip(struct bootstrap_vmalloc *valloc);
 
 
 #endif /* !__ASSEMBLER__ */

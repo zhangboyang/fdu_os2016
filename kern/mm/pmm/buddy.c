@@ -61,3 +61,8 @@ void buddy_pmalloc__ctor(struct buddy_pmalloc *this, struct virt_vmalloc *valloc
     }
 }
 
+
+
+void pmalloc_bootstrip(struct bootstrap_vmalloc *valloc)
+{
+}
