@@ -65,4 +65,10 @@ void vmalloc_bootstrap()
     bootstrap_vmalloc__ctor(&vmalloc_tmp, KERN_END_HIGH, size_after_kernel);
     
     VF(&vmalloc_tmp, malloc, 12);
+    VF(&vmalloc_tmp, malloc, 120);
+    VF(&vmalloc_tmp, malloc, 4096 * 0x10);
+    VF(&vmalloc_tmp, malloc, 12);
+    
+    
+    
 }
