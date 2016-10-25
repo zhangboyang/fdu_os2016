@@ -8,6 +8,7 @@
 
 #include <sys/types.h>
 #include <aim/panic.h>
+#include <aim/debug.h>
 #include <aim/mmu.h>
 #include <aim/pmm.h>
 #include <aim/vmm.h>
@@ -75,7 +76,7 @@ void pmalloc_bootstrip(struct bootstrap_vmalloc *valloc)
         struct zone *z = &pmm_zone[i];
         struct buddy_pmalloc *bpa;
         bpa = VF(valloc, malloc, sizeof(struct buddy_pmalloc));
-        kprintf("haha\n");
+        kprintf("haha\n");*
         if (!bpa) panic("can't alloc memory for zone %d", i);
         buddy_pmalloc__ctor(bpa, BC(valloc), z->base, z->page_size, z->size / z->page_size);
         z->allocator = BC(bpa);
