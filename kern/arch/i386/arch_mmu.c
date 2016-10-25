@@ -249,6 +249,7 @@ __asm__ ( // the abs_jump()
 #undef KVA2PA
 #undef PA2KVA
 
+#include <aim/pmm.h>
 
 void arch_init_pmm_zone()
 {
