@@ -306,6 +306,8 @@ void try_free_page(int zone, addr_t page)
 void arch_init_free_pmm_zone()
 {
     // query memory zones
+    addr_t klow = ROUNDDOWN(ULCAST(KERN_START_LOW), PAGE_SIZE);
+    addr_t khigh = ROUNDUP(ULCAST(KERN_END_LOW), PAGE_SIZE);
     for (size_t i = 0; i < nr_mach_mem_map; i++) {
         struct machine_memory_map *r = &mach_mem_map[i];
         if (r->type == 1) { // useable memory
@@ -316,7 +318,9 @@ void arch_init_free_pmm_zone()
             for (addr_t page = st; page < ed; page += PAGE_SIZE) {
                 // try free 'page'
                 for (int i = 0; i < MAX_MEMORY_ZONE; i++) {
-                    try_free_page(i, page);
+                    if (page < klow || page >= khigh) {
+                        try_free_page(i, page);
+                    }
                 }
             }
         }
