@@ -67,7 +67,7 @@ SECTIONS
     KERN_END_LOW = . - KOFFSET;
     KERN_END_HIGH = .;
     
-    /DISCARD/ {
+    /DISCARD/ : {
         *(.eh_frame);
     }
 }
