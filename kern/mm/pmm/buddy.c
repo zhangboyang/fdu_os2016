@@ -160,7 +160,7 @@ void buddy_pmalloc__ctor(struct buddy_pmalloc *this, struct virt_vmalloc *valloc
     M(base) = base;
     M(page_size) = page_size;
     M(page_count) = page_count;
-    M(free_page_count) = page_count;
+    M(free_page_count) = 0;
     for (M(max_order) = 0; (1 << (M(max_order) + 1)) <= M(page_count); M(max_order)++);
     kprintf("buddy: base %08llx pagesz %08x pagecnt %08x maxorder %08x\n", M(base), M(page_size), M(page_count), M(max_order));
     
@@ -178,6 +178,7 @@ void buddy_pmalloc__ctor(struct buddy_pmalloc *this, struct virt_vmalloc *valloc
     for (size_t i = 0; i < page_count; i++) {
         M(pages)[i].order = 0;
         M(pages)[i].in_use = 1;
+        M(pages)[i].cur_page_count = 1;
     }
     
     // init all linked-list to null, i.e. no allocatable node
