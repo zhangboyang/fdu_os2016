@@ -45,6 +45,8 @@ static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
     // find the block
     struct buddy_page *pp = list_first_entry(&M(list[order]), struct buddy_page, node);
     size_t index = pp - M(pages);
+    pp->in_use = 1;
+    pp->order = target_order;
 
     // split blocks
     list_del(&pp->node);
@@ -161,6 +163,8 @@ void pmalloc_bootstrip(struct bootstrap_vmalloc *valloc)
     
     // free allocable memory regions
     arch_init_free_pmm_zone();
+    
+    printf("alloc = %016llx\n", VF(pmm_zone[ZONE_NORMAL].allocator, malloc, 0x100 * 1));
     
     panic("hello!");
 }
