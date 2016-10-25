@@ -105,6 +105,7 @@ void vmalloc_bootstrap()
     addr_t page;
     int magic = 0x38276abd;
     unsigned r = 123456;
+    unsigned long long tot = 0;
     while ((page = VF(pmm_zone[ZONE_NORMAL].allocator, malloc, 0x1000)) != -1) {
         r = (1103515245 * r + 12345) & 0x7fffffff; // rand
         //kprintf("got page %016x\n", page);
@@ -117,10 +118,13 @@ void vmalloc_bootstrap()
             if (r & 1) {
                 *x = 0;
                 VF(pmm_zone[ZONE_NORMAL].allocator, free, page);
+            } else {
+                tot += 0x1000;
             }
         }
     }
     VF(pmm_zone[ZONE_NORMAL].allocator, print);
+    kprintf("total memory is %lld KB\n", (tot >> 10));
     panic("OK!");
     
 }
