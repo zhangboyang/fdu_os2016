@@ -50,18 +50,20 @@ SECTIONS
     
     . = ALIGN(4096);
     .rodata : { *(.rodata*); } : rodata
+
+    . = ALIGN(4096);    
+    .data : { *(.data); } : data
     
-    .data : {
-        *(.data);
-        
-        AIM_KERN_BSS_START = .;
-        *(.bss);
-        AIM_KERN_BSS_END = .;
-        
-        . = ALIGN(4096);
-        . += KSTACKSIZE;
-        AIM_KERN_STACK_BOTTOM = .;
-    } : data
+
+    . = ALIGN(4096);
+    AIM_KERN_BSS_START = .;
+    .bss : { *(.bss); } : data
+    AIM_KERN_BSS_END = .;
+
+    . = ALIGN(4096);
+    AIM_KERN_STACK_START = .;
+    .stack : { . += KSTACKSIZE; } : data
+    AIM_KERN_STACK_BOTTOM = .;
     
     . = ALIGN(4096);
     KERN_END_LOW = . - KOFFSET;
