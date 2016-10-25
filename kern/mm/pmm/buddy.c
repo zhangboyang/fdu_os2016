@@ -38,7 +38,7 @@ static void buddy_pmalloc__free(THIS, addr_t ptr)
     
     // try to merge with buddy
     short order;
-    for (order = pp->order; order < M(max_order); order++)
+    for (order = pp->order; order < M(max_order); order++) {
         // check if we can merge
         size_t buddy_index = get_buddy(index, pp->order);
         if (buddy_index >= M(page_count)) break; // if the buddy index is invalid (out of range), exit loop
