@@ -46,7 +46,7 @@ void bootstrap_vmalloc__ctor(struct bootstrap_vmalloc *this, void *base, size_t 
     INST_VTBL_SINGLETON(this, {
         .malloc = bootstrap_vmalloc__malloc,
         .free = bootstrap_vmalloc__free,
-        .size = size_t  (void *obj) { panic("bootstrip_vmalloc::size() is called"); },
+        .size = ^size_t  (void *obj) { panic("bootstrip_vmalloc::size() is called"); },
         .area = bootstrap_vmalloc__area,
     });
     
