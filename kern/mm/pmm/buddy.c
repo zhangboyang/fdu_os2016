@@ -24,10 +24,10 @@ static void buddy_pmalloc__print(THIS)
     DECLARE_THIS(buddy_pmalloc);
     kprintf("buddy allocator status for %p:\n", this);
     for (short order = 0; order <= M(max_order); order++) {
-        printf(" order %d:\n", order);
+        kprintf(" order %d:\n", order);
         struct buddy_page *pp;
         list_for_each_entry(pp, &M(list[order]), node) {
-            printf("  index %08x addr %016llx\n", pp - M(pages), M(base) + M(pagesize) * (pp - M(pages)));
+            kprintf("  index %08x addr %016llx\n", pp - M(pages), M(base) + M(pagesize) * (pp - M(pages)));
         }
     }
 }
