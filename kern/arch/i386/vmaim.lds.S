@@ -43,31 +43,29 @@ PHDRS
 SECTIONS
 {
     . = KERN_START + KOFFSET;
-    PROVIDE(KERN_START_LOW = . - KOFFSET);
-    PROVIDE(KERN_START_HIGH = .);
+    KERN_START_LOW = . - KOFFSET;
+    KERN_START_HIGH = .;
     
     .text : AT(KERN_START) { *(.text*); } : text
     
     . = ALIGN(4096);
     .rodata : { *(.rodata*); } : rodata
     
-    . = ALIGN(4096);
     .data : {
-        *(.data*);
-        *(.got*);
+        *(.data);
         
-        PROVIDE(AIM_KERN_BSS_START = .);
-        *(.bss*);
-        PROVIDE(AIM_KERN_BSS_END = .);
+        AIM_KERN_BSS_START = .;
+        *(.bss);
+        AIM_KERN_BSS_END = .;
         
         . = ALIGN(4096);
         . += KSTACKSIZE;
-        PROVIDE(AIM_KERN_STACK_BOTTOM = .);
+        AIM_KERN_STACK_BOTTOM = .;
     } : data
     
     . = ALIGN(4096);
-    PROVIDE(KERN_END_LOW = . - KOFFSET);
-    PROVIDE(KERN_END_HIGH = .);
+    KERN_END_LOW = . - KOFFSET;
+    KERN_END_HIGH = .;
     
     /DISCARD/ : {
         *(.eh_frame);
