@@ -49,7 +49,7 @@ void bootstrap_vmalloc__ctor(struct bootstrap_vmalloc *this, void *base, size_t 
     });
     
     M(base) = M(cur) = base;
-    M(limit) = base + 4096;
+    M(limit) = base + max_size;
 }
 
 
