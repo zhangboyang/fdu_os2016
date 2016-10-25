@@ -87,10 +87,9 @@ DECLARE_BASE_CLASS(page, struct {
 });
 
 DECLARE_DERIVED_CLASS(buddy_page, page, struct {
-    struct {
-        unsigned char order : 7;
-        unsigned char in_use : 1;
-    };
+    struct list_head        node;
+    short order;
+    short in_use;
 });
 
 DECLARE_BASE_VCLASS(virt_pmalloc, struct {
@@ -109,7 +108,7 @@ DECLARE_DERIVED_VCLASS(buddy_pmalloc, virt_pmalloc, struct {
 
 #define MAX_BUDDY_ORDER 64
     struct list_head        list[MAX_BUDDY_ORDER];  // linked-list for each order
-    int                     max_order;              // max order
+    short                   max_order;              // max possible order, order must in [0, max_order]
     
     addr_t                  base;                   // base of physical memory start
     size_t                  page_size;              // size of each page

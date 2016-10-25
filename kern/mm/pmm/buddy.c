@@ -21,9 +21,38 @@ static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
     return -1;    
 }
 
+#define get_buddy(index, order) ((index) ^ (1 << (order)))
+#define get_low_index(index, order) ((index) & ~(1 << (order)))
 static void buddy_pmalloc__free(THIS, addr_t ptr)
 {
-
+    assert(ROUNDDOWN(ptr, page_size) == ptr);
+    
+    // calc index in pages[]
+    size_t index = (ptr - M(base)) / M(page_size);
+    struct buddy_page *pp = &M(pages)[index]; // pp: pointer to page
+    assert((index & ((1 << pp->order) - 1)) == 0);
+    
+    // clear in_use flag
+    pp->in_use = 0;
+    
+    // try to merge with buddy
+    short order;
+    for (order = pp->order; order < M(max_order); order++)
+        // check if we can merge
+        size_t buddy_index = get_buddy(index, pp->order);
+        if (buddy_index >= M(page_count)) break; // if the buddy index is invalid (out of range), exit loop
+        struct buddy_page *buddy_pp = &M(pages)[buddy_index];
+        if (buddy_pp->in_use) break; // if the buddy is currently in use, can't merge
+        if (buddy_pp->order != pp->order) break; // the buddy is not in the same order, can't merge
+        
+        // start merge
+        list_del(&buddy_pp->node); // remove buddy from linked-list
+        pp = &M(pages)[get_low_index(index)]; // set pp to left node
+    }
+    
+    // finally insert merged node to linked-list
+    pp->order = order;
+    list_add(&pp->node, &M(list[order]));
 }
 
 void buddy_pmalloc__ctor(struct buddy_pmalloc *this, struct virt_vmalloc *valloc, addr_t base, size_t page_size, size_t page_count)
