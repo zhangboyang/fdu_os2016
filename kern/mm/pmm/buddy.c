@@ -43,7 +43,7 @@ void buddy_pmalloc__ctor(struct buddy_pmalloc *this, struct virt_vmalloc *valloc
     M(page_size) = page_size;
     M(page_count) = page_count;
     for (M(max_order) = 0; (1 << (M(max_order) + 1)) <= M(page_count); M(max_order)++);
-    kprintf("base %08llx pagesz %08x pagecnt %08x maxorder %08x\n", M(base), M(page_size), M(page_count), M(max_order));
+    kprintf("buddy: base %08llx pagesz %08x pagecnt %08x maxorder %08x\n", M(base), M(page_size), M(page_count), M(max_order));
     
     // alloc memory for internal data-structures
     // note that we only alloc memory at construction
@@ -80,7 +80,6 @@ void pmalloc_bootstrip(struct bootstrap_vmalloc *valloc)
 
         struct buddy_pmalloc *bpa = VF(valloc, malloc, sizeof(struct buddy_pmalloc));
         if (!bpa) panic("can't alloc memory for zone %d", i);
-        kprintf("base %08llx pagesz %08x pagecnt %08x\n", z->base, z->page_size, z->size / z->page_size);
         
         buddy_pmalloc__ctor(bpa, BC(valloc), z->base, z->page_size, z->size / z->page_size);
         z->allocator = BC(bpa);
