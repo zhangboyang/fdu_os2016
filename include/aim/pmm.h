@@ -87,7 +87,7 @@ DECLARE_BASE_CLASS(page, struct {
 });
 
 DECLARE_DERIVED_CLASS(buddy_page, page, struct {
-    int in_use;
+    int order; // order -1 means in use, order >= 0 means free on level @order
 });
 
 DECLARE_BASE_VCLASS(virt_pmalloc, struct {
