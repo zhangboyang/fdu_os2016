@@ -128,6 +128,8 @@ void vmalloc_bootstrap()
     kprintf("alloc_pages: %016llx\n", pages.paddr);
     
     kprintf("free_memory: %016llx\n", get_free_memory());
+    VF(pmm_zone[ZONE_NORMAL].allocator, print);
     free_pages(&pages);
     kprintf("free_memory: %016llx\n", get_free_memory());
+    VF(pmm_zone[ZONE_NORMAL].allocator, print);
 }
