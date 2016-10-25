@@ -205,7 +205,7 @@ void pmalloc_bootstrip(struct bootstrap_vmalloc *valloc)
     addr_t page;
     int magic = 0x38276abd;
     while ((page = VF(pmm_zone[ZONE_DMA].allocator, malloc, 0x1000)) != -1) {
-        int *x = (void *) (page + KOFFSET);
+        int *x = (void *) (long)(page + KOFFSET);
         if (*x == magic) {
             panic("error!");
         } else {
