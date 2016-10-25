@@ -43,6 +43,7 @@ PHDRS
 SECTIONS
 {
     . = KERN_START + KOFFSET;
+    KERN_START_LOW = . - KOFFSET;
     KERN_START_HIGH = .;
     
     .text : AT(KERN_START) { *(.text*) } : text
@@ -60,5 +61,6 @@ SECTIONS
     } : data
     
     . = ALIGN(4096);
+    KERN_END_LOW = . - KOFFSET;
     KERN_END_HIGH = .;
 }

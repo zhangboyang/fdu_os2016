@@ -127,6 +127,7 @@ static void check_cpu(void)
 
 struct machine_memory_map mach_mem_map[MAX_MACHINE_MEMORY_MAP];
 unsigned nr_mach_mem_map;
+size_t size_after_kernel;
 
 static void copy_memory_map()
 {
@@ -154,6 +155,23 @@ static void copy_memory_map()
     kprintf("total memory size: %d MB\n\n", (total >> 20));
     
     
+    // calc size_after_kernel
+    size_t freemem = 0;
+    for (i = 0; i < cnt; i++) {
+        struct machine_memory_map *r = LOWADDR(&mach_mem_map[i]);
+        if (r->type == 1) {
+            if (r->base <= KERN_START_LOW && r->base + r->size >= KERN_END_LOW) {
+                freemem = KERN_END_LOW - (r->base + r->size);
+            }
+        }
+    }
+    if (freemem) {
+        kprintf("free memory after kernel: %d MB\n\n", (freemem >> 20));
+    } else {
+        panic("no free memory after kernel!");
+    }
+    
+    *LOWADDR(&size_after_kernel) = freemem;
     *LOWADDR(&nr_mach_mem_map) = cnt;
 }
 
