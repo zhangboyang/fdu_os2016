@@ -134,6 +134,7 @@ static lsize_t buddy_pmalloc__get_size(THIS, addr_t ptr)
     struct buddy_page *pp = &M(pages)[index];
     return pp->cur_page_count * M(page_size);
 }
+
 static lsize_t buddy_pmalloc__get_free_bytes(THIS)
 {
     DECLARE_THIS(buddy_pmalloc);
