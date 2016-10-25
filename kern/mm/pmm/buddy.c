@@ -43,7 +43,7 @@ void buddy_pmalloc__ctor(struct buddy_pmalloc *this, struct virt_vmalloc *valloc
     M(page_size) = page_size;
     M(page_count) = page_count;
     for (M(max_order) = 0; (1 << (M(max_order) + 1)) <= M(page_count); M(max_order)++);
-    printf("base %08llx pagesz %08x pagecnt %08x maxorder %08x\n", M(base), M(page_size), M(page_count), M(max_order));
+    kprintf("base %08llx pagesz %08x pagecnt %08x maxorder %08x\n", M(base), M(page_size), M(page_count), M(max_order));
     
     // alloc memory for internal data-structures
     // note that we only alloc memory at construction
