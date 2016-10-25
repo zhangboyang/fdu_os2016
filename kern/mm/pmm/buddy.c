@@ -25,7 +25,7 @@ static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
 #define get_low_index(index, order) ((index) & ~(1 << (order)))
 static void buddy_pmalloc__free(THIS, addr_t ptr)
 {
-    assert(ROUNDDOWN(ptr, page_size) == ptr);
+    assert(ROUNDDOWN(ptr, M(page_size)) == ptr);
     
     // calc index in pages[]
     size_t index = (ptr - M(base)) / M(page_size);
