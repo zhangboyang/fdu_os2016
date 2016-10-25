@@ -81,25 +81,25 @@ static void buddy_pmalloc__free(THIS, addr_t ptr)
     assert((index & ((1 << pp->order) - 1)) == 0);
     assert(index < M(page_count));
     
-    // clear in_use flag
-    pp->in_use = 0;
-    
     // try to merge with buddy
     short order;
     for (order = pp->order; order < M(max_order); order++) {
         // check if we can merge
-        size_t buddy_index = get_buddy(index, pp->order);
+        size_t buddy_index = get_buddy(index, order);
         if (buddy_index >= M(page_count)) break; // if the buddy index is invalid (out of range), exit loop
         struct buddy_page *buddy_pp = &M(pages)[buddy_index];
         if (buddy_pp->in_use) break; // if the buddy is currently in use, can't merge
-        if (buddy_pp->order != pp->order) break; // the buddy is not in the same order, can't merge
+        if (buddy_pp->order != pp->order) break; // the buddy is empty, and not in the same order, can't merge
         
         // do merge
+        kprintf("free: merge %d with %d\n", index, 
         list_del(&buddy_pp->node); // remove buddy from linked-list
-        pp = &M(pages)[get_low_index(index, order)]; // set pp to left node
+        index = get_low_index(index, order); // set pp to left node
+        pp = &M(pages)[index];
     }
     
     // finally insert merged node to linked-list
+    pp->in_use = 0;
     pp->order = order;
     list_add(&pp->node, &M(list[order]));
 }
