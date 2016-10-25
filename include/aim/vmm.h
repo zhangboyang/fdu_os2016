@@ -95,7 +95,7 @@ void cache_trim(struct allocator_cache *cache);
 DECLARE_BASE_VCLASS(virt_vmalloc, struct {
     void *(*malloc)(THIS, size_t size);
     void (*free)(THIS, void *ptr);
-    size_t (*size)(void *obj);
+    size_t (*size)(THIS, void *obj);
 }, struct {
     // no data here
 });
