@@ -56,7 +56,7 @@ int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr, void *vaddr, 
         // map VA to PA
         pgmid_t *pgmid = WKPGINDEX(boot_page_index[PGINDEX_FN(va)]);
         pgmid[PGMID_FN(va)] = MKPGMID_BIG(pa) | PGMID_RW;
-        kprintf("pgmid=%x midfn=%x val=%x\n", (unsigned) pgmid, (unsigned) PGMID_FN(va), (unsigned) pgmid[PGMID_FN(va)]);
+        //kprintf("pgmid=%x midfn=%x val=%x\n", (unsigned) pgmid, (unsigned) PGMID_FN(va), (unsigned) pgmid[PGMID_FN(va)]);
     }
     
     return 0;
