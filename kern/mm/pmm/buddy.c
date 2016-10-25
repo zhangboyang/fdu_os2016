@@ -47,7 +47,7 @@ static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
     size_t index = pp - M(pages);
     pp->in_use = 1;
     pp->order = target_order;
-    printf(" pp=%p cnt=%d order=%d\n", pp, cnt, order);
+    kprintf(" pp=%p cnt=%d order=%d\n", pp, cnt, order);
 
     // split blocks
     list_del(&pp->node);
