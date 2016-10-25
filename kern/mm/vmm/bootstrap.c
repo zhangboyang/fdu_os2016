@@ -120,7 +120,7 @@ void vmalloc_bootstrap()
     struct pages *pages;
     pages = (struct pages) {
         .size = 0x1000,
-        .gfp_flags = 0,
+        .flags = 0,
     };
     
     alloc_pages(pages);
