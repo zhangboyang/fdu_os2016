@@ -306,6 +306,7 @@ void try_free_page(int zone, addr_t page)
 void arch_init_free_pmm_zone(addr_t kstart, addr_t kend)
 {
     // query memory zones
+    kprintf("memory from %08x to %08x belongs to kernel\n", (unsigned) kstart, (unsigned) kend);
     for (size_t i = 0; i < nr_mach_mem_map; i++) {
         struct machine_memory_map *r = &mach_mem_map[i];
         if (r->type == 1) { // useable memory
