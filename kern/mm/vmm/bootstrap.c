@@ -62,7 +62,7 @@ void vmalloc_bootstrap()
     // this allocator will alloc memory at the end of kernel
     // no free(), and allocated memory will never be freed
     struct bootstrap_vmalloc vmalloc_tmp;
-    bootstrap_vmalloc_ctor(&vmalloc_tmp, KERN_END_HIGH, size_after_kernel);
+    bootstrap_vmalloc__ctor(&vmalloc_tmp, KERN_END_HIGH, size_after_kernel);
     
     VF(&vmalloc_tmp, malloc, 12);
 }
