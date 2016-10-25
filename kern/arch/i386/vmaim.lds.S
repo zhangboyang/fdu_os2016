@@ -57,7 +57,7 @@ SECTIONS
         *(.got*);
         
         PROVIDE(AIM_KERN_BSS_START = .);
-        *(.bss);
+        *(.bss*);
         PROVIDE(AIM_KERN_BSS_END = .);
         
         . = ALIGN(4096);
