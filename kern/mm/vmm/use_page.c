@@ -33,7 +33,7 @@ void use_page_vmalloc__ctor(struct use_page_vmalloc *this, struct virt_pmalloc *
     INST_VTBL_SINGLETON(this, {
         .malloc = use_page_vmalloc__malloc,
         .free = use_page_vmalloc__free,
-        .size = L (size_t, (void *), { panic("use_page_vmalloc::size() is called"); }),
+        .size = L (size_t, (void *obj), { panic("use_page_vmalloc::size() is called"); }),
     });
     M(palloc) = palloc;
 }
