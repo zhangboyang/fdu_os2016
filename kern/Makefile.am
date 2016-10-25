@@ -47,9 +47,9 @@ libkernel_la_SOURCES =
 libkernel_la_LIBADD = $(KERN_LIBS)
 
 vmaim_elf_SOURCES =
-vmaim_elf_LDADD = libkernel.la $(MODULES) $(shell i386-unknown-elf-gcc --print-libgcc)
+vmaim_elf_LDADD = libkernel.la $(MODULES)
 EXTRA_vmaim_elf_DEPENDENCIES = vmaim.lds
-vmaim_elf_LDFLAGS = $(AM_LDFLAGS) -T vmaim.lds
+vmaim_elf_LDFLAGS = $(AM_LDFLAGS) -T vmaim.lds -lgcc
 
 # This file has double suffix, makefile rule cannot wildcard him
 vmaim.lds: $(srcdir)/arch/$(ARCH)/vmaim.lds.S
