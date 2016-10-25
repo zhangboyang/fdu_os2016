@@ -23,6 +23,11 @@ static void buddy_pmalloc__print(THIS)
 {
     DECLARE_THIS(buddy_pmalloc);
     kprintf("buddy allocator status for %p:\n", this);
+    kprintf("  base %08llx pagesz %08x pagecnt %08x maxorder %08x\n", M(base), M(page_size), M(page_count), M(max_order));
+    kprintf("  end %llx\n", M(base) + M(page_size) * M(page_count));
+    kprintf(" total free pages: %u\n", M(free_page_count));
+    kprintf(" total free memory: %lld KB\n", (VF(this, get_free_bytes) >> 10));
+
     for (short order = 0; order <= M(max_order); order++) {
         kprintf(" order %d:\n", order);
         struct buddy_page *pp;

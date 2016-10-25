@@ -131,4 +131,7 @@ void vmm_bootstrap()
     // install adapter for AIM interface
     install_pmm_adapter();
     install_vmm_adapter();
+    
+    // print ZONE_NORMAL summary
+    VF(pmm_zone[ZONE_NORMAL].allocator, free, page);
 }
