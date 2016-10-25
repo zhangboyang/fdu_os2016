@@ -160,8 +160,8 @@ static void copy_memory_map()
     for (i = 0; i < cnt; i++) {
         struct machine_memory_map *r = LOWADDR(&mach_mem_map[i]);
         if (r->type == 1) {
-            if (r->base <= KERN_START_LOW && r->base + r->size >= KERN_END_LOW) {
-                freemem = KERN_END_LOW - (r->base + r->size);
+            if (r->base <= (uint64_t) KERN_START_LOW && r->base + r->size >= (uint64_t) KERN_END_LOW) {
+                freemem = (uint64_t) KERN_END_LOW - (r->base + r->size);
             }
         }
     }
