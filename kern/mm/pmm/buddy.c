@@ -26,7 +26,7 @@ static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
 #define get_low_index(index, order) ((index) & ~(1 << (order)))
 static void buddy_pmalloc__free(THIS, addr_t ptr)
 {
-    kprintf("ptr=%p\n", ptr);
+    //kprintf("ptr=%p\n", ptr);
     
     DECLARE_THIS(buddy_pmalloc);
     assert(ROUNDDOWN(ptr, M(page_size)) == ptr);
