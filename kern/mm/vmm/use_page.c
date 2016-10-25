@@ -24,6 +24,7 @@ static void *use_page_vmalloc__malloc(THIS, size_t size)
 
 static void *use_page_vmalloc__free(THIS, void *ptr)
 {
+    DECLARE_THIS(use_page_vmalloc);
     addr_t pa = (ULCAST(ptr) - KOFFSET);
     VF(M(palloc), free, pa);
 }
