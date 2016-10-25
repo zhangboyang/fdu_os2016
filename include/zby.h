@@ -2,6 +2,8 @@
 #define _ZBY_H
 // NOTE: compile using gcc with '-fplan9-extensions' enabled
 
+// https://github.com/zhangboyang/c-with-virtual-classes
+
 
 //////////////////// useful macros ////////////////////////////////////////////
 
@@ -19,11 +21,11 @@
 //////////////////// class manipulate macros //////////////////////////////////
 
 #define BASECLASS_CAST(ptr) (&(ptr)->baseclass)
-#define BCCAST BASECLASS_CAST
+#define BC BASECLASS_CAST
 #define THIS void *vthis
 #define DECLARE_THIS(type) struct type *this = vthis
-// M stands for Member
-#define M(var) (this->var)
+#define MEMBER(var) (this->var)
+#define M MEMBER
 
 
 ///////////// write derived class (without virtual funtcion) in pure C ////////

@@ -20,11 +20,6 @@
 #include <config.h>
 #endif /* HAVE_CONFIG_H */
 
-
-// make macros in PREMAP mode in 'mmu.h'
-#define PREMAP
-
-
 #include <sys/types.h>
 #include <util.h>
 #include <aim/debug.h>
@@ -238,9 +233,57 @@ void mmu_jump()
 }
 
 
-__asm__ (
+__asm__ ( // the abs_jump()
     ".globl abs_jump\n"
     "abs_jump:\n"
     "   pop %eax\n"
     "   ret\n"
 );
+
+
+
+////////////////////////// HIGHADDR FUNCTIONS ///////////////////////////////
+void arch_init_pmm_zone()
+{
+    // query memory zones
+    lsize_t normal_top = 0, max_physmem = 0;
+    for (size_t i = 0; i < nr_mach_mem_map; i++) {
+        struct machine_memory_map *r = &mach_mem_map[i];
+        if (r->type == 1) { // useable memory
+            if (r->base <= (uint64_t) ULCAST(KERN_START_LOW) && r->base + r->size >= (uint64_t) ULCAST(KERN_END_LOW)) {
+                normal_top = (r->base + r->size);
+            }
+        }
+        max_physmem = max(max_physmem, (r->base + r->size));
+    }
+    normal_top = min(normal_top, KTOP - KOFFSET);
+    
+    normal_top = ROUNDDOWN(normal_top, PAGE_SIZE);
+    max_physmem = ROUNDDOWN(max_physmem, PAGE_SIZE);
+    
+
+    // init each zone
+    assert(IS_ALIGNED(normal_top, PAGE_SIZE));
+    assert(IS_ALIGNED(max_physmem, PAGE_SIZE));
+    assert(max_physmem >= normal_top);
+    assert(MAX_MEMORY_ZONE == 3);
+    pmm_zone[ZONE_DMA] = (struct zone) { // DMA zone, no need to query memory map
+        .base = 0, .size = 0x1000000, // first 16 MB of memory
+        .page_size = PAGE_SIZE,
+    };
+    pmm_zone[ZONE_NORMAL] = (struct zone) {
+        .base = 0x1000000, .size = (normal_top - 0x1000000),
+        .page_size = PAGE_SIZE,
+    };
+    pmm_zone[ZONE_HIGHMEM] = (struct zone) {
+        .base = normal_top, .size = (max_physmem - normal_top),
+        .page_size = PAGE_SIZE,
+    };
+    
+    // print summary to console
+    kprintf("physical memory zone summary:\n");
+    const char *zone_name[] = { "DMA", "NORMAL", "HIGHMEM" };
+    for (int i = 0; i < MAX_MEMORY_ZONE; i++) {
+        kprintf(" zone %s base %016llx size %016llx page %x\n", zone_name[i], pmm_zone[i].base, pmm_zone[i].size, pmm_zone[i].page_size);
+    }
+}

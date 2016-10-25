@@ -171,6 +171,20 @@ ssize_t invalidate_pages(pgindex_t *pgindex, void *vaddr, size_t size,
 /* Trace a page index to convert from user address to kernel address */
 //void *uva2kva(pgindex_t *pgindex, void *uaddr);
 
+
+
+
+
+
+
+
+//////////////////////////// ZBY ////////////////////////////////////////////
+
+extern void arch_init_pmm_zone();
+
+
+
+
 #endif /* !__ASSEMBLER__ */
 
 #endif /* _AIM_MMU_H */
