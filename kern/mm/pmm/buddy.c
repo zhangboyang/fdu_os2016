@@ -77,6 +77,8 @@ void pmalloc_bootstrip(struct bootstrap_vmalloc *valloc)
     // new buddy allocator for each zone
     for (int i = 0; i < MAX_MEMORY_ZONE; i++) {
         struct zone *z = &pmm_zone[i];
+        kprintf("base %08llx pagesz %08x pagecnt %08x\n", z->base, z->page_size, z->size / z->page_size);
+
         struct buddy_pmalloc *bpa = VF(valloc, malloc, sizeof(struct buddy_pmalloc));
         kprintf("haha\n");
         if (!bpa) panic("can't alloc memory for zone %d", i);
