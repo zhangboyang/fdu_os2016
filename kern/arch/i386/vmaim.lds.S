@@ -55,12 +55,10 @@ SECTIONS
         *(.bss)
         AIM_KERN_BSS_END = .;
         
-        . = ALIGN(4096);
         . += KSTACKSIZE;
         AIM_KERN_STACK_BOTTOM = .;
     } : data
     
-    . = ALIGN(4096);
     KERN_END_LOW = . - KOFFSET;
     KERN_END_HIGH = .;
 }

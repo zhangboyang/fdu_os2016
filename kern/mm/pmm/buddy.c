@@ -80,7 +80,6 @@ void pmalloc_bootstrip(struct bootstrap_vmalloc *valloc)
         kprintf("base %08llx pagesz %08x pagecnt %08x\n", z->base, z->page_size, z->size / z->page_size);
 
         struct buddy_pmalloc *bpa = VF(valloc, malloc, sizeof(struct buddy_pmalloc));
-        kprintf("haha\n");
         if (!bpa) panic("can't alloc memory for zone %d", i);
         kprintf("base %08llx pagesz %08x pagecnt %08x\n", z->base, z->page_size, z->size / z->page_size);
         
