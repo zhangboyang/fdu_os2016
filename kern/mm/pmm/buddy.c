@@ -56,7 +56,7 @@ static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
             struct buddy_page *buddy_pp = &M(pages)[high_index];
             buddy_pp->in_use = 0;
             buddy_pp->order = order;
-            list_add(&buddy_pp->node, M(list[order]));
+            list_add(&buddy_pp->node, &M(list[order]));
         }
     }
     
