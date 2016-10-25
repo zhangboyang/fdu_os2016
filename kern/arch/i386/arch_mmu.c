@@ -165,6 +165,8 @@ static void copy_memory_map()
             }
         }
     }
+    freemem = min(KTOP - KOFFSET, freemem);
+    
     if (freemem) {
         kprintf("free memory after kernel: %d MB\n", (freemem >> 20));
     } else {
