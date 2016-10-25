@@ -51,8 +51,8 @@ static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
     // split blocks
     list_del(&pp->node);
     while (order > target_order) {
-        size_t high_index = get_high_index(index, order);
         order--;
+        size_t high_index = get_high_index(index, order);
         if (high_index < M(page_count)) { // if buddy index is valid
             // insert the high node to the linked list
             struct buddy_page *buddy_pp = &M(pages)[high_index];
