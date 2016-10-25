@@ -263,13 +263,11 @@ void arch_init_pmm_zone()
             }
         }
         max_physmem = max2(max_physmem, (r->base + r->size));
-        kprintf("max_physmem=%08x %08x\n", (unsigned)((r->base + r->size) >> 32), (unsigned)(r->base + r->size));
     }
     normal_top = min2(normal_top, KTOP - KOFFSET);
     
     normal_top = ROUNDDOWN(normal_top, PAGE_SIZE);
     max_physmem = ROUNDDOWN(max_physmem, PAGE_SIZE);
-    kprintf("max_physmem=%llx\n", max_physmem);
     
 
     // init each zone
