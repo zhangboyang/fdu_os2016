@@ -14,16 +14,56 @@
 #include <aim/vmm.h>
 
 
-static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
-{
-    /*DECLARE_THIS(buddy_pmalloc);
-    size_t pcnt = DIV_ROUND_UP(size, M(page_size));*/
-    
-    return -1;    
-}
-
 #define get_buddy(index, order) ((index) ^ (1 << (order)))
 #define get_low_index(index, order) ((index) & ~(1 << (order)))
+#define get_high_index(index, order) ((index) | (1 << (order)))
+
+
+static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
+{
+    DECLARE_THIS(buddy_pmalloc);
+    
+    // map size to page-count
+    size_t cnt = DIV_ROUND_UP(size, M(page_size));
+    
+    // calc corrsponding order
+    short target_order;
+    for (target_order = 0; (1 << target_order) < cnt; target_order++);
+    
+    // find a block with avaliable nodes
+    short order;
+    for (order = target_order; order <= M(max_order); order++) {
+        if (!list_empty(&M(list[order]))) {
+            break;
+        }
+    }
+    if (order > M(max_order)) {
+        // there are no more memory
+        return -1;
+    }
+    
+    // find the block
+    struct buddy_page *pp = list_first_entry(&M(list[order]), struct buddy_page, node);
+    size_t index = pp - M(pages);
+
+    // split blocks
+    list_del(&pp->node);
+    while (order > target_order) {
+        size_t high_index = get_high_index(index, order);
+        order--;
+        if (high_index < M(page_count)) { // if buddy index is valid
+            // insert the high node to the linked list
+            struct buddy_page *buddy_pp = M(pages)[high_index];
+            buddy_pp->in_use = 0;
+            buddy_pp->order = order;
+            list_add(&buddy_pp->node, M(list[order]));
+        }
+    }
+    
+    return M(base) + M(page_size) * index;
+}
+
+
 static void buddy_pmalloc__free(THIS, addr_t ptr)
 {
     if ((ULCAST(ptr) & (0x10000000 - 1)) == 0) kprintf("ptr=%llx\n", ptr);
