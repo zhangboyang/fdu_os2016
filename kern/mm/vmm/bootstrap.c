@@ -127,7 +127,7 @@ void vmalloc_bootstrap()
     kprintf("%d\n", alloc_pages(&pages));
     kprintf("alloc_pages: %016llx\n", pages.paddr);
     
-    kprintf("free_memory: %016llx\n", get_free_memory);
+    kprintf("free_memory: %016llx\n", get_free_memory());
     free_pages(&pages);
-    kprintf("free_memory: %016llx\n", get_free_memory);
+    kprintf("free_memory: %016llx\n", get_free_memory());
 }
