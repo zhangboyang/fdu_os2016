@@ -26,7 +26,7 @@ static void *bootstrap_vmalloc__malloc(THIS, size_t size)
     }
     M(cur) += size;
     memset(ret, 0xCD, size); // fill memory with junk, to avoid programming mistakes
-    kprintf(MSG_SIGN "%p\n", ret);
+    kprintf("%p\n", ret);
     return ret;
 }
 static void bootstrap_vmalloc__free(THIS, void *ptr)
