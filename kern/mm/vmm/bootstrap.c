@@ -41,12 +41,17 @@ static size_t bootstrap_vmalloc__area(THIS)
     return M(cur) - M(base);
 }
 
+static size_t bootstrap_vmalloc__size(void *obj)
+{
+    panic("bootstrip_vmalloc::size() is called");
+}
+
 void bootstrap_vmalloc__ctor(struct bootstrap_vmalloc *this, void *base, size_t max_size)
 {
     INST_VTBL_SINGLETON(this, {
         .malloc = bootstrap_vmalloc__malloc,
         .free = bootstrap_vmalloc__free,
-        .size = ^size_t  (void *obj) { panic("bootstrip_vmalloc::size() is called"); },
+        .size = bootstrap_vmalloc__size,
         .area = bootstrap_vmalloc__area,
     });
     
