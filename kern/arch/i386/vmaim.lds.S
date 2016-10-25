@@ -66,4 +66,8 @@ SECTIONS
     . = ALIGN(4096);
     KERN_END_LOW = . - KOFFSET;
     KERN_END_HIGH = .;
+    
+    /DISCARD/ {
+        *(.eh_frame);
+    }
 }
