@@ -35,6 +35,9 @@
 */
 
 
+#define KVA2PA(x) (PTR2ADDR(x))
+#define PA2KVA(x) (ADDR2PTR(x))
+
 
 static __attribute((aligned(PGINDEX_ALIGN))) pgindex_t __boot_page_index[PGINDEX_SIZE];
 
@@ -243,6 +246,10 @@ __asm__ ( // the abs_jump()
 
 
 ////////////////////////// HIGHADDR FUNCTIONS ///////////////////////////////
+#undef KVA2PA
+#undef PA2KVA
+
+
 void arch_init_pmm_zone()
 {
     // query memory zones

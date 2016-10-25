@@ -164,13 +164,6 @@ typedef pte_t pgtable_t;
 #define ADDR2PTR(x) ((void *)(unsigned long)(x))
 
 
-#ifdef PREMAP
-#define KVA2PA(x) (PTR2ADDR(x))
-#define PA2KVA(x) (ADDR2PTR(x))
-#else
-//#define KVA2PA(x) (PTR2ADDR(VMA2LMA(x)))
-#endif
-
 
 
 
