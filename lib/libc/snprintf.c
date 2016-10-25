@@ -44,8 +44,8 @@ int vsnprintf(char *str, size_t size, const char *fmt, va_list ap)
 #define is_digit(ch)	(((ch) >= '0') && ((ch) <= '9'))
 #define digits(x)	(((char)(x) <= 9) ? ('0' + (char)(x)) : ('a' + (char)(x) - 10))
 
-	long val;
-	unsigned long uval;
+	long long val;
+	unsigned long long uval;
 	ssize_t width = 0;
 	int base;
 	int flag = 0;
