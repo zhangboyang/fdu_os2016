@@ -92,7 +92,7 @@ void vmalloc_bootstrap()
     
     
     
-    // free allocable memory regions
+    // free allocable memory regions, the life of @vmalloc_tmp has ended!
     addr_t kstart = ROUNDDOWN(ULCAST(KERN_START_LOW), PAGE_SIZE);
     addr_t kend = ROUNDUP(ULCAST(KERN_END_LOW), PAGE_SIZE);
     addr_t real_kend = kend + VF(&vmalloc_tmp, area);
@@ -104,18 +104,22 @@ void vmalloc_bootstrap()
     
     addr_t page;
     int magic = 0x38276abd;
+    unsigned r = 123456;
     while ((page = VF(pmm_zone[ZONE_NORMAL].allocator, malloc, 0x1000)) != -1) {
+        r = (1103515245 * r + 12345) & 0x7fffffff; // rand
         //kprintf("got page %016x\n", page);
         int *x = (void *) (long)(page + KOFFSET);
         if (*x == magic) {
             panic("error!");
         } else {
-            
             memset(x, 'A', 0x1000);
             *x = magic;
-            //VF(pmm_zone[ZONE_DMA].allocator, free, page);
+            if (r & 1) {
+                *x = 0;
+                VF(pmm_zone[ZONE_DMA].allocator, free, page);
+            }
         }
     }
     panic("OK!");
-        
+    
 }
