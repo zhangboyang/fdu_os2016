@@ -66,16 +66,6 @@ void vmalloc_bootstrap()
     struct bootstrap_vmalloc vmalloc_tmp;
     bootstrap_vmalloc__ctor(&vmalloc_tmp, KERN_END_HIGH, size_after_kernel);
     
-    // do some tests
-    /*VF(&vmalloc_tmp, malloc, 12);
-    VF(&vmalloc_tmp, malloc, 120);
-    VF(&vmalloc_tmp, malloc, 4096 * 0x10);
-    VF(&vmalloc_tmp, malloc, 12);*/
-    
-    
-    
-    
-    
     // init pmm zones
     arch_init_pmm_zone();
 
@@ -90,18 +80,16 @@ void vmalloc_bootstrap()
         z->allocator = BC(bpa);
     }
     
-    
-    
     // free allocable memory regions, the life of @vmalloc_tmp has ended!
     addr_t kstart = ROUNDDOWN(ULCAST(KERN_START_LOW), PAGE_SIZE);
     addr_t kend = ROUNDUP(ULCAST(KERN_END_LOW), PAGE_SIZE);
     addr_t real_kend = kend + VF(&vmalloc_tmp, area);
     real_kend = ROUNDUP(real_kend, PAGE_SIZE);
     arch_init_free_pmm_zone(kstart, real_kend);
+
     
     
-    
-    
+    kprintf("testing pmm...\n");
     addr_t page;
     int magic = 0x38276abd;
     unsigned r = 123456;

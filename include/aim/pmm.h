@@ -88,8 +88,9 @@ DECLARE_BASE_CLASS(page, struct {
 
 DECLARE_DERIVED_CLASS(buddy_page, page, struct {
     struct list_head        node;
-    short order;
-    short in_use;
+    short                   order;
+    short                   in_use;
+    size_t                  cur_page_count;
 });
 
 DECLARE_BASE_VCLASS(virt_pmalloc, struct {
@@ -97,6 +98,9 @@ DECLARE_BASE_VCLASS(virt_pmalloc, struct {
     // @size: page count, not bytes!
     addr_t (*malloc)(THIS, lsize_t size);
     void (*free)(THIS, addr_t ptr);
+    
+    lsize_t (*get_size)(THIS, addr_t ptr);
+    lsize_t (*get_free_mem)(THIS);
     void (*print)(THIS);
 }, struct {
     // no data here
@@ -113,6 +117,8 @@ DECLARE_DERIVED_VCLASS(buddy_pmalloc, virt_pmalloc, struct {
     addr_t                  base;                   // base of physical memory start
     size_t                  page_size;              // size of each page
     size_t                  page_count;             // total pages in this pool
+    
+    size_t                  free_page_count;
 });
 
 #include <aim/vmm.h>

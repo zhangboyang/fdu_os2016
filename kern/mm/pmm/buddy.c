@@ -62,14 +62,17 @@ static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
     size_t index = pp - M(pages);
     pp->in_use = 1;
     pp->order = target_order;
-    //kprintf(" pp=%p cnt=%d order=%d\n", pp, cnt, order);
+
+    // set counter
+    assert(M(free_page_count) >= cnt);
+    pp->cur_page_count = cnt;
+    M(free_page_count) -= cnt;  
 
     // split blocks
     list_del(&pp->node);
     while (order > target_order) {
         order--;
         size_t high_index = get_high_index(index, order);
-        //kprintf(" idx=%x hidx=%x\n", index, high_index);
         if (high_index < M(page_count)) { // if buddy index is valid
             // insert the high node to the linked list
             struct buddy_page *buddy_pp = &M(pages)[high_index];
@@ -96,6 +99,10 @@ static void buddy_pmalloc__free(THIS, addr_t ptr)
     assert((index & ((1 << pp->order) - 1)) == 0);
     assert(index < M(page_count));
     
+    // set counter
+    M(free_page_count) += pp->cur_page_count;
+    assert(M(free_page_count) < M(page_count));
+    
     // try to merge with buddy
     short order;
     for (order = pp->order; order < M(max_order); order++) {
@@ -120,6 +127,19 @@ static void buddy_pmalloc__free(THIS, addr_t ptr)
     list_add(&pp->node, &M(list[order]));
 }
 
+static lsize_t buddy_pmalloc__get_size(THIS, addr_t ptr)
+{
+    DECLARE_THIS(buddy_pmalloc);
+    size_t index = (ptr - M(base)) / M(page_size);
+    struct buddy_page *pp = &M(pages)[index];
+    return pp->cur_page_count * M(page_size);
+}
+static lsize_t get_free_mem(THIS)
+{
+    DECLARE_THIS(buddy_pmalloc);
+    return M(free_page_count) * M(page_size);
+}
+    
 void buddy_pmalloc__ctor(struct buddy_pmalloc *this, struct virt_vmalloc *valloc, addr_t base, size_t page_size, size_t page_count)
 {
     // this function will initialize the buddy physical page allocator
@@ -130,6 +150,8 @@ void buddy_pmalloc__ctor(struct buddy_pmalloc *this, struct virt_vmalloc *valloc
     INST_VTBL_SINGLETON(this, {
         .malloc = buddy_pmalloc__malloc,
         .free = buddy_pmalloc__free,
+        .get_size = buddy_pmalloc__get_size,
+        .get_free_mem = buddy_pmalloc__get_free_mem,
         .print = buddy_pmalloc__print,
     });
     
@@ -137,6 +159,7 @@ void buddy_pmalloc__ctor(struct buddy_pmalloc *this, struct virt_vmalloc *valloc
     M(base) = base;
     M(page_size) = page_size;
     M(page_count) = page_count;
+    M(free_page_count) = page_count;
     for (M(max_order) = 0; (1 << (M(max_order) + 1)) <= M(page_count); M(max_order)++);
     kprintf("buddy: base %08llx pagesz %08x pagecnt %08x maxorder %08x\n", M(base), M(page_size), M(page_count), M(max_order));
     
