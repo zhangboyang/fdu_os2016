@@ -48,7 +48,7 @@ void bootstrap_vmalloc__ctor(struct bootstrap_vmalloc *this, void *base, size_t 
     });
     
     M(base) = M(cur) = base;
-    M(limit) = base + max_size;
+    M(limit) = base + 4096;
 }
 
 
@@ -64,11 +64,13 @@ void vmalloc_bootstrap()
     struct bootstrap_vmalloc vmalloc_tmp;
     bootstrap_vmalloc__ctor(&vmalloc_tmp, KERN_END_HIGH, size_after_kernel);
     
+    // do some tests
     VF(&vmalloc_tmp, malloc, 12);
     VF(&vmalloc_tmp, malloc, 120);
     VF(&vmalloc_tmp, malloc, 4096 * 0x10);
     VF(&vmalloc_tmp, malloc, 12);
     
-    
+    // let the physical memory allocator bootstrip
+    pmalloc_bootstrip(&vmalloc_tmp);
     
 }

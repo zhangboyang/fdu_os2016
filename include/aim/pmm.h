@@ -103,8 +103,11 @@ DECLARE_BASE_VCLASS(virt_pmalloc, struct {
 DECLARE_DERIVED_VCLASS(buddy_pmalloc, virt_pmalloc, struct {
 }, struct {
     struct buddy_page       *pages;                 // internal data-structure
+    
 #define MAX_BUDDY_ORDER 36
     struct list_head        list[MAX_BUDDY_ORDER];  // linked-list for each order
+    int                     max_order;              // max order
+    
     addr_t                  base;                   // base of physical memory start
     size_t                  page_size;              // size of each page
     size_t                  page_count;             // total pages in this pool
