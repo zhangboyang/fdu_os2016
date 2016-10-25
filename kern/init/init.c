@@ -26,8 +26,12 @@ void master_init()
     // bootstrip the pmm and vmm
     vmm_bootstrap();
     
-    void *ptr = kmalloc(0x100, 0);
-    kprintf("ptr = %p\n", ptr);
+    void *ptr = kmalloc(15, 0);
+    kprintf("kmalloc() = %p\n", kmalloc(0x100, 0);
+    kprintf("kmalloc() = %p\n", kmalloc(0x100, 0);
+    kprintf("kmalloc() = %p\n", kmalloc(0x100, 0);
+    kprintf("kmalloc() = %p\n", kmalloc(0x100, 0);
+    kprintf("kmalloc() = %p\n", kmalloc(0x100, 0);
     kfree(ptr);
     
     panic("bye");
