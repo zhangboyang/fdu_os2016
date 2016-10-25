@@ -22,7 +22,7 @@ static void *use_page_vmalloc__malloc(THIS, size_t size)
     return PTRCAST(pa + KOFFSET);
 }
 
-static void *use_page_vmalloc__free(THIS, void *ptr)
+static void use_page_vmalloc__free(THIS, void *ptr)
 {
     DECLARE_THIS(use_page_vmalloc);
     addr_t pa = (ULCAST(ptr) - KOFFSET);
