@@ -19,7 +19,7 @@ include $(top_srcdir)/env.am
 
 noinst_LTLIBRARIES = libpmm.la
 
-SRCS = pmm.c
+SRCS = pmm.c buddy.c
 
 libpmm_la_SOURCES = $(SRCS)
 

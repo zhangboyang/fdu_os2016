@@ -78,6 +78,41 @@ static inline void pgfree(addr_t paddr)
 /* initialize the page-block structure for remaining free memory */
 void add_memory_pages(void);
 
+
+////////////////////////////// by ZBY ///////////////////////////////////////
+#include <zby.h>
+#include <list.h>
+
+DECLARE_BASE_CLASS(page, struct {
+});
+
+DECLARE_DERIVED_CLASS(buddy_page, page, struct {
+    int in_use;
+});
+
+DECLARE_BASE_VCLASS(virt_pmalloc, struct {
+    // malloc: return -1 if no more pages avaliable
+    // @size: page count, not bytes!
+    addr_t (*malloc)(THIS, size_t size);
+    
+    void (*free)(THIS, addr_t ptr);
+}, struct {
+    // no data here
+});
+
+DECLARE_DERIVED_VCLASS(buddy_pmalloc, virt_pmalloc, struct {
+}, struct {
+    struct buddy_page       *pages;                 // internal data-structure
+#define MAX_BUDDY_ORDER 36
+    struct list_head        list[MAX_BUDDY_ORDER];  // linked-list for each order
+    addr_t                  base;                   // base of physical memory start
+    size_t                  page_size;              // size of each page
+    size_t                  page_count;             // total pages in this pool
+});
+
+
+
+
 #endif /* !__ASSEMBLER__ */
 
 #endif /* _AIM_PMM_H */

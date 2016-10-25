@@ -89,6 +89,30 @@ void *cache_alloc(struct allocator_cache *cache);
 int cache_free(struct allocator_cache *cache, void *obj);
 void cache_trim(struct allocator_cache *cache);
 
+
+////////////////////////////// by ZBY ///////////////////////////////////////
+#include <zby.h>
+
+DECLARE_BASE_VCLASS(virt_vmalloc, struct {
+    void *(*malloc)(THIS, size_t size);
+    void (*free)(THIS, void *ptr);
+}, struct {
+    // no data here
+});
+
+DECLARE_DERIVED_VCLASS(bootstrap_vmalloc, virt_vmalloc, struct {
+    size_t (*area)(THIS);
+}, struct {
+    void *base, *limit;
+    void *cur;
+});
+
+
+extern void bootstrap_vmalloc__ctor(struct bootstrap_vmalloc *this, void *base, size_t max_size);
+extern void vmalloc_bootstrap();
+
+
+
 #endif /* !__ASSEMBLER__ */
 
 #endif /* _AIM_VMM_H */

@@ -20,7 +20,7 @@ include $(top_srcdir)/env.am
 noinst_LTLIBRARIES = libvmm.la
 noinst_DATA =
 
-SRCS = vmm.c
+SRCS = vmm.c bootstrap.c
 
 libvmm_la_SOURCES = $(SRCS)
 

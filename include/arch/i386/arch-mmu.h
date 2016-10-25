@@ -28,7 +28,7 @@
 #define __premap_addr(kva)	(ULCAST(kva) - KERN_BASE)
 #define __postmap_addr(pa)	(ULCAST(pa) + KERN_BASE)
 
-#define LOWADDR(highaddr) ((typeof((highaddr) + 0)) (((void *)(highaddr)) - KERN_BASE))
+#define LOWADDR(highaddr) ((typeof((highaddr) + 0)) ((ULCAST(highaddr)) - KERN_BASE))
 
 /* kernel virtual address and physical address conversion */
 #define kva2pa(kva)		(ULCAST(kva) - KERN_BASE)
@@ -210,6 +210,10 @@ struct machine_memory_map {
 
 extern struct machine_memory_map mach_mem_map[MAX_MACHINE_MEMORY_MAP];
 extern unsigned nr_mach_mem_map;
+
+
+extern uint8_t KERN_END_HIGH[]; // the end of kernel
+extern size_t size_after_kernel; // how many bytes can we use after the kernel
 
 
 #endif /* !__ASSEMBLER__ */
