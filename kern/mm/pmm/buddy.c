@@ -140,7 +140,7 @@ void buddy_pmalloc__ctor(struct buddy_pmalloc *this, struct virt_vmalloc *valloc
     }
     
     // init all linked-list to null, i.e. no allocatable node
-    for (int order = 0; order < M(max_order); order++) {
+    for (short order = 0; order <= M(max_order); order++) {
         INIT_LIST_HEAD(&M(list[order]));
     }
 }
