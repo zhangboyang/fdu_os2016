@@ -175,6 +175,7 @@ void pmalloc_bootstrip(struct bootstrap_vmalloc *valloc)
     kprintf("alloc = %016llx\n", VF(pmm_zone[ZONE_DMA].allocator, malloc, 0x1000 * 1));
     kprintf("alloc = %016llx\n", VF(pmm_zone[ZONE_DMA].allocator, malloc, 0x1000 * 1));
     kprintf("alloc = %016llx\n", VF(pmm_zone[ZONE_DMA].allocator, malloc, 0x1000 * 1));
+    kprintf("alloc = %016llx\n", VF(pmm_zone[ZONE_DMA].allocator, malloc, 0x1000 * 1));
     
     panic("hello!");
 }
