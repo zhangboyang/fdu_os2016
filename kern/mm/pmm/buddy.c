@@ -56,6 +56,7 @@ void buddy_pmalloc__ctor(struct buddy_pmalloc *this, struct virt_vmalloc *valloc
     
     // mark all pages in-use
     for (size_t i = 0; i < page_count; i++) {
+        M(pages)[i].level = 0;
         M(pages)[i].in_use = 1;
     }
     
@@ -75,8 +76,7 @@ void pmalloc_bootstrip(struct bootstrap_vmalloc *valloc)
     // new buddy allocator for each zone
     for (int i = 0; i < MAX_MEMORY_ZONE; i++) {
         struct zone *z = &pmm_zone[i];
-        struct buddy_pmalloc *bpa;
-        bpa = VF(valloc, malloc, sizeof(struct buddy_pmalloc));
+        struct buddy_pmalloc *bpa = VF(valloc, malloc, sizeof(struct buddy_pmalloc));
         kprintf("haha\n");
         if (!bpa) panic("can't alloc memory for zone %d", i);
         buddy_pmalloc__ctor(bpa, BC(valloc), z->base, z->page_size, z->size / z->page_size);
