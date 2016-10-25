@@ -183,8 +183,9 @@ void pmalloc_bootstrip(struct bootstrap_vmalloc *valloc)
     // free allocable memory regions
     //arch_init_free_pmm_zone();
     
-    for (addr_t page = 0; page < 0x1000000; page += 0x1000) VF(pmm_zone[ZONE_DMA].allocator, free, page);
-    VF((struct buddy_pmalloc *) pmm_zone[ZONE_DMA].allocator, print);
+    /*for (addr_t page = 0; page < 0x1000000; page += 0x1000) VF(pmm_zone[ZONE_DMA].allocator, free, page);
+    VF((struct buddy_pmalloc *) pmm_zone[ZONE_DMA].allocator, print);*/
+
     
     /*VF(pmm_zone[ZONE_DMA].allocator, free, 0x1000 * 0);
     VF(pmm_zone[ZONE_DMA].allocator, free, 0x1000 * 1);

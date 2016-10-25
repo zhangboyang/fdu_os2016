@@ -96,14 +96,13 @@ DECLARE_BASE_VCLASS(virt_pmalloc, struct {
     // malloc: return -1 if no more pages avaliable
     // @size: page count, not bytes!
     addr_t (*malloc)(THIS, lsize_t size);
-    
     void (*free)(THIS, addr_t ptr);
+    void (*print)(THIS);
 }, struct {
     // no data here
 });
 
 DECLARE_DERIVED_VCLASS(buddy_pmalloc, virt_pmalloc, struct {
-    void (*print)(THIS);
 }, struct {
     struct buddy_page       *pages;                 // internal data-structure
 
