@@ -16,8 +16,9 @@
 
 static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
 {
-/*    DECLARE_THIS(buddy_pmalloc);
-    size_t pcnt = DIV_ROUND_UP(size, M(page_size));*/
+    DECLARE_THIS(buddy_pmalloc);
+    size_t pcnt = DIV_ROUND_UP(size, M(page_size));
+    
     return -1;    
 }
 
@@ -25,6 +26,8 @@ static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
 #define get_low_index(index, order) ((index) & ~(1 << (order)))
 static void buddy_pmalloc__free(THIS, addr_t ptr)
 {
+    kprintf("ptr=%p\n", ptr);
+    
     DECLARE_THIS(buddy_pmalloc);
     assert(ROUNDDOWN(ptr, M(page_size)) == ptr);
     
@@ -32,6 +35,7 @@ static void buddy_pmalloc__free(THIS, addr_t ptr)
     size_t index = (ptr - M(base)) / M(page_size);
     struct buddy_page *pp = &M(pages)[index]; // pp: pointer to page
     assert((index & ((1 << pp->order) - 1)) == 0);
+    assert(index < M(page_count));
     
     // clear in_use flag
     pp->in_use = 0;
@@ -114,6 +118,9 @@ void pmalloc_bootstrip(struct bootstrap_vmalloc *valloc)
         buddy_pmalloc__ctor(bpa, BC(valloc), z->base, z->page_size, z->size / z->page_size);
         z->allocator = BC(bpa);
     }
+    
+    // free allocable memory regions
+    arch_init_free_pmm_zone();
     
     panic("hello!");
 }

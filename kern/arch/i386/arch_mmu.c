@@ -295,3 +295,31 @@ void arch_init_pmm_zone()
         kprintf(" zone %10s base %016llx size %016llx end %016llx pagesz %x, %d MB\n", zone_name[i], pmm_zone[i].base, pmm_zone[i].size, pmm_zone[i].base + pmm_zone[i].size, pmm_zone[i].page_size, (int)((pmm_zone[i].base + pmm_zone[i].size) >> 20));
     }
 }
+
+void try_free_page(int zone, addr_t page)
+{
+    if (pmm_zone[i].base < page && page < pmm_zone[i].base + pmm_zone[i].size) {
+        VF(pmm_zone[i].allocator, free, page);
+    }
+}
+
+void arch_init_free_pmm_zone()
+{
+    // query memory zones
+    lsize_t normal_top = 0, max_physmem = 0;
+    for (size_t i = 0; i < nr_mach_mem_map; i++) {
+        struct machine_memory_map *r = &mach_mem_map[i];
+        if (r->type == 1) { // useable memory
+            addr_t st = r->base, ed = r->base + r->size;
+            st = ROUNDUP(st, PAGE_SIZE);
+            ed = ROUNDDOWN(ed, PAGE_SIZE);
+            for (addr_t page = st; page < ed; page += PAGE_SIZE) {
+                // try free 'page'
+                for (int i = 0; i < MAX_MEMORY_ZONE; i++) {
+                    try_free_page(i, page);
+                }
+            }
+        }
+        max_physmem = max2(max_physmem, (r->base + r->size));
+    }
+}
