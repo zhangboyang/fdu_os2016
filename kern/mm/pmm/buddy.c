@@ -211,6 +211,7 @@ void pmalloc_bootstrip(struct bootstrap_vmalloc *valloc)
         } else {
             memset(x, 'A', 0x1000);
             *x = magic;
+            VF(pmm_zone[ZONE_DMA].allocator, free, page);
         }
     }
     
