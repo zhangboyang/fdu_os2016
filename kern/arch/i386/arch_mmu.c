@@ -292,6 +292,6 @@ void arch_init_pmm_zone()
     kprintf("physical memory zone summary:\n");
     const char *zone_name[] = { "DMA", "NORMAL", "HIGHMEM" };
     for (int i = 0; i < MAX_MEMORY_ZONE; i++) {
-        kprintf(" zone %s base %016llx size %016llx page %x\n", zone_name[i], pmm_zone[i].base, pmm_zone[i].size, pmm_zone[i].page_size);
+        kprintf(" zone %-10s base %016llx size %016llx page %x\n", zone_name[i], pmm_zone[i].base, pmm_zone[i].size, pmm_zone[i].page_size);
     }
 }
