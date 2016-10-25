@@ -115,21 +115,9 @@ void vmalloc_bootstrap()
     kprintf("total memory is %lld KB\n", (tot >> 10));
     panic("OK!");*/
     
+    
+    
     install_pmm_adapter();
     
-    struct pages pages;
-    pages = (struct pages) {
-        .paddr = 0xaabbccdd,
-        .size = 0x1000,
-        .flags = 0,
-    };
-    
-    kprintf("%d\n", alloc_pages(&pages));
-    kprintf("alloc_pages: %016llx\n", pages.paddr);
-    
-    kprintf("free_memory: %016llx\n", get_free_memory());
-    VF(pmm_zone[ZONE_NORMAL].allocator, print);
-    free_pages(&pages);
-    kprintf("free_memory: %016llx\n", get_free_memory());
-    VF(pmm_zone[ZONE_NORMAL].allocator, print);
+
 }
