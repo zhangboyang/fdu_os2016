@@ -185,7 +185,6 @@ void pmalloc_bootstrip(struct bootstrap_vmalloc *valloc)
     
     /*for (addr_t page = 0; page < 0x1000000; page += 0x1000) VF(pmm_zone[ZONE_DMA].allocator, free, page);
     VF((struct buddy_pmalloc *) pmm_zone[ZONE_DMA].allocator, print);*/
-
     
     /*VF(pmm_zone[ZONE_DMA].allocator, free, 0x1000 * 0);
     VF(pmm_zone[ZONE_DMA].allocator, free, 0x1000 * 1);
@@ -200,8 +199,20 @@ void pmalloc_bootstrip(struct bootstrap_vmalloc *valloc)
     VF(pmm_zone[ZONE_DMA].allocator, free, 0x1000 * 3);
     kprintf("alloc = %016llx\n", VF(pmm_zone[ZONE_DMA].allocator, malloc, 0x1000 * 2));*/
 
-    VF(pmm_zone[ZONE_DMA].allocator, print);
-    kprintf("alloc = %016llx\n", VF(pmm_zone[ZONE_DMA].allocator, malloc, 0x800000));
+    /*VF(pmm_zone[ZONE_DMA].allocator, print);
+    kprintf("alloc = %016llx\n", VF(pmm_zone[ZONE_DMA].allocator, malloc, 0x800000));*/
+    
+    addr_t page;
+    int magic = 0x38276abd;
+    while ((page = VF(pmm_zone[ZONE_DMA].allocator, malloc, 0x1000)) != -1) {
+        int *x = (void *) (page + KOFFSET);
+        if (*x == magic) {
+            panic("error!");
+        } else {
+            memset(x, 'A', 0x1000);
+            *x = magic;
+        }
+    }
     
     panic("hello!");
 }
