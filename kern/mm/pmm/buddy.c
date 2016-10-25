@@ -15,8 +15,8 @@
 
 static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
 {
-    DECLARE_THIS(buddy_pmalloc);
-    size_t pcnt = DIV_ROUND_UP(size, M(page_size));
+/*    DECLARE_THIS(buddy_pmalloc);
+    size_t pcnt = DIV_ROUND_UP(size, M(page_size));*/
     return -1;    
 }
 
