@@ -28,7 +28,7 @@ static void *use_page_vmalloc__free(THIS, void *ptr)
     VF(M(palloc), free, pa);
 }
 
-static size_t use_page_vmalloc__size(void *obj)
+static size_t use_page_vmalloc__size(THIS, void *obj)
 {
     panic("use_page_vmalloc::size() is called");
 }

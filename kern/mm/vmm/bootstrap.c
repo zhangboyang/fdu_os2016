@@ -41,7 +41,7 @@ static size_t bootstrap_vmalloc__area(THIS)
     return M(cur) - M(base);
 }
 
-static size_t bootstrap_vmalloc__size(void *obj)
+static size_t bootstrap_vmalloc__size(THIS, void *obj)
 {
     panic("bootstrip_vmalloc::size() is called");
 }
