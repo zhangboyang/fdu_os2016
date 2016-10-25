@@ -101,7 +101,7 @@ static void buddy_pmalloc__free(THIS, addr_t ptr)
     
     // set counter
     M(free_page_count) += pp->cur_page_count;
-    assert(M(free_page_count) < M(page_count));
+    assert(M(free_page_count) <= M(page_count));
     
     // try to merge with buddy
     short order;
