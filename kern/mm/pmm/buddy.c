@@ -46,9 +46,9 @@ static void buddy_pmalloc__free(THIS, addr_t ptr)
         if (buddy_pp->in_use) break; // if the buddy is currently in use, can't merge
         if (buddy_pp->order != pp->order) break; // the buddy is not in the same order, can't merge
         
-        // start merge
+        // do merge
         list_del(&buddy_pp->node); // remove buddy from linked-list
-        pp = &M(pages)[get_low_index(index)]; // set pp to left node
+        pp = &M(pages)[get_low_index(index, order)]; // set pp to left node
     }
     
     // finally insert merged node to linked-list
