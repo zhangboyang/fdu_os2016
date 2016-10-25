@@ -315,7 +315,7 @@ void arch_init_free_pmm_zone(addr_t kstart, addr_t kend)
             kprintf("free memory from %016llx to %016llx, %lld KB\n", st, ed, ((ed - st) >> 10));
             for (addr_t page = st; page < ed; page += PAGE_SIZE) {
                 // try free 'page'
-                if (klow <= page && page < kend) continue;
+                if (kstart <= page && page < kend) continue;
                 for (int i = 0; i < MAX_MEMORY_ZONE; i++) {
                     try_free_page(i, page);
                 }
