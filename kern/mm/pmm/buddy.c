@@ -92,7 +92,7 @@ static void buddy_pmalloc__free(THIS, addr_t ptr)
         if (buddy_pp->order != pp->order) break; // the buddy is empty, and not in the same order, can't merge
         
         // do merge
-        kprintf("free: merge %d with %d\n", index, 
+        kprintf("free: merge %d with %d\n", index, buddy_index);
         list_del(&buddy_pp->node); // remove buddy from linked-list
         index = get_low_index(index, order); // set pp to left node
         pp = &M(pages)[index];
