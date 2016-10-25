@@ -268,6 +268,7 @@ void arch_init_pmm_zone()
     
     normal_top = ROUNDDOWN(normal_top, PAGE_SIZE);
     max_physmem = ROUNDDOWN(max_physmem, PAGE_SIZE);
+    kprintf("max_physmem=%llx\n", max_physmem);
     
 
     // init each zone
