@@ -19,6 +19,7 @@
 //////////////////// class manipulate macros //////////////////////////////////
 
 #define BASECLASS_CAST(ptr) (&(ptr)->baseclass)
+#define BCCAST BASECLASS_CAST
 #define THIS void *vthis
 #define DECLARE_THIS(type) struct type *this = vthis
 // M stands for Member
