@@ -22,6 +22,7 @@
 
 #include <sys/types.h>
 #include <sys/param.h>
+#include <aim/panic.h>
 //#include <aim/sync.h>
 #include <aim/mmu.h>
 #include <aim/pmm.h>
