@@ -181,7 +181,7 @@ void early_mm_init(void)
     check_cpu();
     copy_memory_map();
     
-    addr_t ksize = PTR2ADDR(KERN_END_HIGH) - KOFFSET;
+    addr_t ksize = KTOP - KOFFSET;
     struct early_mapping entry;
     
     entry = (struct early_mapping) {
