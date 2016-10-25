@@ -113,7 +113,7 @@ DECLARE_DERIVED_VCLASS(buddy_pmalloc, virt_pmalloc, struct {
     size_t                  page_count;             // total pages in this pool
 });
 
-
+#include <aim/vmm.h>
 extern void pmalloc_bootstrip(struct bootstrap_vmalloc *valloc);
 
 
