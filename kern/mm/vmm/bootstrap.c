@@ -9,6 +9,7 @@
 #include <sys/types.h>
 #include <aim/vmm.h>
 #include <aim/debug.h>
+#include <aim/mmu.h>
 #include <util.h>
 
 
