@@ -263,6 +263,7 @@ void arch_init_pmm_zone()
             }
         }
         max_physmem = max2(max_physmem, (r->base + r->size));
+        kprintf("max_physmem=%llx\n", (r->base + r->size));
     }
     normal_top = min2(normal_top, KTOP - KOFFSET);
     
