@@ -21,6 +21,7 @@ noinst_HEADERS = \
 	arch-boot.h \
 	arch-io.h \
 	arch-mmu.h \
+	arch-trap.h \
 	asm.h \
 	platform.h
 
