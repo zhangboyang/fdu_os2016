@@ -56,7 +56,7 @@ void buddy_pmalloc__ctor(struct buddy_pmalloc *this, struct virt_vmalloc *valloc
     
     // mark all pages in-use
     for (size_t i = 0; i < page_count; i++) {
-        M(pages)[i].level = 0;
+        M(pages)[i].order = 0;
         M(pages)[i].in_use = 1;
     }
     
