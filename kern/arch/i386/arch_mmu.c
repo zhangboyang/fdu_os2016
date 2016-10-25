@@ -261,9 +261,9 @@ void arch_init_pmm_zone()
                 normal_top = (r->base + r->size);
             }
         }
-        max_physmem = max(max_physmem, (r->base + r->size));
+        max_physmem = max2(max_physmem, (r->base + r->size));
     }
-    normal_top = min(normal_top, KTOP - KOFFSET);
+    normal_top = min2(normal_top, KTOP - KOFFSET);
     
     normal_top = ROUNDDOWN(normal_top, PAGE_SIZE);
     max_physmem = ROUNDDOWN(max_physmem, PAGE_SIZE);
