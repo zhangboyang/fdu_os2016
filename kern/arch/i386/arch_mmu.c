@@ -152,7 +152,7 @@ static void copy_memory_map()
         }
         kprintf("  base %08x %08x size %08x %08x end %08x %08x type %d\n", (unsigned)(r->base >> 32), (unsigned)(r->base), (unsigned)(r->size >> 32), (unsigned)(r->size), (unsigned)((r->base + r->size) >> 32), (unsigned)(r->base + r->size), r->type);
     }
-    kprintf("total memory size: %d MB\n\n", (total >> 20));
+    kprintf("total memory size: %d MB\n", (total >> 20));
     
     
     // calc size_after_kernel
@@ -161,18 +161,19 @@ static void copy_memory_map()
         struct machine_memory_map *r = LOWADDR(&mach_mem_map[i]);
         if (r->type == 1) {
             if (r->base <= (uint64_t) ULCAST(KERN_START_LOW) && r->base + r->size >= (uint64_t) ULCAST(KERN_END_LOW)) {
-                freemem = (uint64_t) ULCAST(KERN_END_LOW) - (r->base + r->size);
+                freemem = (r->base + r->size) - (uint64_t) ULCAST(KERN_END_LOW);
             }
         }
     }
     if (freemem) {
-        kprintf("free memory after kernel: %d MB\n\n", (freemem >> 20));
+        kprintf("free memory after kernel: %d MB\n", (freemem >> 20));
     } else {
         panic("no free memory after kernel!");
     }
     
     *LOWADDR(&size_after_kernel) = freemem;
     *LOWADDR(&nr_mach_mem_map) = cnt;
+    kprintf("\n");
 }
 
 void early_mm_init(void)
