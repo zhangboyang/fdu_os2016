@@ -47,13 +47,14 @@ static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
     size_t index = pp - M(pages);
     pp->in_use = 1;
     pp->order = target_order;
+    printf(" pp=%p cnt=%d order=%d\n", pp, cnt, order);
 
     // split blocks
     list_del(&pp->node);
     while (order > target_order) {
         order--;
         size_t high_index = get_high_index(index, order);
-        kprintf(" pp=%x bu=%x\n", index, high_index);
+        kprintf(" idx=%x hidx=%x\n", index, high_index);
         if (high_index < M(page_count)) { // if buddy index is valid
             // insert the high node to the linked list
             struct buddy_page *buddy_pp = &M(pages)[high_index];
