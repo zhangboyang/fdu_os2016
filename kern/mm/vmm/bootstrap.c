@@ -139,9 +139,15 @@ void vmm_bootstrap()
     pmm_selftest();
     
     
+    // set global pvbridge
+    static struct koffset_pvbridge pvbridge;
+    koffset_pvbridge__ctor(&pvbridge, pmm_zone[ZONE_NORMAL].allocator);
+    g_pvbridge = BC(&pvbridge);
+    
+    
     // set global vmm allocator
     static struct use_page_vmalloc vmalloc;
-    use_page_vmalloc__ctor(&vmalloc, pmm_zone[ZONE_NORMAL].allocator);
+    use_page_vmalloc__ctor(&vmalloc, g_pvbridge);
     g_vmalloc = BC(&vmalloc);
     
     

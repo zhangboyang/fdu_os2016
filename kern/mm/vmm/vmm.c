@@ -170,6 +170,7 @@ void cache_trim(struct allocator_cache *cache)
 /////////////////////// ZBY //////////////////////////////////////////////
 
 struct virt_vmalloc *g_vmalloc = NULL;
+struct virt_pvbridge *g_pvbridge = NULL;
 
 static void *alloc__adapter(size_t size, gfp_t flags)
 {
