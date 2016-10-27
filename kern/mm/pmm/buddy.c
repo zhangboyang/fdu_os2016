@@ -70,8 +70,7 @@ static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
 
     // set counter
     assert(M(free_page_count) >= cnt);
-    pp->cur_page_count = cnt;
-    M(free_page_count) -= cnt;  
+    M(free_page_count) -= (pp->cur_page_count = (1 << target_order));  
 
     // split blocks
     list_del(&pp->node);
@@ -105,7 +104,7 @@ static void buddy_pmalloc__free(THIS, addr_t ptr)
     assert(index < M(page_count));
     
     // set counter
-    M(free_page_count) += pp->cur_page_count;
+    M(free_page_count) += (1 << pp->order);
     assert(M(free_page_count) <= M(page_count));
     
     // try to merge with buddy
