@@ -21,7 +21,7 @@
 
 #include <aim/gfp.h>
 #include <libc/string.h>
-#include <aim/list.h>
+#include <list.h>
 
 /*
  * Two kinds of memory object allocators (may) exist inside a running kernel.
