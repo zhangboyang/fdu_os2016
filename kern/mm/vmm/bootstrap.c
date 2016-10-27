@@ -64,6 +64,7 @@ void pmm_selftest()
 {
 #define PMM_SELFTEST__MAX_PAGES_PER_ALLOC 10
 #define PMM_SELFTEST__P_FREE 20
+    kprintf("before pmm self-test:\n");
     VF(pmm_zone[ZONE_NORMAL].allocator, print);
     kprintf("running pmm self-test ...\n");
     addr_t page;

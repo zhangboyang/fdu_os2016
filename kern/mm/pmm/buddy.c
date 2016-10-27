@@ -74,6 +74,7 @@ static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
     pp->order = target_order;
 
     // set counter
+    assert(pp->in_use == 0);
     assert(M(free_page_count) >= cnt);
 #ifdef PMM_SUPPORT_QUERY_SIZE
     pp->byte_size = size;
@@ -112,6 +113,7 @@ static void buddy_pmalloc__free(THIS, addr_t ptr)
     struct buddy_page *pp = &M(pages)[index]; // pp: pointer to page
     assert((index & ((1 << pp->order) - 1)) == 0);
     assert(index < M(page_count));
+    assert(pp->in_use == 1);
     
     // set counter
     M(free_page_count) += (1 << pp->order);
