@@ -52,6 +52,7 @@ static void *slub_vmalloc__malloc(THIS, size_t size)
     DECLARE_THIS(slub_vmalloc);
     size_t level = 0;
     while ((1ULL << level) < size) level++;
+    kprintf("%d %d\n", size, level);
     if (level > MAX_SLUB_LEVEL) {
         // size is too big, pass it to pvbridge directly
         // we need to distinguish two type of pointers
