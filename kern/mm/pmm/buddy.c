@@ -23,8 +23,8 @@ static void buddy_pmalloc__print(THIS)
 {
     DECLARE_THIS(buddy_pmalloc);
     kprintf("buddy allocator status for %p:\n", this);
-    kprintf("  base %08llx pagesz %08x pagecnt %d maxorder %d\n", M(base), M(page_size), M(page_count), M(max_order));
-    kprintf("  end %llx\n", M(base) + M(page_size) * M(page_count));
+    kprintf(" base %08llx pagesz %08x pagecnt %d maxorder %d\n", M(base), M(page_size), M(page_count), M(max_order));
+    kprintf(" end %llx\n", M(base) + M(page_size) * M(page_count));
     kprintf(" total free pages: %u\n", M(free_page_count));
     kprintf(" total waste pages: %u\n", M(waste_page_count));
     kprintf("\n");
@@ -32,6 +32,7 @@ static void buddy_pmalloc__print(THIS)
     kprintf(" total free memory: %lld KB\n", (VF(this, get_free_bytes) >> 10));
     kprintf(" total waste memory: %lld KB\n", ((M(waste_page_count) * M(page_size)) >> 10));
     kprintf(" total allocated memory: %lld KB\n", (((M(page_count) - M(free_page_count) - M(waste_page_count)) * M(page_size)) >> 10));
+    kprintf("\n");
     for (short order = 0; order <= M(max_order); order++) {
         kprintf(" order %d:\n", order);
         struct buddy_page *pp;
@@ -78,7 +79,7 @@ static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
     pp->byte_size = size;
 #endif
     pp->cur_page_count = cnt;
-    M(waste_page_count) += (1 << pp->order) - pp->cur_page_count;
+    M(waste_page_count) += (1 << target_order) - cnt;
     M(free_page_count) -= (1 << target_order);
 
     // split blocks

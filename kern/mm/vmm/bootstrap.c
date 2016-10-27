@@ -64,6 +64,7 @@ void pmm_selftest()
 {
 #define PMM_SELFTEST__MAX_PAGES_PER_ALLOC 10
 #define PMM_SELFTEST__P_FREE 20
+    VF(pmm_zone[ZONE_NORMAL].allocator, print);
     kprintf("running pmm self-test ...\n");
     addr_t page;
     int magic = 0x38276abd;
@@ -96,8 +97,9 @@ void pmm_selftest()
             tot += 0x1000LL * sz;
         }
     }
+    kprintf("PLEASE VERIFY:\n");
     VF(pmm_zone[ZONE_NORMAL].allocator, print);
-    kprintf("PLEASE VERIFY: total memory is %lld KB (due to internal fragment, the value is smaller than real value)\n", (tot >> 10));
+    kprintf("total memory is allocated %lld KB (due to internal fragment, the value may smaller than real value)\n", (tot >> 10));
     panic("test OK!");
 }
 
