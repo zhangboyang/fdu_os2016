@@ -69,6 +69,7 @@ static void *slub_vmalloc__malloc(THIS, size_t size)
 
 static void slub_vmalloc__free(THIS, void *ptr)
 {
+    DECLARE_THIS(slub_vmalloc);
     struct list_head *solt = ptr;
     struct slub_header *slub = PTRCAST(ALIGN_BELOW(ULCAST(ptr), SLUB_BLOCK_SIZE));
     int move_flag = slub_is_full(slub);
