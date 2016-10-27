@@ -159,6 +159,7 @@ DECLARE_DERIVED_VCLASS(slub_vmalloc, virt_vmalloc, struct {
 
 extern void use_page_vmalloc__ctor(struct use_page_vmalloc *this, struct virt_pvbridge *pvbridge);
 extern void bootstrap_vmalloc__ctor(struct bootstrap_vmalloc *this, void *base, size_t max_size);
+void koffset_pvbridge__ctor(struct koffset_pvbridge *this, struct virt_pmalloc *palloc);
 
 extern void install_vmm_adapter();
 
