@@ -159,8 +159,9 @@ _Static_assert(sizeof(struct list_head) < (1 << MIN_SLUB_LEVEL), "list head is t
 ///////////////////////////////////////////////////////////////// functions
 
 extern void use_page_vmalloc__ctor(struct use_page_vmalloc *this, struct virt_pvbridge *pvbridge);
+extern void slub_vmalloc__ctor(struct slub_vmalloc *this, struct virt_pvbridge *pvbridge);
 extern void bootstrap_vmalloc__ctor(struct bootstrap_vmalloc *this, void *base, size_t max_size);
-void koffset_pvbridge__ctor(struct koffset_pvbridge *this, struct virt_pmalloc *palloc);
+extern void koffset_pvbridge__ctor(struct koffset_pvbridge *this, struct virt_pmalloc *palloc);
 
 extern void install_vmm_adapter();
 
