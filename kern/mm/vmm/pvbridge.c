@@ -15,7 +15,7 @@
 
 static void *koffset_pvbridge__malloc(THIS, lsize_t size)
 {
-    DECALRE_THIS(koffset_pvbridge);
+    DECLARE_THIS(koffset_pvbridge);
     addr_t pa = VF(M(palloc), malloc, size);
     if (pa == -1) return NULL;
     return PTRCAST(pa + KOFFSET);
@@ -23,7 +23,7 @@ static void *koffset_pvbridge__malloc(THIS, lsize_t size)
 
 static void *koffset_pvbridge__aligned_malloc(THIS, lsize_t size, lsize_t align)
 {
-    DECALRE_THIS(koffset_pvbridge);
+    DECLARE_THIS(koffset_pvbridge);
     addr_t pa = VF(M(palloc), aligned_malloc, size, align);
     if (pa == -1) return NULL;
     return PTRCAST(pa + KOFFSET);
@@ -31,7 +31,7 @@ static void *koffset_pvbridge__aligned_malloc(THIS, lsize_t size, lsize_t align)
 
 static void koffset_pvbridge__free(THIS, void *ptr)
 {
-    DECALRE_THIS(koffset_pvbridge);
+    DECLARE_THIS(koffset_pvbridge);
     if (ptr == NULL) return;
     addr_t pa = ULCAST(ptr) - KOFFSET;
     VF(M(palloc, free, pa);
