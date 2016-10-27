@@ -97,6 +97,7 @@ DECLARE_DERIVED_CLASS(buddy_page, page, struct {
     struct list_head        node;
     short                   order;
     short                   in_use;
+    size_t                  cur_page_count;
 });
 
 DECLARE_BASE_VCLASS(virt_pmalloc, struct {
@@ -127,6 +128,7 @@ DECLARE_DERIVED_VCLASS(buddy_pmalloc, virt_pmalloc, struct {
     size_t                  page_count;             // total pages in this pool
     
     size_t                  free_page_count;
+    size_t                  waste_page_count;
 });
 
 #include <aim/vmm.h>
