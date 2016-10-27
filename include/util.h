@@ -74,7 +74,7 @@
 
 /* Note: ALIGNxxx are suited for powers of 2 only, while
  * ROUNDxxx can deal with any integer value. */
-#define IS_POW_OF_2(x)      ((x) > 0 && ((x) & ((x) - 1)))
+#define IS_POW_OF_2(x)      ((x) > 0 && ((x) & ((x) - 1)) == 0)
 #define __ALIGN_MASK(x, a)	((typeof(x))((a) - 1))
 #define IS_ALIGNED(x, a)	(((x) & __ALIGN_MASK(x, a)) == 0)
 #define ALIGN_ABOVE(x, a)	((((x) - 1) | __ALIGN_MASK(x, a)) + 1) // 向上取整
