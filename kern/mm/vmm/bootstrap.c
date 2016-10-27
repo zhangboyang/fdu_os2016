@@ -71,7 +71,7 @@ void pmm_selftest()
     while (1) {
         r = (1103515245 * r + 12345) & 0x7fffffff; // next rand
         for (sz = r; sz > 0; sz--) {
-            page = VF(pmm_zone[ZONE_NORMAL].allocator, malloc, 0x1000 * sz);
+            page = VF(pmm_zone[ZONE_NORMAL].allocator, malloc, 0x1000LL * sz);
             if (page != -1) break;
         }
         if (sz == 0) break;
@@ -80,18 +80,18 @@ void pmm_selftest()
         kprintf("got page sz=%d paddr=%016llx vaddr=%08x\n", sz, page, (unsigned) (page + KOFFSET)  );
         
         for (i = 0; i < sz; i++) {
-            int *x = (void *) (long)(page + i * 0x1000 + KOFFSET);
+            int *x = (void *) (long)(page + i * 0x1000LL + KOFFSET);
             if (*x == magic) {
                 panic("ERROR! double alloc is found!");
                 while (1);
             }
             *x = magic;
         }
-        memset((void *) (long)(page + KOFFSET), 'A', 0x1000 * sz);
+        memset((void *) (long)(page + KOFFSET), 'A', 0x1000LL * sz);
         if (r & 1) {
             VF(pmm_zone[ZONE_NORMAL].allocator, free, page);
         } else {
-            tot += 0x1000 * sz;
+            tot += 0x1000LL * sz;
         }
     }
     VF(pmm_zone[ZONE_NORMAL].allocator, print);
