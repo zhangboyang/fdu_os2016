@@ -26,9 +26,12 @@ static void buddy_pmalloc__print(THIS)
     kprintf("  base %08llx pagesz %08x pagecnt %d maxorder %d\n", M(base), M(page_size), M(page_count), M(max_order));
     kprintf("  end %llx\n", M(base) + M(page_size) * M(page_count));
     kprintf(" total free pages: %u\n", M(free_page_count));
-    kprintf(" total free memory: %lld KB\n", (VF(this, get_free_bytes) >> 10));
     kprintf(" total waste pages: %u\n", M(waste_page_count));
-    kprintf(" total waste memory: %lld KB\n", (M(waste_page_count) * M(page_size) >> 10));
+    kprintf("\n");
+    kprintf(" total memory: %lld KB\n", ((M(page_size) * M(page_count)) >> 10));
+    kprintf(" total free memory: %lld KB\n", (VF(this, get_free_bytes) >> 10));
+    kprintf(" total waste memory: %lld KB\n", ((M(waste_page_count) * M(page_size)) >> 10));
+    kprintf(" total allocated memory: %lld KB\n", (((M(page_count) - M(free_page_count) - M(waste_page_count)) * M(page_size)) >> 10));
     for (short order = 0; order <= M(max_order); order++) {
         kprintf(" order %d:\n", order);
         struct buddy_page *pp;
@@ -190,6 +193,7 @@ void buddy_pmalloc__ctor(struct buddy_pmalloc *this, struct virt_vmalloc *valloc
     for (size_t i = 0; i < page_count; i++) {
         M(pages)[i].order = 0;
         M(pages)[i].in_use = 1;
+        M(pages)[i].cur_page_count = 1;
     }
     
     // init all linked-list to null, i.e. no allocatable node
