@@ -88,7 +88,7 @@ void pmm_selftest()
             *x = magic;
         }
         memset((void *) (long)(page + KOFFSET), 'A', 0x1000LL * sz);
-        if (r & 1) {
+        if (r % 4 > 0) {
             VF(pmm_zone[ZONE_NORMAL].allocator, free, page);
         } else {
             tot += 0x1000LL * sz;
