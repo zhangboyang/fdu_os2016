@@ -77,7 +77,7 @@ void pmm_selftest()
         if (sz == 0) break;
         
         r = (1103515245 * r + 12345) & 0x7fffffff; // next rand
-        kprintf("got page paddr=%016x vaddr=%08x\n", page, (unsigned) (page + KOFFSET));
+        kprintf("got page paddr=%016llx vaddr=%08x\n", page, (unsigned) (page + KOFFSET)  );
         
         for (i = 0; i < sz; i++) {
             int *x = (void *) (long)(page + i * 0x1000 + KOFFSET);
