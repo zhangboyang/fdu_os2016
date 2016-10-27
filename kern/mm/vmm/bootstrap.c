@@ -63,7 +63,7 @@ void bootstrap_vmalloc__ctor(struct bootstrap_vmalloc *this, void *base, size_t 
 void pmm_selftest()
 {
 #define PMM_SELFTEST__MAX_PAGES_PER_ALLOC 10
-#define PMM_SELFTEST__P_FREE_WHEN_SINGLEPAGE 2
+#define PMM_SELFTEST__P_FREE 20
     kprintf("running pmm self-test ...\n");
     addr_t page;
     int magic = 0x38276abd;
@@ -90,7 +90,7 @@ void pmm_selftest()
             *x = magic;
         }
         memset((void *) (long)(page + KOFFSET), 'A', 0x1000LL * sz);
-        if (sz > 1 || r % PMM_SELFTEST__P_FREE_WHEN_SINGLEPAGE > 0) {
+        if (r % PMM_SELFTEST__P_FREE > 0) {
             VF(pmm_zone[ZONE_NORMAL].allocator, free, page);
         } else {
             tot += 0x1000LL * sz;
