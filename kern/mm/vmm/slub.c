@@ -13,37 +13,46 @@
 #include <aim/pmm.h>
 #include <util.h>
 
-DECLARE_BASE_VCLASS(fixed_alloc, struct {
+
+static struct slub_header *alloc_slub(THIS, int level)
+{
+    DECLARE_THIS(slub_vmalloc);
+    addr_t pa = VF(M(palloc), aligned_malloc, SLUB_BLOCK_SIZE, SLUB_BLOCK_SIZE);
     
-}, struct {
-});
-
-static void *slub__malloc(THIS, size_t size)
-{
-    DECLARE_THIS(use_page_vmalloc);
-    addr_t pa = VF(M(palloc), malloc, size);
-    if (pa == -1) return NULL;
-    return PTRCAST(pa + KOFFSET);
+    if (slub) return NULL;
+    return NULL;
 }
 
-static void slub__free(THIS, void *ptr)
+static void *slub_vmalloc__malloc(THIS, size_t size)
 {
-    DECLARE_THIS(use_page_vmalloc);
-    addr_t pa = (ULCAST(ptr) - KOFFSET);
-    VF(M(palloc), free, pa);
+//    DECLARE_THIS(slub_vmalloc);
+    return NULL;
 }
 
-static size_t slub__size(THIS, void *obj)
+static void slub_vmalloc__free(THIS, void *ptr)
 {
-    panic("use_page_vmalloc::size() is called");
+
 }
 
-void slub__ctor(struct use_page_vmalloc *this, struct virt_pmalloc *palloc)
+static size_t slub_vmalloc__size(THIS, void *obj)
 {
+    panic("size() is not supported");
+}
+
+
+void slub_vmalloc__ctor(struct slub_vmalloc *this, struct virt_pmalloc *palloc)
+{   
     INST_VTBL_SINGLETON(this, {
-        .malloc = slub__malloc,
-        .free = slub__free,
-        .size = slub__size,
+        .malloc = slub_vmalloc__malloc,
+        .free = slub_vmalloc__free,
+        .size = slub_vmalloc__size,
     });
     M(palloc) = palloc;
+    for (size_t i = MIN_SLUB_LEVEL; i <= MAX_SLUB_LEVEL; i++) {
+        INIT_LIST_HEAD(M(slub[SLUB_LEVEL_INDEX(i)]));
+    }
 }
+
+
+
+

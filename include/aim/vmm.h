@@ -102,7 +102,6 @@ DECLARE_BASE_VCLASS(virt_vmalloc, struct {
 
 extern struct virt_vmalloc *g_vmalloc; // the global allocator
 
-
 DECLARE_DERIVED_VCLASS(bootstrap_vmalloc, virt_vmalloc, struct {
     size_t (*area)(THIS);
 }, struct {
@@ -110,12 +109,54 @@ DECLARE_DERIVED_VCLASS(bootstrap_vmalloc, virt_vmalloc, struct {
     void *cur;
 });
 
-DECLARE_DERIVED_VCLASS(use_page_vmalloc, virt_vmalloc, struct {
+
+///////////////////////////////////////////////////////////// pmm to vmm bridge
+DECLARE_BASE_VCLASS(virt_pvbridge, struct {
+    void *(*malloc)(THIS, lsize_t size);
+    void *(*aligned_malloc)(THIS, lsize_t size, lsize_t align);
+    void (*free)(THIS, void *ptr);
 }, struct {
     struct virt_pmalloc *palloc;
 });
+extern struct virt_pvbridge *g_pvbridge;
 
-extern void use_page_vmalloc__ctor(struct use_page_vmalloc *this, struct virt_pmalloc *palloc);
+// the bridge just add KOFFSET
+DECLARE_DERIVED_VCLASS(koffset_pvbridge, virt_pvbridge, struct {
+}, struct {
+});
+
+
+///////////////////////////////////////////////////////////// real vmalloc
+DECLARE_DERIVED_VCLASS(use_page_vmalloc, virt_vmalloc, struct {
+}, struct {
+    struct virt_pvbridge *pvbridge;
+});
+
+
+struct slub_header {
+    struct slub_vmalloc *father;
+    struct list_head free_list;
+    size_t free_count;
+    int level;
+};
+
+DECLARE_DERIVED_VCLASS(slub_vmalloc, virt_vmalloc, struct {
+}, struct {
+    struct virt_pvbridge *pvbridge;
+#define SLUB_BLOCK_LEVEL 14
+#define SLUB_BLOCK_SIZE (1LL << SLUB_BLOCK_LEVEL)
+
+#define MIN_SLUB_LEVEL 4
+#define MAX_SLUB_LEVEL 20
+#define SLUB_LEVEL_INDEX(x) ((x) - MIN_SLUB_LEVEL)
+#define SLUB_TOTAL_LEVELS (MAX_SLUB_LEVEL - MIN_SLUB_LEVEL + 1)
+    struct list_head slub[SLUB_TOTAL_LEVELS];
+});
+
+
+///////////////////////////////////////////////////////////////// functions
+
+extern void use_page_vmalloc__ctor(struct use_page_vmalloc *this, struct virt_pvbridge *pvbridge);
 extern void bootstrap_vmalloc__ctor(struct bootstrap_vmalloc *this, void *base, size_t max_size);
 
 extern void install_vmm_adapter();

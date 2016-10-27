@@ -77,8 +77,8 @@
 #define IS_POW_OF_2(x)      ((x) > 0 && ((x) & ((x) - 1)))
 #define __ALIGN_MASK(x, a)	((typeof(x))((a) - 1))
 #define IS_ALIGNED(x, a)	(((x) & __ALIGN_MASK(x, a)) == 0)
-#define ALIGN_ABOVE(x, a)	((((x) - 1) | __ALIGN_MASK(x, a)) + 1)
-#define ALIGN_BELOW(x, a)	((x) & ~__ALIGN_MASK(x, a))
+#define ALIGN_ABOVE(x, a)	((((x) - 1) | __ALIGN_MASK(x, a)) + 1) // 向上取整
+#define ALIGN_BELOW(x, a)	((x) & ~__ALIGN_MASK(x, a)) // 向下取整
 #define ALIGN_PREV(x, a)	ALIGN_BELOW((x) - 1, a)
 #define ALIGN_NEXT(x, a)	ALIGN_ABOVE((x) + 1, a)
 #define PTR_ALIGN_ABOVE(p, a)	\
