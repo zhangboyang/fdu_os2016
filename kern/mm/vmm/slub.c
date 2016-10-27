@@ -77,7 +77,7 @@ static void *slub_vmalloc__malloc(THIS, size_t size)
 static void slub_vmalloc__free(THIS, void *ptr)
 {
     DECLARE_THIS(slub_vmalloc);
-    if (IS_ALIGED(ULCAST(ptr), SLUB_BLOCK_SIZE)) {
+    if (IS_ALIGNED(ULCAST(ptr), SLUB_BLOCK_SIZE)) {
         // our pointer must be block-size aligned
         // if not aligned, pass it to pvbridge
         VF(M(pvbridge), free, ptr);
