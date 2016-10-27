@@ -70,7 +70,7 @@ void pmm_selftest()
     unsigned long long tot = 0;
     while (1) {
         r = (1103515245 * r + 12345) & 0x7fffffff; // next rand
-        for (sz = r; sz > 0; sz--) {
+        for (sz = r % 12345; sz > 0; sz--) {
             page = VF(pmm_zone[ZONE_NORMAL].allocator, malloc, 0x1000LL * sz);
             if (page != -1) break;
         }
