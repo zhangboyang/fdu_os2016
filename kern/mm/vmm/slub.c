@@ -31,9 +31,11 @@ static struct slub_header *alloc_slub(THIS, int level)
     slub->level = level;
     INIT_LIST_HEAD(&slub->free_list);
 
-    struct list_head *solts = ((void *) slub) + SOLTS_OFFSET(level);
+    void *solts_base = ((void *) slub) + SOLTS_OFFSET(level);
+    size_t solt_size = (1 << level);
     for (size_t i = 0; i < max_solts; i++) {
-        list_add(&solts[i], &slub->free_list);
+        struct list_head *solt = solts_base + solt_size * i;
+        list_add(solt, &slub->free_list);
     }
     
     return slub;
@@ -52,7 +54,6 @@ static void *slub_vmalloc__malloc(THIS, size_t size)
     DECLARE_THIS(slub_vmalloc);
     size_t level = 0;
     while ((1ULL << level) < size) level++;
-    kprintf("%d %d\n", size, level);
     if (level > MAX_SLUB_LEVEL) {
         // size is too big, pass it to pvbridge directly
         // we need to distinguish two type of pointers
