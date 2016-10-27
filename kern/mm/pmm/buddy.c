@@ -43,10 +43,6 @@ static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
 {
     DECLARE_THIS(buddy_pmalloc);
     
-    if (ROUNDDOWN(size, M(page_size) != size)) {
-        panic("size %08llx not aligned to page size %08x.", size, M(page_size));
-    }
-    
     // map size to page-count
     size_t cnt = DIV_ROUND_UP(size, M(page_size));
     
