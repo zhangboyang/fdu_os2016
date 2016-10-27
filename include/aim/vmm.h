@@ -135,9 +135,8 @@ DECLARE_DERIVED_VCLASS(use_page_vmalloc, virt_vmalloc, struct {
 
 
 struct slub_header {
-    struct slub_vmalloc *father;
+    struct list_head node;
     struct list_head free_list;
-    size_t free_count;
     int level;
 };
 
@@ -151,9 +150,11 @@ DECLARE_DERIVED_VCLASS(slub_vmalloc, virt_vmalloc, struct {
 #define MAX_SLUB_LEVEL 20
 #define SLUB_LEVEL_INDEX(x) ((x) - MIN_SLUB_LEVEL)
 #define SLUB_TOTAL_LEVELS (MAX_SLUB_LEVEL - MIN_SLUB_LEVEL + 1)
-    struct list_head slub[SLUB_TOTAL_LEVELS];
+    struct list_head slub_avail[SLUB_TOTAL_LEVELS];
+    struct list_head slub_full[SLUB_TOTAL_LEVELS];
 });
 
+static_assert(sizeof(struct list_head) > (1 << MIN_SLUB_LEVEL));
 
 ///////////////////////////////////////////////////////////////// functions
 
