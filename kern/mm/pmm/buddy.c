@@ -101,7 +101,7 @@ static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
     return M(base) + M(page_size) * index;
 }
 
-static addt_t buddy_pmalloc__aligned_malloc(THIS, lsize_t size, lsize_t align)
+static addr_t buddy_pmalloc__aligned_malloc(THIS, lsize_t size, lsize_t align)
 {
     DECLARE_THIS(buddy_pmalloc);
     if (!IS_POW_OF_2(align) || !IS_ALIGNED(M(base), align)) {
