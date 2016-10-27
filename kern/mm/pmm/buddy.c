@@ -107,8 +107,9 @@ static addr_t buddy_pmalloc__aligned_malloc(THIS, lsize_t size, lsize_t align)
     if (!IS_POW_OF_2(align) || !IS_ALIGNED(M(base), align)) {
         panic("can't alloc memory for alignment %016llx.", align);
     }
+    
     if (align > size) {
-        panic("align != size is currently not supported.");
+        panic("align > size is currently not supported.");
     }
     return buddy_pmalloc__malloc(this, size);
 }

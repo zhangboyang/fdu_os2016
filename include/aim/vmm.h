@@ -147,7 +147,7 @@ DECLARE_DERIVED_VCLASS(slub_vmalloc, virt_vmalloc, struct {
 #define SLUB_BLOCK_SIZE (1LL << SLUB_BLOCK_LEVEL)
 
 #define MIN_SLUB_LEVEL 4
-#define MAX_SLUB_LEVEL 20
+#define MAX_SLUB_LEVEL 10
 #define SLUB_LEVEL_INDEX(x) ((x) - MIN_SLUB_LEVEL)
 #define SLUB_TOTAL_LEVELS (MAX_SLUB_LEVEL - MIN_SLUB_LEVEL + 1)
     struct list_head slub_avail[SLUB_TOTAL_LEVELS];

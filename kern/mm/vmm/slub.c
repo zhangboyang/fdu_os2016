@@ -52,6 +52,12 @@ static void *slub_vmalloc__malloc(THIS, size_t size)
     DECLARE_THIS(slub_vmalloc);
     size_t level = 0;
     while ((1ULL << level) < size) level++;
+    if (level > MAX_SLUB_LEVEL) {
+        // size is too big, pass it to pvbridge directly
+        // we need to distinguish two type of pointers
+        // so we add alignment requirements
+        return VF(M(pvbridge), aligned_malloc, size, SLUB_BLOCK_SIZE);
+    }
     
     if (list_empty(&M(slub_avail[level]))) {
         struct slub_header *new_slub = alloc_slub(this, level);
@@ -71,6 +77,12 @@ static void *slub_vmalloc__malloc(THIS, size_t size)
 static void slub_vmalloc__free(THIS, void *ptr)
 {
     DECLARE_THIS(slub_vmalloc);
+    if (IS_ALIGED(ULCAST(ptr), SLUB_BLOCK_SIZE)) {
+        // our pointer must be block-size aligned
+        // if not aligned, pass it to pvbridge
+        VF(M(pvbridge), free, ptr);
+        return;
+    }
     struct list_head *solt = ptr;
     struct slub_header *slub = PTRCAST(ALIGN_BELOW(ULCAST(ptr), SLUB_BLOCK_SIZE));
     int move_flag = slub_is_full(slub);
