@@ -117,7 +117,7 @@ struct zone pmm_zone[MAX_MEMORY_ZONE] = {};
 
 static int alloc__adapter(struct pages *pages)
 {
-    addr_t pa = VF(pmm_zone[ADAPTER_ZONE].allocator, malloc, pages->size);
+    addr_t pa = VF(pmm_zone[ADAPTER_ZONE].allocator, malloc, ROUNDUP(pages->size, PAGE_SIZE));
     if (pa == -1) return EOF;
     pages->paddr = pa;
     return 0;
@@ -126,7 +126,7 @@ static int alloc__adapter(struct pages *pages)
 static void free__adapter(struct pages *pages)
 {
     lsize_t cur_size = VF(pmm_zone[ADAPTER_ZONE].allocator, get_size, pages->paddr);
-    if (cur_size != pages->size) {
+    if (ROUNDUP(cur_size, PAGE_SIZE) != ROUNDUP(pages->size, PAGE_SIZE)) {
         panic("size mismatch, allocator %016llx, user %016llx", cur_size, pages->size);
     }
     VF(pmm_zone[ADAPTER_ZONE].allocator, free, pages->paddr);
