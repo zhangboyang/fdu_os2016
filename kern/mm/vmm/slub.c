@@ -96,8 +96,8 @@ void slub_vmalloc__ctor(struct slub_vmalloc *this, struct virt_pvbridge *pvbridg
     });
     M(pvbridge) = pvbridge;
     for (size_t i = MIN_SLUB_LEVEL; i <= MAX_SLUB_LEVEL; i++) {
-        INIT_LIST_HEAD(M(slub_avail[SLUB_LEVEL_INDEX(i)]));
-        INIT_LIST_HEAD(M(slub_full[SLUB_LEVEL_INDEX(i)]));
+        INIT_LIST_HEAD(&M(slub_avail[SLUB_LEVEL_INDEX(i)]));
+        INIT_LIST_HEAD(&M(slub_full[SLUB_LEVEL_INDEX(i)]));
     }
 }
 
