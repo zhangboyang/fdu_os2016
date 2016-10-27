@@ -49,6 +49,7 @@ static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
     // calc corrsponding order
     short target_order;
     for (target_order = 0; (1 << target_order) < cnt; target_order++);
+    kprintf("target_order = %d\n", target_order);
     
     // find a block with avaliable nodes
     short order;
