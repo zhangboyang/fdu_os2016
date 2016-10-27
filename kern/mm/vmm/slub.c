@@ -60,11 +60,12 @@ static void *slub_vmalloc__malloc(THIS, size_t size)
     }
     
     struct slub_header *slub = list_first_entry(&M(slub_avail[level]), struct slub_header, node);
-    void *malloc_from_slub(slub);
+    void *ret = malloc_from_slub(slub);
     if (slub_is_full(slub)) {
         list_del(&slub->node);
         list_add(&slub->node, &M(slub_full[level]));
     }
+    return ret;
 }
 
 static void slub_vmalloc__free(THIS, void *ptr)
