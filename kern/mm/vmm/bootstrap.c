@@ -86,7 +86,7 @@ void pmm_selftest()
                 while (1);
             }
         }
-        memset(x, 'A', 0x1000 * sz);
+        memset((void *) (long)(page + KOFFSET), 'A', 0x1000 * sz);
         *x = magic;
         if (r & 1) {
             *x = 0;
