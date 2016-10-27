@@ -85,11 +85,10 @@ void pmm_selftest()
                 panic("ERROR! double alloc is found!");
                 while (1);
             }
+            *x = magic;
         }
         memset((void *) (long)(page + KOFFSET), 'A', 0x1000 * sz);
-        *x = magic;
         if (r & 1) {
-            *x = 0;
             VF(pmm_zone[ZONE_NORMAL].allocator, free, page);
         } else {
             tot += 0x1000 * sz;
