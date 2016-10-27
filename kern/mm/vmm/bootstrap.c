@@ -146,8 +146,8 @@ void vmm_bootstrap()
     
     
     // set global vmm allocator
-    static struct use_page_vmalloc vmalloc;
-    use_page_vmalloc__ctor(&vmalloc, g_pvbridge);
+    static struct slub_vmalloc vmalloc;
+    slub__ctor(&vmalloc, g_pvbridge);
     g_vmalloc = BC(&vmalloc);
     
     
