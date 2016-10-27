@@ -16,11 +16,13 @@
 
 static void *use_page_vmalloc__malloc(THIS, size_t size)
 {
+    DECLARE_THIS(use_page_vmalloc);
     return VF(M(pvbridge), malloc, size);
 }
 
 static void use_page_vmalloc__free(THIS, void *ptr)
 {
+    DECLARE_THIS(use_page_vmalloc);
     VF(M(pvbridge), free, ptr);
 }
 
