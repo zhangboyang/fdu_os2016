@@ -28,7 +28,6 @@ static struct slub_header *alloc_slub(THIS, int level)
     if (!slub) return NULL;
     
     size_t max_solts = CALC_MAXSOLTS(level);
-    slub->free_count = max_solts;
     slub->level = level;
     INIT_LIST_HEAD(&slub->free_list);
 
