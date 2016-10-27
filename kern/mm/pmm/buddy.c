@@ -43,8 +43,12 @@ static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
 {
     DECLARE_THIS(buddy_pmalloc);
     
+    if (ROUNDDOWN(size, M(page_size) != size) {
+        panic("size %08llx not aligned to page size %08x.", size, M(page_size));
+    }
+    
     // map size to page-count
-    size_t cnt = DIV_ROUND_UP(size, M(page_size));
+    size_t cnt = size / M(page_size);
     
     // calc corrsponding order
     short target_order;
@@ -70,7 +74,8 @@ static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
 
     // set counter
     assert(M(free_page_count) >= cnt);
-    M(free_page_count) -= (pp->cur_page_count = (1 << target_order));  
+    pp->cur_page_count = cnt;
+    M(free_page_count) -= (1 << target_order);  
 
     // split blocks
     list_del(&pp->node);
