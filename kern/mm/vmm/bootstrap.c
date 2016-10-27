@@ -95,7 +95,7 @@ void pmm_selftest()
         }
     }
     VF(pmm_zone[ZONE_NORMAL].allocator, print);
-    kprintf("PLEASE VERIFY: total memory is %lld KB\n", (tot >> 10));
+    kprintf("PLEASE VERIFY: total memory is %lld KB (due to internal fragment, the value is smaller than real value)\n", (tot >> 10));
     panic("test OK!");
 }
 
