@@ -53,7 +53,7 @@ static void *slub_vmalloc__malloc(THIS, size_t size)
     size_t level = 0;
     while ((1ULL << level) < size) level++;
     
-    if (list_empty(&M(slub[level]))) {
+    if (list_empty(&M(slub_avail[level]))) {
         struct slub_header *new_slub = alloc_slub(this, level);
         if (!new_slub) return NULL;
         list_add(&new_slub->node, &M(slub_avail[level]));
