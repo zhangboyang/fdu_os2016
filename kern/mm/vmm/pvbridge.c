@@ -34,7 +34,7 @@ static void koffset_pvbridge__free(THIS, void *ptr)
     DECLARE_THIS(koffset_pvbridge);
     if (ptr == NULL) return;
     addr_t pa = ULCAST(ptr) - KOFFSET;
-    VF(M(palloc, free, pa);
+    VF(M(palloc, free, pa));
 }
 
 void koffset_pvbridge__ctor(struct koffset_pvbridge *this, struct virt_pmalloc *palloc)
