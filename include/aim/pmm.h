@@ -85,14 +85,18 @@ void add_memory_pages(void);
 #include <zby.h>
 #include <list.h>
 
+#define PMM_SUPPORT_QUERY_SIZE // allow user query allocated chunk size in bytes
+
 DECLARE_BASE_CLASS(page, struct {
+#ifdef PMM_SUPPORT_QUERY_SIZE
+    lsize_t                 byte_size;
+#endif
 });
 
 DECLARE_DERIVED_CLASS(buddy_page, page, struct {
     struct list_head        node;
     short                   order;
     short                   in_use;
-    size_t                  cur_page_count;
 });
 
 DECLARE_BASE_VCLASS(virt_pmalloc, struct {
@@ -100,8 +104,10 @@ DECLARE_BASE_VCLASS(virt_pmalloc, struct {
     // @size: page count, not bytes!
     addr_t (*malloc)(THIS, lsize_t size);
     void (*free)(THIS, addr_t ptr);
-    
+
+#ifdef PMM_SUPPORT_QUERY_SIZE
     lsize_t (*get_size)(THIS, addr_t ptr);
+#endif
     lsize_t (*get_free_bytes)(THIS);
     void (*print)(THIS);
 }, struct {

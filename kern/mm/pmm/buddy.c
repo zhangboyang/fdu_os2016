@@ -70,7 +70,9 @@ static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
 
     // set counter
     assert(M(free_page_count) >= cnt);
-    pp->cur_page_count = cnt;
+#ifdef PMM_SUPPORT_QUERY_SIZE
+    pp->byte_size = size;
+#endif
     M(free_page_count) -= (1 << target_order);  
 
     // split blocks
@@ -137,7 +139,7 @@ static lsize_t buddy_pmalloc__get_size(THIS, addr_t ptr)
     DECLARE_THIS(buddy_pmalloc);
     size_t index = (ptr - M(base)) / M(page_size);
     struct buddy_page *pp = &M(pages)[index];
-    return pp->cur_page_count * M(page_size);
+    return pp->byte_size;
 }
 
 static lsize_t buddy_pmalloc__get_free_bytes(THIS)
@@ -183,7 +185,6 @@ void buddy_pmalloc__ctor(struct buddy_pmalloc *this, struct virt_vmalloc *valloc
     for (size_t i = 0; i < page_count; i++) {
         M(pages)[i].order = 0;
         M(pages)[i].in_use = 1;
-        M(pages)[i].cur_page_count = 1;
     }
     
     // init all linked-list to null, i.e. no allocatable node
