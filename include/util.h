@@ -116,6 +116,8 @@
 #define ULCAST(x)		((size_t)(x))
 #define PTRCAST(x)		((void *)ULCAST(x))
 
+#define static_assert _Static_assert
+
 #else	/* __ASSEMBLER__ */
 
 #define ULCAST(x)		(x)

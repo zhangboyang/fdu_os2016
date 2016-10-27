@@ -143,7 +143,7 @@ struct slub_header {
 DECLARE_DERIVED_VCLASS(slub_vmalloc, virt_vmalloc, struct {
 }, struct {
     struct virt_pvbridge *pvbridge;
-#define SLUB_BLOCK_LEVEL 14
+#define SLUB_BLOCK_LEVEL 14 // 16KB
 #define SLUB_BLOCK_SIZE (1LL << SLUB_BLOCK_LEVEL)
 
 #define MIN_SLUB_LEVEL 4
@@ -154,7 +154,8 @@ DECLARE_DERIVED_VCLASS(slub_vmalloc, virt_vmalloc, struct {
     struct list_head slub_full[SLUB_TOTAL_LEVELS];
 });
 
-_Static_assert(sizeof(struct list_head) < (1 << MIN_SLUB_LEVEL), "list head is too big");
+static_assert(sizeof(struct list_head) < (1 << MIN_SLUB_LEVEL), "list head is too big");
+static_assert(MAX_SLUB_LEVEL < SLUB_BLOCK_LEVEL, "max slub level is bigger than block");
 
 ///////////////////////////////////////////////////////////////// functions
 
