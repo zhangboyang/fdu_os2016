@@ -60,7 +60,45 @@ void bootstrap_vmalloc__ctor(struct bootstrap_vmalloc *this, void *base, size_t 
 }
 
 
-
+void pmm_selftest()
+{
+    kprintf("running pmm self-test ...\n");
+    addr_t page;
+    int magic = 0x38276abd;
+    unsigned r = 123456;
+    unsigned i, sz;
+    unsigned long long tot = 0;
+    while () != -1) {
+        r = (1103515245 * r + 12345) & 0x7fffffff; // next rand
+        for (sz = r; sz > 0; sz--) {
+            page = VF(pmm_zone[ZONE_NORMAL].allocator, malloc, 0x1000 * sz);
+            if (page != -1) break;
+        }
+        if (sz == 0) break;
+        
+        r = (1103515245 * r + 12345) & 0x7fffffff; // next rand
+        //kprintf("got page %016x\n", page);
+        
+        for (i = 0; i < sz; i++) {
+            int *x = (void *) (long)(page + i * 0x1000 + KOFFSET);
+            if (*x == magic) {
+                panic("ERROR! double alloc is found!");
+                while (1);
+            }
+        }
+        memset(x, 'A', 0x1000 * sz);
+        *x = magic;
+        if (r & 1) {
+            *x = 0;
+            VF(pmm_zone[ZONE_NORMAL].allocator, free, page);
+        } else {
+            tot += 0x1000 * sz;
+        }
+    }
+    VF(pmm_zone[ZONE_NORMAL].allocator, print);
+    kprintf("PLEASE VERIFY: total memory is %lld KB\n", (tot >> 10));
+    panic("test OK!");
+}
 
 void vmm_bootstrap()
 {
@@ -94,32 +132,7 @@ void vmm_bootstrap()
     arch_init_free_pmm_zone(kstart, real_kend);
 
     
-    
-    /*kprintf("testing pmm...\n");
-    addr_t page;
-    int magic = 0x38276abd;
-    unsigned r = 123456;
-    unsigned long long tot = 0;
-    while ((page = VF(pmm_zone[ZONE_NORMAL].allocator, malloc, 0x1000)) != -1) {
-        r = (1103515245 * r + 12345) & 0x7fffffff; // rand
-        //kprintf("got page %016x\n", page);
-        int *x = (void *) (long)(page + KOFFSET);
-        if (*x == magic) {
-            panic("error!");
-        } else {
-            memset(x, 'A', 0x1000);
-            *x = magic;
-            if (r & 1) {
-                *x = 0;
-                VF(pmm_zone[ZONE_NORMAL].allocator, free, page);
-            } else {
-                tot += 0x1000;
-            }
-        }
-    }
-    VF(pmm_zone[ZONE_NORMAL].allocator, print);
-    kprintf("total memory is %lld KB\n", (tot >> 10));
-    panic("OK!");*/
+    pmm_selftest();
     
     
     // set global vmm allocator
