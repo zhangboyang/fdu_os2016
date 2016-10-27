@@ -34,6 +34,7 @@ static void buddy_pmalloc__print(THIS)
     kprintf(" total allocated memory: %lld KB\n", (((M(page_count) - M(free_page_count) - M(waste_page_count)) * M(page_size)) >> 10));
     kprintf("\n");
     for (short order = 0; order <= M(max_order); order++) {
+        if (list_empty(&M(list[order]))) continue;
         kprintf(" order %d:\n", order);
         struct buddy_page *pp;
         for_each_entry(pp, &M(list[order]), node) {
