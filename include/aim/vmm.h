@@ -154,7 +154,7 @@ DECLARE_DERIVED_VCLASS(slub_vmalloc, virt_vmalloc, struct {
     struct list_head slub_full[SLUB_TOTAL_LEVELS];
 });
 
-_Static_assert(sizeof(struct list_head) > (1 << MIN_SLUB_LEVEL));
+_Static_assert(sizeof(struct list_head) > (1 << MIN_SLUB_LEVEL), "list head is too big");
 
 ///////////////////////////////////////////////////////////////// functions
 
