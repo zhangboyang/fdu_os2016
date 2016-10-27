@@ -21,8 +21,9 @@ static int slub_is_full(struct slub_header *slub)
     return list_empty(&slub->free_list);
 }
 
-static struct slub_header *alloc_slub(int level)
+static struct slub_header *alloc_slub(THIS, int level)
 {
+    DECLARE_THIS(slub_vmalloc);
     struct slub_header *slub = VF(M(pvbridge), aligned_malloc, SLUB_BLOCK_SIZE, SLUB_BLOCK_SIZE);
     if (!slub) return NULL;
     
@@ -54,7 +55,7 @@ static void *slub_vmalloc__malloc(THIS, size_t size)
     while ((1ULL << level) < size) level++;
     
     if (list_empty(&M(slub[level]))) {
-        struct slub_header *new_slub = alloc_slub(level);
+        struct slub_header *new_slub = alloc_slub(this, level);
         if (!new_slub) return NULL;
         list_add(&new_slub->node, &M(slub_avail[level]));
     }
