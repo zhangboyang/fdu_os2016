@@ -136,7 +136,7 @@ void vmm_bootstrap()
     arch_init_free_pmm_zone(kstart, real_kend);
 
     
-    pmm_selftest();
+    //pmm_selftest();
     
     
     // set global pvbridge
