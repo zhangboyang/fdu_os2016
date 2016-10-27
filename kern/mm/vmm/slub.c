@@ -13,6 +13,10 @@
 #include <aim/pmm.h>
 #include <util.h>
 
+DECLARE_BASE_VCLASS(fixed_alloc, struct {
+    
+}, struct {
+});
 
 static void *slub__malloc(THIS, size_t size)
 {

@@ -101,6 +101,17 @@ static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
     return M(base) + M(page_size) * index;
 }
 
+static addt_t buddy_pmalloc__aligned_malloc(THIS, lsize_t size, lsize_t align)
+{
+    DECLARE_THIS(buddy_pmalloc);
+    if (!IS_POW_OF_2(align) || !IS_ALIGNED(M(base), align)) {
+        panic("can't alloc memory for alignment %016llx.", align);
+    }
+    if (align > size) {
+        panic("align != size is currently not supported.");
+    }
+    return buddy_pmalloc__malloc(this, size);
+}
 
 static void buddy_pmalloc__free(THIS, addr_t ptr)
 {
@@ -168,6 +179,7 @@ void buddy_pmalloc__ctor(struct buddy_pmalloc *this, struct virt_vmalloc *valloc
     // install vtbl
     INST_VTBL_SINGLETON(this, {
         .malloc = buddy_pmalloc__malloc,
+        .aligned_malloc = buddy_pmalloc__aligned_malloc,
         .free = buddy_pmalloc__free,
         .get_size = buddy_pmalloc__get_size,
         .get_free_bytes = buddy_pmalloc__get_free_bytes,

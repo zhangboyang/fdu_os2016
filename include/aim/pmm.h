@@ -104,6 +104,7 @@ DECLARE_BASE_VCLASS(virt_pmalloc, struct {
     // malloc: return -1 if no more pages avaliable
     // @size: page count, not bytes!
     addr_t (*malloc)(THIS, lsize_t size);
+    addt_t (*aligned_malloc)(THIS, lsize_t size, lsize_t align);
     void (*free)(THIS, addr_t ptr);
 
 #ifdef PMM_SUPPORT_QUERY_SIZE
