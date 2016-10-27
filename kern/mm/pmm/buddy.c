@@ -70,11 +70,11 @@ static addr_t buddy_pmalloc__malloc(THIS, lsize_t size)
     // find the block
     struct buddy_page *pp = list_first_entry(&M(list[order]), struct buddy_page, node);
     size_t index = pp - M(pages);
+    assert(pp->in_use == 0);
     pp->in_use = 1;
     pp->order = target_order;
 
     // set counter
-    assert(pp->in_use == 0);
     assert(M(free_page_count) >= cnt);
 #ifdef PMM_SUPPORT_QUERY_SIZE
     pp->byte_size = size;
