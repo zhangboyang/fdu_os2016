@@ -79,7 +79,8 @@ void master_init()
     kprintf("press keyboard and you will see IRQ1.\n");
     irq_enable(1); // IRQ1: keyboard
     sti();
-    //while (1);
+    *(int *)0=1;
+    while (1);
     
     panic("bye");
 }
