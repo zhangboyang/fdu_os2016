@@ -16,12 +16,31 @@
 // FIXME: dirty hack!
 #define bprintf ((int (*)(const char *, ...)) (0x7c00 + KOFFSET))
 
-int __attribute__((__noinline__)) syscall222(int id, ...) {
-	    int ret;
-	    int *args = &id;
-	    asm volatile("int $0x80": "=a"(ret) : "a"(args[0]), "b"(args[1]), "c"(args[2]), "d"(args[3]), "esi"(args[4]), "edi"(args[5]), "ebp"(args[6]));
-	    return ret;
-    }
+__asm__ ( // the abs_jump()
+".globl syscall\n"
+"syscall:\n"
+    "push %%ebx\n"
+    "push %%esi\n"
+    "push %%edi\n"
+    "push %%ebp\n"
+    
+    "mov 20(%%esp), %%eax\n"
+    "mov 24(%%esp), %%ebx\n"
+    "mov 28(%%esp), %%ecx\n"
+    "mov 32(%%esp), %%edx\n"
+    "mov 36(%%esp), %%esi\n"
+    "mov 40(%%esp), %%edi\n"
+    "mov 44(%%esp), %%ebp\n"
+    "int $0x80\n"
+    
+    "pop %%ebp\n"
+    "pop %%edi\n"
+    "pop %%esi\n"
+    "pop %%ebx\n"
+    
+    "ret\n"
+);
+
 
 void master_init()
 {
@@ -49,7 +68,7 @@ void master_init()
     trap_init();
     
     
-    syscall222(1,2,3,4,5,6,7);
+    syscall(1,2,3,4,5,6,7);
     
     
     panic("bye");
