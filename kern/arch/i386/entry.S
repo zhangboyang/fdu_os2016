@@ -22,7 +22,7 @@
 
 #include <aim/mmu.h>
 
-
+/////////////////////////////////////////////////////// low addr entry
 .text
 
 .globl _start
@@ -66,6 +66,8 @@ start32_early:
     jmp 1b
 
 
+
+/////////////////////////////////////////////////////// high addr entry
 // after jump to high address
 // rebuild C runtime environment (esp, balabala)
 
@@ -76,8 +78,8 @@ master_entry:
     
     // reload GDT using kernel data segment in high address
     lgdt gdtdesc
-    ljmp    $(SEG_KCODE<<3), $start32
-start32:
+    ljmp    $(SEG_KCODE<<3), $1f
+1:
     movw    $(SEG_KDATA<<3), %ax    # Our data segment selector
     movw    %ax, %ds                # -> DS: Data Segment
     movw    %ax, %es                # -> ES: Extra Segment
@@ -113,4 +115,23 @@ gdtdesc:
 gdtdesc_early:
   .word   (gdtdesc - gdt - 1)             # sizeof(gdt) - 1
   .long   VMA2LMA(gdt)                    # address gdt
+
+
+
+/////////////////////////////////////////////////////// cpu_reload() helper
+// void cpu_reload_segments()
+    // reload CS, DS, ES, SS
+    // set FS, GS to null segment
+.globl cpu_reload_segments
+cpu_reload_segments:
+    ljmp    $(SEG_KCODE<<3), $1f
+1:
+    movw    $(SEG_KDATA<<3), %ax    # Our data segment selector
+    movw    %ax, %ds                # -> DS: Data Segment
+    movw    %ax, %es                # -> ES: Extra Segment
+    movw    %ax, %ss                # -> SS: Stack Segment
+    movw    $0, %ax                 # Zero segments not ready for use
+    movw    %ax, %fs                # -> FS
+    movw    %ax, %gs                # -> GS
+    ret
 

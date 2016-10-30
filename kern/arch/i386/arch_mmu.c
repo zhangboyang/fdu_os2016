@@ -366,6 +366,7 @@ void cpu_init_structure()
 void cpu_reload(struct cpu *cpu)
 {
     lgdt(cpu->gdt, sizeof(cpu->gdt));
+    cpu_reload_segments();
     
     //loadgs(SEG_KCPU << 3); //FIXME
     ltr(SEG_TSS << 3);

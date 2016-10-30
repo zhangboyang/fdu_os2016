@@ -185,6 +185,7 @@ extern void arch_init_free_pmm_zone(addr_t kstart, addr_t kend);
 
 extern void cpu_init_structure();
 extern void cpu_reload(struct cpu *cpu);
+extern void cpu_reload_segments(); // in entry.S
 extern struct cpu *cpu_list;
 extern int nr_cpu;
 
