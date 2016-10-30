@@ -15,6 +15,7 @@
 #include <aim/mmu.h>
 
 struct gatedesc idt[256];
+extern uint32_t vectors[];
 
 void init_idt()
 {
