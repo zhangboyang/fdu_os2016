@@ -35,4 +35,5 @@ libarch_la_SOURCES = \
 	vector.S
 
 vector.S: vector.pl
-	vector.pl
+	./vector.pl
+
