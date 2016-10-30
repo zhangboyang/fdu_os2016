@@ -32,7 +32,7 @@ libarch_la_SOURCES = \
 	arch_early_init.c \
 	arch_mmu.c \
 	arch_trap.c \
-    vector.S
+	vector.S
 
 vector.S: vector.pl
-    ./vector.pl
+	vector.pl
