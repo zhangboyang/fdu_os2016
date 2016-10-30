@@ -105,6 +105,7 @@ static size_t slub_vmalloc__size(THIS, void *obj)
 
 static size_t slub_vmalloc__print(THIS)
 {
+    DECLARE_THIS(slub_vmalloc);
     for (int level = MIN_SLUB_LEVEL; level <= MAX_SLUB_LEVEL; level++) {
         int level_idx = SLUB_LEVEL_INDEX(level);
         kprintf("level %d:\n", level);
