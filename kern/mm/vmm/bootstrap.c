@@ -121,7 +121,7 @@ void vmm_selftest()
         }
         memset(p, 0x18, sz);
         r = (1103515245 * r + 12345) & 0x7fffffff; // next rand
-        if (r % 10 < 0) {
+        if (r % 10 < 9) {
             VF(g_vmalloc, free, p);
             //kprintf("free(%p)\n", p);
         } else {
