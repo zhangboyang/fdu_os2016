@@ -122,7 +122,7 @@
 #define SEG_UCODE 4  // user code
 #define SEG_UDATA 5  // user data+stack
 #define SEG_TSS   6  // this process's task state
-
+#define NSEGS    (6 + 1) // there is a zero segment at first!
 
 
 
