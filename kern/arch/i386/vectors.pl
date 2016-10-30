@@ -1,5 +1,7 @@
 #!/usr/bin/perl -w
 
+# copied from xv6
+
 # Generate vectors.S, the trap/interrupt entry points.
 # There has to be one entry point per interrupt number
 # since otherwise there's no way for trap() to discover

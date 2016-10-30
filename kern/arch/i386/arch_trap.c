@@ -26,3 +26,7 @@ void init_idt()
     SETGATE(idt[T_SYSCALL], 1, SEG_KCODE<<3, vectors[T_SYSCALL], DPL_USER);
 }
 
+void trap_init()
+{
+    init_idt();
+}

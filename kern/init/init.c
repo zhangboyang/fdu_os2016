@@ -33,9 +33,12 @@ void master_init()
     kprintf("kmalloc() = %p\n", kmalloc(0x100, 0));
     kprintf("kmalloc() = %p\n", kmalloc(0x100, 0));*/
 
-    
+    // init cpu_list[]
     cpu_init_structure();
     cpu_reload(&cpu_list[0]);
+    
+    // init IRQ
+    trap_init();
     
     panic("bye");
 }
