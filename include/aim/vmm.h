@@ -97,6 +97,7 @@ DECLARE_BASE_VCLASS(virt_vmalloc, struct {
     void *(*malloc)(THIS, size_t size);
     void (*free)(THIS, void *ptr);
     size_t (*size)(THIS, void *obj);
+    void (*print)(THIS);
 }, struct {
     // no data here
 });
@@ -116,6 +117,7 @@ DECLARE_BASE_VCLASS(virt_pvbridge, struct {
     void *(*malloc)(THIS, lsize_t size);
     void *(*aligned_malloc)(THIS, lsize_t size, lsize_t align);
     void (*free)(THIS, void *ptr);
+    void (*print)(THIS);
 }, struct {
     struct virt_pmalloc *palloc;
 });

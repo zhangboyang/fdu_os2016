@@ -41,17 +41,14 @@ static size_t bootstrap_vmalloc__area(THIS)
     return M(cur) - M(base);
 }
 
-static size_t bootstrap_vmalloc__size(THIS, void *obj)
-{
-    panic("bootstrip_vmalloc::size() is called");
-}
 
 void bootstrap_vmalloc__ctor(struct bootstrap_vmalloc *this, void *base, size_t max_size)
 {
     INST_VTBL_SINGLETON(this, {
         .malloc = bootstrap_vmalloc__malloc,
         .free = bootstrap_vmalloc__free,
-        .size = bootstrap_vmalloc__size,
+        .size = NULL,
+        .print = NULL,
         .area = bootstrap_vmalloc__area,
     });
     
@@ -134,7 +131,6 @@ void vmm_selftest()
         }
     }
     kprintf("total: %lld KB\n", (tot >> 10));
-    VF(pmm_zone[ZONE_NORMAL].allocator, print);
     panic("vmm test OK!");
 }
 

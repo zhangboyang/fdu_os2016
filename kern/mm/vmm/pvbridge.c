@@ -1,7 +1,7 @@
 /*
     ZBY:
        the pmm and vmm bridge
-       convert PA to VA
+       convert PA to VA using KOFFSET
 */
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -37,12 +37,19 @@ static void koffset_pvbridge__free(THIS, void *ptr)
     VF(M(palloc), free, pa);
 }
 
+static void koffset_pvbridge__print(THIS)
+{
+    DECLARE_THIS(koffset_pvbridge);
+    VF(M(palloc), print);
+}
+
 void koffset_pvbridge__ctor(struct koffset_pvbridge *this, struct virt_pmalloc *palloc)
 {
     INST_VTBL_SINGLETON(this, {
         .malloc = koffset_pvbridge__malloc,
         .aligned_malloc = koffset_pvbridge__aligned_malloc,
         .free = koffset_pvbridge__free,
+        .print = koffset_pvbridge__print,
     });
     M(palloc) = palloc;
 }
