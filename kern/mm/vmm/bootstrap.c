@@ -134,6 +134,7 @@ void vmm_selftest()
         }
     }
     kprintf("total: %lld KB\n", (tot >> 10));
+    VF(pmm_zone[ZONE_NORMAL].allocator, print);
     panic("vmm test OK!");
 }
 
