@@ -32,7 +32,8 @@ libarch_la_SOURCES = \
 	arch_early_init.c \
 	arch_mmu.c \
 	arch_trap.c \
-	vector.S
+	vector.S \
+	alltraps.S
 
 vector.S: $(srcdir)/vectors.pl
 	$(srcdir)/vectors.pl > $(srcdir)/vector.S
