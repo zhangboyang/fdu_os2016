@@ -122,6 +122,7 @@ void vmm_selftest()
         r = (1103515245 * r + 12345) & 0x7fffffff; // next rand
         if (r % 10 < 1) {
             VF(g_vmalloc, free, p);
+            kprintf("free(%p)\n", p);
         } else {
             *p = magic;
         }
