@@ -7,6 +7,7 @@
 #include <aim/console.h>
 #include <aim/mmu.h>
 #include <aim/vmm.h>
+#include <aim/trap.h>
 
 /*
  * this file is added by ZBY
