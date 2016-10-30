@@ -17,6 +17,8 @@
 
 include $(top_srcdir)/env.am
 
+CLEANFILES = vector.S
+
 dist_noinst_DATA = vmaim.lds.S
 
 noinst_LTLIBRARIES = \
@@ -29,5 +31,5 @@ libentry_la_SOURCES = \
 libarch_la_SOURCES = \
 	arch_early_init.c \
 	arch_mmu.c \
-	arch_trap.c
-
+	arch_trap.c \
+    vector.S
