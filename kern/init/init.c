@@ -25,15 +25,16 @@ void master_init()
     
     // bootstrip the pmm and vmm
     vmm_bootstrap();
-    
-    
-    kprintf("====== kmalloc test ===========\n");
+    /*kprintf("====== kmalloc test ===========\n");
     void *ptr = kmalloc(15, 0);
     kprintf("kmalloc() = %p\n", kmalloc(0x100, 0));
     kprintf("kmalloc() = %p\n", kmalloc(0x100, 0));
     kfree(ptr);
     kprintf("kmalloc() = %p\n", kmalloc(0x100, 0));
-    kprintf("kmalloc() = %p\n", kmalloc(0x100, 0));
+    kprintf("kmalloc() = %p\n", kmalloc(0x100, 0));*/
+
+    
+    cpu_init_structure();
     
     panic("bye");
 }

@@ -183,6 +183,9 @@ ssize_t invalidate_pages(pgindex_t *pgindex, void *vaddr, size_t size,
 extern void arch_init_pmm_zone();
 extern void arch_init_free_pmm_zone(addr_t kstart, addr_t kend);
 
+extern void cpu_init_structure();
+extern struct cpu *cpu_list;
+extern int nr_cpu;
 
 
 #endif /* !__ASSEMBLER__ */

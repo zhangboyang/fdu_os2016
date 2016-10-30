@@ -338,8 +338,10 @@ enum {
 
 
 struct cpu {
-    
+    struct taskstate ts;         // Used by x86 to find stack for interrupt
+    struct segdesc gdt[NSEGS];   // x86 global descriptor table
 };
+
 
 #endif /* !__ASSEMBLER__ */
 

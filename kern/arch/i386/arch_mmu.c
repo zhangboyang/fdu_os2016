@@ -330,14 +330,35 @@ void arch_init_free_pmm_zone(addr_t kstart, addr_t kend)
 
 
 ////////////////// cpu related functions
+// most code copied from xv6
 
 
-
-struct cpu *cpu;
+struct cpu *cpu_list;
 int nr_cpu;
 
+static void cpu_init_structure_single(struct cpu *cpu, int cpu_id)
+{
+    cpu->gdt[SEG_KCODE] = SEG(STA_X|STA_R, 0, 0xffffffff, 0);
+    cpu->gdt[SEG_KDATA] = SEG(STA_W, 0, 0xffffffff, 0);
+    cpu->gdt[SEG_UCODE] = SEG(STA_X|STA_R, 0, 0xffffffff, DPL_USER);
+    cpu->gdt[SEG_UDATA] = SEG(STA_W, 0, 0xffffffff, DPL_USER);
+
+    //cpu->gdt[SEG_KCPU] = SEG(STA_W, cpu, 8, 0); // FIXME
+    
+    // init tss
+    cpu->gdt[SEG_TSS] = SEG16(STS_T32A, &cpu->ts, sizeof(cpu->ts)-1, 0);
+    cpu->gdt[SEG_TSS].s = 0;
+}
 void cpu_init_structure()
 {
-    nr_cpu = 1;
+    nr_cpu = 1; // FIXME
     
+    // alloc memory for cpu_list[]
+    cpu_list = VF(g_pvbridge, malloc, sizeof(struct cpu) * nr_cpu);
+    if (!cpu_list) panic("can't alloc memory for cpu[]");
+    
+    for (int i = 0; i < nr_cpu; i++) {
+        cpu_init_structure_single(&cpu_list[i], i);
+    }
 }
+
