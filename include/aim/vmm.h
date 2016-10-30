@@ -137,7 +137,7 @@ DECLARE_DERIVED_VCLASS(use_page_vmalloc, virt_vmalloc, struct {
 struct slub_header {
     struct list_head node;
     struct list_head free_list;
-    int level;
+    int level_idx;
 };
 
 DECLARE_DERIVED_VCLASS(slub_vmalloc, virt_vmalloc, struct {

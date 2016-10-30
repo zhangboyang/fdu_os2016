@@ -23,12 +23,14 @@ static int slub_is_full(struct slub_header *slub)
 
 static struct slub_header *alloc_slub(THIS, int level)
 {
+    assert(level >= MIN_SLUB_LEVEL);
+    assert(level <= MAX_SLUB_LEVEL);
     DECLARE_THIS(slub_vmalloc);
     struct slub_header *slub = VF(M(pvbridge), aligned_malloc, SLUB_BLOCK_SIZE, SLUB_BLOCK_SIZE);
     if (!slub) return NULL;
     
     size_t max_solts = CALC_MAXSOLTS(level);
-    slub->level = level;
+    slub->level_idx = SLUB_LEVEL_INDEX(level);
     INIT_LIST_HEAD(&slub->free_list);
 
     void *solts_base = ((void *) slub) + SOLTS_OFFSET(level);
@@ -52,7 +54,7 @@ static void *malloc_from_slub(struct slub_header *slub)
 static void *slub_vmalloc__malloc(THIS, size_t size)
 {
     DECLARE_THIS(slub_vmalloc);
-    size_t level = MIN_SLUB_LEVEL;
+    int level = MIN_SLUB_LEVEL;
     while ((1ULL << level) < size) level++;
     if (level > MAX_SLUB_LEVEL) {
         // size is too big, pass it to pvbridge directly
@@ -61,17 +63,18 @@ static void *slub_vmalloc__malloc(THIS, size_t size)
         return VF(M(pvbridge), aligned_malloc, size, SLUB_BLOCK_SIZE);
     }
     
-    if (list_empty(&M(slub_avail[level]))) {
+    int level_idx = SLUB_LEVEL_INDEX(level);
+    if (list_empty(&M(slub_avail[level_idx]))) {
         struct slub_header *new_slub = alloc_slub(this, level);
         if (!new_slub) return NULL;
-        list_add(&new_slub->node, &M(slub_avail[level]));
+        list_add(&new_slub->node, &M(slub_avail[level_idx]));
     }
     
-    struct slub_header *slub = list_first_entry(&M(slub_avail[level]), struct slub_header, node);
+    struct slub_header *slub = list_first_entry(&M(slub_avail[level_idx]), struct slub_header, node);
     void *ret = malloc_from_slub(slub);
     if (slub_is_full(slub)) {
         list_del(&slub->node);
-        list_add(&slub->node, &M(slub_full[level]));
+        list_add(&slub->node, &M(slub_full[level_idx]));
     }
     return ret;
 }
@@ -91,7 +94,7 @@ static void slub_vmalloc__free(THIS, void *ptr)
     list_add(solt, &slub->free_list);
     if (move_flag) {
         list_del(&slub->node);
-        list_add(&slub->node, &M(slub_avail[slub->level]));
+        list_add(&slub->node, &M(slub_avail[slub->level_idx]));
     }
 }
 
