@@ -243,6 +243,7 @@ AC_CONFIG_FILES([
 	kern/mm/pmm/Makefile
 	kern/mm/vmm/Makefile
 	kern/panic/Makefile
+	kern/trap/Makefile
 	lib/Makefile
 	lib/libc/Makefile
 ])
