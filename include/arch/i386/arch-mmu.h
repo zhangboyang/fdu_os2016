@@ -155,7 +155,7 @@ struct segdesc {
 { (lim) & 0xffff, (uint32_t)(base) & 0xffff,              \
   ((uint32_t)(base) >> 16) & 0xff, type, 1, dpl, 1,       \
   (uint32_t)(lim) >> 16, 0, 0, 1, 0, (uint32_t)(base) >> 24 }
-#endif
+
 
 #define DPL_USER    0x3     // User DPL
 
