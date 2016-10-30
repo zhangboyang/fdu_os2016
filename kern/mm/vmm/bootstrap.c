@@ -109,7 +109,7 @@ void vmm_selftest()
     kprintf("vmm selftest ...\n");
     while (1) {
         r = (1103515245 * r + 12345) & 0x7fffffff; // next rand
-        size_t sz = 1 << (r % 13);
+        size_t sz = 1 << (r % 12);
         r = (1103515245 * r + 12345) & 0x7fffffff; // next rand
         size_t t = (r % sz);
         sz += t;
