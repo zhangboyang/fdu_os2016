@@ -19,6 +19,8 @@
 #ifndef _AIM_TRAP_H
 #define _AIM_TRAP_H
 
+#include <arch-trap.h>
+
 struct trapframe;
 
 void trap_init(void);
