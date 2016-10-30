@@ -111,12 +111,12 @@ static size_t slub_vmalloc__print(THIS)
         kprintf("level %d:\n", level);
         struct slub_header *phdr;
         kprintf("  avail: ");
-        for_each_entry(&M(slub_avail[level_idx]), phdr, node) {
+        for_each_entry(phdr, &M(slub_avail[level_idx]), node) {
             kprintf("%p ", phdr);
         }
         kprintf("\n");
         kprintf("  full: ");
-        for_each_entry(&M(slub_full[level_idx]), phdr, node) {
+        for_each_entry(phdr, &M(slub_full[level_idx]), node) {
             kprintf("%p ", phdr);
         }
         kprintf("\n");
