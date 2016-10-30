@@ -129,6 +129,7 @@ void slub_vmalloc__ctor(struct slub_vmalloc *this, struct virt_pvbridge *pvbridg
         .malloc = slub_vmalloc__malloc,
         .free = slub_vmalloc__free,
         .size = slub_vmalloc__size,
+        .print = slub_vmalloc__print,
     });
     M(pvbridge) = pvbridge;
     for (int i = MIN_SLUB_LEVEL; i <= MAX_SLUB_LEVEL; i++) {
