@@ -26,7 +26,7 @@
 #include <libc/stdarg.h>
 #include <libc/stddef.h>
 #include <libc/stdio.h>
-
+#include <asm.h>
 /*
  * The rest place for every processor during a panic.
  *
@@ -35,6 +35,8 @@
 __noreturn
 void __local_panic(void)
 {
+    __asm__ __volatile__ ("cli; 1: hlt; jmp 1b;"); // FIXME
+    
 	//local_irq_disable();
 	/*
 	 * We cannot simply do tight loops at panic. Modern kernels turn down
