@@ -16,6 +16,13 @@
 // FIXME: dirty hack!
 #define bprintf ((int (*)(const char *, ...)) (0x7c00 + KOFFSET))
 
+int __attribute__((__noinline__)) syscall(int id, ...) {
+	    int ret;
+	    int *args = &id;
+	    asm volatile("int $0x80": "=a"(ret) : "a"(args[0]), "b"(args[1]), "c"(args[2]), "d"(args[3]), "esi"(args[4]), "edi"(args[5]), "ebp"(args[6]));
+	    return ret;
+    }
+    
 void master_init()
 {
     bprintf("this is bprintf, at highaddr!\n");
@@ -41,12 +48,7 @@ void master_init()
     // init IRQ
     trap_init();
     
-    int __attribute__((__noinline__)) syscall(int id, ...) {
-	    int ret;
-	    int *args = &id;
-	    asm volatile("int $0x80": "=a"(ret) : "a"(args[0]), "b"(args[1]), "c"(args[2]), "d"(args[3]), "esi"(args[4]), "edi"(args[5]), "ebp"(args[6]));
-	    return ret;
-    }
+    
     syscall(1,2,3,4,5,6,7);
     
     
