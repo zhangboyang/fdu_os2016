@@ -143,7 +143,7 @@ struct slub_header {
 DECLARE_DERIVED_VCLASS(slub_vmalloc, virt_vmalloc, struct {
 }, struct {
     struct virt_pvbridge *pvbridge;
-#define SLUB_BLOCK_LEVEL 14 // 16KB
+#define SLUB_BLOCK_LEVEL 12 // 4KB
 #define SLUB_BLOCK_SIZE (1LL << SLUB_BLOCK_LEVEL)
 
 #define MIN_SLUB_LEVEL 4
