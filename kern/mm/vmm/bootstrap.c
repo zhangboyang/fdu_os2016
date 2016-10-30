@@ -189,7 +189,7 @@ void vmm_bootstrap()
     install_pmm_adapter();
     install_vmm_adapter();
     
-    vmm_selftest();
+    //vmm_selftest();
     
     // print ZONE_NORMAL summary
     VF(pmm_zone[ZONE_NORMAL].allocator, print);
