@@ -40,8 +40,10 @@ void trap(struct trapframe *tf)
         //  arg1   arg2   arg3   arg4   arg5   arg6
         //  ebx    ecx    edx    esi    edi    ebp
         tf->eax = handle_syscall(tf->eax, tf->ebx, tf->ecx, tf->edx, tf->esi, tf->edi, tf->ebp);
+    } else if (tf->trapno >= T_IRQ0) {
+        handle_interrupt(tf->trapno - T_IRQ0);
     } else {
-        handle_interrupt(tf->trapno);
+        panic("interrupt %d\n", tf->trapno);
     }
     trap_return(tf);
 }

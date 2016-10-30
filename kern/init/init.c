@@ -74,9 +74,10 @@ void master_init()
     
     
     // test
-    //syscall(1,2,3,4,5,6,7);
-    //syscall(2,3,4,5,6,7,1);
-    irq_enable(1);
+    syscall(1,2,3,4,5,6,7);
+    syscall(2,3,4,5,6,7,1);
+    kprintf("press keyboard and you will see IRQ1.\n");
+    irq_enable(1); // IRQ1: keyboard
     sti();
     while (1);
     
