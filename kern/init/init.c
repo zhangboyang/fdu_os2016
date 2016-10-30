@@ -73,9 +73,10 @@ void master_init()
     irq_init();
     
     
+    // test
     //syscall(1,2,3,4,5,6,7);
     //syscall(2,3,4,5,6,7,1);
-    
+    irq_enable(1);
     sti();
     while (1);
     
