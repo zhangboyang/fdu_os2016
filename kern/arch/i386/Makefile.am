@@ -33,3 +33,6 @@ libarch_la_SOURCES = \
 	arch_mmu.c \
 	arch_trap.c \
     vector.S
+
+vector.S: vector.pl
+    ./vector.pl
