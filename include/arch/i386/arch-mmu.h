@@ -129,7 +129,35 @@
 
 #ifndef __ASSEMBLER__
 
+// Segment Descriptor
+struct segdesc {
+  uint32_t lim_15_0 : 16;  // Low bits of segment limit
+  uint32_t base_15_0 : 16; // Low bits of segment base address
+  uint32_t base_23_16 : 8; // Middle bits of segment base address
+  uint32_t type : 4;       // Segment type (see STS_ constants)
+  uint32_t s : 1;          // 0 = system, 1 = application
+  uint32_t dpl : 2;        // Descriptor Privilege Level
+  uint32_t p : 1;          // Present
+  uint32_t lim_19_16 : 4;  // High bits of segment limit
+  uint32_t avl : 1;        // Unused (available for software use)
+  uint32_t rsv1 : 1;       // Reserved
+  uint32_t db : 1;         // 0 = 16-bit segment, 1 = 32-bit segment
+  uint32_t g : 1;          // Granularity: limit scaled by 4K when set
+  uint32_t base_31_24 : 8; // High bits of segment base address
+};
 
+// Normal segment
+#define SEG(type, base, lim, dpl) (struct segdesc)    \
+{ ((lim) >> 12) & 0xffff, (uint32_t)(base) & 0xffff,      \
+  ((uint32_t)(base) >> 16) & 0xff, type, 1, dpl, 1,       \
+  (uint32_t)(lim) >> 28, 0, 0, 1, 1, (uint32_t)(base) >> 24 }
+#define SEG16(type, base, lim, dpl) (struct segdesc)  \
+{ (lim) & 0xffff, (uint32_t)(base) & 0xffff,              \
+  ((uint32_t)(base) >> 16) & 0xff, type, 1, dpl, 1,       \
+  (uint32_t)(lim) >> 16, 0, 0, 1, 0, (uint32_t)(base) >> 24 }
+#endif
+
+#define DPL_USER    0x3     // User DPL
 
 
 // Task state segment format
