@@ -109,7 +109,8 @@ static addr_t buddy_pmalloc__aligned_malloc(THIS, lsize_t size, lsize_t align)
     }
     
     if (align > size) {
-        panic("align > size is currently not supported.");
+        // FIXME: a lot memory is wasted here!
+        return buddy_pmalloc__malloc(this, align);
     }
     return buddy_pmalloc__malloc(this, size);
 }
