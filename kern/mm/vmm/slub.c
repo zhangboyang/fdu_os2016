@@ -52,7 +52,7 @@ static void *malloc_from_slub(struct slub_header *slub)
 static void *slub_vmalloc__malloc(THIS, size_t size)
 {
     DECLARE_THIS(slub_vmalloc);
-    size_t level = 0;
+    size_t level = MIN_SLUB_LEVEL;
     while ((1ULL << level) < size) level++;
     if (level > MAX_SLUB_LEVEL) {
         // size is too big, pass it to pvbridge directly
