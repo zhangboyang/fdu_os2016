@@ -35,6 +35,7 @@ void master_init()
 
     
     cpu_init_structure();
+    cpu_reload(&cpu_list[0]);
     
     panic("bye");
 }

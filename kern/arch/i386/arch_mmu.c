@@ -362,3 +362,11 @@ void cpu_init_structure()
     }
 }
 
+void cpu_reload(struct cpu *cpu)
+{
+    lgdt(cpu->gdt, sizeof(cpu->gdt));
+    loadgs(SEG_KCPU << 3);
+    ltr(SEG_TSS << 3);
+}
+
+
