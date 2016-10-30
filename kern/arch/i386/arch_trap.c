@@ -30,3 +30,16 @@ void trap_init()
 {
     init_idt();
 }
+
+void trap(struct trapframe *tf)
+{
+    if (tf->trapno == T_SYSCALL) {
+        // number and return value: eax
+        //  arg1   arg2   arg3   arg4   arg5   arg6
+        //  ebx    ecx    edx    esi    edi    ebp
+        tf->eax = handle_syscall(tf->eax, tf->ebx, tf->ecx, tf->edx, tf->esi, tf->edi, tf->ebp);
+    } else {
+        handle_interrupt(tf->trapno);
+    }
+    trap_return(tf);
+}
