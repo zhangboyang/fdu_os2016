@@ -14,6 +14,8 @@
 #include <aim/debug.h>
 #include <aim/mmu.h>
 
+struct gatedesc idt[256];
+
 void init_idt()
 {
     for (int i = 0; i < 256; i++) {
