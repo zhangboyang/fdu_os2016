@@ -20,13 +20,13 @@ alltraps:
   pushl %gs
   pushal
   
-  # Set up data and per-cpu segments.
+  /*# Set up data and per-cpu segments.
   movw $(SEG_KDATA<<3), %ax
   movw %ax, %ds
   movw %ax, %es
   movw $(SEG_KCPU<<3), %ax
   movw %ax, %fs
-  movw %ax, %gs
+  movw %ax, %gs*/
 
   # Call trap(tf), where tf=%esp
   pushl %esp
