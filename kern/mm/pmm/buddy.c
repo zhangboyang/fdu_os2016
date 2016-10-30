@@ -109,7 +109,7 @@ static addr_t buddy_pmalloc__aligned_malloc(THIS, lsize_t size, lsize_t align)
     }
     
     if (align > size) {
-        // FIXME: a lot memory is wasted here!
+        // FIXME: a lot memory might wasted here!
         return buddy_pmalloc__malloc(this, align);
     }
     return buddy_pmalloc__malloc(this, size);

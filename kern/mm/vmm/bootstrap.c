@@ -114,6 +114,7 @@ void vmm_selftest()
         unsigned *p = VF(g_vmalloc, malloc, sz);
         if (!p) p = VF(g_vmalloc, malloc, (sz = 4));
         if (!p) break;
+        kprintf("p=%p\n", p);
         if (*p == magic) {
             panic("double alloc!");
         }
