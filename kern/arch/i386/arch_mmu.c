@@ -368,7 +368,7 @@ void cpu_reload(struct cpu *cpu)
     lgdt(cpu->gdt, sizeof(cpu->gdt));
     
     //loadgs(SEG_KCPU << 3); //FIXME
-    //ltr(SEG_TSS << 3);
+    ltr(SEG_TSS << 3);
 }
 
 
