@@ -116,14 +116,14 @@ void vmm_selftest()
         unsigned *p = VF(g_vmalloc, malloc, sz);
         if (!p) p = VF(g_vmalloc, malloc, (sz = 4));
         if (!p) break;
-        //kprintf("p=%p sz=%d\n", p, sz);
+        kprintf("p=%p sz=%d\n", p, sz);
         //kprintf("*%p=%08x\n", p, *p);
         if (*p == magic) {
             panic("double alloc!");
         }
         memset(p, 0x18, sz);
         r = (1103515245 * r + 12345) & 0x7fffffff; // next rand
-        if (r % 10 < 8) {
+        if (r % 10 < 9) {
             VF(g_vmalloc, free, p);
             //kprintf("free(%p)\n", p);
         } else {
