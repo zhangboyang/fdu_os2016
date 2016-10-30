@@ -103,7 +103,7 @@ static size_t slub_vmalloc__size(THIS, void *obj)
     panic("size() is not supported");
 }
 
-static size_t slub_vmalloc__print(THIS)
+static void slub_vmalloc__print(THIS)
 {
     DECLARE_THIS(slub_vmalloc);
     for (int level = MIN_SLUB_LEVEL; level <= MAX_SLUB_LEVEL; level++) {
