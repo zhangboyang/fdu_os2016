@@ -114,8 +114,8 @@ void vmm_selftest()
         unsigned *p = VF(g_vmalloc, malloc, sz);
         if (!p) p = VF(g_vmalloc, malloc, (sz = 4));
         if (!p) break;
-        kprintf("p=%p sz=%d\n", p, sz);
-        kprintf("*%p=%08x\n", p, *p);
+        //kprintf("p=%p sz=%d\n", p, sz);
+        //kprintf("*%p=%08x\n", p, *p);
         if (*p == magic) {
             panic("double alloc!");
         }
@@ -123,11 +123,11 @@ void vmm_selftest()
         r = (1103515245 * r + 12345) & 0x7fffffff; // next rand
         if (r % 10 < 1) {
             VF(g_vmalloc, free, p);
-            kprintf("free(%p)\n", p);
+            //kprintf("free(%p)\n", p);
         } else {
-            kprintf("*%p=%08x\n", p, *p);
+            //kprintf("*%p=%08x\n", p, *p);
             *p = magic;
-            kprintf("*%p=%08x\n", p, *p);
+            //kprintf("*%p=%08x\n", p, *p);
         }
     }
     panic("vmm test OK!");
