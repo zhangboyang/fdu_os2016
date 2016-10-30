@@ -66,12 +66,16 @@ void master_init()
     cpu_init_structure();
     cpu_reload(&cpu_list[0]);
     
-    // init IRQ
+    // init trap
     trap_init();
+    
+    // init irq
+    irq_init();
     
     
     //syscall(1,2,3,4,5,6,7);
     //syscall(2,3,4,5,6,7,1);
+    
     sti();
     while (1);
     

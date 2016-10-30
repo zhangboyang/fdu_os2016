@@ -31,5 +31,9 @@ void trap_return(struct trapframe *tf);
 long handle_syscall(long number, ...);
 void handle_interrupt(int irq);
 
+
+void irq_init();
+void irq_enable();
+
 #endif /* _AIM_TRAP_H */
 
