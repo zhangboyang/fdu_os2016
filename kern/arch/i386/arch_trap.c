@@ -13,6 +13,7 @@
 #include <libc/stdio.h>
 #include <aim/debug.h>
 #include <aim/mmu.h>
+#incldue <aim/trap.h>
 
 struct gatedesc idt[256];
 extern uint32_t vectors[];
