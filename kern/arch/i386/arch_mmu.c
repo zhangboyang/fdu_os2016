@@ -251,6 +251,9 @@ __asm__ ( // the abs_jump()
 
 #include <aim/pmm.h>
 
+
+
+//////////// vmm and pmm related functions
 void arch_init_pmm_zone()
 {
     // query memory zones
@@ -326,3 +329,17 @@ void arch_init_free_pmm_zone(addr_t kstart, addr_t kend)
 }
 
 
+////////////////// cpu related functions
+
+struct cpu {
+    
+};
+
+struct cpu *cpu;
+struct int nr_cpu;
+
+void cpu_init_structure()
+{
+    nr_cpu = 1;
+    
+}
