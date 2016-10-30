@@ -8,6 +8,7 @@
 #include <aim/mmu.h>
 #include <aim/vmm.h>
 #include <aim/trap.h>
+#include <asm.h>
 
 /*
  * this file is added by ZBY
