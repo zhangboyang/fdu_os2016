@@ -110,7 +110,7 @@ void vmm_selftest()
     unsigned magic = 0x1223acdb;
     while (1) {
         r = (1103515245 * r + 12345) & 0x7fffffff; // next rand
-        size_t sz = r % 100 * 0x100 + 4;
+        size_t sz = r % 100 * 0 + 4;
         unsigned *p = VF(g_vmalloc, malloc, sz);
         if (!p) p = VF(g_vmalloc, malloc, (sz = 4));
         if (!p) break;
