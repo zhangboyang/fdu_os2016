@@ -339,6 +339,7 @@ int nr_cpu;
 
 static void cpu_init_structure_single(struct cpu *cpu, int cpu_id)
 {
+    memset(cpu, 0, sizeof(struct cpu));
     cpu->gdt[SEG_KCODE] = SEG(STA_X|STA_R, 0, 0xffffffff, 0);
     cpu->gdt[SEG_KDATA] = SEG(STA_W, 0, 0xffffffff, 0);
     cpu->gdt[SEG_UCODE] = SEG(STA_X|STA_R, 0, 0xffffffff, DPL_USER);
@@ -349,6 +350,8 @@ static void cpu_init_structure_single(struct cpu *cpu, int cpu_id)
     // init tss
     cpu->gdt[SEG_TSS] = SEG16(STS_T32A, &cpu->ts, sizeof(cpu->ts)-1, 0);
     cpu->gdt[SEG_TSS].s = 0;
+    cpu->ts.ss0 = SEG_KDATA << 3;
+    //cpu->ts.esp0 = (uint)proc->kstack + KSTACKSIZE; //FIXME
 }
 void cpu_init_structure()
 {
