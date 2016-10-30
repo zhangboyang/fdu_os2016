@@ -331,9 +331,7 @@ void arch_init_free_pmm_zone(addr_t kstart, addr_t kend)
 
 ////////////////// cpu related functions
 
-struct cpu {
-    
-};
+
 
 struct cpu *cpu;
 struct int nr_cpu;
