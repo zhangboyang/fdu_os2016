@@ -79,7 +79,7 @@ void master_init()
     kprintf("press keyboard and you will see IRQ1.\n");
     irq_enable(1); // IRQ1: keyboard
     sti();
-    asm volatile ("mov $0x100, (-1)");
+    asm volatile ("movl $0x100, (0xfffffff0)");
     while (1);
     
     panic("bye");
