@@ -109,6 +109,7 @@ void vmm_selftest()
     unsigned r = 162;
     unsigned magic = 0x1223acdb;
     lsize_t tot = 0;
+    kprintf("vmm selftest ...\n");
     while (1) {
         r = (1103515245 * r + 12345) & 0x7fffffff; // next rand
         size_t sz = r % 100 * 0x10 + 4;
@@ -122,7 +123,7 @@ void vmm_selftest()
         }
         memset(p, 0x18, sz);
         r = (1103515245 * r + 12345) & 0x7fffffff; // next rand
-        if (r % 10 < 5) {
+        if (r % 10 < 8) {
             VF(g_vmalloc, free, p);
             //kprintf("free(%p)\n", p);
         } else {
