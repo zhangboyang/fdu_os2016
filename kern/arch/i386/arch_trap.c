@@ -14,6 +14,7 @@
 #include <aim/debug.h>
 #include <aim/mmu.h>
 #include <aim/trap.h>
+#include <asm.h>
 
 struct gatedesc idt[256];
 extern uint32_t vectors[];
@@ -29,7 +30,7 @@ void init_idt()
 void trap_init()
 {
     init_idt();
-    lidt(idt);
+    lidt(idt, sizeof(idt));
 }
 
 void trap(struct trapframe *tf)
