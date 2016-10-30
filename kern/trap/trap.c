@@ -26,6 +26,7 @@
 #include <libc/stddef.h>
 #include <libc/stdio.h>
 #include <aim/debug.h>
+#include <asm.h>
 
 long handle_syscall(long number, ...)
 {
