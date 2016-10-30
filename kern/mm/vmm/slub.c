@@ -103,6 +103,24 @@ static size_t slub_vmalloc__size(THIS, void *obj)
     panic("size() is not supported");
 }
 
+static size_t slub_vmalloc__print(THIS)
+{
+    for (int level = MIN_SLUB_LEVEL; level <= MAX_SLUB_LEVEL; level++) {
+        int level_idx = SLUB_LEVEL_INDEX(level);
+        kprintf("level %d:\n", level);
+        struct slub_header *phdr;
+        kprintf("  avail: ");
+        for_each_entry(&M(slub_avail[level_idx]), phdr, node) {
+            printf("%p ", phdr);
+        }
+        kprintf("\n");
+        kprintf("  full: ");
+        for_each_entry(&M(slub_full[level_idx]), phdr, node) {
+            printf("%p ", phdr);
+        }
+        kprintf("\n");
+    }
+}
 
 void slub_vmalloc__ctor(struct slub_vmalloc *this, struct virt_pvbridge *pvbridge)
 {   
@@ -112,7 +130,7 @@ void slub_vmalloc__ctor(struct slub_vmalloc *this, struct virt_pvbridge *pvbridg
         .size = slub_vmalloc__size,
     });
     M(pvbridge) = pvbridge;
-    for (size_t i = MIN_SLUB_LEVEL; i <= MAX_SLUB_LEVEL; i++) {
+    for (int i = MIN_SLUB_LEVEL; i <= MAX_SLUB_LEVEL; i++) {
         INIT_LIST_HEAD(&M(slub_avail[SLUB_LEVEL_INDEX(i)]));
         INIT_LIST_HEAD(&M(slub_full[SLUB_LEVEL_INDEX(i)]));
     }

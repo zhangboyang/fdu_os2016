@@ -130,7 +130,8 @@ void vmm_selftest()
             //kprintf("*%p=%08x\n", p, *p);
         }
     }
-    kprintf("total: %lld KB\n", (tot >> 10));
+    VF(g_vmalloc, print);
+    kprintf("test total: %lld KB\n", (tot >> 10));
     panic("vmm test OK!");
 }
 
