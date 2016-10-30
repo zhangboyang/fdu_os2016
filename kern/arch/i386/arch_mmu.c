@@ -250,6 +250,7 @@ __asm__ ( // the abs_jump()
 #undef PA2KVA
 
 #include <aim/pmm.h>
+#include <asm.h>
 
 
 
