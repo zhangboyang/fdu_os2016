@@ -29,6 +29,7 @@ void init_idt()
 void trap_init()
 {
     init_idt();
+    lidt(idt);
 }
 
 void trap(struct trapframe *tf)
