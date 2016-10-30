@@ -101,7 +101,31 @@ void pmm_selftest()
     kprintf("PLEASE VERIFY:\n");
     VF(pmm_zone[ZONE_NORMAL].allocator, print);
     kprintf("total memory is allocated %lld KB (due to internal fragment, holes in memory, the value may smaller than real value)\n", (tot >> 10));
-    panic("test OK!");
+    panic("pmm test OK!");
+}
+
+void vmm_selftest()
+{
+    unsigned r = 162;
+    unsigned magic = 0x1223acdb;
+    while (1) {
+        r = (1103515245 * r + 12345) & 0x7fffffff; // next rand
+        size_t sz = r % 100 * 0x10 + 4;
+        unsigned *p = VF(g_vmalloc, malloc, sz);
+        if (!p) p = VF(g_vmalloc, malloc, (sz = 4));
+        if (!p) break;
+        if (*p == magic) {
+            panic("double alloc!");
+        }
+        memset(p, 0x18, sz);
+        r = (1103515245 * r + 12345) & 0x7fffffff; // next rand
+        if (r % 10 < 1) {
+            VF(g_vmalloc, free, p);
+        } else {
+            *p = magic;
+        }
+    }
+    panic("vmm test OK!");
 }
 
 void vmm_bootstrap()
@@ -154,6 +178,8 @@ void vmm_bootstrap()
     // install adapter for AIM interface
     install_pmm_adapter();
     install_vmm_adapter();
+    
+    vmm_selftest();
     
     // print ZONE_NORMAL summary
     VF(pmm_zone[ZONE_NORMAL].allocator, print);
