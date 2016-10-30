@@ -111,15 +111,19 @@ static void slub_vmalloc__print(THIS)
         kprintf("level %d:\n", level);
         struct slub_header *phdr;
         kprintf("  avail: ");
+        int avail_cnt = 0;
         for_each_entry(phdr, &M(slub_avail[level_idx]), node) {
-            kprintf("%p ", phdr);
+            //kprintf("%p ", phdr);
+            avail_cnt = 0;
         }
-        kprintf("\n");
+        kprintf("count=%d\n", avail_cnt);
         kprintf("  full: ");
+        int full_cnt = 0;
         for_each_entry(phdr, &M(slub_full[level_idx]), node) {
-            kprintf("%p ", phdr);
+            //kprintf("%p ", phdr);
+            full_cnt++;
         }
-        kprintf("\n");
+        kprintf("count=%d\n", full_cnt);
     }
 }
 

@@ -109,9 +109,10 @@ void vmm_selftest()
     kprintf("vmm selftest ...\n");
     while (1) {
         r = (1103515245 * r + 12345) & 0x7fffffff; // next rand
-        size_t sz = r % 100 * 0x0 + 4;
+        size_t sz = r % 100 * 0x10;
+        if (sz == 0) sz = 16;
         unsigned *p = VF(g_vmalloc, malloc, sz);
-        if (!p) p = VF(g_vmalloc, malloc, (sz = 4));
+        if (!p) p = VF(g_vmalloc, malloc, (sz = 16));
         if (!p) break;
         //kprintf("p=%p sz=%d\n", p, sz);
         //kprintf("*%p=%08x\n", p, *p);
