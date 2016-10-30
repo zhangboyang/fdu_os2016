@@ -70,7 +70,8 @@ void master_init()
     
     
     syscall(1,2,3,4,5,6,7);
-    
+    syscall(2,3,4,5,6,7,1);
+    sti();
     
     panic("bye");
 }
