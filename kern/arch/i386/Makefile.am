@@ -34,6 +34,6 @@ libarch_la_SOURCES = \
 	arch_trap.c \
 	vector.S
 
-vector.S: vector.pl
-	./vector.pl
+vector.S: $(srcdir)/vector.pl
+	$(srcdir)/vector.pl > $(srcdir)/vector.S
 
