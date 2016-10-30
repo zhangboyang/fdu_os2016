@@ -127,7 +127,7 @@ void vmm_selftest()
             VF(g_vmalloc, free, p);
             //kprintf("free(%p)\n", p);
         } else {
-            kprintf("*%p=%08x\n", p, *p);
+            //kprintf("*%p=%08x\n", p, *p);
             *p = magic;
             tot += sz;
             //kprintf("*%p=%08x\n", p, *p);
