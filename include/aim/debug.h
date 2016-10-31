@@ -34,12 +34,6 @@ void panic(const char *fmt, ...);
 			    __func__, __FILE__, __LINE__, #condition); \
 	} while (0)
 
-#ifdef DEBUG
-#define kpdebug(...) //kprintf("DEBUG: " __VA_ARGS__)
-#else
-#define kpdebug(...)
-#endif
-
 #endif /* !__ASSEMBLER__ */
 
 #endif /* !_AIM_DEBUG_H */
