@@ -31,6 +31,7 @@
  */
 
 #include <sys/types.h>
+#include <aim/console.h>
 #include <aim/early_kmmap.h>
 #include <aim/debug.h>
 #include <errno.h>
