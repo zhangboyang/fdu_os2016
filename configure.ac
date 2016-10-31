@@ -26,7 +26,8 @@ AM_SILENT_RULES([yes])
 AC_CONFIG_MACRO_DIR([./m4])
 
 # Disable the default -O2 which overrides the -Os for the bootloader
-: ${CFLAGS="-g"}
+# -g will be handled later.
+: ${CFLAGS=""}
 
 AC_PROG_CC
 AIM_PROG_CC_C11
@@ -43,7 +44,9 @@ AIM_GCC_FUNC_ATTRIBUTE([weak])
 AIM_GCC_FUNC_ATTRIBUTE([noinline])
 AIM_GCC_FUNC_ATTRIBUTE([visibility])
 AIM_GCC_VAR_ATTRIBUTE([used])
+# TODO: test for compiler functionality instead of flag acceptance
 AIM_REQUIRE_COMPILE_FLAG([-fplan9-extensions])
+AIM_REQUIRE_COMPILE_FLAG([-fno-stack-protector])
 
 # Builtin functions - not required
 AX_GCC_BUILTIN(__builtin_popcount)
@@ -54,14 +57,32 @@ AX_GCC_BUILTIN(__builtin_popcountll)
 AX_GCC_BUILTIN(__builtin_bswap32)
 AX_GCC_BUILTIN(__builtin_bswap64)
 
-AC_SUBST([AIM_CFLAGS], [$aim_cflags])
-
 AM_PROG_AS
 AM_PROG_AR
 AC_CHECK_TOOL([OBJDUMP], [objdump])
 AC_CHECK_TOOL([OBJCOPY], [objcopy])
 
 LT_INIT
+
+# Compiler functionalities
+AIM_ARG_ENABLE([flags_g], [FLAGS_G], [pass -g to compiler(s)], [yes])
+AS_VAR_IF([enable_flags_g], [yes], [AIM_REQUIRE_COMPILE_FLAG([-g])])
+AIM_ARG_ENABLE([flags_ggdb], [FLAGS_GGDB], [pass -ggdb to compiler(s)], [yes])
+AS_VAR_IF([enable_flags_ggdb], [yes], [AIM_REQUIRE_COMPILE_FLAG([-ggdb])])
+AIM_ARG_ENABLE([flags_O2], [FLAGS_O2], [pass -O2 to compiler(s)], [yes])
+AS_VAR_IF([enable_flags_O2], [yes], [AIM_REQUIRE_COMPILE_FLAG([-O2])])
+AIM_ARG_ENABLE([flags_Wall], [FLAGS_WALL], [pass -Wall to compiler(s)], [yes])
+AS_VAR_IF([enable_flags_Wall], [yes], [AIM_REQUIRE_COMPILE_FLAG([-Wall])])
+AIM_ARG_ENABLE([flags_Wextra], [FLAGS_WEXTRA], [pass -Wextra to compiler(s)], [yes])
+AS_VAR_IF([enable_flags_Wextra], [yes], [AIM_REQUIRE_COMPILE_FLAG([-Wextra])])
+AIM_ARG_ENABLE([flags_Waddress], [FLAGS_WADDRESS], [pass -Waddress to compiler(s)], [yes])
+AS_VAR_IF([enable_flags_Waddress], [yes], [AIM_REQUIRE_COMPILE_FLAG([-Waddress])])
+AIM_ARG_ENABLE([flags_Wconversion], [FLAGS_WCONVERSION], [pass -Wconversion to compiler(s)], [yes])
+AS_VAR_IF([enable_flags_Wconversion], [yes], [AIM_REQUIRE_COMPILE_FLAG([-Wconversion])])
+AIM_ARG_ENABLE([flags_Werror], [FLAGS_WERROR], [pass -Werror to compiler(s)], [yes])
+AS_VAR_IF([enable_flags_Werror], [yes], [AIM_REQUIRE_COMPILE_FLAG([-Werror])])
+
+AC_SUBST([AIM_CFLAGS])
 
 AIM_INIT_ARCH
 AIM_INIT_MACH

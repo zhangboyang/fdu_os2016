@@ -27,7 +27,7 @@ General
   host:		${host}
   compiler:	${CC}
   CPPFLAGS:	${CPPFLAGS}
-  CFLAGS:	${CFLAGS}
+  CFLAGS:	${CFLAGS} ${AIM_CFLAGS}
   LDFLAGS:	${LDFLAGS}
 
 * Flags are overridden by architecture and machine-specific flags,
