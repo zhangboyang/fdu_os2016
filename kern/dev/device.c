@@ -7,6 +7,7 @@
 #include <aim/panic.h>
 #include <aim/device.h>
 #include <libc/string.h>
+#include <aim/debug.h>
 
 /*
  * this file is added by ZBY
