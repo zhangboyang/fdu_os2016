@@ -28,6 +28,7 @@
 #include <aim/mmu.h>
 #include <aim/panic.h>
 #include <aim/debug.h>
+#include <aim/vmm.h>
 #include <libc/string.h>
 #include <errno.h>
 
