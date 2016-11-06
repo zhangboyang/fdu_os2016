@@ -55,9 +55,9 @@ typedef int (*initcall_t)(void);
 int do_early_initcalls();
 int do_initcalls();
 
-extern void early_init_start, early_init_end;
-extern void norm_init_start, norm_init_end;
-extern void late_init_start, late_init_end;
+extern initcall_t early_init_start[], early_init_end[];
+extern initcall_t norm_init_start[], norm_init_end[];
+extern initcall_t late_init_start[], late_init_end[];
 
 #endif /* __ASSEMBLER__ */
 
