@@ -18,7 +18,7 @@
 #define bprintf ((int (*)(const char *, ...)) (0x7c00 + KOFFSET))
 
 int syscall(int num, ...);
-__asm__ ( // the abs_jump()
+__asm__ ( // the syscall()
 ".globl syscall\n"
 "syscall:\n"
     "push %ebx\n"
