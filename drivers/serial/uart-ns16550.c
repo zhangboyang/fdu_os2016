@@ -26,6 +26,7 @@
 #include <aim/device.h>
 #include <aim/mmu.h>
 #include <arch-mmu.h>
+#include <aim/initcalls.h>
 
 #include <uart-ns16550-hw.h>
 
@@ -34,6 +35,11 @@
 #endif
 
 /* internal routines */
+static int fn()
+{
+    return 0;
+} EARLY_INITCALL(fn);
+
 
 static struct chr_device __early_uart_ns16550 = {
 	.class = DEVCLASS_CHR,

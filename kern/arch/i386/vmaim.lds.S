@@ -22,6 +22,7 @@
 
 #define __LDSCRIPT__
 
+#include <asm-generic/vmaim.lds.h>
 #include <aim/mmu.h>
 
 /*
@@ -29,12 +30,14 @@
  * linker script.
  */
 
+#define i386_align 4096
 
 ENTRY(_start)
 
 PHDRS
 {
     text PT_LOAD FLAGS(5);
+    init PT_LOAD FLAGS(4);
     rodata PT_LOAD FLAGS(4);
     data PT_LOAD FLAGS(6);
 }
@@ -48,24 +51,27 @@ SECTIONS
     
     .text : AT(KERN_START) { *(.text*); } : text
     
-    . = ALIGN(4096);
+    . = ALIGN(i386_align);
+    .init : { EARLY_INIT(i386_align) } : init
+    
+    . = ALIGN(i386_align);
     .rodata : { *(.rodata*); } : rodata
 
-    . = ALIGN(4096);    
+    . = ALIGN(i386_align);    
     .data : { *(.data); } : data
     
 
-    . = ALIGN(4096);
+    . = ALIGN(i386_align);
     AIM_KERN_BSS_START = .;
     .bss : { *(.bss); } : data
     AIM_KERN_BSS_END = .;
 
-    . = ALIGN(4096);
+    . = ALIGN(i386_align);
     AIM_KERN_STACK_START = .;
     .stack : { . += KSTACKSIZE; } : data
     AIM_KERN_STACK_BOTTOM = .;
     
-    . = ALIGN(4096);
+    . = ALIGN(i386_align);
     KERN_END_LOW = . - KOFFSET;
     KERN_END_HIGH = .;
     
