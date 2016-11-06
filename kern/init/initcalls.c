@@ -20,7 +20,7 @@ int do_early_initcalls()
 }
 int do_initcalls()
 {
-    initcall_t *st = norm_init_start, *ed = snorm_init_end, *cur;
+    initcall_t *st = norm_init_start, *ed = norm_init_end, *cur;
     for (cur = st; cur < ed; cur++) {
         if ((*cur)() < 0) panic("norm initcall %p failed.", *cur);
     }
