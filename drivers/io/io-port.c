@@ -278,6 +278,7 @@ static struct bus_driver drv = {
 
 static int __driver_init(void)
 {
+    kprintf("    io-port init!\n");
 	struct bus_device *portio_bus;
 	register_driver(NOMAJOR, &drv);
 #ifdef IO_PORT_ROOT
