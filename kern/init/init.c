@@ -9,6 +9,7 @@
 #include <aim/vmm.h>
 #include <aim/trap.h>
 #include <aim/initcalls.h>
+#include <aim/device.h>
 #include <asm.h>
 
 /*
