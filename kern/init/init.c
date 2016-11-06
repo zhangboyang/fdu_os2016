@@ -87,7 +87,7 @@ void master_init()
     //asm volatile ("movl $0x100, (0xfffffff0)"); // PF
     while (1);*/
 #define uart_ns16550_devno 162 // FIXME: see uart-ns16550.c
-    struct chr_device *chdev = dev_from_id(uart_ns16550_devno);
+    struct chr_device *chdev = (struct chr_device *) dev_from_id(uart_ns16550_devno);
     chdev->chr_driver.putc(uart_ns16550_devno, 'h');
     
     panic("bye");
