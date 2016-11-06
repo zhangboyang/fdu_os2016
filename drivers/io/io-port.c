@@ -29,6 +29,7 @@
 #include <aim/panic.h>
 #include <aim/debug.h>
 #include <aim/vmm.h>
+#include <aim/initcalls.h>
 #include <libc/string.h>
 #include <errno.h>
 
