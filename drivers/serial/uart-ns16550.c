@@ -213,6 +213,7 @@ static int init()
 	    .bus = (struct bus_device *) dev_from_name("portio"),
 	    .base = UART_BASE,
     };
+    kpritnf("bus=%p\n", __uart_ns16550.bus);
     set_console(console_putchar, DEFAULT_KPUTS);
     return 0;
 } INITCALL_DEV(init);
