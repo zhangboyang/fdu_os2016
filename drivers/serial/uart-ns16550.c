@@ -196,24 +196,44 @@ int __early_console_init(struct bus_device *bus, addr_t base, addr_t mapped_base
 
 ////////////////////////// the char device for uart-ns16550
 
+#define uart_ns16550_devno 162 // FIXME
 
 static struct chr_device __uart_ns16550;
 
-static inline int console_putchar(int c)
+static int console_putchar(int c)
 {
 	__uart_ns16550_putchar(&__uart_ns16550, c);
 	return 0;
 }
 
+static int chr_drv_putc(dev_t devno, int c)
+{
+    struct chr_device *dev = (struct chr_device) dev_from_id(devno);
+    assert(dev == &__uart_ns16550);
+    __uart_ns16550_putchar(dev, c);
+}
+
 static int init()
 {
+    // uart should already initialized in early stage, no init here
+    
     kprintf("    uart-ns16550 init!\n");
     __uart_ns16550 = (struct chr_device) {
-	    .class = DEVCLASS_CHR,
 	    .bus = (struct bus_device *) dev_from_name("portio"),
 	    .base = UART_BASE,
     };
-    kprintf("bus=%p\n", __uart_ns16550.bus);
+
+    struct chr_driver drv;
+    drv = (struct chr_driver) { // FIXME
+        .read = NULL,
+        .write = NULL,
+        .getc = NULL,
+        .putc = chr_drv_putc,
+    };
+    
+    initdev(&__uart_ns16550, DEVCLASS_CHR, "uart", uart_ns16550_devno, &drv); 
+    dev_add(&__uart_ns16550);
+    
     set_console(console_putchar, DEFAULT_KPUTS);
     return 0;
 } INITCALL_DEV(init);
