@@ -210,7 +210,7 @@ static int init()
     kprintf("    uart-ns16550 init!\n");
     __uart_ns16550 = (struct chr_device) {
 	    .class = DEVCLASS_CHR,
-	    .bus = ,
+	    .bus = dev_from_name("portio"),
 	    .base = UART_BASE,
     };
     set_console(console_putchar, DEFAULT_KPUTS));
