@@ -16,7 +16,7 @@ void initdev(struct device *dev, int class, const char *devname, dev_t devno, st
 {
     dev->class = class;
     dev->devno = devno;
-    strncpy(dev->name, devname, sizeof(dev->name)); dev->name[sizeof(dev->name) - 1] = 0;
+    strlcpy(dev->name, devname, sizeof(dev->name));
     size_t sz;
     switch (class) {
         case DEVCLASS_NON: sz = sizeof(struct driver); break;
