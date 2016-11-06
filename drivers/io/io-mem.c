@@ -156,7 +156,7 @@ static int __driver_init(void)
 #endif
 	return 0;
 }
-INITCALL_DRIVER(__driver_init);
+INITCALL_DEV(__driver_init);
 
 #endif /* !RAW */
 
