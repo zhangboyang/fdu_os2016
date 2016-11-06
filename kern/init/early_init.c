@@ -49,6 +49,7 @@ int early_devices_init(void)
 #include <libc/stdio.h>
 #include <aim/panic.h>
 #include <aim/mmu.h>
+#include <aim/initcalls.h>
 
 
 // FIXME: dirty hack!
