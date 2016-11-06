@@ -27,7 +27,7 @@
 #include <aim/mmu.h>
 #include <arch-mmu.h>
 #include <aim/initcalls.h>
-
+#include <aim/debug.h>
 #include <uart-ns16550-hw.h>
 
 #ifdef i386
