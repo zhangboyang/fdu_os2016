@@ -208,7 +208,7 @@ static int console_putchar(int c)
 
 static int chr_drv_putc(dev_t devno, int c)
 {
-    struct chr_device *dev = (struct chr_device) dev_from_id(devno);
+    struct chr_device *dev = (struct chr_device *) dev_from_id(devno);
     assert(dev == &__uart_ns16550);
     __uart_ns16550_putchar(dev, c);
 }
