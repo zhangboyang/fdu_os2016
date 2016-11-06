@@ -27,6 +27,8 @@
 #include <aim/io.h>
 #include <aim/mmu.h>
 #include <aim/panic.h>
+#include <aim/debug.h>
+#include <libc/string.h>
 #include <errno.h>
 
 #include <io-port.h>
