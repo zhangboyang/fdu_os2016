@@ -5,7 +5,7 @@
 #include <sys/types.h>
 #include <aim/initcalls.h>
 #include <aim/panic.h>
-#include <libc/stdio.h>
+#include <aim/debug.h>
 
 
 /*
