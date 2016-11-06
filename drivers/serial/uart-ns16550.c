@@ -199,7 +199,7 @@ int __early_console_init(struct bus_device *bus, addr_t base, addr_t mapped_base
 
 static struct chr_device __uart_ns16550;
 
-static inline int early_console_putchar(int c)
+static inline int console_putchar(int c)
 {
 	__uart_ns16550_putchar(&__uart_ns16550, c);
 	return 0;
