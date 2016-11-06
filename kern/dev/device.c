@@ -12,6 +12,11 @@
  * this file is added by ZBY
  */
 
+void register_driver(unsigned int major, struct driver *drv)
+{
+    // FIXME: ignored
+}
+
 void initdev(struct device *dev, int class, const char *devname, dev_t devno, struct driver *drv)
 {
     dev->class = class;

@@ -37,6 +37,7 @@ CLEANFILES = boot.lds vmaim.s
 KERN_LIBS = \
 	arch/$(ARCH)/libentry.la \
 	dev/libdev.la \
+	dev/index/index.la \
 	init/libearlyinit.la \
 	mm/libmm.la \
 	panic/libpanic.la \
