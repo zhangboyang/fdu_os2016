@@ -15,10 +15,10 @@
 int do_early_initcalls()
 {
     kprintf("calling early initcalls:\n");
-    initcall_t *st = early_init_start, *ed = early_init_end, *cur;
+    initcall_t *st = LOWADDR(early_init_start), *ed = LOWADDR(early_init_end), *cur;
     for (cur = st; cur < ed; cur++) {
-        kprintf(" initcall %p: func=%p\n", cur, *cur);
-        if ((*cur)() < 0) panic("early initcall %p failed.", *cur);
+        kprintf(" initcall %p: func=%p\n", cur, LOWADDR(*cur));
+        if ((LOWADDR(*cur))() < 0) panic("early initcall %p failed.", LOWADDR(*cur));
     }
     return 0;
 }
