@@ -77,14 +77,17 @@ void master_init()
     do_initcalls();
     
     
-    // test
+    /*// test
     syscall(1,2,3,4,5,6,7);
     syscall(2,3,4,5,6,7,1);
     kprintf("press keyboard and you will see IRQ1.\n");
     irq_enable(1); // IRQ1: keyboard
     sti();
     //asm volatile ("movl $0x100, (0xfffffff0)"); // PF
-    while (1);
+    while (1);*/
+#define uart_ns16550_devno 162 // FIXME: see uart-ns16550.c
+    struct chr_device *chdev = dev_from_id(uart_ns16550_devno);
+    chdev->chr_driver.putc(uart_ns16550_devno, 'h');
     
     panic("bye");
 }
