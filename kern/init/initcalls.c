@@ -5,6 +5,7 @@
 #include <sys/types.h>
 #include <aim/initcalls.h>
 #include <aim/panic.h>
+#include <aim/mmu.h>
 #include <aim/debug.h>
 
 
