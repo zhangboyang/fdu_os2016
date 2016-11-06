@@ -213,7 +213,7 @@ static int init()
 	    .bus = (struct bus_device *) dev_from_name("portio"),
 	    .base = UART_BASE,
     };
-    set_console(console_putchar, DEFAULT_KPUTS));
+    set_console(console_putchar, DEFAULT_KPUTS);
     return 0;
 } INITCALL_DEV(init);
 
