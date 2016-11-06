@@ -52,7 +52,7 @@ SECTIONS
     .text : AT(KERN_START) { *(.text*); } : text
     
     . = ALIGN(i386_align);
-    .init : { EARLY_INIT(i386_align) } : init
+    .init : { EARLY_INIT(i386_align) NORM_INIT(i386_align) LATE_INIT(i386_align) } : init
     
     . = ALIGN(i386_align);
     .rodata : { *(.rodata*); } : rodata

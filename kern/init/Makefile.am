@@ -21,5 +21,5 @@ noinst_LTLIBRARIES = \
 	libearlyinit.la
 
 libearlyinit_la_SOURCES = \
-	early_init.c init.c
+	early_init.c init.c initcalls.c
 
