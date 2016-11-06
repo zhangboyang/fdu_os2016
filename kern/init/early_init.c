@@ -73,6 +73,8 @@ void master_early_init(void)
 	if (early_console_init(EARLY_CONSOLE_BUS, EARLY_CONSOLE_BASE, EARLY_CONSOLE_MAPPING) < 0) {
 		panic("Early console init failed.\n");
 	}
+	
+	do_early_initcalls();
 
 	kputs("Hello, world!\n");
 	kprintf("hello world! this is the AIM kernel!\n");

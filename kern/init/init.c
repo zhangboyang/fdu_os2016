@@ -72,6 +72,9 @@ void master_init()
     // init irq
     irq_init();
     
+    // call initcalls
+    do_initcalls();
+    
     
     // test
     syscall(1,2,3,4,5,6,7);
