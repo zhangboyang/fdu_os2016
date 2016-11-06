@@ -31,5 +31,6 @@ void initdev(struct device *dev, int class, const char *devname, dev_t devno, st
         case DEVCLASS_BUS: sz = sizeof(struct bus_driver); break;
         default: panic("unknown dev class %d", class);
     }
+    printf("dev->name=%s\n", dev->name);
     memmove(&dev->driver, drv, sz);
 }
