@@ -193,7 +193,7 @@ int __early_console_init(struct bus_device *bus, addr_t base, addr_t mapped_base
 
 static int init()
 {
-    
+    return 0;
 } INITCALL_DEV(init);
 #ifdef RAW /* baremetal driver */
 
