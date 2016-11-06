@@ -62,6 +62,8 @@
 #define max2(a, b)	(((a) > (b)) ? (a) : (b))
 #define min3(a, b, c)	min2((a), min2((b), (c)))
 #define max3(a, b, c)	max2((a), max2((b), (c)))
+#define min min2
+#define max max2
 
 #define DIV_ROUND_UP(n, d)	(((n) + (d) - 1) / (d))
 
