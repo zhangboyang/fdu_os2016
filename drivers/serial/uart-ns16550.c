@@ -35,11 +35,6 @@
 #endif
 
 /* internal routines */
-static int fn()
-{
-    return 0;
-} EARLY_INITCALL(fn);
-
 
 static struct chr_device __early_uart_ns16550 = {
 	.class = DEVCLASS_CHR,
