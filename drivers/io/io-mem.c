@@ -34,6 +34,8 @@
 #include <aim/io.h>
 #include <aim/mmu.h>
 #include <aim/panic.h>
+#include <aim/vmm.h>
+#include <aim/initcalls.h>
 #include <errno.h>
 
 #include <io-mem.h>
