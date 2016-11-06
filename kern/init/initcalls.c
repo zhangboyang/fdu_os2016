@@ -15,7 +15,7 @@ int do_early_initcalls()
 {
     initcall_t *st = early_init_start, *ed = early_init_end, *cur;
     for (cur = st; cur < ed; cur++) {
-        if (*cur() < 0) panic("early initcall %p failed.", *cur);
+        if ((*cur)() < 0) panic("early initcall %p failed.", *cur);
     }
     return 0;
 }
@@ -23,7 +23,7 @@ int do_initcalls()
 {
     initcall_t *st = norm_init_start, *ed = norm_init_end, *cur;
     for (cur = st; cur < ed; cur++) {
-        if (*cur() < 0) panic("norm initcall %p failed.", *cur);
+        if ((*cur)() < 0) panic("norm initcall %p failed.", *cur);
     }
     return 0;
 }
