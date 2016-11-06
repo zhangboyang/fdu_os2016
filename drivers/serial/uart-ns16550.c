@@ -40,6 +40,7 @@ static struct chr_device __early_uart_ns16550 = {
 	.class = DEVCLASS_CHR,
 };
 
+
 static inline
 void __uart_ns16550_init(struct chr_device *inst)
 {
@@ -191,11 +192,31 @@ int __early_console_init(struct bus_device *bus, addr_t base, addr_t mapped_base
 	return 0;
 }
 
+
+
+////////////////////////// the char device for uart-ns16550
+
+
+static struct chr_device __uart_ns16550;
+
+static inline int early_console_putchar(int c)
+{
+	__uart_ns16550_putchar(&__uart_ns16550, c);
+	return 0;
+}
+
 static int init()
 {
     kprintf("    uart-ns16550 init!\n");
+    __uart_ns16550 = (struct chr_device) {
+	    .class = DEVCLASS_CHR,
+	    .bus = ,
+	    .base = UART_BASE,
+    };
+    set_console(console_putchar, DEFAULT_KPUTS));
     return 0;
 } INITCALL_DEV(init);
+
 #ifdef RAW /* baremetal driver */
 
 #else /* not RAW, or kernel driver */
