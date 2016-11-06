@@ -7,7 +7,6 @@
 #include <aim/panic.h>
 #include <aim/device.h>
 #include <libc/string.h>
-#include <aim/debug.h>
 
 /*
  * this file is added by ZBY
@@ -32,6 +31,5 @@ void initdev(struct device *dev, int class, const char *devname, dev_t devno, st
         case DEVCLASS_BUS: sz = sizeof(struct bus_driver); break;
         default: panic("unknown dev class %d", class);
     }
-    kprintf("dev->name=%s\n", dev->name);
     memmove(&dev->driver, drv, sz);
 }
