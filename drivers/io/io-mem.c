@@ -36,6 +36,7 @@
 #include <aim/panic.h>
 #include <aim/vmm.h>
 #include <aim/initcalls.h>
+#include <aim/debug.h>
 #include <errno.h>
 
 #include <io-mem.h>
