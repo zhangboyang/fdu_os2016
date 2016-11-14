@@ -24,6 +24,13 @@
 typedef struct elf32hdr		elf_hdr;
 typedef struct elf32_phdr	elf_phdr;
 
+// gcc has it's builtin memset and memcpy, just provide declaration is OK
+void *memset(void *s, int c, size_t n);
+void *memcpy(void *dest, const void *src, size_t n);
+#define bmemset memset
+#define bmemcpy memcpy
+
+
 #endif /* !__ASSEMBLER__ */
 
 #endif /* !_ARCH_BOOT_H */
