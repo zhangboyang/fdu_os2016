@@ -31,7 +31,7 @@ AC_DEFUN([AIM_INIT_MACH], [
 	    [rpi2], [
 			AC_SUBST([CORE], [cortexa7])
 			AC_SUBST([PREFIXED_CORE], [core-cortexa7])
-			AS_VAR_SET([__with_kern_start], [0x00100000])
+			AS_VAR_SET([__with_kern_start], [0x01000000])
 	    ],
 		[zynq], [
 			AC_SUBST([CORE], [cortexa9])
