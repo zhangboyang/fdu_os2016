@@ -51,6 +51,9 @@ extern int bprintf(const char *fmt, ...); // bootloader printf
         while (1); \
     } while (0)
 
+// crc32
+extern uint32_t crc32(uint32_t crc, const void *buf, size_t size);
+
 // kernel ELF reader functions
 extern void kernreader_init(void);
 extern void kernreader_readfile(void *buf, size_t size, size_t offset);
