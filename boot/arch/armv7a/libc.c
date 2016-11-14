@@ -1,3 +1,11 @@
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif /* HAVE_CONFIG_H */
+
+#include <sys/types.h>
+
+// tiny libc
+
 void *memset(void *s, int c, size_t n)
 {
     unsigned char *p = s;
