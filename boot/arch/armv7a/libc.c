@@ -2,6 +2,8 @@
 #include <config.h>
 #endif /* HAVE_CONFIG_H */
 
+// this file is created by ZBY
+
 #include <sys/types.h>
 
 // tiny libc
