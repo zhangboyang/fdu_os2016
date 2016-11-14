@@ -5,6 +5,7 @@
 // this file is created by ZBY
 
 #include <sys/types.h>
+#include <arch-boot.h>
 
 // tiny libc
 
