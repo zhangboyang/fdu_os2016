@@ -24,20 +24,8 @@
 typedef struct elf32hdr		elf_hdr;
 typedef struct elf32_phdr	elf_phdr;
 
-static inline void *bmemset(void *s, int c, size_t n)
-{
-    unsigned char *p = s;
-    while (n--) *p++ = c;
-    return s;
-}
-static inline void *bmemcpy(void *dest, const void *src, size_t n)
-{
-    unsigned char *pdest = dest;
-    const unsigned char *psrc = src;
-    while (n--) *pdest++ = *psrc++;
-    return dest;
-}
-
+#define bmemset memset
+#define bmemcpy memcpy
 
 #endif /* !__ASSEMBLER__ */
 
