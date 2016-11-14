@@ -40,9 +40,8 @@ PHDRS
 SECTIONS
 {
     . = BOOTLOADER_START;
-    .entry : { *(.entry); } : text
     text_begin = .;
-    .text : { *(.text); }
+    .text : { *(.entry); *(.text); } : text
     .data : { *(.data); }
     .bss : { *(.bss); }
     text_end = .;
