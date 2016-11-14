@@ -104,6 +104,7 @@ void bootmain(void)
     
 
     //////////////// JUMP TO KERNEL //////////////////////////////////////    
+    #ifdef __i386__
     /* FIXME: THIS IS THE SUPER DIRTY bprintf() HACK
         currently, there is no printf() in kernel
         fortunately, the loader bootloader has it own bprintf()
@@ -115,6 +116,7 @@ void bootmain(void)
     unsigned joffset = (unsigned) bprintf - (0x7c00 + 5);
     mbr[0] = '\xE9'; // opcode of JMP
     bmemcpy(&mbr[1], &joffset, 4);
+    #endif
 
     // call entry point, should not return
     bprintf("\nkernel entry: %p\n", entry);
