@@ -28,6 +28,11 @@ AC_DEFUN([AIM_INIT_MACH], [
 	AIM_SUPPORT_MACH([msim loongson3a zynq pc generic unknown])
 	AC_SUBST([PREFIXED_MACH], [mach-$MACH])
 	AS_CASE([$MACH],
+	    [rpi2], [
+			AC_SUBST([CORE], [cortexa7])
+			AC_SUBST([PREFIXED_CORE], [core-cortexa7])
+			AS_VAR_SET([__with_kern_start], [0x00100000])
+	    ],
 		[zynq], [
 			AC_SUBST([CORE], [cortexa9])
 			AC_SUBST([PREFIXED_CORE], [core-cortexa9])
