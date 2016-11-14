@@ -20,12 +20,15 @@
 #include <config.h>
 #endif /* HAVE_CONFIG_H */
 
-.section .entry
+#include <arch-boot.h>
 
+.section .entry
 .globl _start
 _start:
+    b bootasm // jmp to bootasm
 
 .text
-
 bootasm:
-
+    ldr sp, =ELF_INFO_START // prepare stack
+    b bootmain // jmp to bootmain
+    spin: b spin // infloop

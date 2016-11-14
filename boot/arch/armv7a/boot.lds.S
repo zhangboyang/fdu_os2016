@@ -22,6 +22,8 @@
 
 #define __LDSCRIPT__
 
+#include <arch-boot.h>
+
 /*
  * Using the C preprocessor, we allow includes and macro expansion in this
  * linker script.
@@ -29,3 +31,20 @@
 
 ENTRY(_start)
 
+// ZBY
+PHDRS
+{
+    text PT_LOAD FLAGS(7);
+}
+
+SECTIONS
+{
+    . = BOOTLOADER_START;
+    .entry : { *(.entry); } : text
+    text_begin = .;
+    .text : { *(.text); }
+    .data : { *(.data); }
+    .bss : { *(.bss); }
+    text_end = .;
+    
+}

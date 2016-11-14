@@ -27,6 +27,7 @@ libentry_la_SOURCES = \
 	bootasm.S \
 	console.c \
 	memdetect.c \
+	kernreader.c \
 	libc.c
 libentry_la_CPPFLAGS = $(AM_CPPFLAGS_NOPIC)
 libentry_la_CFLAGS = $(AM_CFLAGS_NOPIC) -Os

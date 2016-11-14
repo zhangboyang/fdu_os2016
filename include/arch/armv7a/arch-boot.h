@@ -19,6 +19,16 @@
 #ifndef _ARCH_BOOT_H
 #define _ARCH_BOOT_H
 
+/*
+    memory map:
+    BOOTLOADER_START              ELF_INFO_START     ELF_START
+    [***somecode***     **stack**][*****elf-info****][***elffile***]
+*/
+
+#define BOOTLOADER_START 0
+#define ELF_INFO_START 0x10000
+#define ELF_START 0x20000
+
 #ifndef __ASSEMBLER__
 
 typedef struct elf32hdr		elf_hdr;

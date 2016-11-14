@@ -48,7 +48,7 @@ SECTIONS
     . = 0x8000; // 'high' entry, must < 32K, since CS=0000H
     text_begin = .;
     .text : { *(.text); } : text
-    .data : { *(.data) }
-    .bss : { *(.bss) }
+    .data : { *(.data); }
+    .bss : { *(.bss); }
     text_end = .;
 }
