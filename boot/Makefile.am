@@ -32,7 +32,7 @@ BOOT_LIBS = \
 	arch/$(ARCH)/libarch.la
 
 boot_elf_SOURCES = \
-	bootmain.c bio.c
+	bootmain.c bio.c crc32.c
 boot_elf_LDADD = $(BOOT_LIBS)
 EXTRA_boot_elf_DEPENDENCIES = boot.lds
 boot_elf_CPPFLAGS = $(AM_CPPFLAGS_NOPIC)
