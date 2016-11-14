@@ -21,6 +21,9 @@
 
 #ifndef __ASSEMBLER__
 
+typedef struct elf32hdr		elf_hdr;
+typedef struct elf32_phdr	elf_phdr;
+
 #endif /* !__ASSEMBLER__ */
 
 #endif /* !_ARCH_BOOT_H */

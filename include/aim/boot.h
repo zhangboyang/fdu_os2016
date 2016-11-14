@@ -21,6 +21,9 @@
 
 #ifndef __ASSEMBLER__
 
+extern uint8_t text_begin[];
+extern uint8_t text_end[];
+
 extern void bootmain(void); 
 
 // bootloader io functions

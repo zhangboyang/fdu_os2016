@@ -21,6 +21,11 @@
 
 #ifndef __ASSEMBLER__
 
+// FIXME: dummy stub, just for compile, must double check !!!!!!!
+typedef uint32_t pgindex_t;
+struct cpu {
+};
+
 #endif /* !__ASSEMBLER__ */
 
 #endif /* !_ARCH_MMU_H */
