@@ -46,7 +46,7 @@ __asm__ ( // the syscall()
     "ret\n"
 );
 #else
-#define bprint(...) do {} while (0)
+#define bprintf(...) do {} while (0)
 #endif
 
 
