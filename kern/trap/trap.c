@@ -53,9 +53,11 @@ long handle_syscall(long number, ...)
 void handle_interrupt(int irq)
 {
 	kpdebug("<IRQ %d>\n", irq);
-	
+
+#ifdef __i386__
 	if (irq == 1) {
 	    kprintf("keyboard, scancode = %d\n", inb(0x60));
 	}
+#endif
 }
 
