@@ -23,6 +23,9 @@
 #include <arch-mmu.h>
 #include <util.h>
 
+#define KOFFSET KERN_BASE
+#define KTOP 0xFE000000
+
 #ifndef PAGE_SIZE
 #define PAGE_SIZE	4096
 #endif /* !PAGE_SIZE */
