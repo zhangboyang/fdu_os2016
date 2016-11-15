@@ -183,6 +183,7 @@ AIM_ARG_ENABLE_FEATURE([io-port-root], [IO_PORT_ROOT],
 AIM_ARG_ENABLE([uart-lite], [UART_LITE], [UART-lite driver])
 AIM_ARG_ENABLE([uart-msim], [UART_MSIM], [MSIM UART driver])
 AIM_ARG_ENABLE([uart-ns16550], [UART_NS16550], [NS16550 UART driver])
+AIM_ARG_ENABLE([uart-rpi2], [UART_RPI2], [raspi2 UART driver])
 AIM_ARG_ENABLE([block-msim], [BLOCK_MSIM], [MSIM block device driver])
 AIM_ARG_ENABLE([sd-zynq], [SD_ZYNQ], [zynq SD driver])
 AIM_ARG_ENABLE([timer-a9], [TIMER_A9], [Cortex-A9 MPCore timer driver])
