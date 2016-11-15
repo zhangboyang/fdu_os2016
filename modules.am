@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-MODULES = $(top_builddir)/kern/dev/index/devlist.ko
+MODULES = $(top_builddir)/kern/dev/index/devlist.o
 
 ################
 # UART serials #
@@ -26,3 +26,6 @@ if UART_NS16550
 MODULES += $(top_builddir)/drivers/serial/uart-ns16550.o
 endif
 
+if UART_RPI2
+MODULES += $(top_builddir)/drivers/serial/uart-rpi2.o
+endif
