@@ -25,8 +25,8 @@
     [***somecode***     **stack**][*****elf-info****][***elffile***]
 */
 
-#define BOOTLOADER_START 0
-#define ELF_INFO_START 0x10000
+#define BOOTLOADER_START 0x8000
+#define ELF_INFO_START 0x18000
 #define ELF_START 0x20000
 
 #ifndef __ASSEMBLER__
