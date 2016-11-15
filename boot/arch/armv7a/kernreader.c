@@ -34,7 +34,7 @@ void kernreader_init(void)
 
 void kernreader_readfile(void *buf, size_t size, size_t offset)
 {
-    if (elf_data <= buf && buf < elf_data + elf_info->elf_len) { // not a robust detection
+    if ((void *) elf_data <= buf && buf < (void *)(elf_data + elf_info->elf_len)) { // not a robust detection
         bpanic("overlap detected! buf=%p size=%x offset=%x", buf, size, offset);
     }
     bmemcpy(buf, elf_data + offset, size);
