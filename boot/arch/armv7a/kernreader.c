@@ -22,10 +22,12 @@ struct bootloader_elf_info {
 void kernreader_init(void)
 {
     // check ELF crc32
+    bprintf("checking ELF crc32 checksum ... ");
     uint32_t cur_crc32 = crc32(0, elf_data, elf_info->elf_len);
     if (cur_crc32 != elf_info->elf_crc32) {
-        bpanic("crc32 mismatch, current %x, expected %x.", cur_crc32, elf_info->elf_crc32);
+        bpanic("BAD, current %x, expected %x.", cur_crc32, elf_info->elf_crc32);
     }
+    bprintf("OK\n");
 }
 
 void kernreader_readfile(void *buf, size_t size, size_t offset)
