@@ -33,6 +33,14 @@ uart_ns16550_ko_LDFLAGS = $(AM_LDFLAGS) -Wl,-r
 noinst_HEADERS += uart-ns16550-hw.h
 endif
 
+if UART_RPI2
+MODULE_SRCS += uart-rpi2.c
+noinst_PROGRAMS += uart-rpi2.ko
+uart_ns16550_ko_SOURCES = uart-rpi2.c
+uart_ns16550_ko_LDFLAGS = $(AM_LDFLAGS) -Wl,-r
+noinst_HEADERS += uart-rpi2-hw.h
+endif
+
 libserial_raw_la_SOURCES = $(SRCS) $(MODULE_SRCS)
 libserial_raw_la_CPPFLAGS = $(AM_CPPFLAGS_NOPIC)
 libserial_raw_la_CFLAGS = $(AM_CFLAGS_NOPIC)
