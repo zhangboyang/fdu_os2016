@@ -16,6 +16,7 @@
  * this file is added by ZBY
  */
 
+#ifdef __i386__
 // FIXME: dirty hack!
 #define bprintf ((int (*)(const char *, ...)) (0x7c00 + KOFFSET))
 
@@ -44,6 +45,7 @@ __asm__ ( // the syscall()
     
     "ret\n"
 );
+#endif
 
 
 void master_init()
