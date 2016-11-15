@@ -6,6 +6,7 @@
 
 #include <sys/types.h>
 #include <arch-boot.h>
+#include <asm.h>
 
 #define PBASE 0x3F000000
 
