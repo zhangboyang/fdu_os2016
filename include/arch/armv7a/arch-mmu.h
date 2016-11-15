@@ -30,7 +30,11 @@ struct cpu {
 
 
 
-#define MAX_MEMORY_ZONE 1
+enum {
+    ZONE_NORMAL,
+    
+    MAX_MEMORY_ZONE // EOF
+};
 
 
 #endif /* !__ASSEMBLER__ */
