@@ -33,6 +33,7 @@ AC_DEFUN([AIM_INIT_MACH], [
 			AC_SUBST([PREFIXED_CORE], [core-cortexa7])
 			AS_VAR_SET([__with_kern_start], [0x01000000])
 			AS_VAR_SET([__with_primary_console], [UART_RPI2])
+			AS_VAR_SET([__enable_uart_rpi2], [yes])
 	    ],
 		[zynq], [
 			AC_SUBST([CORE], [cortexa9])
