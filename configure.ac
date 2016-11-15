@@ -249,6 +249,7 @@ AC_CONFIG_FILES([
 	include/aim/Makefile
 	include/arch/Makefile
 	include/arch/armv7a/Makefile
+	include/arch/armv7a/mach-rpi2/Makefile
 	include/arch/i386/Makefile
 	include/arch/mips/Makefile
 	include/arch/mips/mach-loongson3a/Makefile
