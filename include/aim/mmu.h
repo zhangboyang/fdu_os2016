@@ -200,6 +200,12 @@ extern void cpu_reload_segments(); // in entry.S
 extern struct cpu *cpu_list;
 extern int nr_cpu;
 
+extern uint8_t KERN_START_HIGH[];
+extern uint8_t KERN_END_HIGH[];
+extern uint8_t KERN_START_LOW[];
+extern uint8_t KERN_END_LOW[];
+extern size_t size_after_kernel; // how many bytes can we use after the kernel
+
 
 #endif /* !__ASSEMBLER__ */
 

@@ -354,11 +354,7 @@ extern struct machine_memory_map mach_mem_map[MAX_MACHINE_MEMORY_MAP];
 extern unsigned nr_mach_mem_map;
 
 
-extern uint8_t KERN_START_HIGH[];
-extern uint8_t KERN_END_HIGH[];
-extern uint8_t KERN_START_LOW[];
-extern uint8_t KERN_END_LOW[];
-extern size_t size_after_kernel; // how many bytes can we use after the kernel
+
 
 
 enum {
