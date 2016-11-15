@@ -22,7 +22,7 @@ struct bootloader_elf_info {
 void kernreader_init(void)
 {
     // check ELF crc32
-    bprintf("ELF size %x\n", elf_info->elf_len);
+    bprintf("ELF size %x, start %p, end %p\n", elf_info->elf_len, elf_data, elf_data + elf_info->elf_len);
     if (elf_info->elf_len == 0) bpanic("ELF has no length!");
     bprintf("checking ELF crc32 checksum ... ");
     uint32_t cur_crc32 = crc32(0, elf_data, elf_info->elf_len);
@@ -34,8 +34,8 @@ void kernreader_init(void)
 
 void kernreader_readfile(void *buf, size_t size, size_t offset)
 {
-    if (buf < (void *) (elf_data + elf_info->elf_len)) {
-        bpanic("phdr overlap detected, buf=%p elfend=%p size=%x offset=%x.", buf, elf_data + elf_info->elf_len, size, offset);
+    if (elf_data <= buf && buf < elf_data + elf_info->elf_len) { // not a robust detection
+        bpanic("overlap detected! buf=%p size=%x offset=%x", buf, size, offset);
     }
     bmemcpy(buf, elf_data + offset, size);
 }
