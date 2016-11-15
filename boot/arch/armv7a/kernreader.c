@@ -22,6 +22,8 @@ struct bootloader_elf_info {
 void kernreader_init(void)
 {
     // check ELF crc32
+    bprintf("ELF size %x\n", elf_info->elf_len);
+    if (elf_info->elf_len == 0) bpanic("ELF has no length!");
     bprintf("checking ELF crc32 checksum ... ");
     uint32_t cur_crc32 = crc32(0, elf_data, elf_info->elf_len);
     if (cur_crc32 != elf_info->elf_crc32) {
