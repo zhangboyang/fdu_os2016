@@ -57,8 +57,16 @@ void bioinit() // bootloader io system init
     for(ra=0;ra<150;ra++) nop();
     outl(GPPUDCLK0,0);
     outl(AUX_MU_CNTL_REG,3);
+    while (1) {
+        bputc('a');
+    }
 }
 
 void bputc(int c)
 {
+    while(1)
+    {
+        if(inl(AUX_MU_LSR_REG)&0x20) break;
+    }
+    outl(AUX_MU_IO_REG,c);
 }
