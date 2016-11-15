@@ -16,6 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef _ASM_H
+#define _ASM_H
+
 static inline
 uint8_t inb(uint16_t port)
 {
@@ -156,4 +159,6 @@ sti(void)
 {
   asm volatile("sti");
 }
+
+#endif
 
