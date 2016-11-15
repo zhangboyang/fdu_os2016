@@ -27,7 +27,7 @@ void kernreader_init(void)
     if (cur_crc32 != elf_info->elf_crc32) {
         bpanic("BAD, current %x, expected %x.", cur_crc32, elf_info->elf_crc32);
     }
-    bprintf("OK\n");
+    bprintf("%x, OK\n", cur_crc32);
 }
 
 void kernreader_readfile(void *buf, size_t size, size_t offset)
