@@ -13,4 +13,9 @@ static inline uint32_t inl(uint32_t addr)
 	return ret;
 }
 
+static inline void nop()
+{
+    __asm__ __volatile__ ("nop");
+}
+
 #endif
