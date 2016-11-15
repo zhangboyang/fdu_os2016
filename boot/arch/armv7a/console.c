@@ -4,6 +4,10 @@
 
 // this file is created by ZBY
 
+// some code copied from :
+//    https://github.com/dwelch67/raspberrypi.git
+//      boards/pi2/SVC_BOOT/uart01
+
 #include <sys/types.h>
 #include <arch-boot.h>
 #include <asm.h>
@@ -37,38 +41,30 @@ void bioinit() // bootloader io system init
 {
     unsigned int ra;
 
-    outl(AUX_ENABLES,1);
-    outl(AUX_MU_IER_REG,0);
-    outl(AUX_MU_CNTL_REG,0);
-    outl(AUX_MU_LCR_REG,3);
-    outl(AUX_MU_MCR_REG,0);
-    outl(AUX_MU_IER_REG,0);
-    outl(AUX_MU_IIR_REG,0xC6);
-    outl(AUX_MU_BAUD_REG,270);
-    ra=inl(GPFSEL1);
-    ra&=~(7<<12); //gpio14
-    ra|=2<<12;    //alt5
-    ra&=~(7<<15); //gpio15
-    ra|=2<<15;    //alt5
-    outl(GPFSEL1,ra);
-    outl(GPPUD,0);
-    for(ra=0;ra<150;ra++) nop();
-    outl(GPPUDCLK0,(1<<14)|(1<<15));
-    for(ra=0;ra<150;ra++) nop();
-    outl(GPPUDCLK0,0);
-    outl(AUX_MU_CNTL_REG,3);
-    
-    void bputc(int);
-    while (1) {
-        bputc('a');
-    }
+    outl(AUX_ENABLES, 1);
+    outl(AUX_MU_IER_REG, 0);
+    outl(AUX_MU_CNTL_REG, 0);
+    outl(AUX_MU_LCR_REG, 3);
+    outl(AUX_MU_MCR_REG, 0);
+    outl(AUX_MU_IER_REG, 0);
+    outl(AUX_MU_IIR_REG, 0xC6);
+    outl(AUX_MU_BAUD_REG, 270);
+    ra = inl(GPFSEL1);
+    ra &= ~(7 << 12); //gpio14
+    ra |= 2 << 12;    //alt5
+    ra &= ~(7 << 15); //gpio15
+    ra |= 2 << 15;    //alt5
+    outl(GPFSEL1, ra);
+    outl(GPPUD, 0);
+    for(ra = 0; ra < 150; ra++) nop();
+    outl(GPPUDCLK0, (1 << 14) | (1 << 15));
+    for(ra = 0; ra < 150; ra++) nop();
+    outl(GPPUDCLK0, 0);
+    outl(AUX_MU_CNTL_REG, 3);
 }
 
 void bputc(int c)
 {
-    while(1)
-    {
-        if(inl(AUX_MU_LSR_REG)&0x20) break;
-    }
-    outl(AUX_MU_IO_REG,c);
+    while (!(inl(AUX_MU_LSR_REG) & 0x20));
+    outl(AUX_MU_IO_REG, c);
 }
