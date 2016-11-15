@@ -17,16 +17,6 @@
 
 include $(top_srcdir)/env.am
 
-SUBDIRS = \
-	mach-rpi2
-
-DIST_SUBDIRS = \
-    mach-rpi2
-
 noinst_HEADERS = \
-	arch-boot.h \
-	arch-io.h \
-	arch-mmu.h \
-	arch-trap.h \
-	platform.h
+	mach-platform.h
 

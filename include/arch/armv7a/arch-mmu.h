@@ -25,6 +25,9 @@
 typedef uint32_t pgindex_t;
 struct cpu {
 };
+#define __postmap_addr(pa)	(ULCAST(pa) + KERN_BASE)
+#define __premap_addr(kva)	(ULCAST(kva) - KERN_BASE)
+
 
 #endif /* !__ASSEMBLER__ */
 

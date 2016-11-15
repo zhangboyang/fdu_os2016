@@ -45,5 +45,4 @@ SECTIONS
     .data : { *(.data); }
     .bss : { *(.bss); }
     text_end = .;
-    
 }
