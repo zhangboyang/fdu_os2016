@@ -35,7 +35,11 @@
 __noreturn
 void __local_panic(void)
 {
+#ifdef __i386__
     __asm__ __volatile__ ("cli; 1: hlt; jmp 1b;"); // FIXME
+#else
+    while (1);
+#endif
     
 	//local_irq_disable();
 	/*
