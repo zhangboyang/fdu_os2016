@@ -33,7 +33,7 @@ void bootmain(void)
 {
     /////////////////// INIT I/O //////////////////////////////////////////
     bioinit();
-    bputs("welcome to ZBY's bootloader for AIM");while(1);
+    bputs("welcome to ZBY's bootloader for AIM");
     bputs(
         "           _____ __  __\n"
         "     /\\   |_   _|  \\/  |\n"

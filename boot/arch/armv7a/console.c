@@ -63,8 +63,14 @@ void bioinit() // bootloader io system init
     outl(AUX_MU_CNTL_REG, 3);
 }
 
-void bputc(int c)
+static void bputc_internal(int c)
 {
     while (!(inl(AUX_MU_LSR_REG) & 0x20));
     outl(AUX_MU_IO_REG, c);
 }
+void bputc(int c)
+{
+    if (c == '\n') bputc_internal('\r');
+    bputc_internal(c);
+}
+
