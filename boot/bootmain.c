@@ -58,7 +58,7 @@ void bootmain(void)
     kernreader_init();
     
     // read first BOOT_ELF_PRELOAD bytes to buffer
-    bprintf("read ELF header ");
+    bprintf("read ELF header ... ");
     kernreader_readfile(elf, BOOT_ELF_PRELOAD, 0);
     bputc('\n');
 

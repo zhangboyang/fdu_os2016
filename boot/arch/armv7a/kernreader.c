@@ -38,5 +38,6 @@ void kernreader_readfile(void *buf, size_t size, size_t offset)
         bpanic("overlap detected! buf=%p size=%x offset=%x", buf, size, offset);
     }
     bmemcpy(buf, elf_data + offset, size);
+    bprintf("[%d bytes copied from ELF]\n", size);
 }
 
