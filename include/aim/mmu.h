@@ -25,6 +25,7 @@
 
 #define KOFFSET KERN_BASE
 #define KTOP 0xFE000000
+#define LOWADDR(highaddr) ((typeof((highaddr) + 0)) ((ULCAST(highaddr)) - KERN_BASE))
 
 #ifndef PAGE_SIZE
 #define PAGE_SIZE	4096
