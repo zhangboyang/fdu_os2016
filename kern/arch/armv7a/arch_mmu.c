@@ -34,6 +34,14 @@ void mmu_init(pgindex_t *boot_page_index)
 {
 }
 
+
+void page_index_clear(pgindex_t *boot_page_index)
+{
+}
+int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr, void *vaddr, size_t size)
+{
+}
+
 void early_mm_init(void)
 {
 }
