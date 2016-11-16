@@ -34,8 +34,12 @@ _start:
     mrs r0, cpsr
     and r0, r0, #~0x1F
     orr r0, r0, #0x13 // SVC
-    msr cpsr_c, r0
-    
+    msr spsr_hyp, r0 // set SPSR_hyp, for eret
+    ldr r0, =VMA2LMA(svc_start)
+    msr elr_hyp, r0 // set ELR_hyp, for eret
+    eret
+
+svc_start:
     // jump to master_early_init
     ldr sp, =VMA2LMA(AIM_KERN_STACK_BOTTOM) // prepare stack
     b master_early_init // jump to C code
