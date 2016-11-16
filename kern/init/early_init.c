@@ -52,9 +52,12 @@ int early_devices_init(void)
 #include <aim/initcalls.h>
 #include <libc/string.h>
 
-
-// FIXME: dirty hack!
-#define bprintf ((int (*)(const char *, ...)) 0x7c00)
+// FIXME: THIS IS THE SUPER DIRTY bprintf() HACK
+#if defined(__i386__)
+#define bprintf ((int (*)(const char *, ...)) (0x7c00))
+#elif defined(__arm__)
+#define bprintf (*(int (**)(const char *, ...)) (0x18000))
+#endif
 
 
 __noreturn

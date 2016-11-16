@@ -16,10 +16,14 @@
  * this file is added by ZBY
  */
 
-#ifdef __i386__
-// FIXME: dirty hack!
+// FIXME: THIS IS THE SUPER DIRTY bprintf() HACK
+#if defined(__i386__)
 #define bprintf ((int (*)(const char *, ...)) (0x7c00 + KOFFSET))
+#elif defined(__arm__)
+#define bprintf (*(int (**)(const char *, ...)) (0x18000 + KOFFSET))
+#endif
 
+#ifdef __i386__
 int syscall(int num, ...);
 __asm__ ( // the syscall()
 ".globl syscall\n"
