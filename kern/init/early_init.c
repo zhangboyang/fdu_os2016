@@ -68,11 +68,9 @@ void master_early_init(void)
     char a[] = "abcdefg";
     strlcpy(a, "aaabbb", 3);
     bprintf("%s\n", a);
-    
     char b[] = "abcdefg";
     memmove(b, b + 1, 6);
     bprintf("%s\n", b);
-    
     char c[] = "1234567";
     memmove(c + 1, c, 6);
     bprintf("%s\n", c);
