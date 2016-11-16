@@ -27,5 +27,52 @@
  * linker script.
  */
 
+#define armv7a_align 4096
+
 ENTRY(_start)
 
+PHDRS
+{
+    text PT_LOAD FLAGS(5);
+    init PT_LOAD FLAGS(4);
+    rodata PT_LOAD FLAGS(4);
+    data PT_LOAD FLAGS(6);
+}
+
+
+SECTIONS
+{
+    . = KERN_START + KOFFSET;
+    KERN_START_LOW = . - KOFFSET;
+    KERN_START_HIGH = .;
+    
+    .text : AT(KERN_START) { *(.text*); } : text
+    
+    . = ALIGN(armv7a_align);
+    .init : { EARLY_INIT(armv7a_align) NORM_INIT(armv7a_align) LATE_INIT(armv7a_align) } : init
+    
+    . = ALIGN(armv7a_align);
+    .rodata : { *(.rodata*); } : rodata
+
+    . = ALIGN(armv7a_align);    
+    .data : { *(.data); } : data
+    
+
+    . = ALIGN(armv7a_align);
+    AIM_KERN_BSS_START = .;
+    .bss : { *(.bss); } : data
+    AIM_KERN_BSS_END = .;
+
+    . = ALIGN(armv7a_align);
+    AIM_KERN_STACK_START = .;
+    .stack : { . += KSTACKSIZE; } : data
+    AIM_KERN_STACK_BOTTOM = .;
+    
+    . = ALIGN(armv7a_align);
+    KERN_END_LOW = . - KOFFSET;
+    KERN_END_HIGH = .;
+    
+    /DISCARD/ : {
+        *(.eh_frame);
+    }
+}

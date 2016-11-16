@@ -121,7 +121,7 @@ void bootmain(void)
     // call entry point, should not return
     bprintf("\nkernel entry: %p\n", entry);
     bputs("jump to kernel ...\n");
-while(1);;;
+
     ((void (*)(void)) entry)();
     
     bpanic("kernel entry returned!");
