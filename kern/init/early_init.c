@@ -67,7 +67,7 @@ void master_early_init(void)
     
     #ifdef __arm__
     uint32_t cpsr;
-    __asm__ __volatile__ ("mrs %0, cpsr":"="(cpsr));
+    __asm__ __volatile__ ("mrs %0, cpsr":"=r"(cpsr));
     bprintf("CPSR = %x\n", cpsr);
     #endif
     
