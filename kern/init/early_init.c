@@ -65,6 +65,12 @@ void master_early_init(void)
 {
     bprintf("this is bprintf, at lowaddr!\n");
     
+    #ifdef __arm__
+    uint32_t cpsr;
+    __asm__ __volatile__ ("mrs %0, cpsr":"="(cpsr));
+    bprintf("CPSR = %x\n", cpsr);
+    #endif
+    
     char a[] = "abcdefg";
     strlcpy(a, "aaabbb", 3);
     bprintf("%s\n", a);

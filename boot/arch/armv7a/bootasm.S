@@ -35,10 +35,16 @@ _start:
 .text
 spin: b spin // infloop
 bootasm: // asm entry
+    // FIXME: should we disable IRQ
+    
+    // check cpu core == core0
+    // FIXME: not necessory? always core 0 runs this?
     mrc p15,0,r0,c0,c0,5 ;@ MPIDR
     mov r1,#0xFF
     ands r1,r1,r0
     bne spin
+    
+    // jump to bootmain
     ldr sp, =ELF_INFO_START // prepare stack
     b bootmain // jmp to C code
     b spin

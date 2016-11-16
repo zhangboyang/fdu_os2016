@@ -27,7 +27,11 @@
 .globl _start
 _start:
     // the kernel entry
+    
+    // FIXME: should we disable IRQ?
+    
     // FIXME: enter SVC from HYP
+    
     ldr sp, =VMA2LMA(AIM_KERN_STACK_BOTTOM) // prepare stack
     b master_early_init // jump to C code
     b spin
