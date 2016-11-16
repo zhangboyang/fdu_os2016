@@ -47,14 +47,13 @@ bootasm: // asm entry
     beq rpi2_core3
     b spin
 rpi2_core0:
-
     b spin
 rpi2_core1:
+    ldr sp, =ELF_INFO_START // prepare stack
+    b bootmain // jmp to C code
     b spin
 rpi2_core2:
     b spin
 rpi2_core3:
-    ldr sp, =ELF_INFO_START // prepare stack
-    b bootmain // jmp to C code
     b spin
 
