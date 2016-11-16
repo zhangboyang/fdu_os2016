@@ -22,6 +22,9 @@
 
 #define __LDSCRIPT__
 
+#include <asm-generic/vmaim.lds.h>
+#include <aim/mmu.h>
+
 /*
  * Using the C preprocessor, we allow includes and macro expansion in this
  * linker script.
