@@ -20,6 +20,8 @@
 #include <config.h>
 #endif /* HAVE_CONFIG_H */
 
+#include <aim/mmu.h>
+
 .text
 
 .globl _start
