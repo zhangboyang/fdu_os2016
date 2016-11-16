@@ -32,7 +32,7 @@ _start:
     
     // enter SVC from HYP
     mrs r0, cpsr
-    and r0, r0, #0x1F
+    and r0, r0, #~0x1F
     orr r0, r0, #0x13 // SVC
     msr cpsr, r0
     
