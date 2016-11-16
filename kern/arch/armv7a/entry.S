@@ -28,7 +28,7 @@
 _start:
     // the kernel entry
     ldr sp, =VMA2LMA(AIM_KERN_STACK_BOTTOM) // prepare stack
-    b master_init // jump to C code
+    b master_early_init // jump to C code
     b spin
 
 spin: b spin
