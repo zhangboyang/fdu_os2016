@@ -32,6 +32,7 @@
 /* kernel virtual address and physical address conversion */
 #define kva2pa(kva)		(ULCAST(kva) - KERN_BASE)
 #define pa2kva(pa)		(PTRCAST(pa) + KERN_BASE)
+#define VMA2LMA(x) ((x) - KOFFSET)
 
 
 #ifndef PAGE_SIZE
