@@ -21,6 +21,8 @@
 #define bprintf ((int (*)(const char *, ...)) (0x7c00 + KOFFSET))
 #elif defined(__arm__)
 #define bprintf (*(int (**)(const char *, ...)) (0x18000 + KOFFSET))
+#else
+#define bprintf(...) do {} while (0)
 #endif
 
 #ifdef __i386__
@@ -49,6 +51,7 @@ __asm__ ( // the syscall()
     
     "ret\n"
 );
+
 #endif
 
 
