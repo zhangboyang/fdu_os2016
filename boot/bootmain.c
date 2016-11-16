@@ -116,7 +116,7 @@ void bootmain(void)
     unsigned joffset = (unsigned) bprintf - (0x7c00 + 5);
     mbr[0] = '\xE9'; // opcode of JMP
     bmemcpy(&mbr[1], &joffset, 4);
-    #elif defined(__armv7__)
+    #elif defined(__arm__)
     sfdasfs
     #endif
 
