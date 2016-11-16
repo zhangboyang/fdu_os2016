@@ -30,8 +30,13 @@ _start:
     
     // FIXME: should we disable IRQ?
     
-    // FIXME: enter SVC from HYP
+    // enter SVC from HYP
+    mrs r0, cpsr_c
+    and r0, r0, #0x1F
+    or r0, r0, #0x13 // SVC
+    msr cpsr_c, r0
     
+    // jump to master_early_init
     ldr sp, =VMA2LMA(AIM_KERN_STACK_BOTTOM) // prepare stack
     b master_early_init // jump to C code
     b spin

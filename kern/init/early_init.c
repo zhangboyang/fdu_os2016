@@ -69,6 +69,11 @@ void master_early_init(void)
     uint32_t cpsr;
     __asm__ __volatile__ ("mrs %0, cpsr":"=r"(cpsr));
     bprintf("CPSR = %x\n", cpsr);
+    /*
+        on RPI2 (HYP mode):
+        >>> bin(0x600001da)
+        '0b1100000000000000000000111011010'
+    */
     #endif
     
     char a[] = "abcdefg";
