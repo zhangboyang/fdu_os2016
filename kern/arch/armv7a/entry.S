@@ -31,6 +31,7 @@ _start:
     // FIXME: should we disable IRQ?
     
     // enter SVC from HYP
+    // FIXME: install HYP stub?
     mrs r0, cpsr
     and r0, r0, #~0x1F
     orr r0, r0, #0x13 // SVC
