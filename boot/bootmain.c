@@ -117,7 +117,7 @@ void bootmain(void)
     mbr[0] = '\xE9'; // opcode of JMP
     bmemcpy(&mbr[1], &joffset, 4);
     #elif defined(__arm__)
-    sfdasfs
+    *((void **) 0x18000) = bprintf;
     #endif
 
     // call entry point, should not return
