@@ -34,3 +34,11 @@ void mmu_init(pgindex_t *boot_page_index)
 {
 }
 
+void early_mm_init(void)
+{
+}
+
+void mmu_jump()
+{
+    while (1);
+}
