@@ -38,22 +38,8 @@ bootasm: // asm entry
     mrc p15,0,r0,c0,c0,5 ;@ MPIDR
     mov r1,#0xFF
     ands r1,r1,r0
-    beq rpi2_core0
-    cmp r1,#1
-    beq rpi2_core1
-    cmp r1,#2
-    beq rpi2_core2
-    cmp r1,#3
-    beq rpi2_core3
-    b spin
-rpi2_core0:
-    b spin
-rpi2_core1:
+    bne spin
     ldr sp, =ELF_INFO_START // prepare stack
     b bootmain // jmp to C code
-    b spin
-rpi2_core2:
-    b spin
-rpi2_core3:
     b spin
 
