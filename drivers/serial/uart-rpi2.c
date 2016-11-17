@@ -14,7 +14,7 @@
 // driver instance code
 static void __uart_rpi2_init(struct chr_device *inst)
 {
-    return 0;
+    return;
 }
 static int __uart_rpi2_putchar(struct chr_device *inst, unsigned char c)
 {
