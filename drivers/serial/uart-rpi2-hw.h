@@ -21,18 +21,18 @@
 
 #include <platform.h>
 
-#define AUX_ENABLES     0x0x04
-#define AUX_MU_IO_REG   0x0x40
-#define AUX_MU_IER_REG  0x0x44
-#define AUX_MU_IIR_REG  0x0x48
-#define AUX_MU_LCR_REG  0x0x4C
-#define AUX_MU_MCR_REG  0x0x50
-#define AUX_MU_LSR_REG  0x0x54
-#define AUX_MU_MSR_REG  0x0x58
-#define AUX_MU_SCRATCH  0x0x5C
-#define AUX_MU_CNTL_REG 0x0x60
-#define AUX_MU_STAT_REG 0x0x64
-#define AUX_MU_BAUD_REG 0x0x68
+#define AUX_ENABLES     0x04
+#define AUX_MU_IO_REG   0x40
+#define AUX_MU_IER_REG  0x44
+#define AUX_MU_IIR_REG  0x48
+#define AUX_MU_LCR_REG  0x4C
+#define AUX_MU_MCR_REG  0x50
+#define AUX_MU_LSR_REG  0x54
+#define AUX_MU_MSR_REG  0x58
+#define AUX_MU_SCRATCH  0x5C
+#define AUX_MU_CNTL_REG 0x60
+#define AUX_MU_STAT_REG 0x64
+#define AUX_MU_BAUD_REG 0x68
 
 #endif
 
