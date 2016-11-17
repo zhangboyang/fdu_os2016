@@ -39,7 +39,7 @@
 
 void bioinit() // bootloader io system init
 {
-//    unsigned int ra;
+    unsigned int ra;
 
     outl(AUX_ENABLES, 1);
     outl(AUX_MU_IER_REG, 0);
