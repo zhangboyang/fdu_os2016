@@ -14,7 +14,7 @@
 #include <aim/initcalls.h>
 #include <aim/debug.h>
 #include <uart-rpi2-hw.h>
-
+#include <asm.h>
 
 
 // driver instance code
