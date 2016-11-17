@@ -11,6 +11,18 @@
 #include <aim/device.h>
 #include <aim/mmu.h>
 
+// driver instance code
+static void __uart_rpi2_init(struct chr_device *inst)
+{
+    return 0;
+}
+static int __uart_rpi2_putchar(struct chr_device *inst, unsigned char c)
+{
+    return 0;
+}
+
+
+// driver framework code
 
 static struct bus_device *__mapped_bus;
 static addr_t __mapped_base;
