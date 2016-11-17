@@ -49,7 +49,7 @@ void bioinit() // bootloader io system init
     outl(AUX_MU_IER_REG, 0);
     outl(AUX_MU_IIR_REG, 0xC6);
     outl(AUX_MU_BAUD_REG, 270);
-    /*ra = inl(GPFSEL1);
+    ra = inl(GPFSEL1);
     ra &= ~(7 << 12); //gpio14
     ra |= 2 << 12;    //alt5
     ra &= ~(7 << 15); //gpio15
@@ -60,7 +60,7 @@ void bioinit() // bootloader io system init
     outl(GPPUDCLK0, (1 << 14) | (1 << 15));
     for(ra = 0; ra < 150; ra++) nop();
     outl(GPPUDCLK0, 0);
-    outl(AUX_MU_CNTL_REG, 3);*/
+    outl(AUX_MU_CNTL_REG, 3);
 }
 
 static void bputc_internal(int c)
