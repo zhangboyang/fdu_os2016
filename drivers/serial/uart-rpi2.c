@@ -62,7 +62,7 @@ static int __uart_rpi2_putchar(struct chr_device *inst, unsigned char c)
 	if (!bus_read32) while (1);
 	
 	// do output
-	uint64_t data
+	uint64_t data;
 	while (!((bus_read32(bus, inst->base, AUX_MU_LSR_REG, &data), data) & 0x20));
     bus_write32(bus, inst->base, AUX_MU_IO_REG, c);
 	
