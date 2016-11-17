@@ -38,11 +38,16 @@ static void __jump_handler(void)
 
 int __early_console_init(struct bus_device *bus, addr_t base, addr_t mapped_base)
 {
-	// FIXME
 	__early_console_set_bus(bus, base);
 	__mapped_bus = (struct bus_device *) postmap_addr(bus);
 	__mapped_base = mapped_base;
 	
+	__uart_rpi2_init(&__early_uart_rpi2);
+	
+	set_console(early_console_putchar, PTRCAST(premap_addr(DEFAULT_KPUTS)));
+
+	if (jump_handlers_add(__jump_handler) != 0) while (1);
+
 	return 0;
 }
 
