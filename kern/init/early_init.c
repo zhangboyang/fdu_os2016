@@ -87,7 +87,7 @@ void master_early_init(void)
     bprintf("%s\n", c);
     
     
-	/* clear address-space-related callback handlers */
+    /* clear address-space-related callback handlers */
 	early_mapping_clear();
 	mmu_handlers_clear();
 
@@ -100,6 +100,8 @@ void master_early_init(void)
 	if (early_console_init(EARLY_CONSOLE_BUS, EARLY_CONSOLE_BASE, EARLY_CONSOLE_MAPPING) < 0) {
 		panic("Early console init failed.\n");
 	}
+	
+	kprintf("kernel console initialized.\n");
 	
 	do_early_initcalls();
 
