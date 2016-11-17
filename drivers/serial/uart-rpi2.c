@@ -62,7 +62,7 @@ static int __uart_rpi2_putchar(struct chr_device *inst, unsigned char c)
 	if (!bus_read32) while (1);
 	
 	// do output
-	while (!(bus_read32(bus, AUX_MU_LSR_REG) & 0x20));
+	while (!(bus_read32(bus, inst->base, AUX_MU_LSR_REG) & 0x20));
     bus_write32(bus, inst->base, AUX_MU_IO_REG, c);
 	
     return 0;
