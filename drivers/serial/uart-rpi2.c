@@ -25,7 +25,7 @@ static void __uart_rpi2_init(struct chr_device *inst)
     struct bus_device *bus = inst->bus;
 	bus_write_fp bus_write32 = bus->bus_driver.get_write_fp(bus, 32);
 	if (!bus_write32) while (1);
-	bus_write_fp bus_read32 = bus->bus_driver.get_read_fp(bus, 32);
+	bus_read_fp bus_read32 = bus->bus_driver.get_read_fp(bus, 32);
 	if (!bus_read32) while (1);
 	
 	// do init staff
@@ -59,7 +59,7 @@ static int __uart_rpi2_putchar(struct chr_device *inst, unsigned char c)
     struct bus_device *bus = inst->bus;
 	bus_write_fp bus_write32 = bus->bus_driver.get_write_fp(bus, 32);
 	if (!bus_write32) while (1);
-	bus_write_fp bus_read32 = bus->bus_driver.get_read_fp(bus, 32);
+	bus_read_fp bus_read32 = bus->bus_driver.get_read_fp(bus, 32);
 	if (!bus_read32) while (1);
 	
 	// do output
