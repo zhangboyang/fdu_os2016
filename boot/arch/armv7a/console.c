@@ -38,7 +38,7 @@
 
 
 void bioinit() // bootloader io system init
-{return;
+{
     unsigned int ra;
 
     outl(AUX_ENABLES, 1);
@@ -69,7 +69,7 @@ static void bputc_internal(int c)
     outl(AUX_MU_IO_REG, c);
 }
 void bputc(int c)
-{return;
+{
     if (c == '\n') bputc_internal('\r');
     bputc_internal(c);
 }
