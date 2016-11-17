@@ -56,9 +56,9 @@ void bioinit() // bootloader io system init
     ra |= 2 << 15;    //alt5
     outl(GPFSEL1, ra);
     outl(GPPUD, 0);
-//    for(ra = 0; ra < 150; ra++) nop();
+    for(ra = 0; ra < 150; ra++) nop(); // i don't know why nop here
     outl(GPPUDCLK0, (1 << 14) | (1 << 15));
-//    for(ra = 0; ra < 150; ra++) nop();
+    for(ra = 0; ra < 150; ra++) nop();
     outl(GPPUDCLK0, 0);
     outl(AUX_MU_CNTL_REG, 3);
 }

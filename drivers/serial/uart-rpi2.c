@@ -29,7 +29,7 @@ static void __uart_rpi2_init(struct chr_device *inst)
 	if (!bus_read32) while (1);
 	
 	// do init staff
-	/*unsigned int ra;
+	unsigned int ra;
     bus_write32(bus, inst->base, AUX_ENABLES, 1);
     bus_write32(bus, inst->base, AUX_MU_IER_REG, 0);
     bus_write32(bus, inst->base, AUX_MU_CNTL_REG, 0);
@@ -49,7 +49,7 @@ static void __uart_rpi2_init(struct chr_device *inst)
     bus_write32(bus, inst->base, GPPUDCLK0, (1 << 14) | (1 << 15));
     for(ra = 0; ra < 150; ra++) nop();
     bus_write32(bus, inst->base, GPPUDCLK0, 0);
-    bus_write32(bus, inst->base, AUX_MU_CNTL_REG, 3);*/
+    bus_write32(bus, inst->base, AUX_MU_CNTL_REG, 3);
 }
 
 static int __uart_rpi2_putchar(struct chr_device *inst, unsigned char c)
