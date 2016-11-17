@@ -29,9 +29,8 @@ static void __uart_rpi2_init(struct chr_device *inst)
 	if (!bus_read32) while (1);
 	
 	// do init staff
-	unsigned int ra;
-
-    /*bus_write32(bus, inst->base, AUX_ENABLES, 1);
+/*	unsigned int ra;
+    bus_write32(bus, inst->base, AUX_ENABLES, 1);
     bus_write32(bus, inst->base, AUX_MU_IER_REG, 0);
     bus_write32(bus, inst->base, AUX_MU_CNTL_REG, 0);
     bus_write32(bus, inst->base, AUX_MU_LCR_REG, 3);
