@@ -10,6 +10,9 @@
 #include <aim/console.h>
 #include <aim/device.h>
 #include <aim/mmu.h>
+#include <arch-mmu.h>
+#include <aim/initcalls.h>
+#include <aim/debug.h>
 
 // driver instance code
 static void __uart_rpi2_init(struct chr_device *inst)
