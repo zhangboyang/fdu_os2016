@@ -36,8 +36,8 @@ endif
 if UART_RPI2
 MODULE_SRCS += uart-rpi2.c
 noinst_PROGRAMS += uart-rpi2.ko
-uart_ns16550_ko_SOURCES = uart-rpi2.c
-uart_ns16550_ko_LDFLAGS = $(AM_LDFLAGS) -Wl,-r
+uart_rpi2_ko_SOURCES = uart-rpi2.c
+uart_rpi2_ko_LDFLAGS = $(AM_LDFLAGS) -Wl,-r
 noinst_HEADERS += uart-rpi2-hw.h
 endif
 
