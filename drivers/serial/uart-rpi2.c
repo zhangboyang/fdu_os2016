@@ -14,7 +14,10 @@
 #include <aim/initcalls.h>
 #include <aim/debug.h>
 
+
+
 // driver instance code
+
 static void __uart_rpi2_init(struct chr_device *inst)
 {
     // get bus fp
@@ -25,26 +28,26 @@ static void __uart_rpi2_init(struct chr_device *inst)
 	// do init staff
 	unsigned int ra;
 
-    bus_write32(AUX_ENABLES, 1);
-    bus_write32(AUX_MU_IER_REG, 0);
-    bus_write32(AUX_MU_CNTL_REG, 0);
-    bus_write32(AUX_MU_LCR_REG, 3);
-    bus_write32(AUX_MU_MCR_REG, 0);
-    bus_write32(AUX_MU_IER_REG, 0);
-    bus_write32(AUX_MU_IIR_REG, 0xC6);
-    bus_write32(AUX_MU_BAUD_REG, 270);
+    bus_write32(bus, AUX_ENABLES, 1);
+    bus_write32(bus, AUX_MU_IER_REG, 0);
+    bus_write32(bus, AUX_MU_CNTL_REG, 0);
+    bus_write32(bus, AUX_MU_LCR_REG, 3);
+    bus_write32(bus, AUX_MU_MCR_REG, 0);
+    bus_write32(bus, AUX_MU_IER_REG, 0);
+    bus_write32(bus, AUX_MU_IIR_REG, 0xC6);
+    bus_write32(bus, AUX_MU_BAUD_REG, 270);
     ra = inl(GPFSEL1);
     ra &= ~(7 << 12); //gpio14
     ra |= 2 << 12;    //alt5
     ra &= ~(7 << 15); //gpio15
     ra |= 2 << 15;    //alt5
-    bus_write32(GPFSEL1, ra);
-    bus_write32(GPPUD, 0);
+    bus_write32(bus, GPFSEL1, ra);
+    bus_write32(bus, GPPUD, 0);
     for(ra = 0; ra < 150; ra++) nop();
-    bus_write32(GPPUDCLK0, (1 << 14) | (1 << 15));
+    bus_write32(bus, GPPUDCLK0, (1 << 14) | (1 << 15));
     for(ra = 0; ra < 150; ra++) nop();
-    bus_write32(GPPUDCLK0, 0);
-    bus_write32(AUX_MU_CNTL_REG, 3);
+    bus_write32(bus, GPPUDCLK0, 0);
+    bus_write32(bus, AUX_MU_CNTL_REG, 3);
 }
 
 static int __uart_rpi2_putchar(struct chr_device *inst, unsigned char c)
@@ -57,8 +60,8 @@ static int __uart_rpi2_putchar(struct chr_device *inst, unsigned char c)
 	if (!bus_read32) while (1);
 	
 	// do output
-	while (!(bus_read32(AUX_MU_LSR_REG) & 0x20));
-    bus_write32(AUX_MU_IO_REG, c);
+	while (!(bus_read32(bus, AUX_MU_LSR_REG) & 0x20));
+    bus_write32(bus, AUX_MU_IO_REG, c);
 	
     return 0;
 }
