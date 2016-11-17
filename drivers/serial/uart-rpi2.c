@@ -1,20 +1,5 @@
-/* Copyright (C) 2016 Gan Quan <coin2028@hotmail.com>
- * Copyright (C) 2016 David Gao <davidgao1001@gmail.com>
- *
- * This file is part of AIM.
- *
- * AIM is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * AIM is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/*
+ * this file added by ZBY
  */
 
 #ifdef HAVE_CONFIG_H
@@ -26,10 +11,38 @@
 #include <aim/device.h>
 #include <aim/mmu.h>
 
+
+static struct bus_device *__mapped_bus;
+static addr_t __mapped_base;
+static struct chr_device __early_uart_rpi2 = {
+	.class = DEVCLASS_CHR,
+};
+
+static void __early_console_set_bus(struct bus_device *bus, addr_t base)
+{
+	__early_uart_rpi2.bus = bus;
+	__early_uart_rpi2.base = base;
+}
+
+static int early_console_putchar(int c)
+{
+	__uart_rpi2_putchar(&__early_uart_rpi2, c);
+	return 0;
+}
+
+static void __jump_handler(void)
+{
+	__early_console_set_bus(__mapped_bus, __mapped_base);
+	set_console(early_console_putchar, DEFAULT_KPUTS);
+}
+
 int __early_console_init(struct bus_device *bus, addr_t base, addr_t mapped_base)
 {
 	// FIXME
-
+	__early_console_set_bus(bus, base);
+	__mapped_bus = (struct bus_device *) postmap_addr(bus);
+	__mapped_base = mapped_base;
+	
 	return 0;
 }
 
