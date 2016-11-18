@@ -68,7 +68,7 @@ int fbinit(struct fbinfo *fb)
     req.depth = 32;
   
     req.fbreq = (struct property_header) {
-        .id = MAILBOX_PROP_FB_SETDISPLAYSIZE,
+        .id = MAILBOX_PROP_FB_ALLOCBUFFER,
         .bufsize = sizeof(req.fb),
         .size = sizeof(req.fb.align),
         .type = PROPERTY_TAG_REQUEST,
