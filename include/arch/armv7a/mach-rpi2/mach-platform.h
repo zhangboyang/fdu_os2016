@@ -21,6 +21,7 @@
 #define EARLY_CONSOLE_MAPPING	MAP_LINEAR
 
 /* mailbox api */
+#define MAILBOX_ALIGN 16
 #define MAILBOX_CHANNEL_FRAMEBUFFER 1
 #define MAILBOX_CHANNEL_PROPERTY 8
 int write_mailbox(uint32_t channel, uint32_t data);

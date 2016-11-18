@@ -75,10 +75,10 @@ int read_mailbox(uint32_t channel, uint32_t *data)
 
 
 
-#define PROPERTY_BUFALIGN 16
+
 #define PROPERTY_BUFSIZE 4096
 #define PROPERTY_DATASIZE (PROPERTY_BUFSIZE - 12)
-static __attribute((aligned(PROPERTY_BUFALIGN))) struct {
+static __attribute((aligned(MAILBOX_ALIGN))) struct {
     uint32_t size;
     uint32_t code;
     uint8_t data[PROPERTY_DATASIZE];
