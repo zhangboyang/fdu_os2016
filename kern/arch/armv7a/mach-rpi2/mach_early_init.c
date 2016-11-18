@@ -10,11 +10,11 @@
 
 
 __asm__ (
-    "__splash:\n"
+    "splash:\n"
     ".incbin \"splash.rgb\"\n"
 );
 __asm__ (
-    "__jtxj:\n"
+    "jtxj:\n"
     ".incbin \"jtxj.rgb\"\n"
 );
 
