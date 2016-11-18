@@ -31,7 +31,7 @@ int ask_property(void *buf, size_t reqsize, size_t bufsize);
 int ask_property_tag(int id, void *buf, size_t reqsize, size_t bufsize, size_t *ressize); // ressize = response size
 
 
-    
+#define MAILBOX_PROP_GETDISPLAYSIZE 0x00040003
 
 #endif /* _MACH_PLATFORM_H */
 

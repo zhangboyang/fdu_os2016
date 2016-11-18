@@ -32,6 +32,4 @@
 #define MAILBOX_CHANNEL_PROPERTY 8
 
 
-
-
 #endif
