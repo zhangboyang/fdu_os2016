@@ -30,7 +30,7 @@ static void show_splash(struct fbinfo *fbdev)
         int row = drow % imgheight;
         for (dcol = 0; dcol < fbdev->width; dcol += imgwidth) {
             int sz = imgwidth * (imgdepth / 8);
-            sz = min(sz, fbdev.width - dcol);
+            sz = min(sz, fbdev->width - dcol);
             copyrow(fbdev, drow, dcol, imgdata, row, imgwidth * (imgdepth / 8), imgdepth, sz);
         }
     }
