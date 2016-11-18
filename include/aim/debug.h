@@ -46,7 +46,11 @@ void panic(const char *fmt, ...);
 
 
 #include <util.h>
-static inline void dump_memory(void *memaddr, size_t memsize)
+#define dump_memory(addr, size) do { \
+    kprintf("memory dump requested at %s (%s:%d)\n", __func__, __FILE__, __LINE__); \
+    __dump_memory(addr, size); \
+} while (0)
+static inline void __dump_memory(void *memaddr, size_t memsize)
 {
     int n = memsize;
     unsigned addr = ULCAST(memaddr);
