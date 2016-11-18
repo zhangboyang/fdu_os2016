@@ -98,6 +98,7 @@ memdump(&__property_buffer, min(reqsize, PROPERTY_DATASIZE) + 12);
     if ((r = write_mailbox(MAILBOX_CHANNEL_PROPERTY, PA2VCA(premap_addr(ULCAST(&__property_buffer))))) < 0) return r;
     if ((r = read_mailbox(MAILBOX_CHANNEL_PROPERTY, NULL)) < 0) return r;
 memdump(&__property_buffer, min(reqsize, PROPERTY_DATASIZE) + 12);
+    if (__property_buffer.code != PROPERTY_CODE_SUCCESS) return -1;
     memcpy(buf, __property_buffer.data, min(bufsize, PROPERTY_DATASIZE));
     return 0;
 }

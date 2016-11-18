@@ -22,5 +22,5 @@ void mach_early_init()
         .type = PROPERTY_TAG_REQUEST,
     };
     r = ask_property(tag, BUFSIZE, BUFSIZE);
-    kprintf("r=%d memory=0x%x\n", r, tag->val32[0]);
+    kprintf("r=%d base=0x%x len=0x%x\n", r, tag->val32[0], tag->val32[1]);
 }
