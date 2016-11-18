@@ -46,7 +46,7 @@ int write_mailbox(uint32_t channel, uint32_t data)
 }
 int read_mailbox()
 {
-    
+    return -1;
 }
 
 
