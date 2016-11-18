@@ -71,7 +71,6 @@ static inline void memdump(void *memaddr, size_t memsize)
     int m = n % 16 ? n - n % 16 + 16 : n;
     int changed_flag = 0;
     char lb[16];
-    int bcflag[16] = {};
     for (i = 0; i < m; i++) {
         if (i % 16 == 0) {
             for (j = 0; j < 16; j++)
