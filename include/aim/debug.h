@@ -95,6 +95,7 @@ static inline void memdump(void *memaddr, size_t memsize)
             kprintf("\n");
         }
     }
+    kprintf("  end of memory dump\n");
 }
 
 #endif /* !__ASSEMBLER__ */

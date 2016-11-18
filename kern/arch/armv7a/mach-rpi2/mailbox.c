@@ -94,8 +94,10 @@ int ask_property(void *buf, size_t reqsize, size_t bufsize)
     memcpy(__property_buffer_header.data, buf, min(reqsize, PROPERTY_DATASIZE));
     memset(__property_buffer_header.data + min(reqsize, PROPERTY_DATASIZE), 0, 4); // set end tag
     int r;
+memdump(__property_buffer_header.data, min(reqsize, PROPERTY_DATASIZE) + 12);
     if ((r = write_mailbox(MAILBOX_CHANNEL_PROPERTY, PA2VCA(premap_addr(ULCAST(&__property_buffer_header))))) < 0) return r;
     if ((r = read_mailbox(MAILBOX_CHANNEL_PROPERTY, NULL)) < 0) return r;
+memdump(__property_buffer_header.data, min(reqsize, PROPERTY_DATASIZE) + 12);
     memcpy(buf, __property_buffer_header.data, min(bufsize, PROPERTY_DATASIZE));
     return 0;
 }
