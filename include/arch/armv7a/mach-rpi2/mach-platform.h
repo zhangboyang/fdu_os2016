@@ -27,6 +27,14 @@ int write_mailbox(uint32_t channel, uint32_t data);
 int read_mailbox(uint32_t channel, uint32_t *data);
 void mailbox_init();
 int ask_property(void *buf, size_t reqsize, size_t bufsize);
+struct property_header {
+    uint32_t id; // tag identifier
+    uint32_t bufsize; // value buffer size in bytes
+    uint32_t size : 31;
+    uint32_t type : 1; // 1 bit (MSB) request/response indicator (0=request, 1=response), 31 bits (LSB) value length in bytes
+#define PROPERTY_TAG_REQUEST 0
+#define PROPERTY_TAG_RESPONSE 1
+};
 
 #define MAILBOX_PROP_ARMMEMORY 0x00010005
 #define MAILBOX_PROP_VCMEMORY 0x00010006

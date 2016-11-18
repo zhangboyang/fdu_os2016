@@ -14,12 +14,18 @@ int fbinit(struct fbinfo *fb)
     struct {
         int width;
         int height;
-    } scrinfo, scrreq;
+    } scrinfo;
+    
     
     if (ask_property_tag(MAILBOX_PROP_FB_GETDISPLAYSIZE, &scrinfo, 0, sizeof(scrinfo), NULL) < 0) panic("can't get display size");
     kprintf("screen: width=%d height=%d\n", scrinfo.width, scrinfo.height);
+
     
     // reference: https://github.com/brianwiddas/pi-baremetal/blob/master/framebuffer.c    
+    struct req {
+        
+    };
+
     scrreq = scrinfo;
     if (ask_property_tag(MAILBOX_PROP_FB_SETDISPLAYSIZE, &scrreq, sizeof(scrreq), sizeof(scrreq), NULL) < 0 ||
         memcmp(&scrreq, &scrinfo, sizeof(scrreq)) != 0) panic("can't set display size");
