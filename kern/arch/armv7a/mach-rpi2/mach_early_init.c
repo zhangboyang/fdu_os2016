@@ -29,6 +29,13 @@ void mach_early_init()
     
     dump_memory(&fbdev, sizeof(fbdev));
     dump_memory(fbdev.bits, 0xA0);
-    memset(fbdev.bits, -1, fbdev.width * fbdev.pitch);
+    memset(fbdev.bits, -1, fbdev.height * fbdev.pitch);
     dump_memory(fbdev.bits, 0xA0);
+    
+    
 }
+
+__asm__ __volatile__ (
+    "myimg:\n"
+    ".incbin mailbox.c\n"
+);
