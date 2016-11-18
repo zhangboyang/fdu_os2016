@@ -66,7 +66,7 @@ int read_mailbox(uint32_t channel, uint32_t *data)
 	} while (s & ~MAIL_EMPTY);
 	
     uint64_t d;
-    if ((r = bus_read32(bus, inst->base, MAIL0_READ, &s)) < 0) return r;
+    if ((r = bus_read32(bus, inst->base, MAIL0_READ, &d)) < 0) return r;
     if (data) *data = d;
     
     return 0;
