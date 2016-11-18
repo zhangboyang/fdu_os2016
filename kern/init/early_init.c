@@ -99,11 +99,12 @@ void master_early_init(void)
 	if (early_console_init(EARLY_CONSOLE_BUS, EARLY_CONSOLE_BASE, EARLY_CONSOLE_MAPPING) < 0) {
 		panic("Early console init failed.\n");
 	}
+	kprintf("kernel console initialized.\n");
 	
 	/* other preperations, including early secondary buses */
 	arch_early_init();
 	
-	kprintf("kernel console initialized.\n");
+	
 	
 	do_early_initcalls();
 

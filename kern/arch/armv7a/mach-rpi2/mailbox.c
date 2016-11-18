@@ -97,6 +97,6 @@ static void mailbox_initdev(struct bus_device *bus, addr_t base, addr_t mapped_b
 void mailbox_init()
 {
     mailbox_initdev(&early_memory_bus, MAIL_MEMIO_BASE, postmap_addr(MAIL_MEMIO_BASE));
-    kprintf("mailbox initialized");
+    kprintf("mailbox initialized.\n");
 }
 
