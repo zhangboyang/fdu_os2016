@@ -103,6 +103,8 @@ dump_memory(&req, sizeof(req));
         .format = FBFMT_R8G8B8,
     };
     
+    kprintf("framebuffer: base=%08llx width=%d height=%d pitch=%08x format=%d\n", ULCAST(fb->bits), fb->width, fb->height, fb->pitch, fb->format);
+    
     return 0;
     
     // FIXME: i don't know why this can't work
