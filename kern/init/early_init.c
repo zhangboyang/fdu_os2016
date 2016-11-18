@@ -95,11 +95,13 @@ void master_early_init(void)
 	if (early_devices_init() < 0) {
 		panic("early_devices_init() failed.");
     }
-	/* other preperations, including early secondary buses */
-	arch_early_init();
+
 	if (early_console_init(EARLY_CONSOLE_BUS, EARLY_CONSOLE_BASE, EARLY_CONSOLE_MAPPING) < 0) {
 		panic("Early console init failed.\n");
 	}
+	
+	/* other preperations, including early secondary buses */
+	arch_early_init();
 	
 	kprintf("kernel console initialized.\n");
 	
