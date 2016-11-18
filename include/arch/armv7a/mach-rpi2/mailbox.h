@@ -3,7 +3,10 @@
 
 #include <mach-platform.h>
 
+
 #define MAIL_BASE 0xB880
+
+#define MAIL_MEMIO_BASE (RPI2_MEMIO_BASE + MAIL_BASE)
 
 // This bit is set in the status register if there is no space to write into the mailbox
 #define MAIL_FULL 0x80000000

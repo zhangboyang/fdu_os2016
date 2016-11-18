@@ -45,7 +45,7 @@ static void __uart_rpi2_init(struct chr_device *inst)
     ra |= 2 << 15;    //alt5
     bus_write32(bus, inst->base, GPFSEL1, ra);
     bus_write32(bus, inst->base, GPPUD, 0);
-    for(ra = 0; ra < 150; ra++) nop();
+    for(ra = 0; ra < 150; ra++) nop(); // FIXME: what's this
     bus_write32(bus, inst->base, GPPUDCLK0, (1 << 14) | (1 << 15));
     for(ra = 0; ra < 150; ra++) nop();
     bus_write32(bus, inst->base, GPPUDCLK0, 0);
