@@ -20,6 +20,7 @@
 static struct device __mailbox = {
 	.class = DEVCLASS_NON,
 };
+#define inst (&__mailbox)
 
 int write_mailbox(uint32_t channel, uint32_t data)
 {
