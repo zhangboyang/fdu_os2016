@@ -85,8 +85,8 @@ dump_memory(&req, sizeof(req));
 dump_memory(&req, sizeof(req));
     
     // check values
-    if (memcmp(&req.disp, &scrinfo, sizeof(scrinfo_t)) != 0) return -1;
-    if (memcmp(&req.buf, &scrinfo, sizeof(scrinfo_t)) != 0) return -1;
+    if (memcmp(&req.disp, &scrinfo, sizeof(struct scrinfo_t)) != 0) return -1;
+    if (memcmp(&req.buf, &scrinfo, sizeof(struct scrinfo_t)) != 0) return -1;
     if (req.depth != depth) return -1;
     if (!req.fb.base || !req.fb.size) return -1;
     
