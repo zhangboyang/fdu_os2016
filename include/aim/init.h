@@ -22,6 +22,7 @@
 #ifndef __ASSEMBLER__
 
 void arch_early_init(void);
+void mach_early_init(void);
 
 void master_init(void);
 
