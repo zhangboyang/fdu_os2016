@@ -9,6 +9,7 @@
 
 // physical address to video core address
 #define PA2VCA(addr) (addr + RPI2_VC_POFFSET)
+#define VCA2PA(addr) (addr - RPI2_VC_POFFSET)
 
 
 
@@ -25,13 +26,24 @@ int read_mailbox(uint32_t channel, uint32_t *data);
 void mailbox_init();
 int ask_property(void *buf, size_t reqsize, size_t bufsize);
 
-
 #define MAILBOX_PROP_ARMMEMORY 0x00010005
 #define MAILBOX_PROP_VCMEMORY 0x00010006
+#define MAILBOX_PROP_GETDISPLAYSIZE 0x00040003
 int ask_property_tag(int id, void *buf, size_t reqsize, size_t bufsize, size_t *ressize); // ressize = response size
 
 
-#define MAILBOX_PROP_GETDISPLAYSIZE 0x00040003
+/* framebuffer */
+enum {
+    FB_FORMAT_R8G8B8,
+};
+struct fbinfo {
+    void *data;
+    unsigned int width;
+    unsigned int height;
+    unsigned int pitch;
+    int format;
+};
+int fbinit(struct fbinfo *fb);
 
 #endif /* _MACH_PLATFORM_H */
 
