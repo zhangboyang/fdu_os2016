@@ -72,6 +72,7 @@ static void mailbox_initdev(struct bus_device *bus, addr_t base, addr_t mapped_b
     __mailbox_set_bus(bus, base);
 	__mapped_bus = (struct bus_device *) postmap_addr(bus);
 	__mapped_base = mapped_base;
+	if (jump_handlers_add(__jump_handler) != 0) while (1);
 }
 
 void mailbox_init()
