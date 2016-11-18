@@ -90,7 +90,6 @@ static inline void memdump(void *memaddr, size_t memsize)
                 kprintf("%02x ", b & 0xff);
             else
                 kprintf(  "%02x " , b & 0xff);
-            last_dump[i] = b;
         } else {
             b = '.';
             kprintf(".. ");
