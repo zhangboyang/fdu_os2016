@@ -42,7 +42,7 @@ int write_mailbox(uint32_t channel, uint32_t data)
 	    dmb(); // FIXME: necessary?
 	    int r;
 	    if ((r = bus_read32(bus, inst->base, MAIL0_STATUS, &s)) < 0) return r;
-	    kprintf("r=%d s=%08llx s&full=%08llx\n", r, s, (s&MAIL_FULL));
+	    //kprintf("r=%d s=%08llx s&full=%08llx\n", r, s, (s&MAIL_FULL));
 	} while (s & MAIL_FULL);
 	
 	// bus_write32 should have dmb() in it
@@ -68,6 +68,7 @@ int read_mailbox(uint32_t channel, uint32_t *data)
     uint64_t d;
     if ((r = bus_read32(bus, inst->base, MAIL0_READ, &d)) < 0) return r;
     if (data) *data = d;
+    kprintf("  maildata=%08llx\n", d);
     
     return 0;
 }
