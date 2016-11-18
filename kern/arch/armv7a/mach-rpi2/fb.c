@@ -45,7 +45,7 @@ int fbinit(struct fbinfo *fb)
         fbreq.base == 0) panic("can't alloc framebuffer");
     
     int pitch;
-    if (ask_property_tag(MAILBOX_PROP_FB_GETPITCH, &pitch, 0, sizeof(pitch), NULL) < 0 || pitch == 0) fail("can't get pitch");
+    if (ask_property_tag(MAILBOX_PROP_FB_GETPITCH, &pitch, 0, sizeof(pitch), NULL) < 0 || pitch == 0) panic("can't get pitch");
     
     // set fbinfo
     *fb = (struct fbinfo) {
