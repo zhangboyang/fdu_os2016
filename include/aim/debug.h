@@ -45,7 +45,7 @@ void panic(const char *fmt, ...);
 
 
 
-
+#include <util.h>
 static inline void memdump(void *memaddr, size_t memsize)
 {
     int n = memsize;
