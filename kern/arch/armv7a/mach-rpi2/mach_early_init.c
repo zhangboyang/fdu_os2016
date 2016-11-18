@@ -9,7 +9,7 @@
 
 
 __asm__ (
-    "imgdata:\n"
+    "__imgdata:\n"
     ".incbin \"splash.rgb\"\n"
 );
 static void copyrow(struct fbinfo *fbdev, int dstrow, int dstcol, void *src, int srcrow, int srcpitch, int srcdepth, int pixelcount)
@@ -24,7 +24,8 @@ static void show_splash(struct fbinfo *fbdev)
 {
     int imgwidth = 318, imgheight = 346;
     int imgdepth = 24;
-    extern uint8_t imgdata[];
+    extern uint8_t __imgdata[];
+    void *imgdata = premap_addr(__imgdata);
     int drow, dcol;
     for (drow = 0; drow < fbdev->height; drow++) {
         int row = drow % imgheight;
