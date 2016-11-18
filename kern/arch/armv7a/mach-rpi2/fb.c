@@ -46,7 +46,10 @@ int fbinit(struct fbinfo *fb)
     
     int r;
     if ((r = write_mailbox(MAILBOX_CHANNEL_FRAMEBUFFER, PA2VCA(premap_addr(ULCAST(&fbmail))))) < 0) return r;
-    if ((r = read_mailbox(MAILBOX_CHANNEL_FRAMEBUFFER, NULL)) < 0) return r;
+    uint32_t d;
+    if ((r = read_mailbox(MAILBOX_CHANNEL_FRAMEBUFFER, &d)) < 0) return r;
+    kprintf("d=%d\n", d);
+    if (d != 1) return -1;
 
     // set fbinfo
     *fb = (struct fbinfo) {
