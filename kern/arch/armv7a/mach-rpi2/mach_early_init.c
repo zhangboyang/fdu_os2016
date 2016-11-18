@@ -26,7 +26,7 @@ static void show_splash(struct fbinfo *fbdev)
     int imgwidth = 318, imgheight = 346;
     int imgdepth = 24;
     extern uint8_t __imgdata[];
-    void *imgdata = premap_addr((void *)__imgdata);
+    void *imgdata = PTRCAST(premap_addr(ULCAST(__imgdata)));
     int drow, dcol;
     for (drow = 0; drow < fbdev->height; drow++) {
         int row = drow % imgheight;
