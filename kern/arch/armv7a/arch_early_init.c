@@ -26,5 +26,6 @@
 void arch_early_init(void)
 {
     mach_early_init();
+
 }
 

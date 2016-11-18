@@ -63,11 +63,36 @@ int read_mailbox(uint32_t channel, uint32_t *data)
 	
     uint64_t d;
     if ((r = bus_read32(bus, inst->base, MAIL0_READ, &s)) < 0) return r;
-    *data = d;
+    if (data) *data = d;
     
     return 0;
 }
 
+
+
+#define PROPERTY_BUFALIGN 16
+#define PROPERTY_BUFSIZE 4096
+#define PROPERTY_DATASIZE (PROPERTY_BUFSIZE - 12)
+static __attribute((aligned(PROPERTY_BUFALIGN))) struct {
+    uint32_t size;
+    uint32_t code;
+    uint8_t data[PROPERTY_DATASIZE];
+    uint32_t padding;
+} __property_buffer_header;
+#define PROPERTY_CODE_REQUEST 0
+#define PROPERTY_CODE_SUCCESS 0x80000000
+#define PROPERTY_CODE_ERROR 0x80000001
+int ask_property(void *buf, size_t reqsize, size_t bufsize)
+{
+    __property_buffer_header.size = PROPERTY_BUFSIZE;
+    __property_buffer_header.code = PROPERTY_CODE_REQUEST;
+    memcpy(__property_buffer_header.data, buf, min(reqsize, PROPERTY_DATASIZE));
+    memset(__property_buffer_header.data + min(reqsize, PROPERTY_DATASIZE), 0, 4); // set end tag
+    if ((r = write_mailbox(MAILBOX_CHANNEL_PROPERTY, ULCAST(&__property_buffer_header))) < 0) return r;
+    if ((r = read_mailbox(MAILBOX_CHANNEL_PROPERTY, NULL)) < 0) return r;
+    memcpy(buf, __property_buffer_header.data, min(bufsize, PROPERTY_DATASIZE));
+    return 0;
+}
 
 
 // driver framework
