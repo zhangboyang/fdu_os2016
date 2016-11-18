@@ -47,7 +47,6 @@ int write_mailbox(uint32_t channel, uint32_t data)
 }
 int read_mailbox(uint32_t channel, uint32_t *data)
 {
-    assert((data & 0xF) == 0);
     assert((channel & 0xF) == channel);
     struct bus_device *bus = inst->bus;
 	bus_write_fp bus_write32 = bus->bus_driver.get_write_fp(bus, 32);
