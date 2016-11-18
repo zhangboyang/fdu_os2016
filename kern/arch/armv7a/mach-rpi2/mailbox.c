@@ -42,7 +42,7 @@ int write_mailbox(uint32_t channel, uint32_t data)
 	    dmb(); // FIXME: necessary?
 	    int r;
 	    if ((r = bus_read32(bus, inst->base, MAIL0_STATUS, &s)) < 0) return r;
-	    kprintf("r=%d s=%llu", r, s);
+	    kprintf("r=%d s=%08llx\n", r, s);
 	} while (s | MAIL_FULL);
 	
 	// bus_write32 should have dmb() in it
