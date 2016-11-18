@@ -51,7 +51,6 @@ static inline void memdump(void *memaddr, size_t memsize)
     int n = memsize;
     unsigned addr = ULCAST(memaddr);
     int i, j;
-    int new_flag = 0;
     
     // copied from ZBY's NEMU
     
@@ -61,15 +60,9 @@ static inline void memdump(void *memaddr, size_t memsize)
            "            +0 +1 +2 +3 +4 +5 +6 +7  +8 +9 +A +B +C +D +E +F"  "\n");
     //     "  AABBCCDD  aa bb cc dd 00 11 22 33  dd cc bb aa 33 22 11 00  ................");
 
-
-    /* THE CODE BELOW IS VERY UGLY, BUT IT WORKS!!!
-       NOBODY (INCLUDING ZBY) CAN UNDERSTAND IT AFTER FEW DAYS!
-       ZBY IS TOO LAZY TO REWRITE IT
-    */
     char buf[16];
     char b;
     int m = n % 16 ? n - n % 16 + 16 : n;
-    int changed_flag = 0;
     char lb[16];
     for (i = 0; i < m; i++) {
         if (i % 16 == 0) {
@@ -90,7 +83,7 @@ static inline void memdump(void *memaddr, size_t memsize)
             b = '.';
             kprintf(".. ");
         }
-        buf[i % 16] = isprint(b) ? b : '.';
+        buf[i % 16] = (b >= ' ' && b <= '~') ? b : '.';
         
         if (i % 16 == 7)
             kprintf(" ");
