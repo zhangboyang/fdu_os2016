@@ -21,6 +21,8 @@
 
 #ifndef __ASSEMBLER__
 
+#include <asm.h>
+
 /*
  * These routines access direct-attached memory. All access are routed THROUGH
  * MMU if it is turned on. 
@@ -36,14 +38,15 @@ static inline uint32_t read32(uint32_t addr)
 { return *(volatile uint32_t *)ULCAST(addr); }
 
 
+// add dmb after write operations only
 static inline void write8(uint32_t addr, uint8_t data)
-{ *(volatile uint8_t *)ULCAST(addr) = data; }
+{ *(volatile uint8_t *)ULCAST(addr) = data; dmb(); }
 
 static inline void write16(uint32_t addr, uint16_t data)
-{ *(volatile uint16_t *)ULCAST(addr) = data; }
+{ *(volatile uint16_t *)ULCAST(addr) = data; dmb(); }
 
 static inline void write32(uint32_t addr, uint32_t data)
-{ *(volatile uint32_t *)ULCAST(addr) = data; }
+{ *(volatile uint32_t *)ULCAST(addr) = data; dmb(); }
 
 #endif /* !__ASSEMBLER__ */
 
