@@ -13,13 +13,21 @@ __asm__ (
     "__imgdata:\n"
     ".incbin \"splash.rgb\"\n"
 );
-static void copyrow(struct fbinfo *fbdev, int dstrow, int dstcol, void *src, int srcrow, int srcpitch, int srcdepth, int pixelcount)
+static void copyrow(struct fbinfo *fbdev, int dstrow, int dstcol, void *srcdata, int srcrow, int srcpitch, int srcdepth, int pixelcount)
 {
     assert(fbdev->format == FBFMT_R8G8B8);
-    assert(srcdepth == 24);
-    void *dst = fbdev->bits + dstrow * fbdev->pitch + dstcol * (24 / 8);
-    src = src + srcrow * srcpitch;    
-    memcpy(dst, src, pixelcount * (srcdepth / 8));
+    int dstdepth = 24;
+    
+    unsigned char *dst = fbdev->bits + dstrow * fbdev->pitch + dstcol * (24 / 8);
+    unsigned char *src = src + srcrow * srcpitch;
+    
+    while (pixelcount--) {
+        dst[0] = src[2];
+        dst[1] = src[1];
+        dst[2] = src[0];
+        src += srcdepth / 8;
+        dst += dstdepth / 8;
+    }
 }
 static void show_splash(struct fbinfo *fbdev)
 {
