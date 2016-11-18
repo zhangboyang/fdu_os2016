@@ -25,6 +25,7 @@ static void show_splash(struct fbinfo *fbdev)
     int imgwidth = 318, imgheight = 346;
     int imgdepth = 24;
     extern uint8_t imgdata[];
+    int drow, dcol;
     for (drow = 0; drow < fbdev.height; drow++) {
         int row = drow % imgheight;
         for (dcol = 0; dcol < fbdev.width; dcol += imgwidth) {
