@@ -50,6 +50,8 @@ static inline void memdump(void *memaddr, size_t memsize)
 {
     int n = memsize;
     unsigned addr = ULCAST(memaddr);
+    int i, j;
+    int new_flag = 0;
     
     // copied from ZBY's NEMU
     
@@ -78,16 +80,8 @@ static inline void memdump(void *memaddr, size_t memsize)
                 else
                     lb[j] = 0xcc;
         
-            changed_flag = 0;
-            for (j = 0; j < 16; j++)
-                if (!new_flag && i + j < n && lb[j] != last_dump[i + j])
-                    bcflag[j] = changed_flag = 1;
-                else
-                    bcflag[j] = 0;
-            if (changed_flag)
-                kprintf(  "  %08x  " , addr + i);
-            else
-                kprintf( "  %08x  " , addr + i);
+
+            kprintf(  "  %08x  " , addr + i);
         }
         
         if (i < n) {
