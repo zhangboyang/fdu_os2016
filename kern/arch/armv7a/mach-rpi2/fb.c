@@ -34,7 +34,7 @@ int fbinit(struct fbinfo *fb)
         .virt_width = screeninfo.width,
         .virt_height = screeninfo.height,
         .pitch = 0,
-        .depth = 24, // FB_FORMAT_R8G8B8
+        .depth = 24, // FBFMT_R8G8B8
         .xoffset = 0,
         .yoffset = 0,
         .addr = 0,
@@ -51,7 +51,7 @@ int fbinit(struct fbinfo *fb)
         .width = fbmail.width,
         .height = fbmail.height,
         .pitch = fbmail.pitch,
-        .format = FB_FORMAT_R8G8B8,
+        .format = FBFMT_R8G8B8,
     };
 }
 

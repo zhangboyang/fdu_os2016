@@ -34,7 +34,7 @@ int ask_property_tag(int id, void *buf, size_t reqsize, size_t bufsize, size_t *
 
 /* framebuffer */
 enum {
-    FB_FORMAT_R8G8B8,
+    FBFMT_R8G8B8,
 };
 struct fbinfo {
     void *data;
