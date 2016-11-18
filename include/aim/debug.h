@@ -85,10 +85,7 @@ static inline void memdump(void *memaddr, size_t memsize)
         
         if (i < n) {
             b = lb[i % 16];
-            if (!bcflag[i % 16])
-                kprintf("%02x ", b & 0xff);
-            else
-                kprintf(  "%02x " , b & 0xff);
+            kprintf("%02x ", b & 0xff);
         } else {
             b = '.';
             kprintf(".. ");
@@ -101,10 +98,7 @@ static inline void memdump(void *memaddr, size_t memsize)
         if (i % 16 == 15) {
             kprintf(" ");
             for (j = 0; j < 16; j++)
-                if (!bcflag[j])
-                    kprintf("%c", buf[j]);
-                else
-                    kprintf(  "%c" , buf[j]);
+                kprintf("%c", buf[j]);
             kprintf("\n");
         }
     }
