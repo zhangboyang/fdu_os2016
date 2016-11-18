@@ -60,7 +60,7 @@ void mach_early_init()
     memset(fbdev.bits, -1, fbdev.height * fbdev.pitch);
     dump_memory(fbdev.bits, 0xA0);
     
-    show_splash(fbdev);
+    show_splash(&fbdev);
 }
 
 
