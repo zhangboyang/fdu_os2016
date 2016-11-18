@@ -25,7 +25,7 @@ int fbinit(struct fbinfo *fb)
         memcmp(&scrreq, &scrinfo, sizeof(scrreq)) != 0) panic("can't set display size");
         
     int depthinfo, depthreq;
-    depthinfo = depthreq = 24; // FBFMT_R8G8B8
+    depthinfo = depthreq = 16; // FBFMT_R8G8B8
     if (ask_property_tag(MAILBOX_PROP_FB_SETDEPTH, &depthreq, sizeof(depthreq), sizeof(depthreq), NULL) < 0 ||
         depthinfo != depthreq) {
         kprintf("%d %d\n", depthinfo, depthreq);
