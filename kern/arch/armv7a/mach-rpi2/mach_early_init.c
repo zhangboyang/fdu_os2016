@@ -17,8 +17,8 @@ static void copyrow(struct fbinfo *fbdev, int dstrow, int dstcol, void *src, int
 {
     assert(fbdev->format == FBFMT_R8G8B8);
     assert(srcdepth == 24);
-    void *dst = fbdev->bits + dstrow * fbdev->pitch + dstcol * 24;
-    src = src + srcrow * srcpitch;
+    void *dst = fbdev->bits + dstrow * fbdev->pitch + dstcol * (24 / 8);
+    src = src + srcrow * srcpitch;    
     memcpy(dst, src, pixelcount * (srcdepth / 8));
 }
 static void show_splash(struct fbinfo *fbdev)
