@@ -83,22 +83,22 @@ static __attribute((aligned(PROPERTY_BUFALIGN))) struct {
     uint32_t code;
     uint8_t data[PROPERTY_DATASIZE];
     uint32_t padding;
-} __property_buffer_header;
+} __property_buffer;
 #define PROPERTY_CODE_REQUEST 0
 #define PROPERTY_CODE_SUCCESS 0x80000000
 #define PROPERTY_CODE_ERROR 0x80000001
 int ask_property(void *buf, size_t reqsize, size_t bufsize)
 {
-    __property_buffer_header.size = PROPERTY_BUFSIZE;
-    __property_buffer_header.code = PROPERTY_CODE_REQUEST;
-    memcpy(__property_buffer_header.data, buf, min(reqsize, PROPERTY_DATASIZE));
-    memset(__property_buffer_header.data + min(reqsize, PROPERTY_DATASIZE), 0, 4); // set end tag
+    __property_buffer.size = PROPERTY_BUFSIZE;
+    __property_buffer.code = PROPERTY_CODE_REQUEST;
+    memcpy(__property_buffer.data, buf, min(reqsize, PROPERTY_DATASIZE));
+    memset(__property_buffer.data + min(reqsize, PROPERTY_DATASIZE), 0, 4); // set end tag
     int r;
-memdump(__property_buffer_header, min(reqsize, PROPERTY_DATASIZE) + 12);
-    if ((r = write_mailbox(MAILBOX_CHANNEL_PROPERTY, PA2VCA(premap_addr(ULCAST(&__property_buffer_header))))) < 0) return r;
+memdump(&__property_buffer, min(reqsize, PROPERTY_DATASIZE) + 12);
+    if ((r = write_mailbox(MAILBOX_CHANNEL_PROPERTY, PA2VCA(premap_addr(ULCAST(&__property_buffer))))) < 0) return r;
     if ((r = read_mailbox(MAILBOX_CHANNEL_PROPERTY, NULL)) < 0) return r;
-memdump(__property_buffer_header, min(reqsize, PROPERTY_DATASIZE) + 12);
-    memcpy(buf, __property_buffer_header.data, min(bufsize, PROPERTY_DATASIZE));
+memdump(&__property_buffer, min(reqsize, PROPERTY_DATASIZE) + 12);
+    memcpy(buf, __property_buffer.data, min(bufsize, PROPERTY_DATASIZE));
     return 0;
 }
 
