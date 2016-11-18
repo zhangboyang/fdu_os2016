@@ -77,7 +77,7 @@ int fbinit(struct fbinfo *fb)
     
 dump_memory(&req, sizeof(req));
     int r;
-    if ((r = ask_property(&req, sizeof(req), sizeof(req))) < 0) return -1;
+    if ((r = ask_property(&req, sizeof(req), sizeof(req))) < 0) return r;
 dump_memory(&req, sizeof(req));
     
     

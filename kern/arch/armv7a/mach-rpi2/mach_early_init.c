@@ -24,7 +24,7 @@ void mach_early_init()
     kprintf("vc memory: base=0x%08x size=0x%08x\n", vcinfo.base, vcinfo.size);
     
     static struct fbinfo fbdev;
-    fbinit(&fbdev);
+    if (fbinit(&fbdev) < 0) panic("can't init framebuffer");
     
     dump_memory(&fbdev, sizeof(fbdev));
     memset(fbdev.bits, -1, fbdev.width * fbdev.pitch);
