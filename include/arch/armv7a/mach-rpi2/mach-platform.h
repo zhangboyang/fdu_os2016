@@ -27,7 +27,8 @@ int ask_property(void *buf, size_t reqsize, size_t bufsize);
 
 
 #define MAILBOX_PROP_ARMMEMORY 0x00010005
-int ask_property_tag(int id, void *buf, size_t reqsize, size_t bufsize);
+#define MAILBOX_PROP_VCMEMORY 0x00010006
+int ask_property_tag(int id, void *buf, size_t reqsize, size_t bufsize, size_t *ressize); // ressize = response size
 
 
     

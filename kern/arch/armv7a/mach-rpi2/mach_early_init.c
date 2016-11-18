@@ -19,4 +19,5 @@ void mach_early_init()
     
     kprintf("arm memory: base=0x%x size=0x%x\n", r, arminfo.base, arminfo.size);
     kprintf("vc memory: base=0x%x size=0x%x\n", r, vcinfo.base, vcinfo.size);
+    
 }
