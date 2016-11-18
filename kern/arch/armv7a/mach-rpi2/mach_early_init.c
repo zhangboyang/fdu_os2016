@@ -15,7 +15,7 @@ __asm__ (
 static void copyrow(struct fbinfo *fbdev, int dstrow, int dstcol, void *src, int srcrow, int srcpitch, int srcdepth, int count)
 {
     assert(fbdev->format == FBFMT_R8G8B8);
-    assert(fbdev->srcdepth == 24);
+    assert(srcdepth == 24);
     void *dst = fbdev->bits + dstrow * fbdev->pitch + dstcol * 24;
     src = src + srcrow * srcpitch;
     memcpy(dst, src, count * (srcdepth / 8));
