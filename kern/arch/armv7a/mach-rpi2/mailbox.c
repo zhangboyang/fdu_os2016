@@ -14,6 +14,7 @@
 #include <sys/types.h>
 #include <aim/device.h>
 #include <aim/debug.h>
+#include <asm.h>
 #include <platform.h>
 #include <mailbox.h>
 
