@@ -39,7 +39,7 @@ enum {
     FBFMT_R8G8B8,
 };
 struct fbinfo {
-    void *data;
+    void *bits;
     unsigned int width;
     unsigned int height;
     unsigned int pitch;
