@@ -109,10 +109,9 @@ int ask_property(void *buf, size_t reqsize, size_t bufsize) // buf should point 
 int ask_property_tag(int id, void *buf, size_t reqsize, size_t bufsize) // buf should point to raw data
 {
     int r;
-    assert(reqsize <= PROPERTY_DATASIZE);
-    assert(bufsize <= PROPERTY_DATASIZE);
 #define PROPERTY_TAG_VALBUFSIZE (PROPERTY_BUFSIZE - 24)
-#define PROPERTY_TAG_BUFSIZE (PROPERTY_TAG_VALBUFSIZE + 12)
+    assert(reqsize <= PROPERTY_TAG_VALBUFSIZE);
+    assert(bufsize <= PROPERTY_TAG_VALBUFSIZE);
     struct {
         uint32_t id; // tag identifier
         uint32_t bufsize; // value buffer size in bytes
@@ -128,7 +127,7 @@ int ask_property_tag(int id, void *buf, size_t reqsize, size_t bufsize) // buf s
         .type = PROPERTY_TAG_REQUEST,
     };
     memcpy(tag.data, buf, reqsize);
-    if ((r = ask_property(&tag, BUFSIZE, BUFSIZE)) < 0) return r;
+    if ((r = ask_property(&tag, sizeof(tag), sizeof(tag)) < 0) return r;
     if (tag.type != PROPERTY_TAG_RESPONSE) return -1;
     memcpy(buf, tag.data, bufsize);
     return 0;
