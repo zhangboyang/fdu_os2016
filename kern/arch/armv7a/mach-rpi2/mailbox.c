@@ -18,7 +18,7 @@
 #include <asm.h>
 #include <platform.h>
 #include <mailbox.h>
-#include <io-mem.h>
+#include <drivers/io/io-mem.h>
 
 static struct device __mailbox = {
 	.class = DEVCLASS_NON,
