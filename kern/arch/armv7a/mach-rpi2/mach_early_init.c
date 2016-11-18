@@ -13,7 +13,7 @@ void mach_early_init()
     #define VALBUFSIZE (16 * 4)
     #define BUFSIZE (VALBUFSIZE + 3 * sizeof(uint32_t))
     uint32_t buf[BUFSIZE / 4];
-    struct property_tag *tag = &buf;
+    struct property_tag *tag = (void *) &buf;
     *tag = (struct property_tag) {
         .id = MAILBOX_PROP_ARMMEMORY,
         .bufsize = VALBUFSIZE,
