@@ -112,7 +112,7 @@ int ask_property_tag(int id, void *buf, size_t reqsize, size_t bufsize) // buf s
     assert(reqsize <= PROPERTY_DATASIZE);
     assert(bufsize <= PROPERTY_DATASIZE);
 #define PROPERTY_TAG_VALBUFSIZE (PROPERTY_BUFSIZE - 24)
-#define PROPERTY_TAG_BUFSIZE (VALBUFSIZE + 12)
+#define PROPERTY_TAG_BUFSIZE (PROPERTY_TAG_VALBUFSIZE + 12)
     uint32_t buf[PROPERTY_TAG_BUFSIZE / 4];
     struct {
         uint32_t id; // tag identifier
