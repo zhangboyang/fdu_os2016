@@ -46,7 +46,7 @@ void panic(const char *fmt, ...);
 
 
 #include <util.h>
-static inline void memdump(void *memaddr, size_t memsize)
+static inline void dump_memory(void *memaddr, size_t memsize)
 {
     int n = memsize;
     unsigned addr = ULCAST(memaddr);

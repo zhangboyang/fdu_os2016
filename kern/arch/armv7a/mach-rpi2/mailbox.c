@@ -96,10 +96,10 @@ int ask_property(void *buf, size_t reqsize, size_t bufsize) // buf should point 
     memcpy(__property_buffer.data, buf, reqsize);
     memset(__property_buffer.data + reqsize, 0, 4); // set end tag
     int r;
-//memdump(&__property_buffer, reqsize + 12);
+//dump_memory(&__property_buffer, reqsize + 12);
     if ((r = write_mailbox(MAILBOX_CHANNEL_PROPERTY, PA2VCA(premap_addr(ULCAST(&__property_buffer))))) < 0) return r;
     if ((r = read_mailbox(MAILBOX_CHANNEL_PROPERTY, NULL)) < 0) return r;
-//memdump(&__property_buffer, reqsize + 12);
+//dump_memory(&__property_buffer, reqsize + 12);
     if (__property_buffer.code != PROPERTY_CODE_SUCCESS) return -1;
     memcpy(buf, __property_buffer.data, bufsize);
     return 0;
