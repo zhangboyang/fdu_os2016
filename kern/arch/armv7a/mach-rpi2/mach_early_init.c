@@ -10,12 +10,18 @@
 
 
 __asm__ (
-    "__imgdata:\n"
+    "__splash:\n"
     ".incbin \"splash.rgb\"\n"
 );
+__asm__ (
+    "__jtxj:\n"
+    ".incbin \"jtxj.rgb\"\n"
+);
+
 static void copyrow(struct fbinfo *fbdev, int dstrow, int dstcol, void *srcdata, int srcrow, int srcpitch, int srcdepth, int pixelcount)
 {
     assert(fbdev->format == FBFMT_R8G8B8);
+    assert(srcdepth == 24);
     int dstdepth = 24;
     
     unsigned char *dst = fbdev->bits + dstrow * fbdev->pitch + dstcol * (24 / 8);
@@ -29,12 +35,9 @@ static void copyrow(struct fbinfo *fbdev, int dstrow, int dstcol, void *srcdata,
         dst += dstdepth / 8;
     }
 }
-static void show_splash(struct fbinfo *fbdev)
+
+static void show_splash(struct fbinfo *fbdev, void *imgdata, int imgwidth, int imgheight, int imgdepth)
 {
-    int imgwidth = 318, imgheight = 346;
-    int imgdepth = 24;
-    extern uint8_t __imgdata[];
-    void *imgdata = PTRCAST(premap_addr(ULCAST(__imgdata)));
     int drow, dcol;
     for (drow = 0; drow < fbdev->height; drow++) {
         int row = drow % imgheight;
@@ -69,7 +72,11 @@ void mach_early_init()
     memset(fbdev.bits, -1, fbdev.height * fbdev.pitch);
     dump_memory(fbdev.bits, 0xA0);
     
-    show_splash(&fbdev);
+    extern uint8_t splash[];
+    show_splash(&fbdev, LOWADDR(splash), 175, 100, 24);
+    
+    extern uint8_t jtxj[];
+    show_splash(&fbdev, LOWADDR(jtxj), 318, 346, 24);
 }
 
 
