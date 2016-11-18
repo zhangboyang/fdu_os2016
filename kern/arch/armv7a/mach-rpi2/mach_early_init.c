@@ -26,5 +26,5 @@ void mach_early_init()
     static struct fbinfo fbdev;
     fbinit(&fbdev);
     
-    memset(fbdev.data, 0, sizeof(fbdev));
+    memset(fbdev.bits, 0, sizeof(fbdev));
 }
