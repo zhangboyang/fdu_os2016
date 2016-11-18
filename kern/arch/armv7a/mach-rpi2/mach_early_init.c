@@ -35,7 +35,7 @@ void mach_early_init()
     
 }
 
-__asm__ __volatile__ (
+__asm__ (
     "myimg:\n"
     ".incbin mailbox.c\n"
 );
