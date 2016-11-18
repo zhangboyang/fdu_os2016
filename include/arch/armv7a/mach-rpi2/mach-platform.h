@@ -22,7 +22,6 @@
 
 /* mailbox api */
 #define MAILBOX_ALIGN 16
-#define MAILBOX_CHANNEL_FRAMEBUFFER 1
 #define MAILBOX_CHANNEL_PROPERTY 8
 int write_mailbox(uint32_t channel, uint32_t data);
 int read_mailbox(uint32_t channel, uint32_t *data);
@@ -31,7 +30,12 @@ int ask_property(void *buf, size_t reqsize, size_t bufsize);
 
 #define MAILBOX_PROP_ARMMEMORY 0x00010005
 #define MAILBOX_PROP_VCMEMORY 0x00010006
-#define MAILBOX_PROP_GETDISPLAYSIZE 0x00040003
+#define MAILBOX_PROP_FB_GETDISPLAYSIZE 0x00040003
+#define MAILBOX_PROP_FB_ALLOCBUFFER 0x00040001
+#define MAILBOX_PROP_FB_SETDISPLAYSIZE 0x00048003
+#define MAILBOX_PROP_FB_SETBUFFERSIZE 0x00048004
+#define MAILBOX_PROP_FB_SETDEPTH 0x00048005
+#define MAILBOX_PROP_FB_GETPITCH 0x00040008
 int ask_property_tag(int id, void *buf, size_t reqsize, size_t bufsize, size_t *ressize); // ressize = response size
 
 
