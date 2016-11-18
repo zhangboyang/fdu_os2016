@@ -44,12 +44,12 @@ int fbinit(struct fbinfo *fb)
         .size = 0,
     };
     
-    dump_memory(&fbmail, sizeof(fbmail));
+dump_memory(&fbmail, sizeof(fbmail));
     int r;
     if ((r = write_mailbox(MAILBOX_CHANNEL_FRAMEBUFFER, PA2VCA(premap_addr(ULCAST(&fbmail))))) < 0) return r;
     uint32_t d;
     if ((r = read_mailbox(MAILBOX_CHANNEL_FRAMEBUFFER, &d)) < 0) return r;
-    kprintf("d=%d\n", d);
+kprintf("d=%d\n", d); dump_memory(&fbmail, sizeof(fbmail));
     if (d != 1) return -1;
 
     // set fbinfo
