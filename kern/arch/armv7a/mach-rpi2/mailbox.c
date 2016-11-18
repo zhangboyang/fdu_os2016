@@ -32,9 +32,9 @@ int write_mailbox(uint32_t channel, uint32_t data)
 	bus_read_fp bus_read32 = bus->bus_driver.get_read_fp(bus, 32);
 	if (!bus_read32) return -1;
 	
+	uint64_t s;
 	do {
 	    dmb(); // FIXME: necessary?
-	    uint64_t s;
 	    int r;
 	    if ((r = bus_read32(bus, inst->base, MAIL1_STATUS, &s)) < 0) return r;
 	} while (s | MAIL_FULL);
