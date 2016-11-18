@@ -69,10 +69,10 @@ dump_memory(&req, sizeof(req));
     };
     req.depth = 24;
 dump_memory(&req, sizeof(req));    
-    req.dispreq = (struct property_header) {
+    req.fbreq = (struct property_header) {
         .id = MAILBOX_PROP_FB_SETDISPLAYSIZE,
-        .bufsize = sizeof(req.fb.align),
-        .size = sizeof(req.fb),
+        .bufsize = sizeof(req.fb),
+        .size = sizeof(req.fb.align),
         .type = PROPERTY_TAG_REQUEST,
     };
     req.fb.align = 16;
