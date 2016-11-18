@@ -54,7 +54,7 @@ static inline void memdump(void *memaddr, size_t memsize)
     
     // copied from ZBY's NEMU
     
-    kprintf( "  %d bytes of memory dump at "  "0x%08x"  "\n", n, addr);
+    kprintf( " %d bytes of memory dump at "  "0x%08x"  "\n", n, addr);
     
     kprintf(
            "            +0 +1 +2 +3 +4 +5 +6 +7  +8 +9 +A +B +C +D +E +F"  "\n");
@@ -95,7 +95,7 @@ static inline void memdump(void *memaddr, size_t memsize)
             kprintf("\n");
         }
     }
-    kprintf("  end of memory dump\n");
+    kprintf(" end of memory dump\n");
 }
 
 #endif /* !__ASSEMBLER__ */
