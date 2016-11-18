@@ -33,7 +33,7 @@ void panic(const char *fmt, ...);
 	do { \
 		if (!(condition)) \
 			panic("Assertion failed in %s (%s:%d): %s\n", \
-			    __func_, __FILE__, __LINE__, #condition); \
+			    __func__, __FILE__, __LINE__, #condition); \
 	} while (0)
 
 
