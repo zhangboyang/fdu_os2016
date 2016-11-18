@@ -4,6 +4,7 @@
 
 #include <sys/types.h>
 #include <aim/debug.h>
+#include <aim/mmu.h>
 #include <platform.h>
 
 
