@@ -16,7 +16,7 @@ int fbinit(struct fbinfo *fb)
     } screeninfo;
     if (ask_property_tag(MAILBOX_PROP_GETDISPLAYSIZE, &screeninfo, 0, sizeof(screeninfo), NULL) < 0) panic("can't get display size");
     kprintf("screen: width=%d height=%d\n", screeninfo.width, screeninfo.height);
-    
+screeninfo.width = 640; screeninfo.height = 480;
     // construct mail
     // reference: https://github.com/raspberrypi/firmware/wiki/Mailbox-framebuffer-interface
     static __attribute((aligned(MAILBOX_ALIGN))) struct fbmailinfo {
