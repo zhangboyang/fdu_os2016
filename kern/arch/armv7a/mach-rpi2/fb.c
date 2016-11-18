@@ -3,6 +3,7 @@
 #endif /* HAVE_CONFIG_H */
 
 #include <sys/types.h>
+#include <aim/debug.h>
 #include <platform.h>
 
 
