@@ -42,7 +42,7 @@ int fbinit(struct fbinfo *fb)
             };
         } fb;
     } req;
-memset(req, 0, sizeof(req));
+memset(&req, 0, sizeof(req));
 dump_memory(&req, sizeof(req));
     
     req.dispreq = (struct property_header) {
