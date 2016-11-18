@@ -25,6 +25,9 @@ int read_mailbox(uint32_t channel, uint32_t *data);
 void mailbox_init();
 int ask_property(void *buf, size_t reqsize, size_t bufsize);
 
+
+#define MAILBOX_PROP_ARMMEMORY 0x00010005
+
 #define PROPERTY_TAG_REQUEST 0
 #define PROPERTY_TAG_RESPONSE 1
 
