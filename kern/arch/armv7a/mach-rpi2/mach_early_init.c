@@ -19,7 +19,7 @@ static void copyrow(struct fbinfo *fbdev, int dstrow, int dstcol, void *srcdata,
     int dstdepth = 24;
     
     unsigned char *dst = fbdev->bits + dstrow * fbdev->pitch + dstcol * (24 / 8);
-    unsigned char *src = src + srcrow * srcpitch;
+    unsigned char *src = srcdata + srcrow * srcpitch;
     
     while (pixelcount--) {
         dst[0] = src[2];
