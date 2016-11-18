@@ -6,6 +6,7 @@
 
 // videocore physical memory offset
 #define RPI2_VC_POFFSET 0x40000000
+#define RPI2_VC_POFFSET_NOL2CACHE 0xC0000000
 
 // physical address to video core address
 #define PA2VCA(addr) (addr + RPI2_VC_POFFSET)

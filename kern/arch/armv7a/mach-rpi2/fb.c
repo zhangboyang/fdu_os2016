@@ -96,7 +96,7 @@ int fbinit(struct fbinfo *fb)
     
     // set fbinfo
     *fb = (struct fbinfo) {
-        .bits = PTRCAST(VCA2PA(req.fb.base)), // return physical memory address here, no need to use VCA2PA
+        .bits = PTRCAST(req.fb.base - RPI2_VC_POFFSET_NOL2CACHE), // return physical memory address here
         .width = scrinfo.width,
         .height = scrinfo.height,
         .pitch = pitch,
