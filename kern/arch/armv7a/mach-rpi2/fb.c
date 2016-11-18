@@ -42,8 +42,6 @@ int fbinit(struct fbinfo *fb)
             };
         } fb;
     } req;
-memset(&req, 0, sizeof(req));
-dump_memory(&req, sizeof(req));
     
     req.dispreq = (struct property_header) {
         .id = MAILBOX_PROP_FB_SETDISPLAYSIZE,
@@ -52,7 +50,7 @@ dump_memory(&req, sizeof(req));
         .type = PROPERTY_TAG_REQUEST,
     };
     req.disp = scrinfo;
-dump_memory(&req, sizeof(req));    
+
     req.bufreq = (struct property_header) {
         .id = MAILBOX_PROP_FB_SETBUFFERSIZE,
         .bufsize = sizeof(req.buf),
@@ -60,15 +58,15 @@ dump_memory(&req, sizeof(req));
         .type = PROPERTY_TAG_REQUEST,
     };
     req.buf = scrinfo;
-dump_memory(&req, sizeof(req));    
+
     req.depthreq = (struct property_header) {
         .id = MAILBOX_PROP_FB_SETDEPTH,
         .bufsize = sizeof(uint32_t),
         .size = sizeof(uint32_t),
         .type = PROPERTY_TAG_REQUEST,
     };
-    req.depth = 24;
-dump_memory(&req, sizeof(req));    
+    req.depth = 32;
+  
     req.fbreq = (struct property_header) {
         .id = MAILBOX_PROP_FB_SETDISPLAYSIZE,
         .bufsize = sizeof(req.fb),
