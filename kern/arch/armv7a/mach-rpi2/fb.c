@@ -28,7 +28,7 @@ int fbinit(struct fbinfo *fb)
         struct scrinfo_t disp;
         
         struct property_header bufreq;
-        struct scrinfo_t disp;
+        struct scrinfo_t buf;
 
         struct property_header depthreq;
         int depth;
