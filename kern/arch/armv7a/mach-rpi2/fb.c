@@ -44,6 +44,7 @@ int fbinit(struct fbinfo *fb)
         .size = 0,
     };
     
+    dump_memory(&fbmail, sizeof(fbmail));
     int r;
     if ((r = write_mailbox(MAILBOX_CHANNEL_FRAMEBUFFER, PA2VCA(premap_addr(ULCAST(&fbmail))))) < 0) return r;
     uint32_t d;
