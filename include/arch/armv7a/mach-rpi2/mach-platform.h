@@ -21,12 +21,11 @@
 #define EARLY_CONSOLE_MAPPING	MAP_LINEAR
 
 /* mailbox api */
+#define MAILBOX_CHANNEL_FRAMEBUFFER 1
+#define MAILBOX_CHANNEL_PROPERTY 8
 int write_mailbox(uint32_t channel, uint32_t data);
 int read_mailbox(uint32_t channel, uint32_t *data);
 void mailbox_init();
-
-#define MAILBOX_CHANNEL_FRAMEBUFFER 1
-#define MAILBOX_CHANNEL_PROPERTY 8
 int ask_property(void *buf, size_t reqsize, size_t bufsize);
 
 #define MAILBOX_PROP_ARMMEMORY 0x00010005
