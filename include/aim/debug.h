@@ -53,9 +53,9 @@ static inline void memdump(void *memaddr, size_t memsize)
     
     // copied from ZBY's NEMU
     
-    printf( "  %d bytes of memory dump at "  "0x%08X"  "\n", n, addr);
+    kprintf( "  %d bytes of memory dump at "  "0x%08x"  "\n", n, addr);
     
-    printf(
+    kprintf(
            "            +0 +1 +2 +3 +4 +5 +6 +7  +8 +9 +A +B +C +D +E +F"  "\n");
     //     "  AABBCCDD  aa bb cc dd 00 11 22 33  dd cc bb aa 33 22 11 00  ................");
 
@@ -85,35 +85,35 @@ static inline void memdump(void *memaddr, size_t memsize)
                 else
                     bcflag[j] = 0;
             if (changed_flag)
-                printf(  "  %08x  " , addr + i);
+                kprintf(  "  %08x  " , addr + i);
             else
-                printf( "  %08x  " , addr + i);
+                kprintf( "  %08x  " , addr + i);
         }
         
         if (i < n) {
             b = lb[i % 16];
             if (!bcflag[i % 16])
-                printf("%02x ", b & 0xff);
+                kprintf("%02x ", b & 0xff);
             else
-                printf(  "%02x " , b & 0xff);
+                kprintf(  "%02x " , b & 0xff);
             last_dump[i] = b;
         } else {
             b = '.';
-            printf(".. ");
+            kprintf(".. ");
         }
         buf[i % 16] = isprint(b) ? b : '.';
         
         if (i % 16 == 7)
-            printf(" ");
+            kprintf(" ");
         
         if (i % 16 == 15) {
-            printf(" ");
+            kprintf(" ");
             for (j = 0; j < 16; j++)
                 if (!bcflag[j])
-                    printf("%c", buf[j]);
+                    kprintf("%c", buf[j]);
                 else
-                    printf(  "%c" , buf[j]);
-            printf("\n");
+                    kprintf(  "%c" , buf[j]);
+            kprintf("\n");
         }
     }
 }
