@@ -55,5 +55,7 @@ int fbinit(struct fbinfo *fb)
         .pitch = fbmail.pitch,
         .format = FBFMT_R8G8B8,
     };
+    
+    return 0;
 }
 
