@@ -96,7 +96,7 @@ dump_memory(&req, sizeof(req));
     
     // set fbinfo
     *fb = (struct fbinfo) {
-        .bits = PTRCAST(VCA2PA(req.fb.base)), // return physical memory address here
+        .bits = PTRCAST(req.fb.base), // return physical memory address here, no need to use VCA2PA
         .width = scrinfo.width,
         .height = scrinfo.height,
         .pitch = pitch,
