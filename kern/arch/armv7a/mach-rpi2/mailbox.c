@@ -127,7 +127,7 @@ int ask_property_tag(int id, void *buf, size_t reqsize, size_t bufsize) // buf s
         .type = PROPERTY_TAG_REQUEST,
     };
     memcpy(tag.data, buf, reqsize);
-    if ((r = ask_property(&tag, sizeof(tag), sizeof(tag)) < 0) return r;
+    if ((r = ask_property(&tag, sizeof(tag), sizeof(tag))) < 0) return r;
     if (tag.type != PROPERTY_TAG_RESPONSE) return -1;
     memcpy(buf, tag.data, bufsize);
     return 0;
