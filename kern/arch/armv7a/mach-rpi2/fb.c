@@ -11,58 +11,82 @@
 
 int fbinit(struct fbinfo *fb)
 {
-    struct {
+    struct scrinfo_t {
         int width;
         int height;
-    } scrinfo, scrreq;
+    } scrinfo;
+    
     
     if (ask_property_tag(MAILBOX_PROP_FB_GETDISPLAYSIZE, &scrinfo, 0, sizeof(scrinfo), NULL) < 0) panic("can't get display size");
     kprintf("screen: width=%d height=%d\n", scrinfo.width, scrinfo.height);
-    
-    // reference: https://github.com/brianwiddas/pi-baremetal/blob/master/framebuffer.c    
-    scrreq = scrinfo;
-    if (ask_property_tag(MAILBOX_PROP_FB_SETDISPLAYSIZE, &scrreq, sizeof(scrreq), sizeof(scrreq), NULL) < 0 ||
-        memcmp(&scrreq, &scrinfo, sizeof(scrreq)) != 0) panic("can't set display size");
-        
-    int depthinfo, depthreq;
-    depthinfo = depthreq = 16; // FBFMT_R8G8B8
-    if (ask_property_tag(MAILBOX_PROP_FB_SETDEPTH, &depthreq, sizeof(depthreq), sizeof(depthreq), NULL) < 0 ||
-        depthinfo != depthreq) {
-        kprintf("%d %d\n", depthinfo, depthreq);
-        panic("can't set depth");
-    }
-    
-    if (ask_property_tag(MAILBOX_PROP_FB_SETBUFFERSIZE, &scrreq, sizeof(scrreq), sizeof(scrreq), NULL) < 0 ||
-        memcmp(&scrreq, &scrinfo, sizeof(scrreq)) != 0) {
-        dump_memory(&scrinfo, sizeof(scrinfo));
-        dump_memory(&scrreq, sizeof(scrreq));
-        panic("can't set buffer size");
-    }
-    
-    union {
-        uint32_t align;
-        struct {
-            uint32_t base;
-            uint32_t size;
-        };
-    } fbreq = {
-        .align = 16,
-        .size = 0,
-    };
-    if (ask_property_tag(MAILBOX_PROP_FB_ALLOCBUFFER, &fbreq, sizeof(fbreq), sizeof(fbreq), NULL) < 0 ||
-        fbreq.base == 0) panic("can't alloc framebuffer");
-    
+
 
     
-    int pitch;
-    if (ask_property_tag(MAILBOX_PROP_FB_GETPITCH, &pitch, 0, sizeof(pitch), NULL) < 0 || pitch == 0) panic("can't get pitch");
+    // reference: https://github.com/brianwiddas/pi-baremetal/blob/master/framebuffereq.c    
+    struct {
+        struct property_header dispreq;
+        struct scrinfo_t disp;
+        
+        struct property_header bufreq;
+        struct scrinfo_t disp;
+
+        struct property_header depthreq;
+        int depth;
+        
+        struct property_header fbreq;
+        union {
+            int align;
+            struct {
+                uint32_t base;
+                uint32_t size;
+            };
+        } fb;
+    } req;
+    
+    req.dispreq = (struct property_header) {
+        .id = MAILBOX_PROP_FB_SETDISPLAYSIZE,
+        .bufsize = sizeof(req.disp),
+        .size = sizeof(req.disp),
+        .type = PROPERTY_TAG_REQUEST,
+    };
+    req.disp = scrinfo;
+    
+    req.bufreq = (struct property_header) {
+        .id = MAILBOX_PROP_FB_SETBUFFERSIZE,
+        .bufsize = sizeof(req.buf),
+        .size = sizeof(req.buf),
+        .type = PROPERTY_TAG_REQUEST,
+    };
+    req.buf = scrinfo;
+    
+    req.depthreq = (struct property_header) {
+        .id = MAILBOX_PROP_FB_SETDEPTH,
+        .bufsize = sizeof(uint32_t),
+        .size = sizeof(uint32_t),
+        .type = PROPERTY_TAG_REQUEST,
+    };
+    req.depth = 24;
+    
+    req.dispreq = (struct property_header) {
+        .id = MAILBOX_PROP_FB_SETDISPLAYSIZE,
+        .bufsize = sizeof(req.fb.align),
+        .size = sizeof(req.fb),
+        .type = PROPERTY_TAG_REQUEST,
+    };
+    req.fb.align = 16;
+    
+dump_memory(&req, sizeof(req));
+    int r;
+    if ((r = ask_property(&req, sizeof(req), sizeof(req))) < 0) return -1;
+dump_memory(&req, sizeof(req));
+    
     
     // set fbinfo
     *fb = (struct fbinfo) {
-        .bits = PTRCAST(VCA2PA(fbreq.base)), // return physical memory address here
+        .bits = PTRCAST(VCA2PA(req.fb.base)), // return physical memory address here
         .width = scrinfo.width,
         .height = scrinfo.height,
-        .pitch = pitch,
+        .pitch = 0, // FIXME
         .format = FBFMT_R8G8B8,
     };
     
