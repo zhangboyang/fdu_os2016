@@ -80,9 +80,9 @@ int fbinit(struct fbinfo *fb)
     };
     req.fb.align = 16;
     
-dump_memory(&req, sizeof(req));
+//dump_memory(&req, sizeof(req));
     if ((r = ask_property(&req, sizeof(req), sizeof(req))) < 0) return r;
-dump_memory(&req, sizeof(req));
+//dump_memory(&req, sizeof(req));
     
     // check values
     if (memcmp(&req.disp, &scrinfo, sizeof(struct scrinfo_t)) != 0) return -1;

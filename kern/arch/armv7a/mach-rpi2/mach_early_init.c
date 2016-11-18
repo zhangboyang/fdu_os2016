@@ -26,6 +26,9 @@ void mach_early_init()
     static struct fbinfo fbdev;
     if (fbinit(&fbdev) < 0) panic("can't init framebuffer");
     
+    
     dump_memory(&fbdev, sizeof(fbdev));
+    dump_memory(&fbdev.bits, 0xA0);
     memset(fbdev.bits, -1, fbdev.width * fbdev.pitch);
+    dump_memory(&fbdev.bits, 0xA0);
 }
