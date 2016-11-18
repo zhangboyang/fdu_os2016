@@ -15,6 +15,7 @@
 #include <aim/device.h>
 #include <aim/debug.h>
 #include <aim/mmu.h>
+#include <libc/string.h>
 #include <asm.h>
 #include <platform.h>
 #include <mailbox.h>
