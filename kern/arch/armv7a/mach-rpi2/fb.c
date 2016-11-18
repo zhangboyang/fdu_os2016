@@ -49,7 +49,7 @@ int fbinit(struct fbinfo *fb)
     
     // set fbinfo
     *fb = (struct fbinfo) {
-        .bits = PTRCAST(VCA2PA(fbmail.addr)), // return physical memory address here
+        .bits = PTRCAST(VCA2PA(fbreq.base)), // return physical memory address here
         .width = scrinfo.width,
         .height = scrinfo.height,
         .pitch = pitch,
