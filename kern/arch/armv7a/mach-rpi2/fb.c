@@ -5,11 +5,6 @@
 #include <sys/types.h>
 #include <platform.h>
 
-enum {
-    FB_FORMAT_R8G8B8,
-};
-
-
 
 int fbinit(struct fbinfo *fb)
 {
