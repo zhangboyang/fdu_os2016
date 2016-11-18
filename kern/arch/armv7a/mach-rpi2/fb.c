@@ -24,7 +24,11 @@ int fbinit(struct fbinfo *fb)
     if (ask_property_tag(MAILBOX_PROP_FB_SETDISPLAYSIZE, &scrreq, sizeof(scrreq), sizeof(scrreq), NULL) < 0 ||
         memcmp(&scrreq, &scrinfo, sizeof(scrreq)) != 0) panic("can't set display size");
     if (ask_property_tag(MAILBOX_PROP_FB_SETBUFFERSIZE, &scrreq, sizeof(scrreq), sizeof(scrreq), NULL) < 0 ||
-        memcmp(&scrreq, &scrinfo, sizeof(scrreq)) != 0) panic("can't set buffer size");
+        memcmp(&scrreq, &scrinfo, sizeof(scrreq)) != 0) {
+        dump_memory(&scrinfo, sizeof(scrinfo));
+        dump_memory(&scrreq, sizeof(scrreq));
+        panic("can't set buffer size");
+    }
         
     int depthinfo, depthreq;
     depthinfo = depthreq = 24; // FBFMT_R8G8B8
