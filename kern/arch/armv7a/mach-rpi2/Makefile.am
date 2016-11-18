@@ -4,5 +4,4 @@ noinst_LTLIBRARIES = \
 	libmach.la
 
 libmach_la_SOURCES = \
-	mailbox.c
-
+	mailbox.c mach_early_init.c

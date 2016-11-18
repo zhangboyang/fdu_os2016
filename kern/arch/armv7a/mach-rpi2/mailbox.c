@@ -27,7 +27,8 @@ static struct device __mailbox = {
 
 int write_mailbox(uint32_t channel, uint32_t data)
 {
-    assert((channel & 0xF) == 0);
+    assert((data & 0xF) == 0);
+    assert((channel & 0xF) == channel);
     struct bus_device *bus = inst->bus;
 	bus_write_fp bus_write32 = bus->bus_driver.get_write_fp(bus, 32);
 	if (!bus_write32) return -1;
@@ -38,15 +39,34 @@ int write_mailbox(uint32_t channel, uint32_t data)
 	do {
 	    dmb(); // FIXME: necessary?
 	    int r;
-	    if ((r = bus_read32(bus, inst->base, MAIL1_STATUS, &s)) < 0) return r;
+	    if ((r = bus_read32(bus, inst->base, MAIL0_STATUS, &s)) < 0) return r;
 	} while (s | MAIL_FULL);
 	
 	// bus_write32 should have dmb() in it
 	return bus_write32(bus, inst->base, MAIL0_WRITE, (channel | data));
 }
-int read_mailbox()
+int read_mailbox(uint32_t channel, uint32_t *data)
 {
-    return -1;
+    assert((data & 0xF) == 0);
+    assert((channel & 0xF) == channel);
+    struct bus_device *bus = inst->bus;
+	bus_write_fp bus_write32 = bus->bus_driver.get_write_fp(bus, 32);
+	if (!bus_write32) return -1;
+	bus_read_fp bus_read32 = bus->bus_driver.get_read_fp(bus, 32);
+	if (!bus_read32) return -1;
+	
+	uint64_t s;
+	do {
+	    dmb(); // FIXME: necessary?
+	    int r;
+	    if ((r = bus_read32(bus, inst->base, MAIL0_STATUS, &s)) < 0) return r;
+	} while (s | MAIL_EMPTY);
+	
+    uint64_t d;
+    if ((r = bus_read32(bus, inst->base, MAIL0_READ, &s)) < 0) return r;
+    *data = d;
+    
+    return 0;
 }
 
 
