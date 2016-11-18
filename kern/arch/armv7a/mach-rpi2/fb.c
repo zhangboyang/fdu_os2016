@@ -11,18 +11,23 @@
 
 int fbinit(struct fbinfo *fb)
 {
+    int r;
+    
     struct scrinfo_t {
         int width;
         int height;
     } scrinfo;
     
     
-    if (ask_property_tag(MAILBOX_PROP_FB_GETDISPLAYSIZE, &scrinfo, 0, sizeof(scrinfo), NULL) < 0) panic("can't get display size");
+    if ((r = ask_property_tag(MAILBOX_PROP_FB_GETDISPLAYSIZE, &scrinfo, 0, sizeof(scrinfo), NULL)) < 0) return r;
     kprintf("screen: width=%d height=%d\n", scrinfo.width, scrinfo.height);
 
+    int depth = 24;
 
+    // make request
+    // reference: https://github.com/brianwiddas/pi-baremetal/blob/master/framebuffereq.c
+    // reference: https://github.com/chyyuu/ucore_os_plus/blob/master/ucore/src/kern-ucore/arch/arm/mach-raspberrypi/framebuffer.c
     
-    // reference: https://github.com/brianwiddas/pi-baremetal/blob/master/framebuffereq.c    
     struct {
         struct property_header dispreq;
         struct scrinfo_t disp;
@@ -65,7 +70,7 @@ int fbinit(struct fbinfo *fb)
         .size = sizeof(uint32_t),
         .type = PROPERTY_TAG_REQUEST,
     };
-    req.depth = 32;
+    req.depth = depth;
   
     req.fbreq = (struct property_header) {
         .id = MAILBOX_PROP_FB_ALLOCBUFFER,
@@ -73,20 +78,28 @@ int fbinit(struct fbinfo *fb)
         .size = sizeof(req.fb.align),
         .type = PROPERTY_TAG_REQUEST,
     };
-    req.fb.align = 16;
+    req.fb.align = align;
     
 dump_memory(&req, sizeof(req));
-    int r;
     if ((r = ask_property(&req, sizeof(req), sizeof(req))) < 0) return r;
 dump_memory(&req, sizeof(req));
     
+    // check values
+    if (memcmp(&req.disp, &scrinfo, sizeof(scrinfo_t)) != 0) return -1;
+    if (memcmp(&req.buf, &scrinfo, sizeof(scrinfo_t)) != 0) return -1;
+    if (req.depth != depth) return -1;
+    if (!req.fb.base || !req.fb.size) return -1;
+    
+    // get pitch
+    int pitch;
+    if ((r = ask_property_tag(MAILBOX_PROP_FB_GETPITCH, &pitch, 0, sizeof(pitch), NULL)) < 0) return r;
     
     // set fbinfo
     *fb = (struct fbinfo) {
         .bits = PTRCAST(VCA2PA(req.fb.base)), // return physical memory address here
         .width = scrinfo.width,
         .height = scrinfo.height,
-        .pitch = 0, // FIXME
+        .pitch = pitch,
         .format = FBFMT_R8G8B8,
     };
     
