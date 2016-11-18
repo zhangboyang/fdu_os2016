@@ -27,20 +27,8 @@ int ask_property(void *buf, size_t reqsize, size_t bufsize);
 
 
 #define MAILBOX_PROP_ARMMEMORY 0x00010005
+int ask_property_tag(int id, void *buf, size_t reqsize, size_t bufsize);
 
-#define PROPERTY_TAG_REQUEST 0
-#define PROPERTY_TAG_RESPONSE 1
-
-struct property_tag {
-    uint32_t id; // tag identifier
-    uint32_t bufsize; // value buffer size in bytes
-    uint32_t size : 31;
-    uint32_t type : 1; // 1 bit (MSB) request/response indicator (0=request, 1=response), 31 bits (LSB) value length in bytes
-    union {
-        uint8_t val8[0];
-        uint32_t val32[0];
-    };
-};
 
     
 

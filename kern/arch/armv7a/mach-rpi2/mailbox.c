@@ -28,7 +28,7 @@ static struct device __mailbox = {
 
 int write_mailbox(uint32_t channel, uint32_t data)
 {
-    kprintf("write_mailbox(%08x, %08x)\n", channel, data);
+    //kprintf("write_mailbox(%08x, %08x)\n", channel, data);
     assert((data & 0xF) == 0);
     assert((channel & 0xF) == channel);
     struct bus_device *bus = inst->bus;
@@ -50,7 +50,7 @@ int write_mailbox(uint32_t channel, uint32_t data)
 }
 int read_mailbox(uint32_t channel, uint32_t *data)
 {
-    kprintf("read_mailbox(%08x)\n", channel);
+    //kprintf("read_mailbox(%08x)\n", channel);
     assert((channel & 0xF) == channel);
     struct bus_device *bus = inst->bus;
 	bus_write_fp bus_write32 = bus->bus_driver.get_write_fp(bus, 32);
@@ -68,7 +68,7 @@ int read_mailbox(uint32_t channel, uint32_t *data)
     uint64_t d;
     if ((r = bus_read32(bus, inst->base, MAIL0_READ, &d)) < 0) return r;
     if (data) *data = d;
-    kprintf("  maildata=%08llx\n", d);
+    //kprintf("  maildata=%08llx\n", d);
     
     return 0;
 }
@@ -87,19 +87,51 @@ static __attribute((aligned(PROPERTY_BUFALIGN))) struct {
 #define PROPERTY_CODE_REQUEST 0
 #define PROPERTY_CODE_SUCCESS 0x80000000
 #define PROPERTY_CODE_ERROR 0x80000001
-int ask_property(void *buf, size_t reqsize, size_t bufsize)
+int ask_property(void *buf, size_t reqsize, size_t bufsize) // buf should point to array of property tags
 {
+    assert(reqsize <= PROPERTY_DATASIZE);
+    assert(bufsize <= PROPERTY_DATASIZE);
     __property_buffer.size = PROPERTY_BUFSIZE;
     __property_buffer.code = PROPERTY_CODE_REQUEST;
-    memcpy(__property_buffer.data, buf, min(reqsize, PROPERTY_DATASIZE));
-    memset(__property_buffer.data + min(reqsize, PROPERTY_DATASIZE), 0, 4); // set end tag
+    memcpy(__property_buffer.data, buf, reqsize);
+    memset(__property_buffer.data + reqsize, 0, 4); // set end tag
     int r;
-memdump(&__property_buffer, min(reqsize, PROPERTY_DATASIZE) + 12);
+//memdump(&__property_buffer, reqsize + 12);
     if ((r = write_mailbox(MAILBOX_CHANNEL_PROPERTY, PA2VCA(premap_addr(ULCAST(&__property_buffer))))) < 0) return r;
     if ((r = read_mailbox(MAILBOX_CHANNEL_PROPERTY, NULL)) < 0) return r;
-memdump(&__property_buffer, min(reqsize, PROPERTY_DATASIZE) + 12);
+//memdump(&__property_buffer, reqsize + 12);
     if (__property_buffer.code != PROPERTY_CODE_SUCCESS) return -1;
-    memcpy(buf, __property_buffer.data, min(bufsize, PROPERTY_DATASIZE));
+    memcpy(buf, __property_buffer.data, bufsize);
+    return 0;
+}
+
+
+int ask_property_tag(int id, void *buf, size_t reqsize, size_t bufsize) // buf should point to raw data
+{
+    int r;
+    assert(reqsize <= PROPERTY_DATASIZE);
+    assert(bufsize <= PROPERTY_DATASIZE);
+#define PROPERTY_TAG_VALBUFSIZE (PROPERTY_BUFSIZE - 24)
+#define PROPERTY_TAG_BUFSIZE (VALBUFSIZE + 12)
+    uint32_t buf[PROPERTY_TAG_BUFSIZE / 4];
+    struct {
+        uint32_t id; // tag identifier
+        uint32_t bufsize; // value buffer size in bytes
+        uint32_t size : 31;
+        uint32_t type : 1; // 1 bit (MSB) request/response indicator (0=request, 1=response), 31 bits (LSB) value length in bytes
+#define PROPERTY_TAG_REQUEST 0
+#define PROPERTY_TAG_RESPONSE 1
+        uint8_t data[PROPERTY_TAG_VALBUFSIZE];
+    } tag = {
+        .id = id,
+        .bufsize = PROPERTY_TAG_VALBUFSIZE,
+        .size = reqsize,
+        .type = PROPERTY_TAG_REQUEST,
+    };
+    memcpy(tag.data, buf, reqsize);
+    if ((r = ask_property(&tag, BUFSIZE, BUFSIZE)) < 0) return r;
+    if (tag.type != PROPERTY_TAG_RESPONSE) return -1;
+    memcpy(buf, tag.data, bufsize);
     return 0;
 }
 

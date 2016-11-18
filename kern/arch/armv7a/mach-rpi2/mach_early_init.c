@@ -10,17 +10,11 @@ void mach_early_init()
 {
     mailbox_init();
     
+    struct {
+        uint32_t membase;
+        uint32_t memsize;
+    } meminfo;
     int r;
-    #define VALBUFSIZE (16 * 4)
-    #define BUFSIZE (VALBUFSIZE + 3 * sizeof(uint32_t))
-    uint32_t buf[BUFSIZE / 4];
-    struct property_tag *tag = (void *) &buf;
-    *tag = (struct property_tag) {
-        .id = MAILBOX_PROP_ARMMEMORY,
-        .bufsize = VALBUFSIZE,
-        .size = 0,
-        .type = PROPERTY_TAG_REQUEST,
-    };
-    r = ask_property(tag, BUFSIZE, BUFSIZE);
-    kprintf("r=%d base=0x%x len=0x%x\n", r, tag->val32[0], tag->val32[1]);
+    r = ask_property_tag(MAILBOX_PROP_ARMMEMORY, &meminfo, 0, sizeof(meminfo));
+    kprintf("r=%d base=0x%x len=0x%x\n", r, meminfo.membase, meminfo.memsize);
 }
