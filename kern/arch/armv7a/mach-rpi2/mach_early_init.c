@@ -8,7 +8,7 @@
 
 void mach_early_init()
 {
-    dump_memory(NULL, 0x8000);
+//    dump_memory(NULL, 0x8000);
     
     mailbox_init();
     
