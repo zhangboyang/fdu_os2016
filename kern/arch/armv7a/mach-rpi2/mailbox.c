@@ -63,7 +63,6 @@ static addr_t __mapped_base;
 static void __jump_handler(void)
 {
 	__mailbox_set_bus(__mapped_bus, __mapped_base);
-	set_console(early_console_putchar, DEFAULT_KPUTS);
 }
 
 static void mailbox_initdev(struct bus_device *bus, addr_t base, addr_t mapped_base)
