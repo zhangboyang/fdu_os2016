@@ -28,7 +28,7 @@ void mach_early_init()
     
     
     dump_memory(&fbdev, sizeof(fbdev));
-    dump_memory(&fbdev.bits, 0xA0);
+    dump_memory(fbdev.bits, 0xA0);
     memset(fbdev.bits, -1, fbdev.width * fbdev.pitch);
-    dump_memory(&fbdev.bits, 0xA0);
+    dump_memory(fbdev.bits, 0xA0);
 }
