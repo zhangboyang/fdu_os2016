@@ -10,11 +10,13 @@ void mach_early_init()
 {
     mailbox_init();
     
-    struct {
-        uint32_t membase;
-        uint32_t memsize;
-    } meminfo;
-    int r;
-    r = ask_property_tag(MAILBOX_PROP_ARMMEMORY, &meminfo, 0, sizeof(meminfo));
-    kprintf("r=%d base=0x%x len=0x%x\n", r, meminfo.membase, meminfo.memsize);
+    struct meminfo {
+        uint32_t base;
+        uint32_t size;
+    } arminfo, vcinfo;
+    if (ask_property_tag(MAILBOX_PROP_ARMMEMORY, &arminfo, 0, sizeof(arminfo)) < 0) panic("can't get memory info for ARM");
+    if (ask_property_tag(MAILBOX_PROP_VCMEMORY, &vcinfo, 0, sizeof(vcinfo)) < 0) panic("can't get memory info for VideoCore");
+    
+    kprintf("arm memory: base=0x%x size=0x%x\n", r, arminfo.membase, arminfo.memsize);
+    kprintf("vc memory: base=0x%x size=0x%x\n", r, vcinfo.membase, vcinfo.memsize);
 }
