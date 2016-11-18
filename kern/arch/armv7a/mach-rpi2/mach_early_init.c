@@ -76,7 +76,7 @@ void mach_early_init()
     show_splash(&fbdev, LOWADDR(splash), 175, 100, 24);
     
     extern uint8_t jtxj[];
-    show_splash(&fbdev, LOWADDR(jtxj), 318, 346, 24);
+    //show_splash(&fbdev, LOWADDR(jtxj), 318, 346, 24);
 }
 
 
