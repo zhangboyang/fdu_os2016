@@ -19,7 +19,7 @@ int fbinit(struct fbinfo *fb)
     
     // construct mail
     // reference: https://github.com/raspberrypi/firmware/wiki/Mailbox-framebuffer-interface
-    static __attribute((aligned(MAILBOX_ALIGN))) struct {
+    static __attribute((aligned(MAILBOX_ALIGN))) struct fbmailinfo {
         uint32_t width;
         uint32_t height;
         uint32_t virt_width;
@@ -30,7 +30,8 @@ int fbinit(struct fbinfo *fb)
         uint32_t yoffset;
         uint32_t addr;
         uint32_t size;
-    } fbmail = {
+    } fbmail;
+    fbmail = (struct fbmailinfo) {
         .width = screeninfo.width,
         .height = screeninfo.height,
         .virt_width = screeninfo.width,
