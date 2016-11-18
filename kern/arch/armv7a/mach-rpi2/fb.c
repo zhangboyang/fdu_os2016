@@ -3,6 +3,7 @@
 #endif /* HAVE_CONFIG_H */
 
 #include <sys/types.h>
+#include <platform.h>
 
 enum {
     FB_FORMAT_R8G8B8,
