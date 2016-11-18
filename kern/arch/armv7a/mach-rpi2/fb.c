@@ -27,7 +27,10 @@ int fbinit(struct fbinfo *fb)
     int depthinfo, depthreq;
     depthinfo = depthreq = 24; // FBFMT_R8G8B8
     if (ask_property_tag(MAILBOX_PROP_FB_SETDEPTH, &depthreq, sizeof(depthreq), sizeof(depthreq), NULL) < 0 ||
-        depthinfo != depthreq) panic("can't set depth");
+        depthinfo != depthreq) {
+        kprintf("%d %d\n", depthinfo, depthreq);
+        panic("can't set depth");
+    }
         
     union {
         uint32_t align;
