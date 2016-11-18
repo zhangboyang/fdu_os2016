@@ -12,6 +12,9 @@
 
 
 #include <sys/types.h>
+#include <aim/device.h>
+#include <platform.h>
+#include <mailbox.h>
 
 static struct device __mailbox = {
 	.class = DEVCLASS_NON,
