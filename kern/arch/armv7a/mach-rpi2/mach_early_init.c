@@ -31,7 +31,7 @@ static void copyrow(struct fbinfo *fbdev, int dstrow, int dstcol, void *srcdata,
     }
 }
 
-static void show_splash(struct fbinfo *fbdev, void *imgdata, int imgwidth, int imgheight, int imgdepth)
+void show_splash(struct fbinfo *fbdev, void *imgdata, int imgwidth, int imgheight, int imgdepth)
 {
     int drow, dcol;
     for (drow = 0; drow < fbdev->height; drow++) {
@@ -42,6 +42,10 @@ static void show_splash(struct fbinfo *fbdev, void *imgdata, int imgwidth, int i
         }
     }
 }
+
+
+
+
 
 void mach_early_init()
 {
