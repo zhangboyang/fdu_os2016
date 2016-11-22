@@ -14,7 +14,7 @@ __asm__ (
     ".incbin \"splash.rgb\"\n"
 );
 
-__asm__ ("jtxj:\n.incbin \"jtxj.rgb\"\n");
+//__asm__ ("jtxj:\n.incbin \"jtxj.rgb\"\n");
 
 static void copyrow(struct fbinfo *fbdev, int dstrow, int dstcol, void *srcdata, int srcrow, int srcpitch, int srcdepth, int pixelcount)
 {
@@ -73,7 +73,7 @@ void mach_early_init()
     extern uint8_t splash[];
     show_splash(&fbdev, LOWADDR(splash), 175, 100, 24);
     
-    extern uint8_t jtxj[]; show_splash(&fbdev, LOWADDR(jtxj), 318, 346, 24);
+//    extern uint8_t jtxj[]; show_splash(&fbdev, LOWADDR(jtxj), 318, 346, 24);
 }
 
 
