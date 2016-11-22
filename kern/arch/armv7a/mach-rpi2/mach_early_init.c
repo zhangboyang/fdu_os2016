@@ -13,10 +13,8 @@ __asm__ (
     "splash:\n"
     ".incbin \"splash.rgb\"\n"
 );
-__asm__ (
-    "jtxj:\n"
-    ".incbin \"jtxj.rgb\"\n"
-);
+
+__asm__ ("jtxj:\n.incbin \"jtxj.rgb\"\n");
 
 static void copyrow(struct fbinfo *fbdev, int dstrow, int dstcol, void *srcdata, int srcrow, int srcpitch, int srcdepth, int pixelcount)
 {
