@@ -9,7 +9,7 @@
 #include <platform.h>
 
 
-__asm__ ("splash_image_data:\n.incbin \"splash.rgb\"\n");
+//__asm__ ("splash_image_data:\n.incbin \"splash.rgb\"\n");
 
 //__asm__ ("jtxj:\n.incbin \"jtxj.rgb\"\n");
 
@@ -63,11 +63,11 @@ void mach_early_init()
     
     
     dump_memory(&fbdev, sizeof(fbdev));
-    dump_memory(fbdev.bits, 0xA0);
+/*    dump_memory(fbdev.bits, 0xA0);
     memset(fbdev.bits, -1, fbdev.height * fbdev.pitch);
-    dump_memory(fbdev.bits, 0xA0);
+    dump_memory(fbdev.bits, 0xA0);*/
     
-    extern uint8_t splash_image_data[]; show_splash(&fbdev, LOWADDR(splash_image_data), 175, 100, 24);
+//    extern uint8_t splash_image_data[]; show_splash(&fbdev, LOWADDR(splash_image_data), 175, 100, 24);
     
 //    extern uint8_t jtxj[]; show_splash(&fbdev, LOWADDR(jtxj), 318, 346, 24);
 }
