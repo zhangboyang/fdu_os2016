@@ -122,7 +122,7 @@ void mmu_jump()
     TTBCR.SH0 = SH_INNER;
     kprintf("new TTBCR = %08x\n", TTBCR.val);
     __asm__ __volatile__ ("mcr p15, 0, %0, c2, c0, 2"::"r"(TTBCR.val));
-    __asm__ __volatile__ ("mrc p15, 0, %0, c2, c0, 2":"=r"(TTBCR.val)); kprintf("read TTBCR = %08x\n", TTBCR.val);
+//    __asm__ __volatile__ ("mrc p15, 0, %0, c2, c0, 2":"=r"(TTBCR.val)); kprintf("read TTBCR = %08x\n", TTBCR.val);
     
     union {
         uint64_t addr;
@@ -138,7 +138,9 @@ void mmu_jump()
     TTBR0.addr = ULCAST(__boot_page_index);
     kprintf("new TTBR0 = %llx\n", TTBR0.addr);
     __asm__ __volatile__ ("mcrr p15, 0, %0, %1, c2"::"r"(TTBR0.low), "r"(TTBR0.high));
-    __asm__ __volatile__ ("mrrc p15, 0, %0, %1, c2":"=r"(TTBR0.low), "=r"(TTBR0.high)); kprintf("read TTBR0 = %llx\n", TTBR0.addr);
+//    __asm__ __volatile__ ("mrrc p15, 0, %0, %1, c2":"=r"(TTBR0.low), "=r"(TTBR0.high)); kprintf("read TTBR0 = %llx\n", TTBR0.addr);
+    
+    
     
     
     kprintf("MMU enabled ...\n");

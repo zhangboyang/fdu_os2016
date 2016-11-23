@@ -47,7 +47,9 @@ typedef uint64_t pgtable_t; // lvl1
 #define SH_INNER 0b11ULL
 
 // FIXME: init MAIR
-#define MAIR_NORMAL 0
+#define MAIR_NORMAL_IDX 0b000
+
+#define MAIR_NO
 
 #define ULLCAST(x) ((unsigned long long)(x))
 // make stage 1 lower attribute, in place
@@ -67,7 +69,7 @@ typedef uint64_t pgtable_t; // lvl1
 
 // make a pgindex_t points to pgmid_t
 #define MKPGINDEX(pgmid)    (KVA2PA(pgmid) | PGTABLEENTRY_P)
-#define MKPGMID_BIG(pa)     ((pa) | PGBLOCKENTRY_P | MKS1UA(0, 0, 0, 0) | MKS1LA(0, 0, SH_INNER, AP_SYSRW, 1, MAIR_NORMAL))
+#define MKPGMID_BIG(pa)     ((pa) | PGBLOCKENTRY_P | MKS1UA(0, 0, 0, 0) | MKS1LA(0, 0, SH_INNER, AP_SYSRW, 1, MAIR_NORMAL_IDX))
 
 
 
