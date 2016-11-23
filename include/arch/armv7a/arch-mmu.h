@@ -23,8 +23,6 @@
 
 // FIXME: dummy stub, just for compile, must double check !!!!!!!
 
-#define PGINDEX_ALIGN
-
 #define PGINDEX_BITS    2
 #define PGMID_BITS      9
 #define PGTABLE_BITS    9
