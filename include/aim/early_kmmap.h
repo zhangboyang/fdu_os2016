@@ -42,7 +42,7 @@ void *early_mapping_add_kmmap(addr_t base, size_t size);
 int early_mapping_add(struct early_mapping *entry);
 struct early_mapping *early_mapping_next(struct early_mapping *base);
 
-void init_jmphigh_mapping();
+void init_jmphigh_mapping(lsize_t lowsize, lsize_t highsize);
 
 #endif /* !__ASSEMBLER__ */
 

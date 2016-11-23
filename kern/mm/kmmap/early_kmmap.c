@@ -144,15 +144,14 @@ struct early_mapping *early_mapping_next(struct early_mapping *base)
 }
 
 
-void init_jmphigh_mapping()
+void init_jmphigh_mapping(lsize_t lowsize, lsize_t highsize)
 {
-    addr_t ksize = KTOP - KOFFSET;
     struct early_mapping entry;
     
     entry = (struct early_mapping) {
 		.paddr	= 0,
 		.vaddr	= 0,
-		.size	= ROUNDUP(ksize, BIGPAGE_SIZE),
+		.size	= ROUNDUP(lowsize, BIGPAGE_SIZE),
 		.type	= EARLY_MAPPING_MEMORY
 	};
 	early_mapping_add(&entry);
@@ -160,7 +159,7 @@ void init_jmphigh_mapping()
 	entry = (struct early_mapping) {
 		.paddr	= 0,
 		.vaddr	= ADDR2PTR(KOFFSET),
-		.size	= ROUNDUP(ksize, BIGPAGE_SIZE),
+		.size	= ROUNDUP(highsize, BIGPAGE_SIZE),
 		.type	= EARLY_MAPPING_MEMORY
 	};
 	early_mapping_add(&entry);

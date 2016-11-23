@@ -181,7 +181,8 @@ void early_mm_init(void)
     check_cpu();
     copy_memory_map();
     
-    init_jmphigh_mapping();
+    lsize_t ksize = KTOP - KOFFSET;
+    init_jmphigh_mapping(ksize, ksize);
 	
     mmu_init(__boot_page_index);
 }
