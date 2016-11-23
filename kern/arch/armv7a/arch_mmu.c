@@ -84,14 +84,17 @@ int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr, void *vaddr, 
 void early_mm_init(void)
 {
     // initialize high address
-    
     init_jmphigh_mapping();
-	
     mmu_init(__boot_page_index);
 }
 
 void mmu_jump()
 {
+    kprintf("prepare to perform mmu jump!\n");
+    
+    kprintf("MMU enabled ...\n");
+    
+    kprintf("jump to high address kernel entry\n");
     while (1);
 }
 
