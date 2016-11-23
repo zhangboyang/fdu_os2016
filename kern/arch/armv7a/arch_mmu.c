@@ -186,6 +186,7 @@ void mmu_jump()
     SCTLR.M = 1;
     SCTLR.AFE = 1;
     SCTLR.TRE = 1;
+    SCTLR.HA = 1;
     
     kprintf("new SCTLR = %08x\n", SCTLR.val);
     __asm__ __volatile__ ("mcr p15, 0, %0, c1, c0, 0"::"r"(SCTLR.val));
