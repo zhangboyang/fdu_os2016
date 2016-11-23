@@ -113,9 +113,12 @@ void mmu_jump()
             uint32_t EAE : 1;
         };
     } TTBCR;
-    __asm__ __volatile__ ("mrc p15, 0, %0, c2, c0, 2":"=r"(TTBCR.val));
-    kprintf("old TTBCR = %08x\n", TTBCR.val);
+    //__asm__ __volatile__ ("mrc p15, 0, %0, c2, c0, 2":"=r"(TTBCR.val));
+    //kprintf("old TTBCR = %08x\n", TTBCR.val);
+    TTBCR.val = 0; // reset all fields to zero
     TTBCR.EAE = 1;
+    TTBCR.ORGN0 = 0b01; // WBWA
+    TTBCR.IRGN0 = 0b01; // WBWA
     kprintf("new TTBCR = %08x\n", TTBCR.val);
     __asm__ __volatile__ ("mcr p15, 0, %0, c2, c0, 2":"=r"(TTBCR.val));
     
