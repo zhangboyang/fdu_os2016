@@ -23,6 +23,14 @@
 
 // FIXME: dummy stub, just for compile, must double check !!!!!!!
 
+#define PGINDEX_ALIGN
+
+#define PGINDEX_BITS    2
+#define PGMID_BITS      9
+#define PGTABLE_BITS    9
+#define PGOFFSET_BITS   12
+#define PGBIGOFFSET_BITS  (PGTABLE_BITS + PGOFFSET_BITS)
+
 
 typedef uint64_t pgindex_t; // lvl3
 typedef uint64_t pgmid_t; // lvl2

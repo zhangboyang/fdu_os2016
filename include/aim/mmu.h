@@ -208,6 +208,47 @@ extern uint8_t KERN_END_LOW[];
 extern size_t size_after_kernel; // how many bytes can we use after the kernel
 
 
+#define PTR2ADDR(x) ((addr_t)(uint32_t)(x))
+#define ADDR2PTR(x) ((void *)(unsigned long)(x))
+
+#define PGTABLE_SHIFT   PGOFFSET_BITS                       // 12
+#define PGMID_SHIFT     (PGTABLE_SHIFT + PGTABLE_BITS)      // 12 + 9 = 21
+#define PGINDEX_SHIFT   (PGMID_SHIFT + PGMID_BITS)          // 21 + 9 = 30
+
+#define PGINDEX_SIZE    (1ULL << PGINDEX_BITS)     // 4
+#define PGMID_SIZE      (1ULL << PGMID_BITS)       // 512
+#define PGTABLE_SIZE    (1ULL << PGTABLE_BITS)     // 512
+
+
+#define PGINDEX_ALIGN   (sizeof(pgindex_t) * PGINDEX_SIZE)        // 32
+#define PGMID_ALIGN     (sizeof(pgmid_t) * PGMID_SIZE)            // 4096
+#define PGTABLE_ALIGN   (sizeof(pgtable_t) * PGTABLE_SIZE)        // 4096
+
+
+
+#define PAGE_SIZE       (1ULL << PGOFFSET_BITS)
+#define BIGPAGE_SIZE    (1ULL << PGBIGOFFSET_BITS)
+
+
+// FN means frame number
+#define PGINDEX_FN(x)   (((x) >> PGINDEX_SHIFT) & ((1ULL << PGINDEX_BITS) - 1))
+#define PGMID_FN(x)     (((x) >> PGMID_SHIFT) & ((1ULL << PGMID_BITS) - 1))
+#define PGTABLE_FN(x)   (((x) >> PGTABLE_SHIFT) & ((1ULL << PGTABLE_BITS) - 1))
+#define PAGE_FN(x)      ((x) & ~(PAGE_SIZE - 1))
+#define BIGPAGE_FN(x)   ((x) & ~(BIGPAGE_SIZE - 1))
+
+
+
+
+#define PAGE_OFF(x)     ((x) & (PAGE_SIZE - 1))
+#define BIGPAGE_OFF(x)  ((x) & (BIGPAGE_SIZE - 1))
+#define ROUNDTO_PAGE(x)     (PAGE_OFF(x))
+#define ROUNDTO_BIGPAGE(x)  (BIGPAGE_OFF(x))
+
+// walk a pgindex_t (i.e. get the VA in pgindex_t)
+#define WKPGINDEX(pgindex)  (PA2KVA(PAGE_FN(pgindex)))
+
+
 #endif /* !__ASSEMBLER__ */
 
 #endif /* _AIM_MMU_H */

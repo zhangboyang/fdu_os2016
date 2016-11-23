@@ -30,21 +30,32 @@ static __attribute((aligned(PGMID_ALIGN))) pgmid_t __boot_page_mid_all[PGINDEX_S
 
 bool early_mapping_valid(struct early_mapping *entry)
 {
-    // FIXME
-	return true;
+    // we use 2MB pages in early mapping
+    return BIGPAGE_OFF(entry->paddr) == 0 &&
+           BIGPAGE_OFF(PTR2ADDR(entry->vaddr)) == 0 &&
+           BIGPAGE_OFF(entry->size) == 0;
 }
 
 void mmu_init(pgindex_t *boot_page_index)
 {
+    page_index_init(boot_page_index);
 }
 
 
 void page_index_clear(pgindex_t *boot_page_index)
 {
+    // init the first level of pgindex
+    for (i = 0; i < PGINDEX_SIZE; i++) {
+        __boot_page_index[i] = MKPGINDEX(__boot_page_mid_all[i]);
+    }
+    
+    // clear the second level of pgindex (clear P bit to 0)
+    memset(__boot_page_mid_all, 0, sizeof(__boot_page_mid_all));
 }
+
 int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr, void *vaddr, size_t size)
 {
-return 0;
+    return 0;
 }
 
 void early_mm_init(void)
