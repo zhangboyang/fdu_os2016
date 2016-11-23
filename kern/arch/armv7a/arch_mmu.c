@@ -121,7 +121,7 @@ void mmu_jump()
     TTBCR.IRGN0 = 0b01; // WBWA
     TTBCR.SH0 = SH_INNER;
     kprintf("new TTBCR = %08x\n", TTBCR.val);
-    __asm__ __volatile__ ("mcr p15, 0, %0, c2, c0, 2":"=r"(TTBCR.val));
+    __asm__ __volatile__ ("mcr p15, 0, %0, c2, c0, 2"::"r"(TTBCR.val));
     __asm__ __volatile__ ("mrc p15, 0, %0, c2, c0, 2":"=r"(TTBCR.val)); kprintf("read TTBCR = %08x\n", TTBCR.val);
     
     
