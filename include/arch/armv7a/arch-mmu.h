@@ -25,7 +25,7 @@ typedef uint64_t pgindex_t; // lvl3
 typedef uint64_t pgmid_t; // lvl2
 typedef uint64_t pgtable_t; // lvl1
 
-#define KVA2PA lowaddr
+#define KVA2PA premap_addr
 
 #define PGINDEX_BITS    2ULL
 #define PGMID_BITS      9ULL
