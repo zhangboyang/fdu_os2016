@@ -152,7 +152,7 @@ void mmu_jump()
     kprintf("new SCTLR = %08x\n", SCTLR);
     __asm__ __volatile__ ("mcr p15, 0, %0, c1, c0, 0"::"r"(SCTLR));
     
-    
+    memset((void *) 0x3d839000, -1, 900*0x000010e0);
     kprintf("MMU enabled ...\n");
     
     
