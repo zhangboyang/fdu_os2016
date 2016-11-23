@@ -142,3 +142,25 @@ struct early_mapping *early_mapping_next(struct early_mapping *base)
 		return next;
 }
 
+
+void init_jmphigh_mapping()
+{
+    addr_t ksize = KTOP - KOFFSET;
+    struct early_mapping entry;
+    
+    entry = (struct early_mapping) {
+		.paddr	= 0,
+		.vaddr	= 0,
+		.size	= ROUNDUP(ksize, BIGPAGE_SIZE),
+		.type	= EARLY_MAPPING_MEMORY
+	};
+	early_mapping_add(&entry);
+	
+	entry = (struct early_mapping) {
+		.paddr	= 0,
+		.vaddr	= ADDR2PTR(KOFFSET),
+		.size	= ROUNDUP(ksize, BIGPAGE_SIZE),
+		.type	= EARLY_MAPPING_MEMORY
+	};
+	early_mapping_add(&entry);
+}

@@ -181,24 +181,7 @@ void early_mm_init(void)
     check_cpu();
     copy_memory_map();
     
-    addr_t ksize = KTOP - KOFFSET;
-    struct early_mapping entry;
-    
-    entry = (struct early_mapping) {
-		.paddr	= 0,
-		.vaddr	= 0,
-		.size	= ROUNDUP(ksize, BIGPAGE_SIZE),
-		.type	= EARLY_MAPPING_MEMORY
-	};
-	early_mapping_add(&entry);
-	
-	entry = (struct early_mapping) {
-		.paddr	= 0,
-		.vaddr	= ADDR2PTR(KOFFSET),
-		.size	= ROUNDUP(ksize, BIGPAGE_SIZE),
-		.type	= EARLY_MAPPING_MEMORY
-	};
-	early_mapping_add(&entry);
+    init_jmphigh_mapping();
 	
     mmu_init(__boot_page_index);
 }

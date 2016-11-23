@@ -45,6 +45,11 @@ return 0;
 
 void early_mm_init(void)
 {
+    // initialize high address
+    
+    init_jmphigh_mapping();
+	
+    mmu_init(__boot_page_index);
 }
 
 void mmu_jump()

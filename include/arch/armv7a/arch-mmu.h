@@ -22,8 +22,16 @@
 #ifndef __ASSEMBLER__
 
 // FIXME: dummy stub, just for compile, must double check !!!!!!!
-typedef uint32_t pgindex_t;
+
+
+typedef uint64_t pgindex_t; // lvl3
+typedef uint64_t pgmid_t; // lvl2
+typedef uint64_t pgtable_t; // lvl1
+
+
+
 struct cpu {
+
 };
 
 
