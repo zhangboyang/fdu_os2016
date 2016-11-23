@@ -92,6 +92,32 @@ void mmu_jump()
 {
     kprintf("prepare to perform mmu jump!\n");
     
+    union {
+        uint32_t val;
+        struct {
+            uint32_t T0SZ : 3;
+            uint32_t : 4;
+            uint32_t EPD0 : 1;
+            uint32_t IRGN0 : 2;
+            uint32_t ORGN0 : 2;
+            uint32_t SH0 : 2;
+            uint32_t : 2;
+            uint32_t T1SZ : 3;
+            uint32_t : 3;
+            uint32_t A1 : 1;
+            uint32_t EPD1 : 1;
+            uint32_t IRGN1 : 2;
+            uint32_t ORGN1 : 2;
+            uint32_t SH1 : 2;
+            uint32_t : 1;
+            uint32_t EAE : 1;
+        };
+    } TTBCR;
+    __asm__ __volatile__ ("mrc p15, 0, %0, c2, c0, 2":"=r"(TTBCR.val));
+    
+
+    __asm__ __volatile__ ("mcr p15, 0, %0, c2, c0, 2":"=r"(TTBCR.val));
+    
     kprintf("MMU enabled ...\n");
     
     kprintf("jump to high address kernel entry\n");
