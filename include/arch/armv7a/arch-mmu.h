@@ -59,10 +59,10 @@ typedef uint64_t pgtable_t; // lvl1
     ((AttrIndx) << 2ULL))
 // make stage 1 upper attribute, in place
 #define MKS1UA(SoftUse, XN, PXN, ContHint) ( \
-    ((SoftUse) << 55LL) | \
-    ((XN) << 54LL) | \
-    ((PXN) << 53LL) | \
-    ((ContHint) << 52LL))
+    ((SoftUse) << 55ULL) | \
+    ((XN) << 54ULL) | \
+    ((PXN) << 53ULL) | \
+    ((ContHint) << 52ULL))
 
 // make a pgindex_t points to pgmid_t
 #define MKPGINDEX(pgmid)    (KVA2PA(pgmid) | PGTABLEENTRY_P)
