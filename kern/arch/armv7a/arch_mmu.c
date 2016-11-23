@@ -54,7 +54,7 @@ void page_index_clear(pgindex_t *boot_page_index)
     // init the first level of pgindex
     for (int i = 0; i < PGINDEX_SIZE; i++) {
         __boot_page_index[i] = MKPGINDEX(__boot_page_mid_all[i]);
-        kprintf("i=%d tbl=%p val=%llx\n", i, __boot_page_mid_all[i], __boot_page_index[i]);
+        //kprintf("i=%d tbl=%p val=%llx\n", i, __boot_page_mid_all[i], __boot_page_index[i]);
     }
     
     // clear the second level of pgindex (clear P bit to 0)
@@ -73,7 +73,7 @@ int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr, void *vaddr, 
         // map VA to PA
         pgmid_t *pgmid = WKPGINDEX(boot_page_index[PGINDEX_FN(va)]);
         pgmid[PGMID_FN(va)] = MKPGMID_BIG(pa);
-        kprintf("pgmid=%llx midfn=%llx val=%llx\n", ULLCAST(ULCAST(pgmid)), ULLCAST(PGMID_FN(va)), ULLCAST(pgmid[PGMID_FN(va)]));
+        //kprintf("pgmid=%llx midfn=%llx val=%llx\n", ULLCAST(ULCAST(pgmid)), ULLCAST(PGMID_FN(va)), ULLCAST(pgmid[PGMID_FN(va)]));
     }
     
     // FIXME: device memory attr
