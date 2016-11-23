@@ -25,6 +25,11 @@
 #include <aim/mmu.h>
 #include <libc/string.h>
 
+
+#define KVA2PA(x) (PTR2ADDR(x))
+#define PA2KVA(x) (ADDR2PTR(x))
+
+
 static __attribute((aligned(PGINDEX_ALIGN))) pgindex_t __boot_page_index[PGINDEX_SIZE];
 static __attribute((aligned(PGMID_ALIGN))) pgmid_t __boot_page_mid_all[PGINDEX_SIZE][PGMID_SIZE];
 
@@ -65,9 +70,11 @@ int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr, void *vaddr, 
     for (pa = paddr, va = PTR2ADDR(vaddr); pa < paddr + size; pa += BIGPAGE_SIZE, va += BIGPAGE_SIZE) {
         // map VA to PA
         pgmid_t *pgmid = WKPGINDEX(boot_page_index[PGINDEX_FN(va)]);
-        pgmid[PGMID_FN(va)] = MKPGMID_BIG(pa) | PGMID_RW;
+        pgmid[PGMID_FN(va)] = MKPGMID_BIG(pa);
         //kprintf("pgmid=%x midfn=%x val=%x\n", (unsigned) pgmid, (unsigned) PGMID_FN(va), (unsigned) pgmid[PGMID_FN(va)]);
     }
+    
+    // FIXME: device memory attr
     
     return 0;
 }
@@ -85,3 +92,7 @@ void mmu_jump()
 {
     while (1);
 }
+
+
+#undef KVA2PA
+#undef PA2KVA
