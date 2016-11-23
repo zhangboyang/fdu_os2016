@@ -147,13 +147,45 @@ void mmu_jump()
     __asm__ __volatile__ ("mrc p15, 0, %0, c10, c2, 0":"=r"(MAIR0)); kprintf("read MAIR0 = %x\n", MAIR0);
 
     memset((void *) 0x3d839000, 0x40, 900*0x000010e0);
-    uint32_t SCTLR;
-    __asm__ __volatile__ ("mrc p15, 0, %0, c1, c0, 0":"=r"(SCTLR));
-    kprintf("old SCTLR = %08x\n", SCTLR);
-    SCTLR |= 1; // enable M
-    SCTLR |= 1 << 29;
-    kprintf("new SCTLR = %08x\n", SCTLR);
-    __asm__ __volatile__ ("mcr p15, 0, %0, c1, c0, 0"::"r"(SCTLR));
+    union {
+        uint32_t val;
+        struct {
+            uint32_t M : 1;
+            uint32_t A : 1;
+            uint32_t C : 1;
+            uint32_t : 2;
+            uint32_t CB15BEN : 1;
+            uint32_t : 1;
+            uint32_t B : 1;
+            uint32_t : 2;
+            uint32_t SW : 1;
+            uint32_t Z : 1;
+            uint32_t I : 1;
+            uint32_t V : 1;
+            uint32_t RR : 1;
+            uint32_t : 2;
+            uint32_t HA : 1;
+            uint32_t : 1;
+            uint32_t WXN : 1;
+            uint32_t UWXN : 1;
+            uint32_t FI : 1;
+            uint32_t U : 1;
+            uint32_t : 1;
+            uint32_t VE : 1;
+            uint32_t EE : 1;
+            uint32_t : 1;
+            uint32_t NMFI : 1;
+            uint32_t TRE : 1;
+            uint32_t AFE : 1;
+            uint32_t TE : 1;
+            uint32_t : 1;
+        };
+    } SCTLR;
+    __asm__ __volatile__ ("mrc p15, 0, %0, c1, c0, 0":"=r"(SCTLR.val));
+    kprintf("old SCTLR = %08x\n", SCTLR.val);
+
+    kprintf("new SCTLR = %08x\n", SCTLR.val);
+    __asm__ __volatile__ ("mcr p15, 0, %0, c1, c0, 0"::"r"(SCTLR.val));
     
     memset((void *) 0x3d839000, 0x7f, 900*0x000010e0);
     while (1);
