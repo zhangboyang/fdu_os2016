@@ -24,6 +24,7 @@
 #include <aim/early_kmmap.h>
 #include <aim/mmu.h>
 #include <libc/string.h>
+#include <aim/debug.h>
 
 
 #define KVA2PA(x) (PTR2ADDR(x))
