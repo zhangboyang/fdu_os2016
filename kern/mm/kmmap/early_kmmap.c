@@ -36,6 +36,7 @@
 #include <aim/debug.h>
 #include <errno.h>
 #include <util.h>
+#include <aim/mmu.h>
 
 /* TODO move this to configuration */
 #define EARLY_MAPPING_QUEUE_LENGTH	10
