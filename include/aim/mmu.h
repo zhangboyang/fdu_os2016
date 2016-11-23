@@ -35,9 +35,6 @@
 #define VMA2LMA(x) ((x) - KOFFSET)
 
 
-#ifndef PAGE_SIZE
-#define PAGE_SIZE	4096
-#endif /* !PAGE_SIZE */
 
 #ifndef EARLY_PAGE_SIZE
 #define EARLY_PAGE_SIZE	PAGE_SIZE
