@@ -114,8 +114,9 @@ void mmu_jump()
         };
     } TTBCR;
     __asm__ __volatile__ ("mrc p15, 0, %0, c2, c0, 2":"=r"(TTBCR.val));
-    
-
+    kprintf("old TTBCR = %08x\n", TTBCR.val);
+    TTBCR.EAE = 1;
+    kprintf("new TTBCR = %08x\n", TTBCR.val);
     __asm__ __volatile__ ("mcr p15, 0, %0, c2, c0, 2":"=r"(TTBCR.val));
     
     kprintf("MMU enabled ...\n");
