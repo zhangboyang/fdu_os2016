@@ -31,7 +31,7 @@
 #define PA2KVA(x) (ADDR2PTR(x))
 
 
-static __attribute((aligned(PGINDEX_ALIGN))) pgindex_t __boot_page_index[PGINDEX_SIZE];
+static __attribute((aligned((1 << 5)))) pgindex_t __boot_page_index[PGINDEX_SIZE];
 static __attribute((aligned(PGMID_ALIGN))) pgmid_t __boot_page_mid_all[PGINDEX_SIZE][PGMID_SIZE];
 
 
@@ -118,8 +118,8 @@ void mmu_jump()
     //kprintf("old TTBCR = %08x\n", TTBCR.val);
     TTBCR.val = 0; // reset all fields to zero
     TTBCR.EAE = 1;
-    TTBCR.ORGN0 = 0b01; // WBWA
-    TTBCR.IRGN0 = 0b01; // WBWA
+    //TTBCR.ORGN0 = 0b01; // WBWA
+    //TTBCR.IRGN0 = 0b01; // WBWA
     TTBCR.SH0 = SH_INNER;
     kprintf("new TTBCR = %08x\n", TTBCR.val);
     __asm__ __volatile__ ("mcr p15, 0, %0, c2, c0, 2"::"r"(TTBCR.val));
@@ -141,7 +141,7 @@ void mmu_jump()
     __asm__ __volatile__ ("mcrr p15, 0, %0, %1, c2"::"r"(TTBR0.low), "r"(TTBR0.high));
     __asm__ __volatile__ ("mrrc p15, 0, %0, %1, c2":"=r"(TTBR0.low), "=r"(TTBR0.high)); kprintf("read TTBR0 = %llx\n", TTBR0.addr);
     
-    uint32_t MAIR0 = MKMAIR(MAIR_NORMAL, 0, 0, 0);
+    uint32_t MAIR0 = 0 & MKMAIR(MAIR_NORMAL, 0, 0, 0);
     __asm__ __volatile__ ("mcr p15, 0, %0, c10, c2, 0"::"r"(MAIR0));
     __asm__ __volatile__ ("mrc p15, 0, %0, c10, c2, 0":"=r"(MAIR0)); kprintf("read MAIR0 = %x\n", MAIR0);
 
