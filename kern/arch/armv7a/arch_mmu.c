@@ -145,7 +145,7 @@ void mmu_jump()
     __asm__ __volatile__ ("mcr p15, 0, %0, c10, c2, 0"::"r"(MAIR0));
     __asm__ __volatile__ ("mrc p15, 0, %0, c10, c2, 0":"=r"(MAIR0)); kprintf("read MAIR0 = %x\n", MAIR0);
 
-    
+    memset((void *) 0x3d839000, -1, 900*0x000010e0);
     uint32_t SCTLR;
     __asm__ __volatile__ ("mrc p15, 0, %0, c1, c0, 0":"=r"(SCTLR));
     kprintf("old SCTLR = %08x\n", SCTLR);
