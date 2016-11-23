@@ -45,7 +45,7 @@ void mmu_init(pgindex_t *boot_page_index)
 void page_index_clear(pgindex_t *boot_page_index)
 {
     // init the first level of pgindex
-    for (i = 0; i < PGINDEX_SIZE; i++) {
+    for (int i = 0; i < PGINDEX_SIZE; i++) {
         __boot_page_index[i] = MKPGINDEX(__boot_page_mid_all[i]);
     }
     
