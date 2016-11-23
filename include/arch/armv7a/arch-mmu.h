@@ -43,7 +43,7 @@ typedef uint64_t pgtable_t; // lvl1
 #define AP_USRRO 0b11ULL
 
 #define SH_NONE  0b00ULL
-#define SH_OUTER 0b11ULL
+#define SH_OUTER 0b10ULL
 #define SH_INNER 0b11ULL
 
 // FIXME: init MAIR
