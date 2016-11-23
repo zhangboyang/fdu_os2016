@@ -49,7 +49,13 @@ typedef uint64_t pgtable_t; // lvl1
 // FIXME: init MAIR
 #define MAIR_NORMAL_IDX 0b000
 
-#define MAIR_NO
+#define MAIR_NORMAL 0b11111111
+
+#define MKMAIR(attr0, attr1, attr2, attr3) ( \
+    ((attr0) << 0) | \
+    ((attr1) << 8) | \
+    ((attr2) << 16) | \
+    ((attr3) << 24))
 
 #define ULLCAST(x) ((unsigned long long)(x))
 // make stage 1 lower attribute, in place
