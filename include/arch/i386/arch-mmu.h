@@ -291,7 +291,7 @@ typedef pte_t pgtable_t;
 
 
 
-// make a pgindex_t points to pgmid_t
+f// make a pgindex_t points to pgmid_t
 #define MKPGINDEX(pgmid)    (KVA2PA(pgmid) | PGINDEX_P)
 #define MKPGMID_BIG(pa)     ((pa) | PGMID_P | PGMID_PS)
 
