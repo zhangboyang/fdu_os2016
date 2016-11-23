@@ -151,6 +151,7 @@ void mmu_jump()
     __asm__ __volatile__ ("mrc p15, 0, %0, c1, c0, 0":"=r"(SCTLR));
     kprintf("old SCTLR = %08x\n", SCTLR);
     SCTLR |= 1; // enable M
+    SCTLR |= 1 << 29;
     kprintf("new SCTLR = %08x\n", SCTLR);
     __asm__ __volatile__ ("mcr p15, 0, %0, c1, c0, 0"::"r"(SCTLR));
     
