@@ -49,20 +49,21 @@ typedef uint64_t pgtable_t; // lvl1
 // FIXME: init MAIR
 #define MAIR_NORMAL 0
 
+#define ULLCAST(x) ((unsigned long long)(x))
 // make stage 1 lower attribute, in place
 #define MKS1LA(nG, AF, SH, AP, NS, AttrIndx) ( \
-    ((nG) << 11ULL) | \
-    ((AF) << 10ULL) | \
-    ((SH) << 8ULL) | \
-    ((AP) << 6ULL) | \
-    ((NS) << 5ULL) | \
-    ((AttrIndx) << 2ULL))
+    (ULLCAST(nG) << 11) | \
+    (ULLCAST(AF) << 10) | \
+    (ULLCAST(SH) << 8) | \
+    (ULLCAST(AP) << 6) | \
+    (ULLCAST(NS) << 5) | \
+    (ULLCAST(AttrIndx) << 2))
 // make stage 1 upper attribute, in place
 #define MKS1UA(SoftUse, XN, PXN, ContHint) ( \
-    ((SoftUse) << 55ULL) | \
-    ((XN) << 54ULL) | \
-    ((PXN) << 53ULL) | \
-    ((ContHint) << 52ULL))
+    (ULLCAST(SoftUse) << 55) | \
+    (ULLCAST(XN) << 54) | \
+    (ULLCAST(PXN) << 53) | \
+    (ULLCAST(ContHint) << 52))
 
 // make a pgindex_t points to pgmid_t
 #define MKPGINDEX(pgmid)    (KVA2PA(pgmid) | PGTABLEENTRY_P)
