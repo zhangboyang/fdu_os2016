@@ -24,6 +24,10 @@
 #include <aim/early_kmmap.h>
 #include <aim/mmu.h>
 
+static __attribute((aligned(PGINDEX_ALIGN))) pgindex_t __boot_page_index[PGINDEX_SIZE];
+static __attribute((aligned(PGMID_ALIGN))) pgmid_t __boot_page_mid_all[PGINDEX_SIZE][PGMID_SIZE];
+
+
 bool early_mapping_valid(struct early_mapping *entry)
 {
     // FIXME
