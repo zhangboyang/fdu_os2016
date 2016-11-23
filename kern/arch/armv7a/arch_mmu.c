@@ -145,7 +145,16 @@ void mmu_jump()
     __asm__ __volatile__ ("mrc p15, 0, %0, c10, c2, 0":"=r"(MAIR0)); kprintf("read MAIR0 = %x\n", MAIR0);
 
     
+    uint32_t SCTLR;
+    __asm__ __volatile__ ("mrc p15, 0, %0, c1, c0, 0":"=r"(SCTLR));
+    kprintf("old SCTLR = %08x\n", SCTLR);
+    SCTLR |= 1; // enable M
+    kprintf("new SCTLR = %08x\n", SCTLR);
+    __asm__ __volatile__ ("mcr p15, 0, %0, c1, c0, 0"::"r"(SCTLR));
+    
+    
     kprintf("MMU enabled ...\n");
+    
     
     kprintf("jump to high address kernel entry\n");
     while (1);
