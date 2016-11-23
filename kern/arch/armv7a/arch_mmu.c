@@ -31,7 +31,7 @@
 #define PA2KVA(x) (ADDR2PTR(x))
 
 
-static __attribute((aligned((1 << 5)))) pgindex_t __boot_page_index[PGINDEX_SIZE];
+static __attribute((aligned(PGINDEX_ALIGN))) pgindex_t __boot_page_index[PGINDEX_SIZE];
 static __attribute((aligned(PGMID_ALIGN))) pgmid_t __boot_page_mid_all[PGINDEX_SIZE][PGMID_SIZE];
 
 
