@@ -63,5 +63,7 @@ extern struct fbinfo fb;
 int fbinit(struct fbinfo *fb);
 void fbcls(struct fbinfo *fbdev, uint32_t color);
 
+void mach_add_mapping();
+
 #endif /* _MACH_PLATFORM_H */
 
