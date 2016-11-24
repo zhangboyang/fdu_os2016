@@ -194,6 +194,7 @@ __asm__ (".fbfont:\n.incbin \"font.bin\"\n");
 extern uint8_t fbfont[256][8][6];
 void fbdrawch(struct fbinfo *fbdev, int x, int y, uint32_t fgcolor, uint32_t bgcolor, int ch)
 {
+    int i, j;
     for (i = 0; i < 8; i++) {
         for (j = 0; j < 6; j++) {
             fbdrawpt(fbdev, x + i, y + j, fbfont[ch][i][j] ? fgcolor : bgcolor);
