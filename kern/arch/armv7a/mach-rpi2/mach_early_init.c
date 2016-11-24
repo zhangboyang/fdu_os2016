@@ -88,7 +88,15 @@ void mach_add_mapping()
 
     struct early_mapping entry;
     
-    
+    // add device memory
+    entry = (struct early_mapping) {
+		.paddr	= RPI2_MEMIO_BASE,
+		.vaddr	= PTRCAST(RPI2_MEMIO_BASE + KOFFSET),
+		.size	= RPI2_MEMIO_TOP - RPI2_MEMIO_BASE,
+		.type	= EARLY_MAPPING_DEVICE,
+	};
+	if (early_mapping_add(&entry) < 0) panic("can't add device memory");
+	
     // add framebuffer memory
     struct fbinfo *fbdev = LOWADDR(&fb);
     size_t fbsize = fbdev->height * fbdev->pitch;
