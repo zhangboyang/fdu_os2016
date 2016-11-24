@@ -57,6 +57,7 @@ __asm__ ( // the syscall()
 
 void master_init()
 {
+fbcls(LOWADDR(&fb), 0xff); while (1);
     bprintf("this is bprintf, at highaddr!\n");
     
     jump_handlers_apply();

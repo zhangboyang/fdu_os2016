@@ -48,3 +48,14 @@ svc_start:
 
 spin: b spin
 
+
+
+
+
+
+master_entry:
+    // the high address entry
+    ldr sp, =AIM_KERN_STACK_BOTTOM // prepare stack
+    b master_init // jump to C code
+    b spin
+
