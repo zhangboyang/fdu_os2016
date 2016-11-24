@@ -216,7 +216,7 @@ fbcls(LOWADDR(&fb), 0xff);
 __asm__ (
 ".globl abs_jump\n"
 "abs_jump:\n"
-"   b [r0]\n"
+"   bx r0\n"
 );
 #undef KVA2PA
 #undef PA2KVA
