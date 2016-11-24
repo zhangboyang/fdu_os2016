@@ -63,6 +63,7 @@ struct fbinfo {
 extern struct fbinfo fb;
 int fbinit(struct fbinfo *fb);
 void fbcls(struct fbinfo *fbdev, uint32_t color);
+void fbdrawch(struct fbinfo *fbdev, int x, int y, uint32_t fgcolor, uint32_t bgcolor, int ch);
 
 void mach_add_mapping();
 

@@ -176,3 +176,28 @@ void fbcls(struct fbinfo *fbdev, uint32_t color) // color should be X8R8G8B8
         }
     }
 }
+
+static void fbdrawpt(struct fbinfo *fbdev, int x, int y, uint32_t color)
+{
+    assert(fbdev->format == FBFMT_R8G8B8);
+    struct {
+        uint8_t b;
+        uint8_t g;
+        uint8_t r;
+    } *pixel = fbdev->pbits + fbdev->pitch * x + y * 3;
+    pixel->r = color >> 16;
+    pixel->g = color >> 8;
+    pixel->b = color;
+}
+
+__asm__ (".fbfont:\n.incbin \"font.bin\"\n");
+extern uint8_t fbfont[256][8][6];
+void fbdrawch(struct fbinfo *fbdev, int x, int y, uint32_t fgcolor, uint32_t bgcolor, int ch)
+{
+    for (i = 0; i < 8; i++) {
+        for (j = 0; j < 6; j++) {
+            fbdrawpt(fbdev, x + i, y + j, fbfont[ch][i][j] ? fgcolor : bgcolor);
+        }
+    }
+}
+
