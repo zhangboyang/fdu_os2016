@@ -73,7 +73,7 @@ void fbputc(int ch)
     }
     if (xflag) {
         int i;
-        for (i = 0; i < fbcols; i++) {
+        for (i = 0; i < concols; i++) {
             fbcondrawch(conx, i, ' ');
         }
     }
