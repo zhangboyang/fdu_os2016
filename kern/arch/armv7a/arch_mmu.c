@@ -195,7 +195,7 @@ fbcls(LOWADDR(&fb), 0xff);
     kprintf("new SCTLR = %08x\n", SCTLR.val);
     __asm__ __volatile__ ("mcr p15, 0, %0, c1, c0, 0"::"r"(SCTLR.val));
     
-fbcls(LOWADDR(&fb), 0xff0000);    
+fbcls(LOWADDR(&fb), 0xffff);    
 
     
     kprintf("MMU enabled ...\n");
@@ -203,6 +203,7 @@ fbcls(LOWADDR(&fb), 0xff0000);
     
     kprintf("jump to high address kernel entry\n");
     
+fbcls(LOWADDR(&fb), 0xffffff);
     unsigned char x = 0; while (1) { memset((void *) 0x3d839000, x++, 900*0x000010e0); }
     
     while (1);
