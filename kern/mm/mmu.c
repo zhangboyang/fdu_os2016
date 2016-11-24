@@ -53,7 +53,7 @@ int page_index_init(pgindex_t *boot_page_index)
 
 	for (; mapping != NULL; mapping = early_mapping_next(mapping)) {
 		ret = page_index_early_map(boot_page_index, mapping->paddr,
-			(void *)mapping->vaddr, mapping->size);
+			(void *)mapping->vaddr, mapping->size, mapping->type);
 		if (ret == EOF) return EOF;
 	}
 	return 0;

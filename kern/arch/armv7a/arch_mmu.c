@@ -63,19 +63,27 @@ void page_index_clear(pgindex_t *boot_page_index)
     memset(__boot_page_mid_all, 0, sizeof(__boot_page_mid_all));
 }
 
-int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr, void *vaddr, size_t size)
+int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr, void *vaddr, size_t size, int type)
 {
     // assert for alignment
     assert(BIGPAGE_OFF(paddr) == 0);
     assert(BIGPAGE_OFF(PTR2ADDR(vaddr)) == 0);
     assert(BIGPAGE_OFF(size) == 0);
     
+    uint32_t SH, AttrIndx;
+    switch (type) {
+        case EARLY_MAPPING_MEMORY: SH = SH_INNER, AttrIndx = MAIR_NORMAL; break;
+        case EARLY_MAPPING_DEVICE: SH = SH_OUTER, AttrIndx = MAIR_DEVICE; break;
+        case EARLY_MAPPING_FRAMEBUFFER: SH = SH_OUTER, AttrIndx = MAIR_FRAMEBUFFER; break;
+        default: panic("unknown mapping type %d", type);
+    }
+    
     kprintf("early mapping: paddr=%016llx vaddr=%08p size=%08lx\n", paddr, vaddr, size);
     addr_t pa, va;
     for (pa = paddr, va = PTR2ADDR(vaddr); pa < paddr + size; pa += BIGPAGE_SIZE, va += BIGPAGE_SIZE) {
         // map VA to PA
         pgmid_t *pgmid = WKPGINDEX(boot_page_index[PGINDEX_FN(va)]);
-        pgmid[PGMID_FN(va)] = MKPGMID_BIG(pa);
+        pgmid[PGMID_FN(va)] = MKPGMID_BIG(pa, SH, AttrIndx);
         //kprintf("pgmid=%llx midfn=%llx val=%llx\n", ULLCAST(ULCAST(pgmid)), ULLCAST(PGMID_FN(va)), ULLCAST(pgmid[PGMID_FN(va)]));
     }
     
@@ -87,6 +95,7 @@ int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr, void *vaddr, 
 void early_mm_init(void)
 {
     // initialize high address
+#define KTOP 0x3F000000
     lsize_t ksize = KTOP - KOFFSET;
     init_jmphigh_mapping(0x40000000, ksize);
     mmu_init(__boot_page_index);

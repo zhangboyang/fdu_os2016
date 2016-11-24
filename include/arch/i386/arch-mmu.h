@@ -19,7 +19,7 @@
 #ifndef _ARCH_MMU_H
 #define _ARCH_MMU_H
 
-
+#define KTOP 0xFE000000
 
 #define VMA2LMA(x) ((x) - KOFFSET)
 

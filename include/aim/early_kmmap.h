@@ -30,6 +30,10 @@ struct early_mapping {
 #define EARLY_MAPPING_KMMAP	1	/* kmmap allocated entries */
 #define EARLY_MAPPING_TEMP	2	/* discarded */
 #define EARLY_MAPPING_OTHER	3	/* kmmap explicit entries */
+
+#define EARLY_MAPPING_DEVICE	4
+#define EARLY_MAPPING_FRAMEBUFFER	5
+
 };
 
 /* Architecture-specific */

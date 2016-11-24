@@ -24,7 +24,6 @@
 #include <util.h>
 
 #define KOFFSET KERN_BASE
-#define KTOP 0xFE000000
 #define LOWADDR(highaddr) ((typeof((highaddr) + 0)) ((ULCAST(highaddr)) - KERN_BASE))
 /* addresses before and after early MMU mapping */
 #define __premap_addr(kva)	(ULCAST(kva) - KERN_BASE)
@@ -65,7 +64,7 @@ addr_t get_mem_size();
 
 void page_index_clear(pgindex_t *boot_page_index);
 int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr,
-	void *vaddr, size_t size);
+	void *vaddr, size_t size, int type);
 int page_index_init(pgindex_t *boot_page_index);
 void mmu_init(pgindex_t *boot_page_index);
 
