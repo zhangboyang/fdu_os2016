@@ -53,31 +53,27 @@ static struct meminfo {
     uint32_t size;
 } arminfo, vcinfo;
     
-void mach_early_init()
+static void rpi2_detect_memory()
 {
-//    dump_memory(NULL, 0x8000);
-    
-    mailbox_init();
-    
-
     if (ask_property_tag(MAILBOX_PROP_ARMMEMORY, &arminfo, 0, sizeof(arminfo), NULL) < 0) panic("can't get memory info for ARM");
     if (ask_property_tag(MAILBOX_PROP_VCMEMORY, &vcinfo, 0, sizeof(vcinfo), NULL) < 0) panic("can't get memory info for VideoCore");
     kprintf("arm memory: base=0x%08x size=0x%08x\n", arminfo.base, arminfo.size);
     kprintf("vc memory: base=0x%08x size=0x%08x\n", vcinfo.base, vcinfo.size);
-    
+}
+
+static void rpi2_fbdev_init()
+{
     if (fbinit(LOWADDR(&fb)) < 0) panic("can't init framebuffer");
-    
-    
-//    dump_memory(&fbdev, sizeof(fbdev));
-/*    dump_memory(fbdev.bits, 0xA0);
-    memset(fbdev.bits, -1, fbdev.height * fbdev.pitch);
-    dump_memory(fbdev.bits, 0xA0);*/
-    
-
-    extern uint8_t splash_image_data[]; show_splash(LOWADDR(&fb), LOWADDR(splash_image_data), 175, 100, 24);
-
-    
+    fbcls(LOWADDR(&fb), 0x00ff00);
+//    extern uint8_t splash_image_data[]; show_splash(LOWADDR(&fb), LOWADDR(splash_image_data), 175, 100, 24);
 //    extern uint8_t jtxj[]; show_splash(&fbdev, LOWADDR(jtxj), 318, 346, 24);
+}
+
+void mach_early_init()
+{
+    mailbox_init();
+    rpi2_detect_memory();
+    rpi2_fbdev_init();
 }
 
 
