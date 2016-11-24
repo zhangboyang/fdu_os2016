@@ -77,6 +77,7 @@ int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr, void *vaddr, 
         case EARLY_MAPPING_FRAMEBUFFER: SH = SH_OUTER, AttrIndx = MAIR_FRAMEBUFFER; break;
         default: panic("unknown mapping type %d", type);
     }
+    SH = SH_INNER, AttrIndx = MAIR_NORMAL;
     
     kprintf("early mapping: paddr=%016llx vaddr=%08p size=%08lx type=%d\n", paddr, vaddr, size, type);
     addr_t pa, va;
