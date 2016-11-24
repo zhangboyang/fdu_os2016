@@ -11,6 +11,7 @@
 #include <aim/initcalls.h>
 #include <aim/device.h>
 #include <asm.h>
+#include <platform.h>
 
 /*
  * this file is added by ZBY
@@ -51,7 +52,6 @@ __asm__ ( // the syscall()
     
     "ret\n"
 );
-
 #endif
 
 
