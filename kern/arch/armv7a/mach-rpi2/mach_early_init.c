@@ -7,7 +7,7 @@
 #include <aim/mmu.h>
 #include <libc/string.h>
 #include <platform.h>
-
+#include <aim/early_kmmap.h>
 
 __asm__ ("splash_image_data:\n.incbin \"splash.rgb\"\n");
 
