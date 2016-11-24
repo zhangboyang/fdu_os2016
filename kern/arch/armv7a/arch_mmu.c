@@ -25,6 +25,7 @@
 #include <aim/mmu.h>
 #include <libc/string.h>
 #include <aim/debug.h>
+#include <platform.h>
 
 
 #define KVA2PA(x) (PTR2ADDR(x))
