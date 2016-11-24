@@ -45,12 +45,18 @@ void show_splash(struct fbinfo *fbdev, void *imgdata, int imgwidth, int imgheigh
 }
 
 struct fbinfo fb;
-
+#define CONPAGE_COLS 80
+#define CONPAGE_COL_SPACE 5
+static int pagecols;
+static int conrcols, conrrows; // real cols and rows
 static void fbcondrawch(int x, int y, int ch)
 {
+    y += x / conrrows * (CONPAGE_COLS + CONPAGE_COL_SPACE);
+    x %= conrrows;
     fbdrawch(&fb, x * 8, y * 6, 0xffffff, 0x000000, ch);
 }
-static int concols, conrows;
+
+static int concols, conrows; // logical cols and rows
 static int conx = 0, cony = 0;
 static int fbconenable = 0;
 void fbputc(int ch)
@@ -98,8 +104,12 @@ static void rpi2_fbdev_init()
 //    extern uint8_t splash_image_data[]; show_splash(LOWADDR(&fb), LOWADDR(splash_image_data), 175, 100, 24);
 //    extern uint8_t jtxj[]; show_splash(&fb, jtxj, 318, 346, 24);
     // init fb console
-    conrows = fbdev->height / 8;
-    concols = fbdev->width / 6;
+    conrrows = fbdev->height / 8;
+    conrcols = fbdev->width / 6;
+    
+    pagecols = (conrcols - CONPAGE_COL_SPACE) / CONPAGE_COLS;
+    concols = CONPAGE_COLS;
+    conrows = conrrows * pagecols;
 }
 
 
