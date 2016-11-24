@@ -85,7 +85,7 @@ void mach_add_mapping()
 {
     init_jmphigh_mapping(0x40000000, arminfo.size + KERN_BASE);
 
-    struct fbinfo *fbdev = LOWADDR(&fb);
+/*    struct fbinfo *fbdev = LOWADDR(&fb);
     struct early_mapping entry;
     entry = (struct early_mapping) {
 		.paddr	= ADDRCAST(fbdev->bits),
@@ -93,6 +93,6 @@ void mach_add_mapping()
 		.size	= ROUNDUP(fbdev->height * fbdev->pitch, BIGPAGE_SIZE),
 		.type	= EARLY_MAPPING_FRAMEBUFFER,
 	};
-	early_mapping_add(&entry);
+	early_mapping_add(&entry);*/
 }
 
