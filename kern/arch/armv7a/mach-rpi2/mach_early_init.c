@@ -97,6 +97,6 @@ void mach_add_mapping()
 		.size	= ROUNDUP(fbdev->height * fbdev->pitch, BIGPAGE_SIZE),
 		.type	= EARLY_MAPPING_FRAMEBUFFER,
 	};
-	early_mapping_add(&entry);
+	if (!early_mapping_add(&entry)) panic("can't add framebuffer memory");
 }
 
