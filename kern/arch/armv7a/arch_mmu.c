@@ -140,12 +140,11 @@ void mmu_jump()
     TTBR0.addr = ULCAST(__boot_page_index);
     kprintf("new TTBR0 = %llx\n", TTBR0.addr);
     __asm__ __volatile__ ("mcrr p15, 0, %0, %1, c2"::"r"(TTBR0.low), "r"(TTBR0.high));
-//__asm__ __volatile__ ("mcrr p15, 1, %0, %1, c2"::"r"(TTBR0.low), "r"(TTBR0.high));
-    TTBR0.addr = -1; __asm__ __volatile__ ("mrrc p15, 0, %0, %1, c2":"=r"(TTBR0.low), "=r"(TTBR0.high)); kprintf("read TTBR0 = %08x %08x\n", TTBR0.high, TTBR0.low);
+//    TTBR0.addr = -1; __asm__ __volatile__ ("mrrc p15, 0, %0, %1, c2":"=r"(TTBR0.low), "=r"(TTBR0.high)); kprintf("read TTBR0 = %08x %08x\n", TTBR0.high, TTBR0.low);
     
     uint32_t MAIR0 = MKMAIR(0, 0, 0, 0);
     __asm__ __volatile__ ("mcr p15, 0, %0, c10, c2, 0"::"r"(MAIR0));
-    MAIR0 = -1; __asm__ __volatile__ ("mrc p15, 0, %0, c10, c2, 0":"=r"(MAIR0)); kprintf("read MAIR0 = %x\n", MAIR0);
+//    MAIR0 = -1; __asm__ __volatile__ ("mrc p15, 0, %0, c10, c2, 0":"=r"(MAIR0)); kprintf("read MAIR0 = %x\n", MAIR0);
 
     memset((void *) 0x3d839000, 0x40, 900*0x000010e0);
     union {
@@ -187,7 +186,6 @@ void mmu_jump()
     SCTLR.M = 1;
     SCTLR.AFE = 1;
     SCTLR.TRE = 1;
-    SCTLR.HA = 1;
     
     kprintf("new SCTLR = %08x\n", SCTLR.val);
     __asm__ __volatile__ ("mcr p15, 0, %0, c1, c0, 0"::"r"(SCTLR.val));
