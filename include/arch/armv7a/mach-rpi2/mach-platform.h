@@ -67,5 +67,7 @@ void fbdrawch(struct fbinfo *fbdev, int x, int y, uint32_t fgcolor, uint32_t bgc
 
 void mach_add_mapping();
 
+void fbputc(int ch);
+
 #endif /* _MACH_PLATFORM_H */
 
