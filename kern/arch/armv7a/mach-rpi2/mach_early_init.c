@@ -68,7 +68,9 @@ void fbputc(int ch)
     if (conx >= conrows) {
         conx = 0;
     }
-    fbcondrawch(conx, cony, ch);
+    if (ch != '\r' && ch != '\n') {
+        fbcondrawch(conx, cony, ch);
+    }
 }
 
 static struct meminfo {
