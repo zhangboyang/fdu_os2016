@@ -95,11 +95,13 @@ fbcls(LOWADDR(&fb), 0xFFFF00);
     sti();
     //asm volatile ("movl $0x100, (0xfffffff0)"); // PF
     while (1);*/
-    
+
+#ifdef i386
 #define uart_ns16550_devno 162 // FIXME: see uart-ns16550.c
     struct chr_device *chdev = (struct chr_device *) dev_from_id(uart_ns16550_devno);
     chdev->chr_driver.putc(uart_ns16550_devno, 'h');
-    
+#endif
+
     panic("bye");
 }
 
