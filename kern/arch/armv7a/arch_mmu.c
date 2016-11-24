@@ -54,7 +54,7 @@ void page_index_clear(pgindex_t *boot_page_index)
     // init the first level of pgindex
     for (int i = 0; i < PGINDEX_SIZE; i++) {
         __boot_page_index[i] = MKPGINDEX(__boot_page_mid_all[i]);
-__boot_page_index[i] = 0b1000000001; kprintf("&__boot_page_index[i]=%p\n", &__boot_page_index[i]);
+__boot_page_index[i] = 0b11000000001; kprintf("&__boot_page_index[i]=%p\n", &__boot_page_index[i]);
         kprintf("i=%d tbl=%p val=%llx\n", i, __boot_page_mid_all[i], __boot_page_index[i]);
     }
     
@@ -140,7 +140,7 @@ void mmu_jump()
     TTBR0.addr = ULCAST(__boot_page_index);
     kprintf("new TTBR0 = %llx\n", TTBR0.addr);
     __asm__ __volatile__ ("mcrr p15, 0, %0, %1, c2"::"r"(TTBR0.low), "r"(TTBR0.high));
-    __asm__ __volatile__ ("mcrr p15, 1, %0, %1, c2"::"r"(TTBR0.low), "r"(TTBR0.high));
+//__asm__ __volatile__ ("mcrr p15, 1, %0, %1, c2"::"r"(TTBR0.low), "r"(TTBR0.high));
     TTBR0.addr = -1; __asm__ __volatile__ ("mrrc p15, 0, %0, %1, c2":"=r"(TTBR0.low), "=r"(TTBR0.high)); kprintf("read TTBR0 = %08x %08x\n", TTBR0.high, TTBR0.low);
     
     uint32_t MAIR0 = MKMAIR(0, 0, 0, 0);
