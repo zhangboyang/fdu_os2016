@@ -56,20 +56,26 @@ static int fbconenable = 0;
 void fbputc(int ch)
 {
     if (!fbconenable) return;
-    if (ch == '\r') conx++;
+    int xflag = 0;
+    if (ch == '\r') { conx++; xflag = 1; }
     else if (ch == '\n') cony = 0;
     else {
+        fbcondrawch(conx, cony, ch);
         cony++;
         if (cony >= concols) {
             cony = 0;
             conx++;
+            xflag = 1;
         }
     }
     if (conx >= conrows) {
         conx = 0;
     }
-    if (ch != '\r' && ch != '\n') {
-        fbcondrawch(conx, cony, ch);
+    if (xflag) {
+        int i;
+        for (i = 0; i < fbcols; i++) {
+            fbcondrawch(conx, i, ' ');
+        }
     }
 }
 
