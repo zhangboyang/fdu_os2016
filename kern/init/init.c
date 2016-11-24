@@ -58,7 +58,7 @@ void master_init()
 {
     bprintf("this is bprintf, at highaddr!\n");
     
-    fbcls(&fb, 0xffffff);
+    fbcls(&fb, 0x000000);
     
     jump_handlers_apply();
     
