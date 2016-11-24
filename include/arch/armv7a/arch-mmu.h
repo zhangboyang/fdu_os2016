@@ -80,7 +80,7 @@ typedef uint64_t pgtable_t; // lvl1
 
 // make a pgindex_t points to pgmid_t
 #define MKPGINDEX(pgmid)    (KVA2PA(pgmid) | PGTABLEENTRY_P)
-#define MKPGMID_BIG(pa, SH, AttrIndx)     ((pa) | PGBLOCKENTRY_P | MKS1UA(0, 0, 0, 0) | MKS1LA(0, 1, SH, AP_SYSRW, 0, AttrIndx))
+#define MKPGMID_BIG(pa, SH, AttrIndx)     ((pa) | PGBLOCKENTRY_P | MKS1UA(0, 0, 0, 0) | MKS1LA(0, 1, SH_INNER, AP_SYSRW, 0, AttrIndx))
 
 
 

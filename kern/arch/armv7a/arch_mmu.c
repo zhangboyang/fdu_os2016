@@ -72,9 +72,9 @@ int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr, void *vaddr, 
     
     uint32_t SH, AttrIndx;
     switch (type) {
-        case EARLY_MAPPING_MEMORY: SH = SH_INNER, AttrIndx = MAIR_NORMAL; break;
-        case EARLY_MAPPING_DEVICE: SH = SH_OUTER, AttrIndx = MAIR_DEVICE; break;
-        case EARLY_MAPPING_FRAMEBUFFER: SH = SH_OUTER, AttrIndx = MAIR_FRAMEBUFFER; break;
+        case EARLY_MAPPING_MEMORY: SH = SH_INNER, AttrIndx = MAIR_NORMAL_IDX; break;
+        case EARLY_MAPPING_DEVICE: SH = SH_OUTER, AttrIndx = MAIR_DEVICE_IDX; break;
+        case EARLY_MAPPING_FRAMEBUFFER: SH = SH_OUTER, AttrIndx = MAIR_FRAMEBUFFER_IDX; break;
         default: panic("unknown mapping type %d", type);
     }
     
