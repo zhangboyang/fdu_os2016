@@ -55,7 +55,7 @@ void page_index_clear(pgindex_t *boot_page_index)
     // init the first level of pgindex
     for (int i = 0; i < PGINDEX_SIZE; i++) {
         __boot_page_index[i] = MKPGINDEX(__boot_page_mid_all[i]);
-//__boot_page_index[i] = 0b11000000001; kprintf("&__boot_page_index[i]=%p\n", &__boot_page_index[i]);
+__boot_page_index[i] = 0b11000000001; kprintf("&__boot_page_index[i]=%p\n", &__boot_page_index[i]);
 //        kprintf("i=%d tbl=%p val=%llx\n", i, __boot_page_mid_all[i], __boot_page_index[i]);
     }
     
@@ -72,7 +72,7 @@ int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr, void *vaddr, 
     
     uint32_t SH, AttrIndx;
     switch (type) {
-        case EARLY_MAPPING_MEMORY: SH = SH_INNER, AttrIndx = MAIR_NORMAL; SH = SH_OUTER, AttrIndx = MAIR_DEVICE; break;
+        case EARLY_MAPPING_MEMORY: SH = SH_INNER, AttrIndx = MAIR_NORMAL; break;
         case EARLY_MAPPING_DEVICE: SH = SH_OUTER, AttrIndx = MAIR_DEVICE; break;
         case EARLY_MAPPING_FRAMEBUFFER: SH = SH_OUTER, AttrIndx = MAIR_FRAMEBUFFER; break;
         default: panic("unknown mapping type %d", type);
