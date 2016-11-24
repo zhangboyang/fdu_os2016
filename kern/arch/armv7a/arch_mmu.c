@@ -38,6 +38,11 @@ static __attribute((aligned(PGMID_ALIGN))) pgmid_t __boot_page_mid_all[PGINDEX_S
 
 bool early_mapping_valid(struct early_mapping *entry)
 {
+dump_memory(entry, sizeof(*entry));
+kprintf("result=%d\n", BIGPAGE_OFF(entry->paddr) == 0 &&
+           BIGPAGE_OFF(PTR2ADDR(entry->vaddr)) == 0 &&
+           BIGPAGE_OFF(entry->size) == 0);
+
     // we use 2MB pages in early mapping
     return BIGPAGE_OFF(entry->paddr) == 0 &&
            BIGPAGE_OFF(PTR2ADDR(entry->vaddr)) == 0 &&

@@ -91,12 +91,13 @@ void mach_add_mapping()
     
     // add framebuffer memory
     struct fbinfo *fbdev = LOWADDR(&fb);
+    size_t fbsize = fbdev->height * fbdev->pitch;
     entry = (struct early_mapping) {
 		.paddr	= ADDRCAST(fbdev->bits),
 		.vaddr	= fbdev->bits + KOFFSET,
-		.size	= ROUNDUP(fbdev->height * fbdev->pitch, BIGPAGE_SIZE),
+		.size	= ROUNDUP(fbsize, BIGPAGE_SIZE),
 		.type	= EARLY_MAPPING_FRAMEBUFFER,
 	};
-	if (!early_mapping_add(&entry)) panic("can't add framebuffer memory");
+	if (early_mapping_add(&entry) < 0) panic("can't add framebuffer memory");
 }
 
