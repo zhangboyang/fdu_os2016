@@ -49,7 +49,7 @@ typedef uint64_t pgtable_t; // lvl1
 // FIXME: init MAIR
 #define MAIR_NORMAL_IDX 0b000
 #define MAIR_DEVICE_IDX 0b001
-#define MAIR_FRAMEBUFFER_IDX 0b010
+#define MAIR_FRAMEBUFFER_IDX 0b001
 
 #define MAIR_NORMAL 0b11111111
 #define MAIR_DEVICE 0b00000000
