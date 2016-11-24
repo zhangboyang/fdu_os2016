@@ -195,7 +195,7 @@ fbcls(LOWADDR(&fb), 0xff);
     kprintf("new SCTLR = %08x\n", SCTLR.val);
     __asm__ __volatile__ ("mcr p15, 0, %0, c1, c0, 0"::"r"(SCTLR.val));
     
-while (1) { fbcls(LOWADDR(&fb), 0xff00ff); fbcls(LOWADDR(&fb), 0x0000ff); }
+while (1) { fbcls(LOWADDR(&fb), 0xff00ff); fbcls(LOWADDR(&fb), 0x00ff00); }
     
     kprintf("MMU enabled ...\n");
     
