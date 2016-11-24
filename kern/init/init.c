@@ -57,19 +57,17 @@ void master_init()
 {
     bprintf("this is bprintf, at highaddr!\n");
     
-fbcls(&fb, 0xffff00);
-
+    fbcls(&fb, 0xffffff);
+    
     jump_handlers_apply();
     
     
     
-kprintf("fb=%p\n", fb.bits);
-fbcls(&fb, 0xffffff);
-fbdrawch(&fb, 0, 0, 0xFFFFFF, 0, 'A');
     
 
     
     kprintf("hello world! we are now at high address!\n");
+    kprintf("hahaha\n");
 while (1);;;;
     // bootstrip the pmm and vmm
     vmm_bootstrap();
