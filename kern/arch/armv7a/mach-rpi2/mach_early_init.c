@@ -48,16 +48,18 @@ void show_splash(struct fbinfo *fbdev, void *imgdata, int imgwidth, int imgheigh
 
 struct fbinfo fb;
 
+static struct meminfo {
+    uint32_t base;
+    uint32_t size;
+} arminfo, vcinfo;
+    
 void mach_early_init()
 {
 //    dump_memory(NULL, 0x8000);
     
     mailbox_init();
     
-    struct meminfo {
-        uint32_t base;
-        uint32_t size;
-    } arminfo, vcinfo;
+
     if (ask_property_tag(MAILBOX_PROP_ARMMEMORY, &arminfo, 0, sizeof(arminfo), NULL) < 0) panic("can't get memory info for ARM");
     if (ask_property_tag(MAILBOX_PROP_VCMEMORY, &vcinfo, 0, sizeof(vcinfo), NULL) < 0) panic("can't get memory info for VideoCore");
     kprintf("arm memory: base=0x%08x size=0x%08x\n", arminfo.base, arminfo.size);
@@ -78,4 +80,19 @@ void mach_early_init()
 //    extern uint8_t jtxj[]; show_splash(&fbdev, LOWADDR(jtxj), 318, 346, 24);
 }
 
+
+void mach_add_mapping()
+{
+    init_jmphigh_mapping(0x40000000, arminfo.size + KERN_BASE);
+
+    struct fbinfo *fbdev = LOWADDR(&fb);
+    struct early_mapping entry;
+    entry = (struct early_mapping) {
+		.paddr	= fbdev->bits,
+		.vaddr	= fbdev->bits + KOFFSET,
+		.size	= ROUNDUP(fbdev->height * fbdev->pitch, BIGPAGE_SIZE),
+		.type	= EARLY_MAPPING_FRAMEBUFFER,
+	};
+	early_mapping_add(&entry);
+}
 

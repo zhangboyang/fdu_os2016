@@ -44,7 +44,7 @@ static __attribute((aligned(PGINDEX_ALIGN))) pgindex_t __boot_page_index[PGINDEX
 static __attribute((aligned(PGMID_ALIGN))) pgmid_t __boot_page_mid_all[PGINDEX_SIZE][PGMID_SIZE];
 
 
-int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr, void *vaddr, size_t size)
+int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr, void *vaddr, size_t size, int type)
 {
     // assert for alignment
     assert(BIGPAGE_OFF(paddr) == 0);

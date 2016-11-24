@@ -95,9 +95,7 @@ int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr, void *vaddr, 
 void early_mm_init(void)
 {
     // initialize high address
-#define KTOP 0x3F000000
-    lsize_t ksize = KTOP - KOFFSET;
-    init_jmphigh_mapping(0x40000000, ksize);
+    mach_add_mapping();
     mmu_init(__boot_page_index);
 }
 
