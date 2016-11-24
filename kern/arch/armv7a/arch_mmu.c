@@ -143,7 +143,7 @@ void mmu_jump()
     __asm__ __volatile__ ("mcrr p15, 0, %0, %1, c2"::"r"(TTBR0.low), "r"(TTBR0.high));
 //    TTBR0.addr = -1; __asm__ __volatile__ ("mrrc p15, 0, %0, %1, c2":"=r"(TTBR0.low), "=r"(TTBR0.high)); kprintf("read TTBR0 = %08x %08x\n", TTBR0.high, TTBR0.low);
     
-    uint32_t MAIR0 = MKMAIR(MAIR_NORMAL, 0, 0, 0);
+    uint32_t MAIR0 = MKMAIR(MAIR_NORMAL, MAIR_DEVICE, MAIR_FRAMEBUFFER, 0);
     __asm__ __volatile__ ("mcr p15, 0, %0, c10, c2, 0"::"r"(MAIR0));
 //    MAIR0 = -1; __asm__ __volatile__ ("mrc p15, 0, %0, c10, c2, 0":"=r"(MAIR0)); kprintf("read MAIR0 = %x\n", MAIR0);
 
@@ -183,7 +183,7 @@ void mmu_jump()
         };
     } SCTLR;
     __asm__ __volatile__ ("mrc p15, 0, %0, c1, c0, 0":"=r"(SCTLR.val));
-    kprintf("old SCTLR = %08x\n", SCTLR.val);
+//    kprintf("old SCTLR = %08x\n", SCTLR.val);
     SCTLR.M = 1;
     SCTLR.AFE = 1;
     SCTLR.TRE = 1;
@@ -194,13 +194,16 @@ void mmu_jump()
     kprintf("new SCTLR = %08x\n", SCTLR.val);
     __asm__ __volatile__ ("mcr p15, 0, %0, c1, c0, 0"::"r"(SCTLR.val));
     
-    unsigned char x = 0; while (1) { memset((void *) 0x3d839000, x++, 900*0x000010e0); }
+    
 
     
     kprintf("MMU enabled ...\n");
     
     
     kprintf("jump to high address kernel entry\n");
+    
+    unsigned char x = 0; while (1) { memset((void *) 0x3d839000, x++, 900*0x000010e0); }
+    
     while (1);
 }
 
