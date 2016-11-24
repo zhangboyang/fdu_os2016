@@ -119,9 +119,9 @@ void mmu_jump()
     //kprintf("old TTBCR = %08x\n", TTBCR.val);
     TTBCR.val = 0; // reset all fields to zero
     TTBCR.EAE = 1;
-    TTBCR.ORGN0 = 0b01; // WBWA
-    TTBCR.IRGN0 = 0b01; // WBWA
-    TTBCR.SH0 = SH_INNER;
+    TTBCR.ORGN0 = 0b00;
+    TTBCR.IRGN0 = 0b00;
+    TTBCR.SH0 = SH_OUTER;
     kprintf("new TTBCR = %08x\n", TTBCR.val);
     __asm__ __volatile__ ("mcr p15, 0, %0, c2, c0, 2"::"r"(TTBCR.val));
     __asm__ __volatile__ ("mrc p15, 0, %0, c2, c0, 2":"=r"(TTBCR.val)); kprintf("read TTBCR = %08x\n", TTBCR.val);
