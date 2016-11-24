@@ -78,7 +78,7 @@ int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr, void *vaddr, 
         default: panic("unknown mapping type %d", type);
     }
     
-    kprintf("early mapping: paddr=%016llx vaddr=%08p size=%08lx\n", paddr, vaddr, size);
+    kprintf("early mapping: paddr=%016llx vaddr=%08p size=%08lx type=%d\n", paddr, vaddr, size, type);
     addr_t pa, va;
     for (pa = paddr, va = PTR2ADDR(vaddr); pa < paddr + size; pa += BIGPAGE_SIZE, va += BIGPAGE_SIZE) {
         // map VA to PA
