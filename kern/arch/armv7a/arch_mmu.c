@@ -26,7 +26,7 @@
 #include <libc/string.h>
 #include <aim/debug.h>
 #include <platform.h>
-
+#include <aim/init.h>
 
 #define KVA2PA(x) (PTR2ADDR(x))
 #define PA2KVA(x) (ADDR2PTR(x))
