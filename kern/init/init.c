@@ -56,6 +56,7 @@ __asm__ ( // the syscall()
 void master_init()
 {
 fbcls(&fb, 0xffff00);
+fbdrawch(&fb, 0, 0, 0xFFFFFF, 0, 'A');
     bprintf("this is bprintf, at highaddr!\n");
     
     jump_handlers_apply();
