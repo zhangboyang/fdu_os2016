@@ -9,7 +9,7 @@
 #include <platform.h>
 #include <aim/early_kmmap.h>
 
-//__asm__ ("splash_image_data:\n.incbin \"splash.rgb\"\n");
+__asm__ ("splash_image_data:\n.incbin \"splash.rgb\"\n");
 
 //__asm__ ("jtxj:\n.incbin \"jtxj.rgb\"\n");
 
