@@ -87,7 +87,7 @@ void cls_early(struct fbinfo *fbdev, uint8_t r, uint8_t g, uint8_t b)
     int drow, dcol;
     for (drow = 0; drow < fbdev->height; drow++) {
         prow = fbdev->bits + fbdev->pitch * drow;
-        for (dcol = 0; dcol < fbdev->width; dcol += imgwidth) {
+        for (dcol = 0; dcol < fbdev->width; dcol++) {
             prow[dcol].r = r;
             prow[dcol].g = g;
             prow[dcol].b = b;
