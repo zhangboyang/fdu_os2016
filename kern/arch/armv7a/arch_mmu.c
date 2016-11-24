@@ -54,7 +54,7 @@ void page_index_clear(pgindex_t *boot_page_index)
     // init the first level of pgindex
     for (int i = 0; i < PGINDEX_SIZE; i++) {
         __boot_page_index[i] = MKPGINDEX(__boot_page_mid_all[i]);
-__boot_page_index[i] = 0b1000000101; printf("__boot_page_index[i]=%p\n", &__boot_page_index[i]);
+__boot_page_index[i] = 0b1000000101; kprintf("__boot_page_index[i]=%p\n", &__boot_page_index[i]);
         kprintf("i=%d tbl=%p val=%llx\n", i, __boot_page_mid_all[i], __boot_page_index[i]);
     }
     
