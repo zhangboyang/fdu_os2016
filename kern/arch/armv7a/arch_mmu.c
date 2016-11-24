@@ -69,12 +69,13 @@ int page_index_early_map(pgindex_t *boot_page_index, addr_t paddr, void *vaddr, 
     assert(BIGPAGE_OFF(PTR2ADDR(vaddr)) == 0);
     assert(BIGPAGE_OFF(size) == 0);
     
+    kprintf("early mapping: paddr=%016llx vaddr=%08p size=%08lx\n", paddr, vaddr, size);
     addr_t pa, va;
     for (pa = paddr, va = PTR2ADDR(vaddr); pa < paddr + size; pa += BIGPAGE_SIZE, va += BIGPAGE_SIZE) {
         // map VA to PA
         pgmid_t *pgmid = WKPGINDEX(boot_page_index[PGINDEX_FN(va)]);
         pgmid[PGMID_FN(va)] = MKPGMID_BIG(pa);
-        kprintf("pgmid=%llx midfn=%llx val=%llx\n", ULLCAST(ULCAST(pgmid)), ULLCAST(PGMID_FN(va)), ULLCAST(pgmid[PGMID_FN(va)]));
+        //kprintf("pgmid=%llx midfn=%llx val=%llx\n", ULLCAST(ULCAST(pgmid)), ULLCAST(PGMID_FN(va)), ULLCAST(pgmid[PGMID_FN(va)]));
     }
     
     // FIXME: device memory attr
