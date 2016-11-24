@@ -184,7 +184,7 @@ static void fbdrawpt(struct fbinfo *fbdev, int x, int y, uint32_t color)
         uint8_t b;
         uint8_t g;
         uint8_t r;
-    } *pixel = fbdev->pbits + fbdev->pitch * x + y * 3;
+    } *pixel = fbdev->bits + fbdev->pitch * x + y * 3;
     pixel->r = color >> 16;
     pixel->g = color >> 8;
     pixel->b = color;
