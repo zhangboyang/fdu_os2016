@@ -55,13 +55,19 @@ __asm__ ( // the syscall()
 
 void master_init()
 {
+    bprintf("this is bprintf, at highaddr!\n");
+    
 fbcls(&fb, 0xffff00);
+
+    jump_handlers_apply();
+    
+    
+    
 kprintf("fb=%p\n", fb.bits);
 fbcls(&fb, 0xffffff);
 //fbdrawch(&fb, 0, 0, 0xFFFFFF, 0, 'A');
-    bprintf("this is bprintf, at highaddr!\n");
     
-    jump_handlers_apply();
+
     
     kprintf("hello world! we are now at high address!\n");
 while (1);;;;
