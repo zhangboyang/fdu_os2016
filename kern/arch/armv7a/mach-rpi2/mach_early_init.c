@@ -71,7 +71,7 @@ void mach_early_init()
     memset(fbdev.bits, -1, fbdev.height * fbdev.pitch);
     dump_memory(fbdev.bits, 0xA0);*/
     
-    fbcls(LOWADDR(&fb), 0xff, 0, 0);
+    fbcls(LOWADDR(&fb), 0xff0000);
     extern uint8_t splash_image_data[]; show_splash(LOWADDR(&fb), LOWADDR(splash_image_data), 175, 100, 24);
 
     
