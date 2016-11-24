@@ -152,7 +152,7 @@ void mmu_jump()
         };
     } TTBR0;
     TTBR0.addr = ULCAST(__boot_page_index);
-    kprintf("new TTBR0 = %llx\n", TTBR0.addr);
+//    kprintf("new TTBR0 = %llx\n", TTBR0.addr);
     __asm__ __volatile__ ("mcrr p15, 0, %0, %1, c2"::"r"(TTBR0.low), "r"(TTBR0.high));
 //    TTBR0.addr = -1; __asm__ __volatile__ ("mrrc p15, 0, %0, %1, c2":"=r"(TTBR0.low), "=r"(TTBR0.high)); kprintf("read TTBR0 = %08x %08x\n", TTBR0.high, TTBR0.low);
     
