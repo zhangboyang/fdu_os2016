@@ -46,6 +46,7 @@ void show_splash(struct fbinfo *fbdev, void *imgdata, int imgwidth, int imgheigh
 
 
 
+struct fbinfo fb;
 
 void mach_early_init()
 {
@@ -62,11 +63,10 @@ void mach_early_init()
     kprintf("arm memory: base=0x%08x size=0x%08x\n", arminfo.base, arminfo.size);
     kprintf("vc memory: base=0x%08x size=0x%08x\n", vcinfo.base, vcinfo.size);
     
-    static struct fbinfo fbdev;
-    if (fbinit(&fbdev) < 0) panic("can't init framebuffer");
+    if (fbinit(&fb) < 0) panic("can't init framebuffer");
     
     
-    dump_memory(&fbdev, sizeof(fbdev));
+//    dump_memory(&fbdev, sizeof(fbdev));
 /*    dump_memory(fbdev.bits, 0xA0);
     memset(fbdev.bits, -1, fbdev.height * fbdev.pitch);
     dump_memory(fbdev.bits, 0xA0);*/
@@ -76,7 +76,21 @@ void mach_early_init()
 //    extern uint8_t jtxj[]; show_splash(&fbdev, LOWADDR(jtxj), 318, 346, 24);
 }
 
-void cls_early(int c)
+void cls_early(struct fbinfo *fbdev, uint8_t r, uint8_t g, uint8_t b)
 {
-    
+    assert(fb->format == FBFMT_R8G8B8);
+    struct {
+        uint8_t r;
+        uint8_t g;
+        uint8_t b;
+    } *prow;
+    int drow, dcol;
+    for (drow = 0; drow < fbdev->height; drow++) {
+        prow = fbdev->bits + fbdev->pitch * drow;
+        for (dcol = 0; dcol < fbdev->width; dcol += imgwidth) {
+            prow[dcol].r = r;
+            prow[dcol].g = g;
+            prow[dcol].b = b;
+        }
+    }
 }

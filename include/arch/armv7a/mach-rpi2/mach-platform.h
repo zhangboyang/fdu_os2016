@@ -59,7 +59,9 @@ struct fbinfo {
     unsigned int pitch;
     int format;
 };
+extern struct fbinfo fb;
 int fbinit(struct fbinfo *fb);
+void cls_early(struct fbinfo *fbdev, uint8_t r, uint8_t g, uint8_t b);
 
 #endif /* _MACH_PLATFORM_H */
 
