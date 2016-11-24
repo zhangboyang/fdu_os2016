@@ -162,9 +162,9 @@ void fbcls(struct fbinfo *fbdev, uint32_t color) // color should be X8R8G8B8
     uint8_t g = color >> 8;
     uint8_t b = color;
     struct {
-        uint8_t r;
-        uint8_t g;
         uint8_t b;
+        uint8_t g;
+        uint8_t r;
     } *prow;
     int drow, dcol;
     for (drow = 0; drow < fbdev->height; drow++) {
