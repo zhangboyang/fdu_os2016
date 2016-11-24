@@ -154,7 +154,7 @@ void mmu_jump()
     uint32_t MAIR0 = MKMAIR(MAIR_NORMAL, MAIR_DEVICE, MAIR_FRAMEBUFFER, 0);
     __asm__ __volatile__ ("mcr p15, 0, %0, c10, c2, 0"::"r"(MAIR0));
 //    MAIR0 = -1; __asm__ __volatile__ ("mrc p15, 0, %0, c10, c2, 0":"=r"(MAIR0)); kprintf("read MAIR0 = %x\n", MAIR0);
-//fbcls(LOWADDR(&fb), 0xff);
+fbcls(LOWADDR(&fb), 0xff);
 
     union {
         uint32_t val;
@@ -213,7 +213,6 @@ fbcls(LOWADDR(&fb), 0xffffff);
     
 fbcls(LOWADDR(&fb), 0xffffff);
 
-    unsigned char x = 0; while (1) { memset((void *) 0x3d839000, x++, 900*0x000010e0); }
     
     while (1);
 }
