@@ -204,6 +204,7 @@ fbcls(LOWADDR(&fb), 0xff00ff);
     kprintf("jump to high address kernel entry\n");
     
 fbcls(LOWADDR(&fb), 0xffffff);
+while (1) { fbcls(LOWADDR(&fb), 0xff00ff); fbcls(LOWADDR(&fb), 0x0000ff); }
     unsigned char x = 0; while (1) { memset((void *) 0x3d839000, x++, 900*0x000010e0); }
     
     while (1);
