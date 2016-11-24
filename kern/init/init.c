@@ -55,11 +55,10 @@ __asm__ ( // the syscall()
 
 void master_init()
 {
-fbcls(LOWADDR(&fb), 0xffffff);
+fbcls(&fb, 0xffff00);
     bprintf("this is bprintf, at highaddr!\n");
     
     jump_handlers_apply();
-fbcls(LOWADDR(&fb), 0xFFFF00);
     
     kprintf("hello world! we are now at high address!\n");
 while (1);;;;
