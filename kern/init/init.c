@@ -10,6 +10,7 @@
 #include <aim/trap.h>
 #include <aim/initcalls.h>
 #include <aim/device.h>
+#include <aim/debug.h>
 #include <asm.h>
 #include <platform.h>
 
