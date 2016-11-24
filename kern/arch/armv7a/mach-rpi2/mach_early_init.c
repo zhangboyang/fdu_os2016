@@ -82,10 +82,11 @@ static void rpi2_fbdev_jumphandler(void)
 }
 static void rpi2_fbdev_init()
 {
+    struct fbinfo *fbdev = LOWADDR(&fb);
     // init fb
-    if (fbinit(LOWADDR(&fb)) < 0) panic("can't init framebuffer");
+    if (fbinit(fbdev) < 0) panic("can't init framebuffer");
     jump_handlers_add(rpi2_fbdev_jumphandler);
-    fbcls(LOWADDR(&fb), 0x00ff00);
+    fbcls(fbdev, 0x00ff00);
 //    extern uint8_t splash_image_data[]; show_splash(LOWADDR(&fb), LOWADDR(splash_image_data), 175, 100, 24);
 //    extern uint8_t jtxj[]; show_splash(&fb, jtxj, 318, 346, 24);
     // init fb console
