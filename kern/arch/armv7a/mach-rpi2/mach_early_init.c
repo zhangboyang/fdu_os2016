@@ -78,7 +78,7 @@ void mach_early_init()
 
 void cls_early(struct fbinfo *fbdev, uint8_t r, uint8_t g, uint8_t b)
 {
-    assert(fb->format == FBFMT_R8G8B8);
+    assert(fbdev->format == FBFMT_R8G8B8);
     struct {
         uint8_t r;
         uint8_t g;
