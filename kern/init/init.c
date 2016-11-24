@@ -62,7 +62,7 @@ fbcls(LOWADDR(&fb), 0xffffff);
 fbcls(LOWADDR(&fb), 0xFFFF00);
     
     kprintf("hello world! we are now at high address!\n");
-    
+while (1);
     // bootstrip the pmm and vmm
     vmm_bootstrap();
     /*kprintf("====== kmalloc test ===========\n");
