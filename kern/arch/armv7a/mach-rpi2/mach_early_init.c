@@ -81,18 +81,22 @@ void mach_early_init()
 }
 
 
+#define RPI2_MAX_MEMORY 0x40000000
 void mach_add_mapping()
 {
-    init_jmphigh_mapping(0x40000000, arminfo.size);
+    init_jmphigh_mapping(RPI2_MAX_MEMORY, arminfo.size);
 
-/*    struct fbinfo *fbdev = LOWADDR(&fb);
     struct early_mapping entry;
+    
+    
+    // add framebuffer memory
+    struct fbinfo *fbdev = LOWADDR(&fb);
     entry = (struct early_mapping) {
 		.paddr	= ADDRCAST(fbdev->bits),
 		.vaddr	= fbdev->bits + KOFFSET,
 		.size	= ROUNDUP(fbdev->height * fbdev->pitch, BIGPAGE_SIZE),
 		.type	= EARLY_MAPPING_FRAMEBUFFER,
 	};
-	early_mapping_add(&entry);*/
+	early_mapping_add(&entry);
 }
 
