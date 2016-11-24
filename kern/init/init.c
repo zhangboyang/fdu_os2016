@@ -72,7 +72,7 @@ void master_init()
     
     dump_memory((void *)0x8000, 0x1000);
     int x = 0;
-    while (1) {
+    while (x < 10000) {
         kprintf("%c", ++x % 26 + 'A');
     }
 while (1);;;;
