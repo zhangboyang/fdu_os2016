@@ -78,7 +78,7 @@ int fbinit(struct fbinfo *fb)
         .size = sizeof(req.fb.align),
         .type = PROPERTY_TAG_REQUEST,
     };
-    req.fb.align = 16;
+    req.fb.align = 1024 * 1024 * 2;
     
 //dump_memory(&req, sizeof(req));
     if ((r = ask_property(&req, sizeof(req), sizeof(req))) < 0) return r;
