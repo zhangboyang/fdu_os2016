@@ -88,7 +88,7 @@ void mach_add_mapping()
     struct fbinfo *fbdev = LOWADDR(&fb);
     struct early_mapping entry;
     entry = (struct early_mapping) {
-		.paddr	= fbdev->bits,
+		.paddr	= ADDRCAST(fbdev->bits),
 		.vaddr	= fbdev->bits + KOFFSET,
 		.size	= ROUNDUP(fbdev->height * fbdev->pitch, BIGPAGE_SIZE),
 		.type	= EARLY_MAPPING_FRAMEBUFFER,
