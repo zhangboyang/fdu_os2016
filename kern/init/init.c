@@ -20,8 +20,6 @@
 // FIXME: THIS IS THE SUPER DIRTY bprintf() HACK
 #if defined(__i386__)
 #define bprintf ((int (*)(const char *, ...)) (0x7c00 + KOFFSET))
-#elif defined(__arm__)
-#define bprintf (*(int (**)(const char *, ...)) (0x18000 + KOFFSET))
 #else
 #define bprintf(...) do {} while (0)
 #endif
@@ -57,10 +55,11 @@ __asm__ ( // the syscall()
 
 void master_init()
 {
-fbcls(LOWADDR(&fb), 0xffffff); while (1);
+fbcls(LOWADDR(&fb), 0xffffff);
     bprintf("this is bprintf, at highaddr!\n");
     
     jump_handlers_apply();
+fbcls(LOWADDR(&fb), 0xFFFF00);
     
     kprintf("hello world! we are now at high address!\n");
     
