@@ -54,7 +54,7 @@ static void fbcondrawch(int x, int y, int ch)
     int pagecolid = x / conrrows;
     y += pagecolid * (CONPAGE_COLS + CONPAGE_COL_SPACE);
     x %= conrrows;
-    uint32_t bgcolor[] = {0, -1}, fgcolor[] = {-1, 0};
+    uint32_t bgcolor[] = {0, 0x404040}, fgcolor[] = {-1, -1};
     fbdrawch(&fb, x * 8, y * 6, fgcolor[pagecolid % 2], bgcolor[pagecolid % 2], ch);
 }
 
