@@ -63,14 +63,14 @@ static void rpi2_detect_memory()
 static void rpi2_fbdev_jumphandler(void)
 {
     fb.bits += KOFFSET;
+//    extern uint8_t splash_image_data[]; show_splash(LOWADDR(&fb), LOWADDR(splash_image_data), 175, 100, 24);
+//    extern uint8_t jtxj[]; show_splash(&fbdev, LOWADDR(jtxj), 318, 346, 24);
 }
 static void rpi2_fbdev_init()
 {
     if (fbinit(LOWADDR(&fb)) < 0) panic("can't init framebuffer");
     jump_handlers_add(rpi2_fbdev_jumphandler);
     fbcls(LOWADDR(&fb), 0x00ff00);
-//    extern uint8_t splash_image_data[]; show_splash(LOWADDR(&fb), LOWADDR(splash_image_data), 175, 100, 24);
-//    extern uint8_t jtxj[]; show_splash(&fbdev, LOWADDR(jtxj), 318, 346, 24);
 }
 
 void mach_early_init()
