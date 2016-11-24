@@ -63,7 +63,7 @@ void mach_early_init()
     kprintf("arm memory: base=0x%08x size=0x%08x\n", arminfo.base, arminfo.size);
     kprintf("vc memory: base=0x%08x size=0x%08x\n", vcinfo.base, vcinfo.size);
     
-    if (fbinit(&fb) < 0) panic("can't init framebuffer");
+    if (fbinit(LOWADDR(&fb)) < 0) panic("can't init framebuffer");
     
     
 //    dump_memory(&fbdev, sizeof(fbdev));
@@ -71,27 +71,11 @@ void mach_early_init()
     memset(fbdev.bits, -1, fbdev.height * fbdev.pitch);
     dump_memory(fbdev.bits, 0xA0);*/
     
+    fbcls(LOWADDR(&fb), 0xff, 0, 0);
     extern uint8_t splash_image_data[]; show_splash(LOWADDR(&fb), LOWADDR(splash_image_data), 175, 100, 24);
 
     
 //    extern uint8_t jtxj[]; show_splash(&fbdev, LOWADDR(jtxj), 318, 346, 24);
 }
 
-void cls_early(struct fbinfo *fbdev, uint8_t r, uint8_t g, uint8_t b)
-{
-    assert(fbdev->format == FBFMT_R8G8B8);
-    struct {
-        uint8_t r;
-        uint8_t g;
-        uint8_t b;
-    } *prow;
-    int drow, dcol;
-    for (drow = 0; drow < fbdev->height; drow++) {
-        prow = fbdev->bits + fbdev->pitch * drow;
-        for (dcol = 0; dcol < fbdev->width; dcol++) {
-            prow[dcol].r = r;
-            prow[dcol].g = g;
-            prow[dcol].b = b;
-        }
-    }
-}
+

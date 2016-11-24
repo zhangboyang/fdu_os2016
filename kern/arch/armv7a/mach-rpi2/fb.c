@@ -155,3 +155,21 @@ kprintf("d=%d\n", d); dump_memory(&fbmail, sizeof(fbmail));
     };*/
 }
 
+void fbcls(struct fbinfo *fbdev, uint8_t r, uint8_t g, uint8_t b)
+{
+    assert(fbdev->format == FBFMT_R8G8B8);
+    struct {
+        uint8_t r;
+        uint8_t g;
+        uint8_t b;
+    } *prow;
+    int drow, dcol;
+    for (drow = 0; drow < fbdev->height; drow++) {
+        prow = fbdev->bits + fbdev->pitch * drow;
+        for (dcol = 0; dcol < fbdev->width; dcol++) {
+            prow[dcol].r = r;
+            prow[dcol].g = g;
+            prow[dcol].b = b;
+        }
+    }
+}
