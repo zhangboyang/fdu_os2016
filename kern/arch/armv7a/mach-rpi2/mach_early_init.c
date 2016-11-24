@@ -83,7 +83,7 @@ void mach_early_init()
 
 void mach_add_mapping()
 {
-    init_jmphigh_mapping(0x40000000, arminfo.size + KERN_BASE);
+    init_jmphigh_mapping(0x40000000, 0);
 
 /*    struct fbinfo *fbdev = LOWADDR(&fb);
     struct early_mapping entry;
