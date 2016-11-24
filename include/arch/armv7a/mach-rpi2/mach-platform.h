@@ -61,7 +61,7 @@ struct fbinfo {
 };
 extern struct fbinfo fb;
 int fbinit(struct fbinfo *fb);
-void cls_early(struct fbinfo *fbdev, uint8_t r, uint8_t g, uint8_t b);
+void fbcls(struct fbinfo *fbdev, uint32_t color);
 
 #endif /* _MACH_PLATFORM_H */
 
