@@ -57,6 +57,7 @@ void master_init()
 {
 fbcls(&fb, 0xffff00);
 kprintf("fb=%p\n", fb.bits);
+fbcls(&fb, 0xffffff);
 //fbdrawch(&fb, 0, 0, 0xFFFFFF, 0, 'A');
     bprintf("this is bprintf, at highaddr!\n");
     
