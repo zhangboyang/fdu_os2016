@@ -55,7 +55,7 @@ void page_index_clear(pgindex_t *boot_page_index)
     for (int i = 0; i < PGINDEX_SIZE; i++) {
         __boot_page_index[i] = MKPGINDEX(__boot_page_mid_all[i]);
 //__boot_page_index[i] = 0b11000000001; kprintf("&__boot_page_index[i]=%p\n", &__boot_page_index[i]);
-        kprintf("i=%d tbl=%p val=%llx\n", i, __boot_page_mid_all[i], __boot_page_index[i]);
+//        kprintf("i=%d tbl=%p val=%llx\n", i, __boot_page_mid_all[i], __boot_page_index[i]);
     }
     
     // clear the second level of pgindex (clear P bit to 0)
@@ -186,6 +186,9 @@ void mmu_jump()
     SCTLR.M = 1;
     SCTLR.AFE = 1;
     SCTLR.TRE = 1;
+    SCTLR.I = 1;
+    SCTLR.Z = 1;
+    SCTLR.C = 1;
     
     kprintf("new SCTLR = %08x\n", SCTLR.val);
     __asm__ __volatile__ ("mcr p15, 0, %0, c1, c0, 0"::"r"(SCTLR.val));
