@@ -147,7 +147,7 @@ void mmu_jump()
     __asm__ __volatile__ ("mcr p15, 0, %0, c10, c2, 0"::"r"(MAIR0));
 //    MAIR0 = -1; __asm__ __volatile__ ("mrc p15, 0, %0, c10, c2, 0":"=r"(MAIR0)); kprintf("read MAIR0 = %x\n", MAIR0);
 
-    memset((void *) 0x3d839000, 0x40, 900*0x000010e0);
+fbcls(LOWADDR(&fb), 0xff);
     union {
         uint32_t val;
         struct {
@@ -194,7 +194,7 @@ void mmu_jump()
     kprintf("new SCTLR = %08x\n", SCTLR.val);
     __asm__ __volatile__ ("mcr p15, 0, %0, c1, c0, 0"::"r"(SCTLR.val));
     
-    
+fbcls(LOWADDR(&fb), 0xff0000);    
 
     
     kprintf("MMU enabled ...\n");
