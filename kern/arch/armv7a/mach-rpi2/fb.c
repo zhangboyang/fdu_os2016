@@ -155,9 +155,12 @@ kprintf("d=%d\n", d); dump_memory(&fbmail, sizeof(fbmail));
     };*/
 }
 
-void fbcls(struct fbinfo *fbdev, uint8_t r, uint8_t g, uint8_t b)
+void fbcls(struct fbinfo *fbdev, uint32_t color) // color should be X8R8G8B8
 {
     assert(fbdev->format == FBFMT_R8G8B8);
+    uint8_t r = color >> 16;
+    uint8_t g = color >> 8;
+    uint8_t b = color;
     struct {
         uint8_t r;
         uint8_t g;
