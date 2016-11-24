@@ -70,7 +70,11 @@ void master_init()
     kprintf("hello world! we are now at high address!\n");
     kprintf("hahaha\n");
     
-    dump_memory((void *)0, 0x1000);
+    dump_memory((void *)0x8000, 0x1000);
+    int x = 0;
+    while (1) {
+        kputc(++x % 26 + 'A');
+    }
 while (1);;;;
     // bootstrip the pmm and vmm
     vmm_bootstrap();
