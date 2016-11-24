@@ -52,7 +52,7 @@ spin: b spin
 
 
 
-
+.globl master_entry
 master_entry:
     // the high address entry
     ldr sp, =AIM_KERN_STACK_BOTTOM // prepare stack
