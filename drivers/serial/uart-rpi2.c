@@ -87,6 +87,7 @@ static void __early_console_set_bus(struct bus_device *bus, addr_t base)
 static int early_console_putchar(int c)
 {
 	__uart_rpi2_putchar(&__early_uart_rpi2, c);
+	fbputc(c);
 	return 0;
 }
 

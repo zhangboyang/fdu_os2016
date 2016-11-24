@@ -9,8 +9,9 @@
 #include <platform.h>
 #include <aim/early_kmmap.h>
 
-__asm__ ("splash_image_data:\n.incbin \"splash.rgb\"\n");
+////// framebuffer
 
+__asm__ ("splash_image_data:\n.incbin \"splash.rgb\"\n");
 //__asm__ ("jtxj:\n.incbin \"jtxj.rgb\"\n");
 
 static void copyrow(struct fbinfo *fbdev, int dstrow, int dstcol, void *srcdata, int srcrow, int srcpitch, int srcdepth, int pixelcount)
@@ -43,15 +44,63 @@ void show_splash(struct fbinfo *fbdev, void *imgdata, int imgwidth, int imgheigh
     }
 }
 
-
-
-
 struct fbinfo fb;
+
+static void fbcondrawch(int x, int y, int ch)
+{
+    fbdrawch(&fb, x * 8, y * 6, 0xffffff, 0x000000, ch);
+}
+static int concols, conrows;
+static int conx = 0, cony = 0;
+static int fbconenable = 0;
+void fbputc(int ch)
+{
+    if (!fbconenable) return;
+    if (ch == '\r') conx++;
+    else if (ch == '\n') cony = 0;
+    else {
+        cony++;
+        if (cony >= concols) {
+            cony = 0;
+            conx++;
+        }
+    }
+    if (conx >= conrows) {
+        conx = 0;
+    }
+    fbcondrawch(conx, cony, ch);
+}
 
 static struct meminfo {
     uint32_t base;
     uint32_t size;
 } arminfo, vcinfo;
+static void rpi2_fbdev_jumphandler(void)
+{
+    fb.bits += KOFFSET;
+    fbconenable = 1;
+}
+static void rpi2_fbdev_init()
+{
+    // init fb
+    if (fbinit(LOWADDR(&fb)) < 0) panic("can't init framebuffer");
+    jump_handlers_add(rpi2_fbdev_jumphandler);
+    fbcls(LOWADDR(&fb), 0x00ff00);
+//    extern uint8_t splash_image_data[]; show_splash(LOWADDR(&fb), LOWADDR(splash_image_data), 175, 100, 24);
+//    extern uint8_t jtxj[]; show_splash(&fb, jtxj, 318, 346, 24);
+    // init fb console
+    conrows = fbdev->height / 8;
+    concols = fbdev->width / 6;
+}
+
+
+
+
+
+
+
+
+
     
 static void rpi2_detect_memory()
 {
@@ -60,18 +109,7 @@ static void rpi2_detect_memory()
     kprintf("arm memory: base=0x%08x size=0x%08x\n", arminfo.base, arminfo.size);
     kprintf("vc memory: base=0x%08x size=0x%08x\n", vcinfo.base, vcinfo.size);
 }
-static void rpi2_fbdev_jumphandler(void)
-{
-    fb.bits += KOFFSET;
-}
-static void rpi2_fbdev_init()
-{
-    if (fbinit(LOWADDR(&fb)) < 0) panic("can't init framebuffer");
-    jump_handlers_add(rpi2_fbdev_jumphandler);
-    fbcls(LOWADDR(&fb), 0x00ff00);
-//    extern uint8_t splash_image_data[]; show_splash(LOWADDR(&fb), LOWADDR(splash_image_data), 175, 100, 24);
-//    extern uint8_t jtxj[]; show_splash(&fb, jtxj, 318, 346, 24);
-}
+
 
 void mach_early_init()
 {
