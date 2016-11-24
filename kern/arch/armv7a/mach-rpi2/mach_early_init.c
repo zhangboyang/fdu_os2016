@@ -46,12 +46,13 @@ void show_splash(struct fbinfo *fbdev, void *imgdata, int imgwidth, int imgheigh
 
 struct fbinfo fb;
 #define CONPAGE_COLS 80
-#define CONPAGE_COL_SPACE 5
+#define CONPAGE_COL_SPACE 0
 static int pagecols;
 static int conrcols, conrrows; // real cols and rows
 static void fbcondrawch(int x, int y, int ch)
 {
-    y += x / conrrows * (CONPAGE_COLS + CONPAGE_COL_SPACE);
+    int pagecolid = x / conrrows;
+    y += pagecolid * (CONPAGE_COLS + CONPAGE_COL_SPACE);
     x %= conrrows;
     fbdrawch(&fb, x * 8, y * 6, 0xffffff, 0x000000, ch);
 }
