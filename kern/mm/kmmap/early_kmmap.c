@@ -154,7 +154,7 @@ void init_jmphigh_mapping(lsize_t lowsize, lsize_t highsize)
 		.size	= ROUNDUP(lowsize, BIGPAGE_SIZE),
 		.type	= EARLY_MAPPING_MEMORY
 	};
-	if (!early_mapping_add(&entry)) panic("can't add lower mapping.");
+	if (early_mapping_add(&entry) < 0) panic("can't add lower mapping.");
 	
 	entry = (struct early_mapping) {
 		.paddr	= 0,
@@ -162,5 +162,5 @@ void init_jmphigh_mapping(lsize_t lowsize, lsize_t highsize)
 		.size	= ROUNDUP(highsize, BIGPAGE_SIZE),
 		.type	= EARLY_MAPPING_MEMORY
 	};
-	if (!early_mapping_add(&entry))  panic("can't add higher mapping.");
+	if (early_mapping_add(&entry) < 0) panic("can't add higher mapping.");
 }
