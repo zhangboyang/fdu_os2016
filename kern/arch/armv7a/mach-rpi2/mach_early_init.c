@@ -67,7 +67,7 @@ static int fbconenable = 0;
 void fbputc(int ch)
 {
     if (!fbconenable) return;
-    fbcondrawch(conx, cony, ' ');
+    //fbcondrawch(conx, cony, ' ');
     int xflag = 0;
     if (ch == '\n') { conx++; xflag = 1; }
     else if (ch == '\r') cony = 0;
@@ -208,7 +208,7 @@ void mach_init_free_pmm_zone(addr_t kstart, addr_t kend)
     for (pa = z->base; pa < z->base + z->size; pa += z->page_size) {
         if (pa >= kstart && pa < kend) {
             VF(z->allocator, free, pa);
-            kprintf("free pa = %016llx\n", pa);
+//            kprintf("free pa = %016llx\n", pa);
         }
     }
 }
