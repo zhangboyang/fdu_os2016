@@ -67,7 +67,7 @@ static int fbconenable = 0;
 void fbputc(int ch)
 {
     if (!fbconenable) return;
-    //fbcondrawch(conx, cony, ' ');
+    if (ch != '\n') fbcondrawch(conx, cony, ' ');
     int xflag = 0;
     if (ch == '\n') { conx++; xflag = 1; }
     else if (ch == '\r') cony = 0;
@@ -92,7 +92,7 @@ void fbputc(int ch)
             }
         }
     }
-    fbcondrawch(conx, cony, '\0');
+    if (ch != '\r') fbcondrawch(conx, cony, '\0');
 }
 void fbconcls()
 {
