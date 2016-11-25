@@ -194,12 +194,20 @@ void mach_add_mapping()
 
 void mach_init_pmm_zone()
 {
-
-}
-void mach_init_free_pmm_zone(addr_t kstart, addr_t kend)
-{
+    kprintf("init pmm zone\n");
     pmm_zone[ZONE_NORMAL] = (struct zone) {
         .base = arminfo.base, .size = arminfo.size,
         .page_size = PAGE_SIZE,
     };
+}
+void mach_init_free_pmm_zone(addr_t kstart, addr_t kend)
+{
+    kprintf("free non-kernel pages, kstart = %016llx, kend = %016llx\n", kstart, kend);
+    struct zone *z = &pmm_zone[ZONE_NORMAL];
+    lsize_t pa;
+    for (pa = z->base; pa < z->base + z->size; pa += z->page_size) {
+        if (pa >= kstart && pa < kend) {
+            VF(pmm_zone[zone].allocator, free, pa);
+        }
+    }
 }
