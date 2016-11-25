@@ -53,7 +53,7 @@ typedef uint64_t pgtable_t; // lvl1
 
 #define MAIR_NORMAL 0b11111111
 #define MAIR_DEVICE 0b00000000
-#define MAIR_FRAMEBUFFER 0b00000000
+#define MAIR_FRAMEBUFFER 0b10111011
 
 
 #define MKMAIR(attr0, attr1, attr2, attr3) ( \

@@ -109,6 +109,7 @@ static void rpi2_fbdev_jumphandler(void)
 {
     fb.bits += KOFFSET;
     fbconenable = 1;
+    fbcls(&fb, 0x000000);
     fbconcls();
 }
 static void rpi2_fbdev_init()
