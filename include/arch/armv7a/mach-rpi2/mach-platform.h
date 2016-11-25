@@ -70,5 +70,9 @@ void mach_add_mapping();
 void fbputc(int ch);
 void fbconcls();
 
+
+void arch_init_pmm_zone();
+void arch_init_free_pmm_zone(addr_t kstart, addr_t kend);
+
 #endif /* _MACH_PLATFORM_H */
 
