@@ -54,8 +54,9 @@ static void fbcondrawch(int x, int y, int ch)
     int pagecolid = x / conrrows;
     y += pagecolid * (CONPAGE_COLS + CONPAGE_COL_SPACE);
     x %= conrrows;
+    int colorid = pagecolid % 2;
     uint32_t bgcolor[] = {0, 0x404040}, fgcolor[] = {-1, -1};
-    fbdrawch(&fb, x * 8, y * 6, fgcolor[pagecolid % 2], bgcolor[pagecolid % 2], ch);
+    fbdrawch(&fb, x * 8, y * 6, fgcolor[colorid], bgcolor[colorid], ch);
 }
 
 static int concols, conrows; // logical cols and rows
@@ -80,11 +81,24 @@ void fbputc(int ch)
         conx = 0;
     }
     if (xflag) {
-        int i;
-        for (i = 0; i < concols; i++) {
-            fbcondrawch(conx, i, ' ');
+        int i, r;
+        for (r = 0; r <= 5; r++) {
+            for (i = 0; i < concols; i++) {
+                fbcondrawch((conx + r) % conrows, i, ' ');
+            }
         }
     }
+}
+void fbconcls()
+{
+    int i, j;
+    for (i = 0; i < conrows; i++) {
+        for (j = 0; j < concols; j++) {
+            fbputc(' ');
+        }
+    }
+    conx = 0;
+    cony = 0;
 }
 
 static struct meminfo {
