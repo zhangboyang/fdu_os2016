@@ -75,7 +75,7 @@ void master_init()
     kfree(ptr);
     kprintf("kmalloc() = %p\n", kmalloc(0x100, 0));
     kprintf("kmalloc() = %p\n", kmalloc(0x100, 0));*/
-while (1);
+while (1);;
     // init cpu_list[]
     cpu_init_structure();
     cpu_reload(&cpu_list[0]);
