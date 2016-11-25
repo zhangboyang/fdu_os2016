@@ -212,6 +212,7 @@ fbcls(LOWADDR(&fb), 0xff);
     abs_jump(master_entry);
 }
 
+
 void arch_init_pmm_zone()
 {
     mach_init_pmm_zone();

@@ -149,6 +149,7 @@ static void rpi2_detect_memory()
     if (ask_property_tag(MAILBOX_PROP_VCMEMORY, &vcinfo, 0, sizeof(vcinfo), NULL) < 0) panic("can't get memory info for VideoCore");
     kprintf("arm memory: base=0x%08x size=0x%08x\n", arminfo.base, arminfo.size);
     kprintf("vc memory: base=0x%08x size=0x%08x\n", vcinfo.base, vcinfo.size);
+    assert(arminfo.base == 0);
 }
 
 
@@ -159,12 +160,14 @@ void mach_early_init()
     rpi2_fbdev_init();
 }
 
+size_t size_after_kernel;
 
 #define RPI2_MAX_MEMORY 0x40000000
 void mach_add_mapping()
 {
     init_jmphigh_mapping(RPI2_MAX_MEMORY, arminfo.size);
-
+    *LOWADDR(&size_after_kernel) = arminfo.size - KERN_END_LOW;
+    
     struct early_mapping entry;
     
     // add device memory
