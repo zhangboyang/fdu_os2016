@@ -191,3 +191,14 @@ void mach_add_mapping()
 	if (early_mapping_add(&entry) < 0) panic("can't add framebuffer memory");
 }
 
+void mach_init_pmm_zone()
+{
+
+}
+void mach_init_free_pmm_zone(addr_t kstart, addr_t kend)
+{
+    pmm_zone[ZONE_NORMAL] = (struct zone) {
+        .base = arminfo.base, .size = arminfo.size,
+        .page_size = PAGE_SIZE,
+    };
+}
