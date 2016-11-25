@@ -55,7 +55,8 @@ static void fbcondrawch(int x, int y, int ch)
     y += pagecolid * (CONPAGE_COLS + CONPAGE_COL_SPACE);
     x %= conrrows;
     int colorid = pagecolid % 2;
-    uint32_t bgcolor[] = {0, 0x404040}, fgcolor[] = {-1, -1};
+    if (ch == '\0') { colorid = 2; ch = ' '; }
+    uint32_t bgcolor[] = {0, 0x404040, 0xffff00}, fgcolor[] = {-1, -1, -1};
     fbdrawch(&fb, x * 8, y * 6, fgcolor[colorid], bgcolor[colorid], ch);
 }
 
@@ -65,9 +66,10 @@ static int fbconenable = 0;
 void fbputc(int ch)
 {
     if (!fbconenable) return;
+    fbcondrawch(conx, cony, ' ');
     int xflag = 0;
-    if (ch == '\r') { conx++; xflag = 1; }
-    else if (ch == '\n') cony = 0;
+    if (ch == '\n') { conx++; xflag = 1; }
+    else if (ch == '\r') cony = 0;
     else {
         fbcondrawch(conx, cony, ch);
         cony++;
@@ -88,6 +90,7 @@ void fbputc(int ch)
             }
         }
     }
+    fbcondrawch(conx, cony, '\0');
 }
 void fbconcls()
 {
