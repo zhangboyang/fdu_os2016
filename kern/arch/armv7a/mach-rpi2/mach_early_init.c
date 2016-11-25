@@ -209,9 +209,11 @@ void mach_init_free_pmm_zone(addr_t kstart, addr_t kend)
 {
     kprintf("free non-kernel pages, kstart = %016llx, kend = %016llx\n", kstart, kend);
     struct zone *z = &pmm_zone[ZONE_NORMAL];
+    assert(kstart % z->page_size == 0);
+    assert(kend % z->page_size == 0);
     lsize_t pa;
     for (pa = z->base; pa < z->base + z->size; pa += z->page_size) {
-        if (pa >= kstart && pa < kend) {
+        if (pa < kstart || pa > kend) {
             VF(z->allocator, free, pa);
 //            kprintf("free pa = %016llx\n", pa);
         }
