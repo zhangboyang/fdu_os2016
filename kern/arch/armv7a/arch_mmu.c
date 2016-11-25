@@ -218,7 +218,7 @@ void arch_init_pmm_zone()
 }
 void arch_init_free_pmm_zone(addr_t kstart, addr_t kend)
 {
-    mach_init_free_pmm_zone(kstart, end);
+    mach_init_free_pmm_zone(kstart, kend);
 }
 
 __asm__ (
