@@ -147,6 +147,7 @@ void vmm_bootstrap()
     // no free(), and allocated memory will never be freed
     struct bootstrap_vmalloc vmalloc_tmp;
     bootstrap_vmalloc__ctor(&vmalloc_tmp, KERN_END_HIGH, size_after_kernel);
+    kprintf(" size_after_kernel = %08x\n", size_after_kernel);
     
     // init pmm zones
     arch_init_pmm_zone();
