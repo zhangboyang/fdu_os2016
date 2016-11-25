@@ -70,7 +70,7 @@ void master_init()
     kprintf("hello world! we are now at high address!\n");
     kprintf("hahaha\n");
     
-    dump_memory((void *)0x8000, 0x1000);
+    dump_memory((void *)0x8000, 0x2000);
 /*    int x = 0;
     while (x < 10000) {
         kprintf("%c", ++x % 26 + 'A');
