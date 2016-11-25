@@ -202,7 +202,7 @@ void mach_init_pmm_zone()
     kprintf("physical memory zone summary:\n");
     const char *zone_name[] = { "NORMAL" };
     for (int i = 0; i < MAX_MEMORY_ZONE; i++) {
-        kprintf(" zone %10s base %016llx size %016llx end %016llx pagesz %x, %d MB\n", zone_name[i], pmm_zone[i].base, pmm_zone[i].size, pmm_zone[i].base + pmm_zone[i].size, pmm_zone[i].page_size, (int)((pmm_zone[i].base + pmm_zone[i].size) >> 20));
+        kprintf(" zone %10s\n   base %016llx\n   size %016llx\n   end %016llx\n   pagesz %x\n    %d MB\n", zone_name[i], pmm_zone[i].base, pmm_zone[i].size, pmm_zone[i].base + pmm_zone[i].size, pmm_zone[i].page_size, (int)((pmm_zone[i].base + pmm_zone[i].size) >> 20));
     }
 }
 void mach_init_free_pmm_zone(addr_t kstart, addr_t kend)
