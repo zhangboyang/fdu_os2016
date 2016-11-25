@@ -5,6 +5,7 @@
 #include <sys/types.h>
 #include <aim/debug.h>
 #include <aim/mmu.h>
+#include <aim/pmm.h>
 #include <libc/string.h>
 #include <platform.h>
 #include <aim/early_kmmap.h>
