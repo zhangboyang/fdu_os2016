@@ -29,9 +29,9 @@ static void buddy_pmalloc__print(THIS)
     kprintf(" total waste pages: %u\n", M(waste_page_count));
     kprintf("\n");
     kprintf(" total memory: %lld KB\n", ULLCAST(((M(page_size) * M(page_count)) >> 10)));
-    kprintf(" total free memory: %lld KB\n", (VF(this, get_free_bytes) >> 10));
-    kprintf(" total waste memory: %lld KB\n", ((M(waste_page_count) * M(page_size)) >> 10));
-    kprintf(" total allocated memory: %lld KB\n", (((M(page_count) - M(free_page_count) - M(waste_page_count)) * M(page_size)) >> 10));
+    kprintf(" total free memory: %lld KB\n", ULLCAST((VF(this, get_free_bytes) >> 10)));
+    kprintf(" total waste memory: %lld KB\n", ULLCAST(((M(waste_page_count) * M(page_size)) >> 10)));
+    kprintf(" total allocated memory: %lld KB\n", ULLCAST((((M(page_count) - M(free_page_count) - M(waste_page_count)) * M(page_size)) >> 10)));
     kprintf("\n");
     for (short order = 0; order <= M(max_order); order++) {
         if (list_empty(&M(list[order]))) continue;
@@ -219,7 +219,6 @@ void buddy_pmalloc__ctor(struct buddy_pmalloc *this, struct virt_vmalloc *valloc
         INIT_LIST_HEAD(&M(list[order]));
     }
     
-    buddy_pmalloc__print(this);
 }
 
 
