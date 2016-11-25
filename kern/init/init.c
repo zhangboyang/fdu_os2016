@@ -71,11 +71,11 @@ void master_init()
     kprintf("hahaha\n");
     
     dump_memory((void *)0x8000, 0x1000);
-    int x = 0;
+/*    int x = 0;
     while (x < 10000) {
         kprintf("%c", ++x % 26 + 'A');
     }
-    dump_memory((void *)0x8000, 0x100000);
+    dump_memory((void *)0x8000, 0x100000);*/
 while (1);;;;
     // bootstrip the pmm and vmm
     vmm_bootstrap();
