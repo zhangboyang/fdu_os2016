@@ -63,20 +63,9 @@ void master_init()
     jump_handlers_apply();
     
     
-    
-    
-
-    
     kprintf("hello world! we are now at high address!\n");
-    kprintf("hahaha\n");
-    
-    dump_memory((void *)0x8000, 0x2000);
-/*    int x = 0;
-    while (x < 10000) {
-        kprintf("%c", ++x % 26 + 'A');
-    }
-    dump_memory((void *)0x8000, 0x100000);*/
-while (1);;;;
+
+
     // bootstrip the pmm and vmm
     vmm_bootstrap();
     /*kprintf("====== kmalloc test ===========\n");
