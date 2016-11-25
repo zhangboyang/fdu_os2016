@@ -208,6 +208,7 @@ void mach_init_free_pmm_zone(addr_t kstart, addr_t kend)
     for (pa = z->base; pa < z->base + z->size; pa += z->page_size) {
         if (pa >= kstart && pa < kend) {
             VF(z->allocator, free, pa);
+            kprintf("free pa = %016llx\n", pa);
         }
     }
 }
