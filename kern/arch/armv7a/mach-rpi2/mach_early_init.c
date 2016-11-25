@@ -166,7 +166,7 @@ size_t size_after_kernel;
 void mach_add_mapping()
 {
     init_jmphigh_mapping(RPI2_MAX_MEMORY, arminfo.size);
-    *LOWADDR(&size_after_kernel) = arminfo.size - KERN_END_LOW;
+    *LOWADDR(&size_after_kernel) = arminfo.size - ULCAST(KERN_END_LOW);
     
     struct early_mapping entry;
     
