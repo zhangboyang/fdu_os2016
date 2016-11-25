@@ -85,8 +85,9 @@ void fbputc(int ch)
     if (xflag) {
         int i, r;
         for (r = 0; r <= 5; r++) {
+            if ((conx + r) % conrows == 0) break;
             for (i = 0; i < concols; i++) {
-                fbcondrawch((conx + r) % conrows, i, ' ');
+                fbcondrawch(conx + r, i, ' ');
             }
         }
     }
