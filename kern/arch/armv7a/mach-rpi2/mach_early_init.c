@@ -58,7 +58,7 @@ static void fbcondrawch(int x, int y, int ch)
     int colorid = pagecolid % 2;
     if (ch == '\0') { colorid = 2; ch = ' '; }
     uint32_t bgcolor[] = {0, 0x404040, 0xffff00}, fgcolor[] = {-1, -1, -1};
-    fbdrawch(&fb, x * 8, y * 6, fgcolor[colorid], bgcolor[colorid], ch);
+    fbdrawch(&fb, x * 9, y * 6, fgcolor[colorid], bgcolor[colorid], ch);
 }
 
 static int concols, conrows; // logical cols and rows
@@ -127,7 +127,7 @@ static void rpi2_fbdev_init()
 //    extern uint8_t splash_image_data[]; show_splash(LOWADDR(&fb), LOWADDR(splash_image_data), 175, 100, 24);
 //    extern uint8_t jtxj[]; show_splash(&fb, jtxj, 318, 346, 24);
     // init fb console
-    conrrows = fbdev->height / 8;
+    conrrows = fbdev->height / 9;
     conrcols = fbdev->width / 6;
     
     pagecols = (conrcols - CONPAGE_COL_SPACE) / CONPAGE_COLS;

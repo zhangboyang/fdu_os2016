@@ -195,9 +195,9 @@ extern uint8_t fbfont[256][8][6];
 void fbdrawch(struct fbinfo *fbdev, int x, int y, uint32_t fgcolor, uint32_t bgcolor, int ch)
 {
     int i, j;
-    for (i = 0; i < 8; i++) {
+    for (i = 0; i < 9; i++) {
         for (j = 0; j < 6; j++) {
-            fbdrawpt(fbdev, x + i, y + j, fbfont[ch][i][j] ? fgcolor : bgcolor);
+            fbdrawpt(fbdev, x + i, y + j, (i < 8 ? fbfont[ch][i][j] : 0) ? fgcolor : bgcolor);
         }
     }
 }
