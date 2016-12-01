@@ -27,7 +27,7 @@
 #include <aim/debug.h>
 #include <platform.h>
 #include <aim/init.h>
-#include <util.h>
+#include <aim/vmm.>
 
 #define KVA2PA(x) (PTR2ADDR(x))
 #define PA2KVA(x) (ADDR2PTR(x))
