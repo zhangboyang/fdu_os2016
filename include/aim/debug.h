@@ -48,11 +48,15 @@ void panic(const char *fmt, ...);
 #include <util.h>
 #define dump_memory(addr, size) do { \
     kprintf("memory dump requested at %s (%s:%d)\n", __func__, __FILE__, __LINE__); \
-    __dump_memory(addr, size); \
+    __dump_memory(addr, size, 0); \
 } while (0)
-static inline void __dump_memory(void *memaddr, size_t memsize)
+#define dump_memory_aligned(addr, size) do { \
+    kprintf("memory dump requested at %s (%s:%d)\n", __func__, __FILE__, __LINE__); \
+    __dump_memory(addr, size, 1); \
+} while (0)
+static inline void __dump_memory(void *memaddr, size_t memsize, int aligned)
 {
-    unsigned addr = ROUNDDOWN(ULCAST(memaddr), 16);
+    unsigned addr = aligned ? ROUNDDOWN(ULCAST(memaddr), 16) : ULCAST(memaddr);
     int skip = ULCAST(memaddr) - addr;
     memaddr -= skip;
     int n = memsize + skip;
