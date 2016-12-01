@@ -230,3 +230,39 @@ __asm__ (
 );
 #undef KVA2PA
 #undef PA2KVA
+
+
+
+
+
+
+///////////////////////// HIADDR  //////////////////////
+
+
+struct cpu *cpu_list;
+int nr_cpu;
+
+static void cpu_init_structure_single(struct cpu *cpu, int cpu_id)
+{
+    memset(cpu, 0, sizeof(struct cpu));
+
+}
+void cpu_init_structure()
+{
+    nr_cpu = 4; // FIXME
+    
+    // alloc memory for cpu_list[]
+    cpu_list = VF(g_pvbridge, malloc, sizeof(struct cpu) * nr_cpu);
+    if (!cpu_list) panic("can't alloc memory for cpu[]");
+    
+    for (int i = 0; i < nr_cpu; i++) {
+        cpu_init_structure_single(&cpu_list[i], i);
+    }
+}
+
+void cpu_reload(struct cpu *cpu)
+{
+
+}
+
+

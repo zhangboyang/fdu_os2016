@@ -221,12 +221,3 @@ void mach_init_free_pmm_zone(addr_t kstart, addr_t kend)
     }
 }
 
-
-struct cpu cpu_list[3];
-
-void cpu_init_structure()
-{
-}
-void cpu_reload(struct cpu *c)
-{
-}
