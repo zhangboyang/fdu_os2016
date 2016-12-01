@@ -220,3 +220,10 @@ void mach_init_free_pmm_zone(addr_t kstart, addr_t kend)
         }
     }
 }
+
+void cpu_init_structure()
+{
+}
+void cpu_reload(struct cpu *c)
+{
+}
