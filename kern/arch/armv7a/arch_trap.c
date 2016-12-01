@@ -20,4 +20,5 @@
 void trap_init()
 {
     dump_memory((void *) 0, 0x100);
+        dump_memory((void *) 5, 0x100);
 }
