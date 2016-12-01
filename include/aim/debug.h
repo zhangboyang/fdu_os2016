@@ -68,7 +68,7 @@ static inline void __dump_memory(void *memaddr, size_t memsize)
     int m = n % 16 ? n - n % 16 + 16 : n;
     char lb[16];
     int i, j;
-    for (i = ROUNDDOWN(ULCAST(memaddr), 16) - memaddr; i < m; i++) {
+    for (i = ROUNDDOWN(ULCAST(memaddr), 16) - ULCAST(memaddr); i < m; i++) {
         if (i % 16 == 0) {
             for (j = 0; j < 16; j++)
                 if (i + j < n)
