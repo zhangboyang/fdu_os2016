@@ -52,9 +52,9 @@ void panic(const char *fmt, ...);
 } while (0)
 static inline void __dump_memory(void *memaddr, size_t memsize)
 {
-    int n = memsize;
-    unsigned addr = ULCAST(memaddr);
-    
+    unsigned addr = ROUNDDOWN(ULCAST(memaddr), 16);
+    int skip = ULCAST(memaddr) - addr;
+    int n = memsize + skip;
     
     // copied from ZBY's NEMU
     
@@ -68,14 +68,15 @@ static inline void __dump_memory(void *memaddr, size_t memsize)
     int m = n % 16 ? n - n % 16 + 16 : n;
     char lb[16];
     int i, j;
-    for (i = ROUNDDOWN(ULCAST(memaddr), 16) - ULCAST(memaddr); i < m; i++) {
+    
+    for (i = 0; i < m; i++) {
         if (i % 16 == 0) {
             for (j = 0; j < 16; j++)
                 if (i + j < n)
                     lb[j] = *(unsigned char *)(memaddr + i + j);
             kprintf("  %08x  " , addr + i);
         }
-        if (i >= 0 && i < n) {
+        if (i >= skip && i < n) {
             b = lb[i % 16];
             kprintf("%02x ", b & 0xff);
         } else {
