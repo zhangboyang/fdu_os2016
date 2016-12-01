@@ -197,7 +197,7 @@ void mach_init_pmm_zone()
     kprintf("init pmm zone\n");
     assert(arminfo.base == 0);
     pmm_zone[ZONE_NORMAL] = (struct zone) {
-        .base = arminfo.base + 0x10000, .size = arminfo.size,
+        .base = arminfo.base + 0x10000, .size = arminfo.size, // preserve first 64KB
         .page_size = PAGE_SIZE,
     };
     kprintf("physical memory zone summary:\n");
