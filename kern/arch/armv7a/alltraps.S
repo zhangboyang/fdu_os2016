@@ -11,7 +11,7 @@
 
 // exception vectors
 .text
-.p2align 5
+.balign 32
 .global vectors
 vectors:
 b exception_00
@@ -23,16 +23,21 @@ b exception_14
 b exception_18
 b exception_1C
 
-
 .text
-exception_00:
-exception_04:
-exception_08:
-exception_0C:
-exception_10:
-exception_14:
-exception_18:
-exception_1C:
+spin: b spin
+exception_00: b spin // not used
+exception_04: // undefined instruction
+  sub lr, lr, #4
+exception_08: // supervisor call
+exception_0C: // prefetch abort
+  sub lr, lr, #4
+exception_10: // data abort
+  sub lr, lr, #8
+exception_14: b spin // not used
+exception_18: // IRQ interrupt
+  sub lr, lr, #4
+exception_1C: // FIQ interrupt
+  sub lr, lr, #4
 
 
 alltraps:

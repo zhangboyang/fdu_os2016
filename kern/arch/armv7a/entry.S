@@ -21,6 +21,7 @@
 #endif /* HAVE_CONFIG_H */
 
 #include <aim/mmu.h>
+#include <arch-trap.h>
 
 .text
 
@@ -33,8 +34,8 @@ _start:
     // enter SVC from HYP
     // FIXME: install HYP stub?
     mrs r0, cpsr
-    and r0, r0, #~0x1F
-    orr r0, r0, #0x13 // SVC
+    and r0, r0, #~MODE_MASK
+    orr r0, r0, #MODE_SVC
     msr spsr_hyp, r0 // set SPSR_hyp, for eret
     ldr r0, =VMA2LMA(svc_start)
     msr elr_hyp, r0 // set ELR_hyp, for eret
