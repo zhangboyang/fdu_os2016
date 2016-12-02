@@ -28,18 +28,40 @@ spin: b spin
 exception_00: b spin // not used
 exception_04: // undefined instruction
   sub lr, lr, #4
+  b enter_svc
 exception_08: // supervisor call
+  b enter_svc
 exception_0C: // prefetch abort
   sub lr, lr, #4
+  b enter_svc
 exception_10: // data abort
   sub lr, lr, #8
+  b enter_svc
 exception_14: b spin // not used
 exception_18: // IRQ interrupt
   sub lr, lr, #4
+  b enter_svc
 exception_1C: // FIQ interrupt
   sub lr, lr, #4
+  b enter_svc
 
+enter_svc:
+  // save [r0, lr, spsr]
+  //       ^SP +4  +8
+  stmia sp, {r0, lr}
+  mrs r0, spsr
+  str r0, [sp, #8]
+  // prepare spsr
+  mrs r0, cpsr
+  and r0, r0, #~MODE_MASK
+  orr r0, r0, #MODE_SVC
+  msr spsr_cxsf, r0
+  // r0 is pointer to saved registers
+  mov r0, sp
+  // do switch
+  ldr lr, =alltraps
+  movs pc, lr // branch and switch mode
 
 alltraps:
-mov sp, #0x1000
-b trap
+  
+  b trap

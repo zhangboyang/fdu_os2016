@@ -36,6 +36,8 @@
 
 
 struct trapframe {
+    uint32_t r[16];
+    uint32_t cpsr;
 };
 
 #endif	/* !__ASSEMBLER__ */
