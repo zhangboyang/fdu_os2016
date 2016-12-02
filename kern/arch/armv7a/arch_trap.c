@@ -15,6 +15,7 @@
 #include <aim/mmu.h>
 #include <aim/trap.h>
 #include <asm.h>
+#include <aim/vmm.h>
 
 
 extern uint32_t vectors[];
