@@ -26,3 +26,8 @@ void trap_init()
     dump_memory((void *) 15, 0x100);
     dump_memory_aligned((void *) 15, 0x100);
 }
+
+void trap(struct trapframe *tf)
+{
+    
+}
