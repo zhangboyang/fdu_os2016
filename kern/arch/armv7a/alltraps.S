@@ -11,7 +11,7 @@
 
 // exception vectors
 .data
-.align 5
+.p2align 5
 .global vectors
 vectors:
 .long exception_00
