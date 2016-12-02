@@ -11,7 +11,7 @@
 
 // exception vectors
 .data
-.align 32
+.align 5
 .global vectors
 vectors:
 .long exception_00
