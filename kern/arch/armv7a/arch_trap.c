@@ -17,6 +17,7 @@
 #include <asm.h>
 
 
+extern uint32_t vectors[];
 void trap_init()
 {
     __asm__ __volatile__ ("mcr p15, 0, %0, c12, c0, 0"::"r"(vectors));
