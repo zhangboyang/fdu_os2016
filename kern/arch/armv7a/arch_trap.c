@@ -37,7 +37,7 @@ void trap_init()
         "msr sp_und, %1\n\t"
         "msr sp_irq, %2\n\t"
         "msr sp_fiq, %3\n\t"
-        ::"r"(abt), "r"(und), "r"(irq), "r"(fiq)
+        ::"r"(trap_stack->abt), "r"(trap_stack->und), "r"(trap_stack->irq), "r"(trap_stack->fiq)
     );
     
 
