@@ -36,8 +36,9 @@
 
 
 struct trapframe {
-    uint32_t r[16]; // r0-r12, SP_usr, LR_usr, PC for user
-    uint32_t psr; // user PSR
+    // save state from the mode which caused this exception
+    uint32_t r[16]; // r0-r12, SP, LR, PC
+    uint32_t psr; // PSR
 };
 
 #endif	/* !__ASSEMBLER__ */
