@@ -82,4 +82,5 @@ alltraps:
   b spin
   
   msr sp_abt,r0
+  msr sp_abt,r0
 
