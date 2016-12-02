@@ -34,10 +34,10 @@ void trap_init()
     };
     struct trap_sp *trap_stack = VF(g_pvbridge, malloc, sizeof(struct trap_sp)); // alloc memory for stack
     __asm__ __volatile__(
-        "msr sp_abt, %0\n\t"
-        "msr sp_und, %1\n\t"
-        "msr sp_irq, %2\n\t"
-        "msr sp_fiq, %3\n\t"
+        "msr %0, sp_abt\n\t"
+        "msr %1, sp_und\n\t"
+        "msr %2, sp_irq\n\t"
+        "msr %3, sp_fiq\n\t"
         ::"r"(trap_stack->abt), "r"(trap_stack->und), "r"(trap_stack->irq), "r"(trap_stack->fiq)
     );
     
