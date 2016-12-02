@@ -19,12 +19,7 @@
 
 void trap_init()
 {
-    dump_memory((void *) 0, 0x100);
-    dump_memory_aligned((void *) 0, 0x100);
-    dump_memory((void *) 5, 0x100);
-    dump_memory_aligned((void *) 5, 0x100);
-    dump_memory((void *) 15, 0x100);
-    dump_memory_aligned((void *) 15, 0x100);
+    __asm__ __volatile__ ("mcr p15, 0, %0, c12, c0, 0"::"r"(vectors));
 }
 
 void trap(struct trapframe *tf)
