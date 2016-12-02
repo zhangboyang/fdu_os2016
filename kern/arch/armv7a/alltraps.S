@@ -31,7 +31,7 @@ exception_04: // undefined instruction
   sub lr, lr, #4
   b enter_svc
 exception_08: // supervisor call
-  sub sp, #12
+  sub sp, #12 ////// FIXME
   b enter_svc
 exception_0C: // prefetch abort
   sub lr, lr, #4

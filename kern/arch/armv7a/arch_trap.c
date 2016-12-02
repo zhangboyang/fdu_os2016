@@ -58,7 +58,7 @@ void trap_init()
                           "mov r10, #10;"
                           "mov r11, #11;"
                           "mov r12, #12;"
-                          "mov r13, #13;"
+//                          "mov r13, #13;"
                           "mov r14, #14;"
 //                          "mov r15, #15;"
                           "svc #0");  
