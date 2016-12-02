@@ -25,7 +25,7 @@ AC_DEFUN([AIM_SUPPORT_MACH], [
 
 AC_DEFUN([AIM_INIT_MACH], [
 	AIM_ARG_VAR([MACH], [target machine])
-	AIM_SUPPORT_MACH([msim loongson3a zynq pc generic unknown])
+	AIM_SUPPORT_MACH([msim loongson3a zynq rpi2 pc generic unknown])
 	AC_SUBST([PREFIXED_MACH], [mach-$MACH])
 	AS_CASE([$MACH],
 	    [rpi2], [
