@@ -45,6 +45,10 @@ void trap_init()
 
     
     kprintf("haha\n");
+    
+    uint32_t sp; __asm__ __volatile__ ("mov %0, sp":"=r"(sp));
+    dump_memory_aligned((void *)sp, 0x20);
+    
     __asm__ __volatile__ ("mov r0, #0;"
                           "mov r1, #1;"
                           "mov r2, #2;"
@@ -67,6 +71,6 @@ void trap_init()
 
 void trap(struct trapframe *tf)
 {
-    dump_memory(tf, sizeof(*tf));
+    dump_memory_aligned(tf, sizeof(*tf) + 0x20);
     panic("trap!");
 }
