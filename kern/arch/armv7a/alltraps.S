@@ -10,18 +10,18 @@
 #include <aim/mmu.h>
 
 // exception vectors
-.data
+.text
 .p2align 5
 .global vectors
 vectors:
-.long exception_00
-.long exception_04
-.long exception_08
-.long exception_0C
-.long exception_10
-.long exception_14
-.long exception_18
-.long exception_1C
+b exception_00
+b exception_04
+b exception_08
+b exception_0C
+b exception_10
+b exception_14
+b exception_18
+b exception_1C
 
 
 .text
