@@ -31,6 +31,8 @@ exception_04: // undefined instruction
   sub lr, lr, #4
   b enter_svc
 exception_08: // supervisor call
+mov sp,#0x1000
+b trap
   b enter_svc
 exception_0C: // prefetch abort
   sub lr, lr, #4
