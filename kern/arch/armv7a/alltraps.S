@@ -53,7 +53,7 @@ enter_svc:
   stmia sp, {r0, lr}
   mrs r0, spsr
   str r0, [sp, #8]
-mov r0, sp; mov sp,#0x1000; b trap
+//mov r0, sp; mov sp,#0x1000; b trap
   // prepare spsr
   mrs r0, cpsr
   and r0, r0, #~MODE_MASK
@@ -70,7 +70,7 @@ alltraps:
   push {lr}
   ldr lr, [r0, #4] // lr = saved lr (i.e. user PC)
   push {lr}
-  mrs lr, lr_usr
+  mrs lr, lr_usr // FIXME
   push {lr}
   mrs lr, sp_usr
   push {lr}
