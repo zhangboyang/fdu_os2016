@@ -8,6 +8,7 @@
 #endif /* HAVE_CONFIG_H */
 
 #include <aim/mmu.h>
+#include <arch-trap.h>
 
 // exception vectors
 .text
