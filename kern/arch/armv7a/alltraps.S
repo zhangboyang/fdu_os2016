@@ -65,13 +65,13 @@ enter_svc:
 
 alltraps:
   ldr lr, [r0, #8] // lr = saved spsr (i.e. user PSR)
-  push lr
+  push {lr}
   ldr lr, [r0, #4] // lr = saved lr (i.e. user PC)
-  push lr
+  push {lr}
   mrs lr, lr_usr
-  push lr
+  push {lr}
   mrs lr, sp_usr
-  push lr
+  push {lr}
   
   ldr r0, [r0] // r0 = saved r0
   push {r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12}
