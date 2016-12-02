@@ -20,7 +20,29 @@
 extern uint32_t vectors[];
 void trap_init()
 {
+    // set vectors
     __asm__ __volatile__ ("mcr p15, 0, %0, c12, c0, 0"::"r"(vectors));
+    
+    // prepare stacks
+    struct trap_sp {
+    #define TRAP_SP_SIZE 3
+        uint32_t abt[TRAP_SP_SIZE];
+        uint32_t und[TRAP_SP_SIZE];
+        uint32_t irq[TRAP_SP_SIZE];
+        uint32_t fiq[TRAP_SP_SIZE];
+    };
+    struct *trap_stack = VF(g_pvbridge, malloc, sizeof(struct trap_sp)); // alloc memory for stack
+    __asm__ __volatile__(
+        "msr sp_abt, %0\n\t"
+        "msr sp_und, %1\n\t"
+        "msr sp_irq, %2\n\t"
+        "msr sp_fiq, %3\n\t"
+        ::"r"(abt), "r"(und), "r"(irq), "r"(fiq)
+    );
+    
+
+
+    
     kprintf("haha\n");
     __asm__ __volatile__ ("mov r0, #0;"
                           "mov r1, #1;"
