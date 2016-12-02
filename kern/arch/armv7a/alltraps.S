@@ -10,6 +10,8 @@
 #include <aim/mmu.h>
 #include <arch-trap.h>
 
+.arch armv7-a
+
 // exception vectors
 .text
 .balign 32
