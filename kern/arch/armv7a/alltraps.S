@@ -36,4 +36,5 @@ exception_1C:
 
 
 alltraps:
+mov sp, #0x1000
 b trap

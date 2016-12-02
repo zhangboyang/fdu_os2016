@@ -29,5 +29,5 @@ void trap_init()
 
 void trap(struct trapframe *tf)
 {
-    
+    panic("trap!");
 }
