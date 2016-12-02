@@ -10,7 +10,7 @@
 #include <aim/mmu.h>
 #include <arch-trap.h>
 
-.arch armv7
+.arch armv7ve
 
 // exception vectors
 .text
