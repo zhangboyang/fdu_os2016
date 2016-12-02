@@ -32,14 +32,14 @@ void trap_init()
         uint32_t irq[TRAP_SP_SIZE];
         uint32_t fiq[TRAP_SP_SIZE];
     };
-/*    struct trap_sp *trap_stack = VF(g_pvbridge, malloc, sizeof(struct trap_sp)); // alloc memory for stack
+    struct trap_sp *trap_stack = VF(g_pvbridge, malloc, sizeof(struct trap_sp)); // alloc memory for stack
     __asm__ __volatile__(
         "msr sp_abt, %0\n\t"
         "msr sp_und, %1\n\t"
         "msr sp_irq, %2\n\t"
         "msr sp_fiq, %3\n\t"
         ::"r"(trap_stack->abt), "r"(trap_stack->und), "r"(trap_stack->irq), "r"(trap_stack->fiq)
-    );*/
+    );
     
 
 

@@ -80,7 +80,5 @@ alltraps:
   ldr lr, =trap
   blx lr
   b spin
-  
-  msr sp_abt,r0
-  msr sp_abt,r0
+
 
