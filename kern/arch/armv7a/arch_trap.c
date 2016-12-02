@@ -21,7 +21,7 @@ extern uint32_t vectors[];
 void trap_init()
 {
     __asm__ __volatile__ ("mcr p15, 0, %0, c12, c0, 0"::"r"(vectors));
-    __asm__ __volatile__ ("svc");
+    __asm__ __volatile__ ("svc #0");
 }
 
 void trap(struct trapframe *tf)
