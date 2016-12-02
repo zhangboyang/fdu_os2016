@@ -36,8 +36,8 @@
 
 
 struct trapframe {
-    uint32_t r[16];
-    uint32_t cpsr;
+    uint32_t r[16]; // r0-r12, SP_usr, LR_usr, PC for user
+    uint32_t psr; // user PSR
 };
 
 #endif	/* !__ASSEMBLER__ */

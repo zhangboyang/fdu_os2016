@@ -28,5 +28,6 @@ void trap_init()
 
 void trap(struct trapframe *tf)
 {
+    dump_memory(tf, sizeof(*tf));
     panic("trap!");
 }
