@@ -31,8 +31,6 @@ exception_04: // undefined instruction
   sub lr, lr, #4
   b enter_svc
 exception_08: // supervisor call
-mov sp,#0x1000
-b trap
   b enter_svc
 exception_0C: // prefetch abort
   sub lr, lr, #4
@@ -54,6 +52,8 @@ enter_svc:
   stmia sp, {r0, lr}
   mrs r0, spsr
   str r0, [sp, #8]
+mov sp,#0x1000; b trap
+
   // prepare spsr
   mrs r0, cpsr
   and r0, r0, #~MODE_MASK
