@@ -24,32 +24,34 @@ b exception_14
 b exception_18
 b exception_1C
 
+#define ENTERSYS(vector) \
+    str r0, [sp, #18]; mov r0, #vector; str r0, [sp, #16]; b enter_sys
+
 spin: b spin
 exception_00: b spin // not used
 exception_04: // undefined instruction
   sub lr, lr, #4
-  b enter_sys
+  ENTERSYS(VCT_UND)
 exception_08: // supervisor call
-  b enter_sys
+  ENTERSYS(VCT_SVC)
 exception_0C: // prefetch abort
   sub lr, lr, #4
-  b enter_sys
+  ENTERSYS(VCT_PABT)
 exception_10: // data abort
   sub lr, lr, #8
-  b enter_sys
+  ENTERSYS(VCT_DABT)
 exception_14: b spin // not used
 exception_18: // IRQ interrupt
   sub lr, lr, #4
-  b enter_sys
+  ENTERSYS(VCT_IRQ)
 exception_1C: // FIQ interrupt
   sub lr, lr, #4
-  b enter_sys
+  ENTERSYS(VCT_FIQ)
+
 enter_sys:
-  // SP & MODE is initialized in trap_init(), do not modify it here!
-  //            0       1       2       3     4     5
-  //            sp_usr, lr_usr, lr(pc), spsr, MODE, r0
-  //            ^SP     +4      +8      +12   +16   +18
-  str r0, [sp, #18]
+  //            0       1       2       3     4       5
+  //            sp_usr, lr_usr, lr(pc), spsr, vector, r0
+  //            ^SP     +4      +8      +12   +16     +18
   mrs r0, spsr; str r0, [sp, #12]
   str lr, [sp, #8]
   mrs r0, lr_usr; str r0, [sp, #4]

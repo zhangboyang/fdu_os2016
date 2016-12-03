@@ -35,13 +35,6 @@ void trap_init()
         uint32_t svc[TRAP_SP_SIZE];
     };
     struct trap_sp *trap_stack = VF(g_pvbridge, malloc, sizeof(struct trap_sp)); // alloc memory for stack
-    
-    trap_stack->abt[TRAP_MODE_SOLT] = MODE_ABT;
-    trap_stack->und[TRAP_MODE_SOLT] = MODE_UND;
-    trap_stack->irq[TRAP_MODE_SOLT] = MODE_IRQ;
-    trap_stack->fiq[TRAP_MODE_SOLT] = MODE_FIQ;
-    trap_stack->svc[TRAP_MODE_SOLT] = MODE_SVC;
-    
     __asm__ __volatile__(
         "msr sp_abt, %0\n\t"
         "msr sp_und, %1\n\t"
