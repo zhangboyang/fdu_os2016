@@ -79,6 +79,7 @@ stack_switched:
   b spin
 
 
+.globl trap_return
 trap_return:
   // disable interrupts
   msr cpsr_c, (0xC|MODE_SYS)
