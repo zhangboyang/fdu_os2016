@@ -59,7 +59,7 @@ enter_sys:
   mrs r0, sp_usr; str r0, [sp]
   mov r0, sp
   // enter SYS
-  msr cpsr_c, (0xC|MODE_SYS)
+  msr cpsr_c, (0xC0|MODE_SYS)
   // SYS mode entered, now we can use lr, sp (r0 is used for pointer to temp frame)
   ldr lr, [r0, #12]
   and lr, #MODE_MASK
@@ -82,11 +82,11 @@ stack_switched:
 .globl trap_return
 trap_return:
   // disable interrupts
-  msr cpsr_c, (0xC|MODE_SYS)
+  msr cpsr_c, (0xC0|MODE_SYS)
   ldr sp, [r0, #(13*4)] // restore sp
   ldr lr, [r0, #(14*4)] // restore lr
   // enter SVC
-  msr cpsr_c, (0xC|MODE_SVC)
+  msr cpsr_c, (0xC0|MODE_SVC)
   // restore spsr
   ldr r1, [r0, #(16*4)]
   msr spsr, r1
