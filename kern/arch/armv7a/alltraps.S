@@ -44,11 +44,12 @@ exception_18: // IRQ interrupt
 exception_1C: // FIQ interrupt
   sub lr, lr, #4
   b enter_sys
-
 enter_sys:
-  // save [sp_usr, lr_usr, lr(pc), spsr, r0]
-  //       ^SP     +4      +8      +12   +16
-  str r0, [sp, #16]
+  // SP & MODE is initialized in trap_init(), do not modify it here!
+  //            0       1       2       3     4     5
+  //            sp_usr, lr_usr, lr(pc), spsr, MODE, r0
+  //            ^SP     +4      +8      +12   +16   +18
+  str r0, [sp, #18]
   mrs r0, spsr; str r0, [sp, #12]
   str lr, [sp, #8]
   mrs r0, lr_usr; str r0, [sp, #4]
@@ -63,13 +64,13 @@ enter_sys:
   beq stack_switched
   b spin//FIXME
 stack_switched:
-  sub sp, #(17*4) // see struct trap_frame
+  sub sp, #(18*4) // sizeof(struct trap_frame)
   mov lr, r0 // lr is used for pointer to temp frame now
-  ldr r0, [lr, #16] // restore r0 to it's original value
+  ldr r0, [lr, #18] // restore r0 to it's original value
   stmia sp, {r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12}
-  ldmia lr, {r0, r1, r2, r3}
+  ldmia lr, {r0, r1, r2, r3, r4}
   add lr, sp, #(13 * 4)
-  stmia lr, {r0, r1, r2, r3}
+  stmia lr, {r0, r1, r2, r3, r4}
   mov r0, sp // arg1 = pointer to trapframe
   bl trap
 
