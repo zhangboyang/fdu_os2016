@@ -27,7 +27,6 @@ void trap_init()
     // prepare stacks
     struct trap_sp {
     #define TRAP_SP_SIZE 6
-    #define TRAP_MODE_SOLT 4
         uint32_t abt[TRAP_SP_SIZE];
         uint32_t und[TRAP_SP_SIZE];
         uint32_t irq[TRAP_SP_SIZE];
@@ -43,9 +42,6 @@ void trap_init()
         "msr sp_svc, %4\n\t"
         ::"r"(trap_stack->abt), "r"(trap_stack->und), "r"(trap_stack->irq), "r"(trap_stack->fiq), "r"(trap_stack->svc)
     );
-    
-
-
     
     kprintf("haha\n");
     
@@ -68,7 +64,7 @@ void trap_init()
 //                          "mov r13, #13;"
                           "mov r14, #14;"
 //                          "mov r15, #15;"
-                          "svc #0");  
+                          "svc #0; svc #0; 1: b 1b;");  
     kprintf("bad\n");
 }
 
@@ -77,3 +73,5 @@ void trap(struct trapframe *tf)
     dump_memory_aligned(tf, sizeof(*tf) + 0x20);
     panic("trap!");
 }
+
+

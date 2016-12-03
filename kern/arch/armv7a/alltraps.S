@@ -59,7 +59,7 @@ enter_sys:
   mrs r0, sp_usr; str r0, [sp]
   mov r0, sp
   // enter SYS
-  msr cpsr_c, 0xDF
+  msr cpsr_c, (0xC|MODE_SYS)
   // SYS mode entered, now we can use lr, sp (r0 is used for pointer to temp frame)
   ldr lr, [r0, #12]
   and lr, #MODE_MASK
@@ -76,4 +76,22 @@ stack_switched:
   stmia lr, {r0, r1, r2, r3, r4}
   mov r0, sp // arg1 = pointer to trapframe
   bl trap
+  b spin
+
+
+trap_return:
+  // disable interrupts
+  msr cpsr_c, (0xC|MODE_SYS)
+  ldr sp, [r0, #(13*4)] // restore sp
+  ldr lr, [r0, #(14*4)] // restore lr
+  // enter SVC
+  msr cpsr_c, (0xC|MODE_SVC)
+  // restore spsr
+  ldr r1, [r0, #(16*4)]
+  msr spsr, r1
+  // restore lr
+  ldr lr, [r0, #(15*4)]
+  // restore r0-r12
+  ldmia r0, {r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12}
+  movs pc, lr
 
