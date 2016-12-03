@@ -61,7 +61,7 @@ enter_sys:
   ldr lr, [r0, #12]
   and lr, #MODE_MASK
   cmp lr, #MODE_SYS
-  be stack_switched
+  beq stack_switched
   b spin
 stack_switched:
   sub sp, #(17*4) // see struct trap_frame
