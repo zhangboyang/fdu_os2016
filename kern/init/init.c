@@ -82,8 +82,6 @@ void master_init()
     
     // init trap
     trap_init();
-    
-while (1);;
 
     // init irq
     irq_init();
