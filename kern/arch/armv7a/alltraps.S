@@ -61,7 +61,7 @@ enter_sys:
   and lr, #MODE_MASK
   cmp lr, #MODE_SYS
   beq stack_switched
-  b spin
+  b spin//FIXME
 stack_switched:
   sub sp, #(17*4) // see struct trap_frame
   mov lr, r0 // lr is used for pointer to temp frame now
