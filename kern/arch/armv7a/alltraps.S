@@ -24,29 +24,29 @@ b exception_14
 b exception_18
 b exception_1C
 
-#define ENTERSYS(vector) \
+.macro ENTERSYS vector
     str r0, [sp, #18]; mov r0, #vector; str r0, [sp, #16]; b enter_sys
 
 spin: b spin
 exception_00: b spin // not used
 exception_04: // undefined instruction
   sub lr, lr, #4
-  ENTERSYS(VCT_UND)
+  ENTERSYS VCT_UND
 exception_08: // supervisor call
-  ENTERSYS(VCT_SVC)
+  ENTERSYS VCT_SVC
 exception_0C: // prefetch abort
   sub lr, lr, #4
-  ENTERSYS(VCT_PABT)
+  ENTERSYS VCT_PABT
 exception_10: // data abort
   sub lr, lr, #8
-  ENTERSYS(VCT_DABT)
+  ENTERSYS VCT_DABT
 exception_14: b spin // not used
 exception_18: // IRQ interrupt
   sub lr, lr, #4
-  ENTERSYS(VCT_IRQ)
+  ENTERSYS VCT_IRQ
 exception_1C: // FIQ interrupt
   sub lr, lr, #4
-  ENTERSYS(VCT_FIQ)
+  ENTERSYS VCT_FIQ
 
 enter_sys:
   //            0       1       2       3     4       5
