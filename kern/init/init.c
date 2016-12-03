@@ -84,7 +84,7 @@ void master_init()
     trap_init();
 
     // init irq
-    irq_init();
+//    irq_init();//FIXME
     
     // call initcalls
     do_initcalls();
