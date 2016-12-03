@@ -39,7 +39,7 @@ struct trapframe {
     // save state from the mode which caused this exception
     uint32_t r[16]; // r0-r12, SP, LR, PC
     uint32_t psr; // PSR
-    uint32_t mode;
+    uint32_t vector;
 };
 
 #endif	/* !__ASSEMBLER__ */
