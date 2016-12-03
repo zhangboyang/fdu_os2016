@@ -32,7 +32,7 @@ b exception_1C
 #define VCT_FIQ 0x1C
 
 .macro ENTERSYS vector:req
-    str r0, [sp, #18]; mov r0, #vector; str r0, [sp, #16]; b enter_sys
+    str r0, [sp, #18]; mov r0, #\vector; str r0, [sp, #16]; b enter_sys
 .endm
 
 spin: b spin
