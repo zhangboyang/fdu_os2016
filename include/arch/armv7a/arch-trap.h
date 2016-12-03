@@ -32,6 +32,14 @@
 #define MODE_MASK       0x1F
 
 
+#define VCT_UND 0x04
+#define VCT_SVC 0x08
+#define VCT_PABT 0x0C
+#define VCT_DABT 0x10
+#define VCT_IRQ 0x18
+#define VCT_FIQ 0x1C
+
+
 #ifndef __ASSEMBLER__
 
 
