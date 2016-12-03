@@ -43,29 +43,6 @@ void trap_init()
         ::"r"(trap_stack->abt), "r"(trap_stack->und), "r"(trap_stack->irq), "r"(trap_stack->fiq), "r"(trap_stack->svc)
     );
     
-    kprintf("haha\n");
-    
-    uint32_t sp; __asm__ __volatile__ ("mov %0, sp":"=r"(sp));
-    dump_memory_aligned((void *)sp, 0x20);
-    
-    __asm__ __volatile__ ("mov r0, #0;"
-                          "mov r1, #1;"
-                          "mov r2, #2;"
-                          "mov r3, #3;"
-                          "mov r4, #4;"
-                          "mov r5, #5;"
-                          "mov r6, #6;"
-                          "mov r7, #7;"
-                          "mov r8, #8;"
-                          "mov r9, #9;"
-                          "mov r10, #10;"
-                          "mov r11, #11;"
-                          "mov r12, #12;"
-//                          "mov r13, #13;"
-                          "mov r14, #14;"
-//                          "mov r15, #15;"
-                          "svc #0; svc #0; 1: b 1b;");  
-    kprintf("bad\n");
 }
 
 void trap(struct trapframe *tf)
