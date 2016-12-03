@@ -24,6 +24,13 @@ b exception_14
 b exception_18
 b exception_1C
 
+#define VCT_UND 0x04
+#define VCT_SVC 0x08
+#define VCT_PABT 0x0C
+#define VCT_DABT 0x10
+#define VCT_IRQ 0x18
+#define VCT_FIQ 0x1C
+
 .macro ENTERSYS vector
     str r0, [sp, #18]; mov r0, #vector; str r0, [sp, #16]; b enter_sys
 .endm
