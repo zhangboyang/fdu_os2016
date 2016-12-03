@@ -26,6 +26,7 @@ b exception_1C
 
 .macro ENTERSYS vector
     str r0, [sp, #18]; mov r0, #vector; str r0, [sp, #16]; b enter_sys
+.endm
 
 spin: b spin
 exception_00: b spin // not used
