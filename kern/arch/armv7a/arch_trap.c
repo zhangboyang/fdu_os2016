@@ -26,7 +26,7 @@ void trap_init()
     
     // prepare stacks
     struct trap_sp {
-    #define TRAP_SP_SIZE 3
+    #define TRAP_SP_SIZE 5
         uint32_t abt[TRAP_SP_SIZE];
         uint32_t und[TRAP_SP_SIZE];
         uint32_t irq[TRAP_SP_SIZE];
