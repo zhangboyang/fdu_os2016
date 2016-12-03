@@ -71,7 +71,7 @@ void trap_init()
 void trap(struct trapframe *tf)
 {
     dump_memory_aligned(tf, sizeof(*tf) + 0x20);
-    panic("trap!");
+    trap_return(tf);
 }
 
 
