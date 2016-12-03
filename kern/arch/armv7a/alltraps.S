@@ -24,7 +24,6 @@ b exception_14
 b exception_18
 b exception_1C
 
-.text
 spin: b spin
 exception_00: b spin // not used
 exception_04: // undefined instruction
