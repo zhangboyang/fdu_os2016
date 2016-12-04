@@ -118,7 +118,7 @@ while(1);;;
 void slave_init(int id)
 {
     memset((void *)0x3d800000 + KOFFSET, 0xff, 900*0x000010e0);
-//    fbcls(&fb, 0xff00);
+    fbcls(&fb, 0xff00);
     memset((void *)0x3d800000 + KOFFSET, 0x00, 900*0x000010e0);
     
     while (1);
