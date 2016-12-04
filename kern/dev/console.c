@@ -32,7 +32,7 @@
 
 static putchar_fp __putchar = NULL;
 static puts_fp __puts = NULL;
-//static lock_t __lock;
+static lock_t __lock;
 
 /*
  * In most cases,
@@ -104,9 +104,9 @@ int kputs(const char *s)
 		return EOF;
 	/* We probably don't want kputs() to be interrupted externally or by another
 	 * core. */
-	//spin_lock_irq_save(&__lock, flags);
+	spin_lock_irq_save(&__lock, flags);
 	result = __puts(s);
-	//spin_unlock_irq_restore(&__lock, flags);
+	spin_unlock_irq_restore(&__lock, flags);
 
 	return result;
 }
