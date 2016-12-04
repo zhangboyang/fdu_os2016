@@ -26,7 +26,7 @@ static struct device __bcm2836 = {
 #define inst (&__bcm2836)
 
 
-int bcm2836_readreg(uint32_t reg, uint32_t *data)
+static int bcm2836_readreg(uint32_t reg, uint32_t *data)
 {
     struct bus_device *bus = inst->bus;
 	bus_read_fp bus_read32 = bus->bus_driver.get_read_fp(bus, 32);
@@ -39,7 +39,7 @@ int bcm2836_readreg(uint32_t reg, uint32_t *data)
     return 0;
 }
 
-int bcm2836_writereg(uint32_t reg, uint32_t data)
+static int bcm2836_writereg(uint32_t reg, uint32_t data)
 {
     struct bus_device *bus = inst->bus;
 	bus_write_fp bus_write32 = bus->bus_driver.get_write_fp(bus, 32);
@@ -54,6 +54,7 @@ int bcm2836_write_mailbox(int core, int id, uint32_t value)
     kprintf("write bcm2836 mailbox, core %d mailbox %d, value %08x.\n", core, id, value);
     uint32_t r_rdclr = CORE0_MBOX0_RDCLR + 0x10 * core + 0x4 * id; // read, write-clear register
     uint32_t r_set = CORE0_MBOX0_SET + 0x10 * core + 0x4 * id; // write-set register
+    kprintf("rdclr = %08x, set = %08x\n", r_rdclr, r_set);
     int r;
 uint32_t d;
 if ((r = bcm2836_readreg(r_rdclr, &d)) < 0) return r;

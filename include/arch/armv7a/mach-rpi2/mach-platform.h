@@ -77,7 +77,7 @@ void mach_init_free_pmm_zone(addr_t kstart, addr_t kend);
 
 /* bcm2836 */
 void bcm2836_init();
-int bcm2836_writereg(uint32_t reg, uint32_t data);
+int bcm2836_write_mailbox(int core, int id, uint32_t value);
 
 #endif /* _MACH_PLATFORM_H */
 
