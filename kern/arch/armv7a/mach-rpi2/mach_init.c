@@ -16,7 +16,13 @@ void mach_master_init(void)
 {
     lock_t haha;
     spinlock_init(&haha);
+    kprintf("haha\n");
     spin_lock(&haha);
+    spin_unlock(&haha);
+    kprintf("hehe\n");
+    spin_lock(&haha);
+    spin_unlock(&haha);
+    
     
     dump_memory((void *)0, 0x180);
     bcm2836_init();
