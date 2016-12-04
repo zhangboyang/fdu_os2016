@@ -30,7 +30,7 @@ void mach_start_slaves(void)
     for (int i = 1; i < RPI2_CORES; i++) {
         slave_stack[i] = VF(pmm_zone[ZONE_NORMAL].allocator, malloc, stacksz);
         slave_stack_lowaddr[i] = premap_addr(slave_stack[i]);
-        printf(" stack for slave %d: low %08x high %08x\n", i, slave_stack_lowaddr[i], slave_stack[i]);
+        kprintf(" stack for slave %d: low %08x high %08x\n", i, slave_stack_lowaddr[i], slave_stack[i]);
     }
     
 //    for (int i = 1; i < RPI2_CORES; i++) {
