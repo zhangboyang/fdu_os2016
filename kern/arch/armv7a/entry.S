@@ -81,8 +81,7 @@ slave_early_entry:
 sys_start_slave:
     bl get_core_id
     ldr r1, =VMA2LMA(slave_stack_lowaddr)
-    ldr sp, [r1, r0, lsl #4]
-    ldr sp, =AIM_KERN_STACK_BOTTOM
+    ldr sp, [r1, r0, lsl #2]
     b slave_early_init
 
 
@@ -94,7 +93,5 @@ sys_start_slave:
 slave_entry:
     bl get_core_id
     ldr r1, =slave_stack
-    ldr sp, [r1, r0, lsl #4]
-    ldr sp, =AIM_KERN_STACK_BOTTOM
-    mov r0, #1
+    ldr sp, [r1, r0, lsl #2]
     b slave_init
