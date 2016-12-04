@@ -51,7 +51,7 @@ static inline void spinlock_init(lock_t *lock)
 static inline void spin_lock(lock_t *lock)
 {
     uint32_t result = 1;
-    while (!result) {
+    while (result) {
         __asm__ __volatile__ (
             "ldrex r0, [%1]\n\t"
             "cmp r0, #0\n\t"
