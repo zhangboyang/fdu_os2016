@@ -30,13 +30,13 @@ uint32_t bcm2836_readreg(uint32_t reg)
 {assert(0);
 }
 
-void bcm2836_writereg(uint32_t reg, uint32_t data)
+int bcm2836_writereg(uint32_t reg, uint32_t data)
 {
     struct bus_device *bus = inst->bus;
 	bus_write_fp bus_write32 = bus->bus_driver.get_write_fp(bus, 32);
 	if (!bus_write32) return -1;
 	
-    bus_write32(bus, inst->base, reg, data);
+    return bus_write32(bus, inst->base, reg, data);
 }
 
 void bcm2836_init()
