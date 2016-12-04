@@ -117,6 +117,7 @@ while(1);;;
 
 void slave_init(int id)
 {
+    if (id == 0) while(1);
     if (0 <= id && id < 4)
     memset((void *)0x3d800000 + KOFFSET, (id << 6) | 0, 900*0x000010e0);
     else
