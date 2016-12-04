@@ -125,5 +125,5 @@ void slave_early_init(int id)
 //framebuffer: base=3d800000 width=1440 height=900 pitch=000010e0 format=0
     memset((void *)0x3d800000, 0xff, 900*0x000010e0);
     arch_slave_early_init(id);
-    mmu_jump(slave_init);
+    mmu_jump(slave_entry);
 }
