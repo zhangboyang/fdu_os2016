@@ -95,6 +95,6 @@ static inline bool spin_is_locked(lock_t *lock)
 		local_irq_restore(flags); \
 	} while (0)
 
-
+extern uint32_t get_ip();
 
 #endif

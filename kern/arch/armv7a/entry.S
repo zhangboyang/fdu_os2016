@@ -95,3 +95,12 @@ slave_entry:
     ldr r1, =slave_stack
     ldr sp, [r1, r0, lsl #2]
     b slave_init
+    
+    
+
+
+
+.globl get_ip
+get_ip:
+    mov r0, lr
+    bx lr
