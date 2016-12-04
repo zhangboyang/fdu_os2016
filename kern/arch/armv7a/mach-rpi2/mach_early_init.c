@@ -167,7 +167,7 @@ size_t size_after_kernel;
 void mach_add_mapping()
 {
     init_jmphigh_mapping(RPI2_MAX_MEMORY, arminfo.size);
-    *LOWADDR(&size_after_kernel) = arminfo.size - ULCAST(KERN_END_LOW);
+    *LOWADDR(&size_after_kernel) = arminfo.size - arminfo.base - ULCAST(KERN_END_LOW);
     
     struct early_mapping entry;
     
@@ -195,9 +195,8 @@ void mach_add_mapping()
 void mach_init_pmm_zone()
 {
     kprintf("init pmm zone\n");
-    assert(arminfo.base == 0);
     pmm_zone[ZONE_NORMAL] = (struct zone) {
-        .base = arminfo.base, .size = arminfo.size, // preserve first 64KB
+        .base = arminfo.base, .size = arminfo.size,
         .page_size = PAGE_SIZE,
     };
     kprintf("physical memory zone summary:\n");
