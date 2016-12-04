@@ -59,6 +59,7 @@ static inline void spin_lock(lock_t *lock)
             "strexeq r0, %0, [%1]\n\t"
         : "=r"(result)
         : "r"(&lock->locked)
+        : "r0"
         );
     }
     dmb();
