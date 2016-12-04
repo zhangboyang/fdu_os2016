@@ -34,7 +34,7 @@ int bcm2836_readreg(uint32_t reg, uint32_t *data)
 	
     uint64_t d;
     int r;
-    if ((r = bus_read32(bus, inst->base, MAIL0_READ, &d)) < 0) return r;
+    if ((r = bus_read32(bus, inst->base, reg, &d)) < 0) return r;
     *data = d;
     return 0;
 }
