@@ -37,6 +37,7 @@ void mach_slave_early_init(int id);
 void slave_early_entry(void);
 
 void master_init(void);
+void slave_init(void);
 
 void master_entry(void);
 void slave_entry(void);

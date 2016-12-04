@@ -114,3 +114,9 @@ while(1);;;
     panic("bye");
 }
 
+
+void slave_init(int id)
+{
+    kprintf("this is slave %d at high addr.\n");
+    while (1);
+}
