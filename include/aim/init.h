@@ -39,6 +39,7 @@ void slave_early_entry(void);
 void master_init(void);
 
 void master_entry(void);
+void slave_entry(void);
 
 #endif /* !__ASSEMBLER__ */
 
