@@ -13,6 +13,9 @@
 
 void mach_master_init(void)
 {
+    lock_t haha;
+    spin_lock(&haha);
+    
     dump_memory((void *)0, 0x180);
     bcm2836_init();
 }
