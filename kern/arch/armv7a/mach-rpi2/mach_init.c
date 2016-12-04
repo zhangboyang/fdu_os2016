@@ -32,7 +32,8 @@ void mach_start_slaves(void)
         slave_stack_lowaddr[i] = premap_addr(slave_stack[i]);
     }
     
-    for (int i = 1; i < RPI2_CORES; i++) {
+//    for (int i = 1; i < RPI2_CORES; i++) {
+    int i = 1; {
         bcm2836_write_mailbox(i, 3, ULCAST(LOWADDR(slave_early_entry)));
     }
 }
