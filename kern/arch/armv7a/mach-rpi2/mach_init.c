@@ -5,6 +5,7 @@
 #include <sys/types.h>
 #include <aim/device.h>
 #include <aim/debug.h>
+#include <aim/mmu.h>
 #include <aim/init.h>
 #include <bcm2836.h>
 
