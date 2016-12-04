@@ -60,7 +60,7 @@ static inline void spin_lock(lock_t *lock)
             : "r"(&lock->locked), "r"(1)
             : "r0"
         );
-        int kprintf(fmt,...);
+        int kprintf(char *fmt,...);
         kprintf("result=%d locked=%d\n", result, lock->locked);
     } while (result);
     
