@@ -33,7 +33,7 @@ void mach_start_slaves(void)
         kprintf(" stack for slave %d: low %08x high %08x\n", i, slave_stack_lowaddr[i], slave_stack[i]);
     }
     
-    extern int get_core_id(); printf("core %d\n", get_core_id());
+    extern int get_core_id(); kprintf("core %d\n", get_core_id());
 //    for (int i = 1; i < RPI2_CORES; i++) {
     int i = 1; {
         bcm2836_write_mailbox(i, 3, ULCAST(LOWADDR(slave_early_entry)));
