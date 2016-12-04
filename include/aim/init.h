@@ -28,10 +28,10 @@ void mach_master_init(void);
 
 void mach_start_slaves(void);
 
-void slave_early_init(void);
 
-void arch_slave_early_init(void);
-void mach_slave_early_init(void);
+void slave_early_init(int id);
+void arch_slave_early_init(int id);
+void mach_slave_early_init(int id);
 
 
 void master_init(void);
