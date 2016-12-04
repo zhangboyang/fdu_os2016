@@ -110,7 +110,7 @@ void master_init()
 
 
     bcm2836_writereg(CORE1_MBOX3_RDCLR, (ULCAST) 0x8000);
-while(1);
+while(1);;;
     panic("bye");
 }
 
