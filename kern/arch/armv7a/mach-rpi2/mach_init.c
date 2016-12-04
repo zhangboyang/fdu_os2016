@@ -5,6 +5,7 @@
 #include <sys/types.h>
 #include <aim/device.h>
 #include <aim/debug.h>
+#include <aim/init.h>
 #include <bcm2836.h>
 
 void mach_master_init(void)
@@ -16,6 +17,5 @@ void mach_master_init(void)
 void mach_start_slaves(void)
 {
     kprintf("init slaves ...\n");
-for (int i = 0; i < 20; i++)    bcm2836_write_mailbox(1, 3, ULCAST(0x8000));
-    __asm__ __volatile__ ("ldr r0, =0x8000; bx r0;");
+for (int i = 0; i < 20; i++)    bcm2836_write_mailbox(1, 3, ULCAST(slave_early_init));
 }

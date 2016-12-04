@@ -220,3 +220,9 @@ void mach_init_free_pmm_zone(addr_t kstart, addr_t kend)
     }
 }
 
+/////////////////// slave /////////////////////////////
+
+void mach_slave_early_init(void)
+{
+    
+}

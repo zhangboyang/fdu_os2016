@@ -28,3 +28,7 @@ void arch_early_init(void)
     mach_early_init();
 }
 
+void arch_slave_early_init(void)
+{
+    mach_slave_early_init();
+}
