@@ -60,3 +60,8 @@ master_entry:
     b master_init // jump to C code
     b spin
 
+
+
+.globl slave_early_entry
+    bl get_core_id
+    

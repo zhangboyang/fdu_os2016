@@ -18,5 +18,11 @@ void mach_master_init(void)
 void mach_start_slaves(void)
 {
     kprintf("init slaves ...\n");
-for (int i = 0; i < 20; i++)    bcm2836_write_mailbox(1, 3, ULCAST(LOWADDR(slave_early_init)));
+    
+    uint32_t stacksz = AIM_KERN_STACK_BOTTOM - AIM_KERN_STACK_START;
+    
+    for (int i = 1; i < 3; i++) slave_stack[i] = VF(g_pmalloc, malloc, stacksz);
+    
+    for (int i = 0; i < 20; i++)    bcm2836_write_mailbox(1, 3, ULCAST(LOWADDR(slave_early_init)));
+    
 }
