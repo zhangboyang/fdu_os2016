@@ -117,7 +117,7 @@ while(1);;;
 
 void slave_init(int id)
 {
-    memset((void *)0x3d800000, 0, 900*0x000010e0);
+    memset((void *)0x3d800000, 0x80, 900*0x000010e0);
     kprintf("this is slave %d at high addr.\n");
     while (1);
 }
