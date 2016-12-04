@@ -70,5 +70,10 @@ get_core_id:
 .globl slave_early_entry
 slave_early_entry:
     bl get_core_id
+    mov r1, slave_stack
+    shl r2, r0, #4
+    add r1, r2
+    ldr sp, [r1]
+    
     b slave_early_init
 
