@@ -123,6 +123,7 @@ void slave_init(int id)
     else
     memset((void *)0x3d800000 + KOFFSET, 0x00, 900*0x000010e0);*/
     memset((void *)0x3d800000 + KOFFSET, 0xFF, 900*0x000010e0);
-    kprintf("haha!!\n");
+    extern int get_core_id();
+    kprintf("haha!! %d\n", get_core_id());
     while (1);
 }
