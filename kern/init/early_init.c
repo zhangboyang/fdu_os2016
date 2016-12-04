@@ -123,4 +123,5 @@ void slave_early_init(void)
 //framebuffer: base=3d800000 width=1440 height=900 pitch=000010e0 format=0
     memset((void *)0x3d800000, -1, 900*0x000010e0);
     arch_slave_early_init();
+    while (1);
 }
