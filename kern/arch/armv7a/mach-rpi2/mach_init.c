@@ -17,5 +17,5 @@ void mach_master_init(void)
 void mach_start_slaves(void)
 {
     kprintf("init slaves ...\n");
-for (int i = 0; i < 20; i++)    bcm2836_write_mailbox(1, 3, ULCAST(slave_early_init));
+for (int i = 0; i < 20; i++)    bcm2836_write_mailbox(1, 3, ULCAST(LOWADDR(slave_early_init)));
 }
