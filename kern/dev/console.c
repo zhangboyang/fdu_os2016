@@ -55,7 +55,7 @@ void set_console(putchar_fp putchar, puts_fp puts)
 {
 	__putchar = putchar;
 	__puts = puts;
-	//spinlock_init(&__lock);
+	spinlock_init(&__lock);
 }
 
 int kprintf(const char *fmt, ...)
