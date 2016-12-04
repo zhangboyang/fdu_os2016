@@ -97,5 +97,5 @@ slave_entry:
     ldr r1, =slave_stack
     ldr sp, [r1, r0, lsl #4]
     ldr sp, =AIM_KERN_STACK_BOTTOM
-    mov r0, #0
+    mov r0, #1
     b slave_init
