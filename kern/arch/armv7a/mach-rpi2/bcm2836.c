@@ -26,7 +26,7 @@ static struct device __bcm2836 = {
 #define inst (&__bcm2836)
 
 
-uint32_t bcm2836_readreg(uint32_t reg)
+int bcm2836_readreg(uint32_t reg, uint32_t *data)
 {assert(0);
 }
 
