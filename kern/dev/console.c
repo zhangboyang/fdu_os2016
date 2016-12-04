@@ -29,6 +29,7 @@
 #include <errno.h>
 #include <libc/stdarg.h>
 #include <libc/stdio.h>
+#include <asm.h>
 
 static putchar_fp __putchar = NULL;
 static puts_fp __puts = NULL;
