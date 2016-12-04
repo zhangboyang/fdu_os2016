@@ -55,8 +55,7 @@ static inline void spin_lock(lock_t *lock)
         __asm__ __volatile__ (
             "ldrex r0, [%1]\n\t"
             "cmp r0, #0\n\t"
-            "mov r0, #1\n\t"
-            "strexeq %0, r0, [%1]\n\t"
+            "strexeq %0, #1, [%1]\n\t"
         : "+r"(result)
         : "r"(&lock->locked)
         : "r0"
