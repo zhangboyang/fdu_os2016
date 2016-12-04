@@ -61,7 +61,7 @@ master_entry:
 
 .globl get_core_id
 get_core_id:
-    mrc p15, 0, r0, c0, c0, 5
+    mrc	15, 0, r0, cr0, cr0, {5}
     and r0, #3
     bx lr
 
