@@ -111,6 +111,15 @@ void master_early_init(void)
 	kputs("Hello, world!\n");
 	kprintf("hello world! this is the AIM kernel!\n");
 
+    lock_t haha;
+    spinlock_init(&haha);
+    kprintf("haha\n");
+    spin_lock(&haha);
+    spin_unlock(&haha);
+    kprintf("hehe\n");
+    spin_lock(&haha);
+    spin_unlock(&haha);
+    
 	early_mm_init();
 	
 	mmu_jump(master_entry);
