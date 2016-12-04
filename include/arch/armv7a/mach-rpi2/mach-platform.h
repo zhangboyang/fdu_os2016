@@ -74,5 +74,9 @@ void fbconcls();
 void mach_init_pmm_zone();
 void mach_init_free_pmm_zone(addr_t kstart, addr_t kend);
 
+
+/* bcm2836 */
+void bcm2836_init();
+
 #endif /* _MACH_PLATFORM_H */
 
