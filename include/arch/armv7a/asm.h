@@ -75,6 +75,14 @@ static inline bool spin_is_locked(lock_t *lock)
     return lock->locked == 1;
 }
 
+#define local_irq_save(flags) \
+    do { \
+    } while (0)
+
+#define local_irq_restore(flags) \
+    do { \
+    } while (0)
+
 #define spin_lock_irq_save(lock, flags) \
 	do { \
 		local_irq_save(flags); \
