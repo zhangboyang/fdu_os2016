@@ -105,7 +105,7 @@ void early_mm_init(void)
     mmu_init(__boot_page_index);
 }
 
-void mmu_jump(void high_entry)
+void mmu_jump(void *high_entry)
 {
 //    kprintf("prepare to perform mmu jump!\n");
     
