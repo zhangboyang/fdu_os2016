@@ -10,11 +10,12 @@
 #include <aim/pmm.h>
 #include <aim/init.h>
 #include <bcm2836.h>
-#include <asm.h>
+#include <aim/sync.h>
 
 void mach_master_init(void)
 {
     lock_t haha;
+    spinlock_init(&haha);
     spin_lock(&haha);
     
     dump_memory((void *)0, 0x180);
