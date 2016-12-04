@@ -41,7 +41,7 @@ int bcm2836_writereg(uint32_t reg, uint32_t data)
 
 void bcm2836_init()
 {
-    inst->bus = &early_memory_bus;
-    inst->base = BCM2836_MEMIO_BASE;
+    inst->bus = postmap_addr(&early_memory_bus);
+    inst->base = postmap_addr(BCM2836_MEMIO_BASE);
     kprintf("bcm2836 initialized.\n");
 }
