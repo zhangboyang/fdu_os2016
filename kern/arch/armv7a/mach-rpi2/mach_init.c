@@ -7,7 +7,8 @@
 #include <aim/debug.h>
 #include <bcm2836.h>
 
-void mach_init()
+void mach_master_init(void)
 {
+    dump_memory((void *)0, 0x300);
     bcm2836_init();
 }

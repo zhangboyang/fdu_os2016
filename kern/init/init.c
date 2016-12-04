@@ -64,7 +64,10 @@ void master_init()
     
     
     kprintf("hello world! we are now at high address!\n");
-dump_memory((void *)0, 0x300);
+    
+    mach_master_init();
+    
+
 
     // bootstrip the pmm and vmm
     vmm_bootstrap();
