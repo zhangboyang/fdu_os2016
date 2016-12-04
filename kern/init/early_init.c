@@ -30,6 +30,7 @@
 #include <drivers/io/io-mem.h>
 #include <drivers/io/io-port.h>
 #include <platform.h>
+#include <aim/sync.h>
 
 static inline
 int early_devices_init(void)
