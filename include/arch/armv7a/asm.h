@@ -57,7 +57,7 @@ static inline void spin_lock(lock_t *lock)
             "cmp r0, #0\n\t"
             "mov r0, #1\n\t"
             "strexeq r0, %0, [%1]\n\t"
-        : "=r"(result)
+        : "+r"(result)
         : "r"(&lock->locked)
         : "r0"
         );
