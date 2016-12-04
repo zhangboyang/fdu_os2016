@@ -61,7 +61,7 @@ static inline void spin_lock(lock_t *lock)
             : "r"(&lock->locked)
             : "r0"
         );
-    } while (!result);
+    } while (result);
     
     dmb();
 }
