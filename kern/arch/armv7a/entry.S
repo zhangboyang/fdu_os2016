@@ -61,9 +61,8 @@ master_entry:
 
 .globl get_core_id
 get_core_id:
-mov r0, #1
-//    mrc p15, 0, r0, c0, c0, 5
-//    ubfx r0, r0, #0, #2
+    mrc p15, 0, r0, c0, c0, 5
+    ubfx r0, r0, #0, #2
     bx lr
 
 
@@ -95,5 +94,4 @@ slave_entry:
     bl get_core_id
     ldr r1, =slave_stack
     ldr sp, [r1, r0, lsl #4]
-    mov r0, #1
     b slave_init
