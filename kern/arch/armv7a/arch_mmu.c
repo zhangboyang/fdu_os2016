@@ -209,7 +209,7 @@ void mmu_jump(void *high_entry)
     __asm__ __volatile__ ("mcr p15, 0, %0, c1, c0, 0"::"r"(SCTLR.val));
 if (ULCAST(high_entry) > 0x80000000)
     memset((void *)0x3d800000, 0x80, 900*0x000010e0);
-//fbcls(&fb, 0xff0000);
+fbcls(&fb, 0xff0000);
     abs_jump(high_entry);
     
     
