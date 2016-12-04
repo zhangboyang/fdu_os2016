@@ -17,4 +17,5 @@ void mach_start_slaves(void)
 {
     kprintf("init slaves ...\n");
 for (int i = 0; i < 20; i++)    bcm2836_write_mailbox(1, 3, ULCAST(0x8000));
+    __asm__ __volatile__ ("ldr r0, =0x8000; bx r0;");
 }
