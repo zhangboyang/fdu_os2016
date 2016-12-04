@@ -60,7 +60,6 @@ if ((r = bcm2836_readreg(r_rdclr, &d)) < 0) return r;
 kprintf("  read = %08x\n", d);
 
     if ((r = bcm2836_writereg(r_rdclr, -1)) < 0) return r; // clear all bits
-uint32_t d;
 if ((r = bcm2836_readreg(r_rdclr, &d)) < 0) return r;
 kprintf("  read = %08x\n", d);
     if ((r = bcm2836_writereg(r_set, value)) < 0) return r; // write to set value
