@@ -39,9 +39,9 @@ static inline void nop()
 
 
 //////////////// spinlock ////////////////////
-struct lock_t {
+typedef struct {
     int locked;
-};
+} lock_t;
 
 /* By initializing a lock, caller assumes no code is holding it. */
 static inline void spinlock_init(lock_t *lock)
