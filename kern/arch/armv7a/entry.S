@@ -37,17 +37,16 @@ _start:
     and r0, r0, #~MODE_MASK
     orr r0, r0, #MODE_SYS
     msr spsr_hyp, r0 // set SPSR_hyp, for eret
-    ldr r0, =VMA2LMA(svc_start)
+    ldr r0, =VMA2LMA(sys_start)
     msr elr_hyp, r0 // set ELR_hyp, for eret
     eret
 
-svc_start:
+sys_start:
     // jump to master_early_init
     ldr sp, =VMA2LMA(AIM_KERN_STACK_BOTTOM) // prepare stack
     b master_early_init // jump to C code
-    b spin
 
-spin: b spin
+
 
 
 
@@ -58,7 +57,6 @@ master_entry:
     // the high address entry
     ldr sp, =AIM_KERN_STACK_BOTTOM // prepare stack
     b master_init // jump to C code
-    b spin
 
 
 .globl get_core_id
@@ -67,12 +65,29 @@ get_core_id:
     and r0, #3
     bx lr
 
+
+
+
+
 .globl slave_early_entry
 slave_early_entry:
+    mrs r0, cpsr
+    and r0, r0, #~MODE_MASK
+    orr r0, r0, #MODE_SYS
+    msr spsr_hyp, r0 // set SPSR_hyp, for eret
+    ldr r0, =VMA2LMA(sys_start_slave)
+    msr elr_hyp, r0 // set ELR_hyp, for eret
+    eret
+sys_start_slave:
     bl get_core_id
     ldr r1, =VMA2LMA(slave_stack_lowaddr)
     ldr sp, [r1, r0, lsl #4]
     b slave_early_init
+
+
+
+
+
 
 .globl slave_entry
 slave_entry:
