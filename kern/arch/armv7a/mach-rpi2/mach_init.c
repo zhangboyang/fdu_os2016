@@ -9,6 +9,6 @@
 
 void mach_master_init(void)
 {
-    dump_memory((void *)0, 0x300);
+    dump_memory((void *)0, 0x180);
     bcm2836_init();
 }

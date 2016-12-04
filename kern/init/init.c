@@ -69,7 +69,6 @@ void master_init()
     mach_master_init();
     
 
-
     // bootstrip the pmm and vmm
     vmm_bootstrap();
     /*kprintf("====== kmalloc test ===========\n");
@@ -109,6 +108,9 @@ void master_init()
     chdev->chr_driver.putc(uart_ns16550_devno, 'h');
 #endif
 
+
+    bcm2836_writereg(CORE1_MBOX3_RDCLR, (ULCAST) 0x8000);
+while(1);
     panic("bye");
 }
 
