@@ -15,5 +15,5 @@ void mach_master_init(void)
 
 void mach_start_slaves(void)
 {
-    bcm2836_writereg(CORE1_MBOX3_RDCLR, (ULCAST) 0x8000);
+    bcm2836_writereg(CORE1_MBOX3_RDCLR, ULCAST(0x8000));
 }
