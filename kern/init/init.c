@@ -109,7 +109,7 @@ void master_init()
 #endif
 
 
-    bcm2836_writereg(CORE1_MBOX3_RDCLR, (ULCAST) 0x8000);
+    mach_start_slaves();
 while(1);;;
     panic("bye");
 }

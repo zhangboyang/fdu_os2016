@@ -25,7 +25,7 @@ void arch_early_init(void);
 void mach_early_init(void);
 
 void mach_master_init(void);
-
+void mach_start_slaves(void);
 
 void master_init(void);
 

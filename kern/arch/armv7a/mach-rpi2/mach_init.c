@@ -12,3 +12,8 @@ void mach_master_init(void)
     dump_memory((void *)0, 0x180);
     bcm2836_init();
 }
+
+void mach_start_slaves(void)
+{
+    bcm2836_writereg(CORE1_MBOX3_RDCLR, (ULCAST) 0x8000);
+}
