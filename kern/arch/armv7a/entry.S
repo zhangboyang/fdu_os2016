@@ -94,5 +94,5 @@ slave_entry:
     bl get_core_id
     ldr r1, =slave_stack
     ldr sp, [r1, r0, lsl #4]
-    mov r0, #3
+    mov r0, #0
     b slave_init
