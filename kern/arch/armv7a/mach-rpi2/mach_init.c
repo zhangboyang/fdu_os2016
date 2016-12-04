@@ -34,8 +34,7 @@ void mach_start_slaves(void)
     }
     
     extern int get_core_id(); kprintf("core %d\n", get_core_id());
-//    for (int i = 1; i < RPI2_CORES; i++) {
-    int i = 1; {
+    for (int i = 1; i < RPI2_CORES; i++) {
         bcm2836_write_mailbox(i, 3, ULCAST(LOWADDR(slave_early_entry)));
     }
 }
