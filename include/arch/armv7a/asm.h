@@ -35,4 +35,57 @@ static inline void nop()
     __asm__ __volatile__ ("nop");
 }
 
+
+
+
+//////////////// spinlock ////////////////////
+struct lock_t {
+    int locked;
+};
+
+/* By initializing a lock, caller assumes no code is holding it. */
+static inline void spinlock_init(lock_t *lock)
+{
+    lock->locked = 0;
+}
+static inline void spin_lock(lock_t *lock)
+{
+    uint32_t result = 1;
+    while (!result) {
+        __asm__ __volatile__ (
+            "ldrex r0, [%1]\n\t"
+            "cmp r0, #0\n\t"
+            "mov r0, #1\n\t"
+            "strexeq r0, %0, [%1]\n\t"
+        : "=r"(result)
+        : "r"(&lock->locked)
+        );
+    }
+    dmb();
+}
+/* spin_unlock may contain instructions to send event */
+static inline void spin_unlock(lock_t *lock)
+{
+    dmb();
+    lock->locked = 0;
+    dsb();
+}
+static inline bool spin_is_locked(lock_t *lock)
+{
+    return lock->locked == 1;
+}
+
+#define spin_lock_irq_save(lock, flags) \
+	do { \
+		local_irq_save(flags); \
+		spin_lock(lock); \
+	} while (0)
+#define spin_unlock_irq_restore(lock, flags) \
+	do { \
+		spin_unlock(lock); \
+		local_irq_restore(flags); \
+	} while (0)
+
+
+
 #endif
