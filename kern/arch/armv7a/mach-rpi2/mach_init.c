@@ -28,6 +28,6 @@ void mach_start_slaves(void)
     
     for (int i = 1; i < RPI2_CORES; i++) slave_stack[i] = VF(pmm_zone[ZONE_NORMAL].allocator, malloc, stacksz);
     
-    for (int i = 0; i < 20; i++)    bcm2836_write_mailbox(1, 3, ULCAST(LOWADDR(slave_early_init)));
+    bcm2836_write_mailbox(1, 3, ULCAST(LOWADDR(slave_early_entry)));
     
 }
