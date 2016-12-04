@@ -2,6 +2,8 @@
 #define _MACH_PLATFORM_H
 
 
+#define RPI2_CORES 4
+
 #define RPI2_MEMIO_BASE  0x3F000000
 #define RPI2_MEMIO_TOP   0x40200000
 
