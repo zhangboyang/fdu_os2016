@@ -61,7 +61,12 @@ master_entry:
     b spin
 
 
+.globl get_core_id
+get_core_id:
+    mrc p15, 0, r0, c0, c0, 5
+    bx lr
 
 .globl slave_early_entry
+slave_early_entry:
     bl get_core_id
     
