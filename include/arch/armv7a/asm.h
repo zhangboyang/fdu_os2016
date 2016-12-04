@@ -56,9 +56,9 @@ static inline void spin_lock(lock_t *lock)
             "ldrex r0, [%1]\n\t"
             "cmp r0, #0\n\t"
             "strexeq %0, %2, [%1]\n\t"
-        : "+r"(result)
-        : "r"(&lock->locked), "r"(1)
-        : "r0"
+            : "+r"(result)
+            : "r"(&lock->locked), "r"(1)
+            : "r0"
         );
     } while (result);
     

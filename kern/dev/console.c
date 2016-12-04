@@ -106,7 +106,7 @@ int kputs(const char *s)
 	/* We probably don't want kputs() to be interrupted externally or by another
 	 * core. */
 	spin_lock_irq_save(&__lock, flags);
-	result = __puts(s);
+	for (int i = 0; i <= 1000; i++) result = __puts(s);
 	spin_unlock_irq_restore(&__lock, flags);
 
 	return result;
