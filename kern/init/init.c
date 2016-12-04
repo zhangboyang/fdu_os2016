@@ -13,6 +13,7 @@
 #include <aim/debug.h>
 #include <asm.h>
 #include <platform.h>
+#include <aim/init.h>
 
 /*
  * this file is added by ZBY
