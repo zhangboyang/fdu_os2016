@@ -70,7 +70,13 @@ get_core_id:
 .globl slave_early_entry
 slave_early_entry:
     bl get_core_id
-    ldr r1, =slave_stack
+    ldr r1, =VMA2LMA(slave_stack_lowaddr)
     ldr sp, [r1, r0, lsl #4]
     b slave_early_init
 
+.globl slave_entry
+slave_entry:
+    bl get_core_id
+    ldr r1, =slave_stack
+    ldr sp, [r1, r0, lsl #4]
+    b slave_early_init

@@ -18,6 +18,7 @@ void mach_master_init(void)
 }
 
 uint32_t slave_stack[RPI2_CORES];
+uint32_t slave_stack_lowaddr[RPI2_CORES];
 void mach_start_slaves(void)
 {
     kprintf("init slaves ...\n");
@@ -28,6 +29,7 @@ void mach_start_slaves(void)
     
     for (int i = 1; i < RPI2_CORES; i++) {
         slave_stack[i] = VF(pmm_zone[ZONE_NORMAL].allocator, malloc, stacksz);
+        slave_stack_lowaddr[i] = premap_addr(slave_stack[i]);
     }
     
     for (int i = 1; i < RPI2_CORES; i++) {
