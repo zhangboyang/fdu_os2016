@@ -52,7 +52,6 @@ static inline void spin_lock(lock_t *lock)
 {
     uint32_t result = 1;
     do {int kprintf(const char *fmt,...);
-        kprintf("A result=%d locked=%d %08x\n", result, lock->locked, &lock->locked);
         __asm__ __volatile__ (
             "ldrex r0, [%1]\n\t"
             "cmp r0, #0\n\t"
@@ -61,8 +60,6 @@ static inline void spin_lock(lock_t *lock)
             : "r"(&lock->locked), "r"(1)
             : "r0"
         );
-        
-        kprintf("B result=%d locked=%d\n", result, lock->locked);
     } while (result);
     
     dmb();
