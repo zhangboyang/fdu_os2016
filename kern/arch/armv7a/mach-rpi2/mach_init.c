@@ -10,6 +10,7 @@
 #include <aim/pmm.h>
 #include <aim/init.h>
 #include <bcm2836.h>
+#include <asm.h>
 
 void mach_master_init(void)
 {
