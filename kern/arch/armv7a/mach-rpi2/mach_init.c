@@ -20,6 +20,8 @@ void mach_start_slaves(void)
 {
     kprintf("init slaves ...\n");
     
+    extern uint8_t AIM_KERN_STACK_BOTTOM[];
+    extern uint8_t AIM_KERN_STACK_START[];
     uint32_t stacksz = AIM_KERN_STACK_BOTTOM - AIM_KERN_STACK_START;
     
     for (int i = 1; i < 3; i++) slave_stack[i] = VF(g_pmalloc, malloc, stacksz);
