@@ -207,6 +207,7 @@ void mmu_jump(void *high_entry)
     SCTLR.V = 0;
 //    kprintf("new SCTLR = %08x\n", SCTLR.val);
     __asm__ __volatile__ ("mcr p15, 0, %0, c1, c0, 0"::"r"(SCTLR.val));
+kprintf("new SCTLR = %08x\n", SCTLR.val);
 memset((void *)0x3d800000, 0x80, 900*0x000010e0);
 //fbcls(&fb, 0xff0000);
     abs_jump(high_entry);
