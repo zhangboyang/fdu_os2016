@@ -16,6 +16,7 @@ void mach_master_init(void)
     bcm2836_init();
 }
 
+uint32_t slave_stack[4];
 void mach_start_slaves(void)
 {
     kprintf("init slaves ...\n");
