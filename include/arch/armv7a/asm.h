@@ -40,7 +40,7 @@ static inline void nop()
 
 //////////////// spinlock ////////////////////
 typedef struct {
-    int locked;
+    uint32_t locked;
 } lock_t;
 
 /* By initializing a lock, caller assumes no code is holding it. */
@@ -51,17 +51,18 @@ static inline void spinlock_init(lock_t *lock)
 static inline void spin_lock(lock_t *lock)
 {
     uint32_t result = 1;
-    while (result) {
+    do {
         __asm__ __volatile__ (
             "ldrex r0, [%1]\n\t"
             "cmp r0, #0\n\t"
             "mov r0, #1\n\t"
-            "strexeq r0, %0, [%1]\n\t"
+            "strexeq %0, r0, [%1]\n\t"
         : "+r"(result)
         : "r"(&lock->locked)
         : "r0"
         );
-    }
+    } while (result);
+    
     dmb();
 }
 /* spin_unlock may contain instructions to send event */
