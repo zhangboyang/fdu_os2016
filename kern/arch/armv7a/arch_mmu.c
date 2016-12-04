@@ -105,9 +105,9 @@ void early_mm_init(void)
     mmu_init(__boot_page_index);
 }
 
-void mmu_jump()
+void mmu_jump(void high_entry)
 {
-    kprintf("prepare to perform mmu jump!\n");
+//    kprintf("prepare to perform mmu jump!\n");
     
     union {
         uint32_t val;
@@ -206,12 +206,12 @@ void mmu_jump()
     SCTLR.C = 1;
     SCTLR.V = 0;
     
-    kprintf("new SCTLR = %08x\n", SCTLR.val);
+//    kprintf("new SCTLR = %08x\n", SCTLR.val);
     __asm__ __volatile__ ("mcr p15, 0, %0, c1, c0, 0"::"r"(SCTLR.val));
 
 //fbcls(&fb, 0xff0000);
 
-    abs_jump(master_entry);
+    abs_jump(high_entry);
 }
 
 

@@ -113,7 +113,7 @@ void master_early_init(void)
 
 	early_mm_init();
 	
-	mmu_jump();
+	mmu_jump(master_entry);
 }
 
 
